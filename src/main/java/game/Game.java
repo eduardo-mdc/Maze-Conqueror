@@ -17,7 +17,7 @@ public class Game implements GameInterface{
     public Game(){
         maze = new Maze(5);
         try {
-            TerminalSize terminalSize = new TerminalSize(720, 680);
+            TerminalSize terminalSize = new TerminalSize(25, 20);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
             Terminal terminal = terminalFactory.createTerminal();
             screen = new TerminalScreen(terminal);

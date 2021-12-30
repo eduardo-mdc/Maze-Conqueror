@@ -1,14 +1,22 @@
 package maze;
 
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import element.stat.Wall;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Maze {
     private int[][] maze;
     private int dim;
+    private ArrayList<Wall> walls;
 
     public Maze(int dim){
+        walls = new ArrayList<>();
+
         this.dim = dim;
         do {
             MazeGenerator gen = new MazeGenerator(dim-2);
@@ -16,6 +24,8 @@ public class Maze {
             maze = gen.getIntMaze();
         }while (maze[dim-3][dim-3] == 0);
         maze = load_walls(maze,dim);
+
+        createWalls();
     }
     static private int[][] load_walls(int[][] map , int dim){
         int[][] maze = new int [dim][dim];
@@ -27,8 +37,20 @@ public class Maze {
         return maze;
     }
 
-    public void draw(TextGraphics screen) {
+    private void createWalls() {
+        for(int i = 0; i < dim; i++){
+            for(int j = 0; j < dim; j++){
+                if(maze[i][j] == 1) walls.add(new Wall(i,j));
+            }
+        }
+    }
 
+    public void draw(TextGraphics screen) {
+        screen.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(dim, dim), ' ');
+
+        for (Wall wall : walls)
+            wall.draw(screen);
     }
 
     public String stringMaze() {
