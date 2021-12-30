@@ -41,7 +41,7 @@ public class Maze {
     private void createWalls() {
         for(int i = 0; i < dim; i++){
             for(int j = 0; j < dim; j++){
-                if(maze[i][j] == 1) walls.add(new Wall(i,j));
+                if(maze[i][j] == 0) walls.add(new Wall(i,j));
             }
         }
     }
