@@ -38,7 +38,7 @@ public class Menu implements MenuInterface {
                 .addAction("Instructions", new Runnable() {
                     @Override
                     public void run() {
-                        // Do 2nd thing...
+                        Game.setState(2);
                     }
                 })
                 .addAction("Exit", new Runnable() {

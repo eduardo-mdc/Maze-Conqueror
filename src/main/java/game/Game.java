@@ -15,6 +15,7 @@ public class Game implements GameInterface{
     private Screen screen;
     private Maze maze;
     private Menu menu;
+    private Instructions intructions;
     private static int state = 0;
     private int screenH = 250;
     private int screenW = 125;
@@ -69,7 +70,6 @@ public class Game implements GameInterface{
                         menu = new Menu(screen);
                         break;
                     case 1: // esta a jogar o jogo
-                        /* mexer boneco */
                         draw();
                         com.googlecode.lanterna.input.KeyStroke key = screen.readInput();
                         if (key.getKeyType() == KeyType.Character && key.getCharacter() == ('q'))
@@ -77,9 +77,10 @@ public class Game implements GameInterface{
                         if (key.getKeyType() == KeyType.EOF)
                             break;
                         break;
-                    case 2: // post game something
+                    case 2: // instructions
+                        intructions = new Instructions(screen);
                         break;
-                    case 3:
+                    case 3: // exit
                         try {
                             screen.stopScreen();
                             System.exit(0);
