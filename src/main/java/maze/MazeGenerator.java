@@ -32,25 +32,9 @@ public class MazeGenerator {
             }
         }
     }
-
-    public String getRawMaze() {
-        StringBuilder sb = new StringBuilder();
-        for (int[] row : maze) {
-            sb.append(Arrays.toString(row) + "\n");
-        }
-        return sb.toString();
-    }
-
-    public String getSymbolicMaze() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
-                sb.append(maze[i][j] == 1 ? "*" : " ");
-                sb.append("  ");
-            }
-            sb.append("\n");
-        }
-        return sb.toString();
+    
+    public int[][] getIntMaze() {
+        return maze;
     }
 
     private boolean validNextNode(Node node) {
