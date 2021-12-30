@@ -1,11 +1,15 @@
 package maze;
 
+import com.googlecode.lanterna.graphics.TextGraphics;
+
 import java.util.Arrays;
 
 public class Maze {
     private int[][] maze;
+    private int dim;
 
     public Maze(int dim){
+        this.dim = dim;
         do {
             MazeGenerator gen = new MazeGenerator(dim-2);
             gen.generateMaze();
@@ -22,6 +26,11 @@ public class Maze {
         }
         return maze;
     }
+
+    public void draw(TextGraphics screen) {
+
+    }
+
     public String stringMaze() {
         StringBuilder sb = new StringBuilder();
         for (int[] row : maze) {

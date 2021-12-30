@@ -31,12 +31,12 @@ public class Game implements GameInterface{
     }
 
 
-    /*private void draw() throws IOException{
+    private void draw() throws IOException{
         screen.clear();
-        arena.draw(screen.newTextGraphics());
+        maze.draw(screen.newTextGraphics());
         screen.refresh();
     }
-*/
+
     /*private void processKey(com.googlecode.lanterna.input.KeyStroke key){
         System.out.println(key);
         switch (key.getKeyType()) {
