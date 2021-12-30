@@ -1,12 +1,20 @@
 package maze;
 
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.graphics.TextGraphics;
+import element.stat.Wall;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Maze {
     private int[][] maze;
     private int dim;
+    private List<Wall> walls;
 
     public Maze(int dim){
         this.dim = dim;
@@ -28,7 +36,10 @@ public class Maze {
     }
 
     public void draw(TextGraphics screen) {
-
+        screen.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(dim  , dim), ' ');
+        for (Wall wall : walls)
+            wall.draw(screen);
     }
 
     public String stringMaze() {
