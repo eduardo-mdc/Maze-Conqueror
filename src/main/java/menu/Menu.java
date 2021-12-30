@@ -1,4 +1,5 @@
 package menu;
 
-public interface Menu {
+public class Menu implements MenuInterface {
+
 }

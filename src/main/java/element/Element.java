@@ -1,4 +1,4 @@
 package element;
 
-public interface Element {
+public class Element implements ElementInterface {
 }
