@@ -6,6 +6,7 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import maze.Maze;
+import menu.Instructions;
 import menu.Menu;
 
 import java.io.IOException;
