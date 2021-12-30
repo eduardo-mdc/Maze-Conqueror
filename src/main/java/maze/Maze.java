@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class Maze {
     private int[][] maze;
+
     public Maze(int dim){
         MazeGenerator gen = new MazeGenerator(dim-1);
         gen.generateMaze();
@@ -26,4 +27,7 @@ public class Maze {
         }
         return sb.toString();
     }
+
+
+
 }

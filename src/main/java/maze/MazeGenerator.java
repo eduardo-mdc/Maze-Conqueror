@@ -5,11 +5,6 @@ import java.util.Stack;
 import java.util.Random;
 import java.util.Arrays;
 
-/*
-    Maze generation code sourced from
-    https://github.com/oppenheimj/maze-generator
-*/
-
 public class MazeGenerator {
     private Stack<Node> stack = new Stack<>();
     private Random rand = new Random();
