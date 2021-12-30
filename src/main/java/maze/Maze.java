@@ -6,10 +6,12 @@ public class Maze {
     private int[][] maze;
 
     public Maze(int dim){
-        MazeGenerator gen = new MazeGenerator(dim-1);
-        gen.generateMaze();
-        maze = load_walls(gen.getIntMaze(),dim);
-
+        do {
+            MazeGenerator gen = new MazeGenerator(dim-2);
+            gen.generateMaze();
+            maze = gen.getIntMaze();
+        }while (maze[dim-3][dim-3] == 0);
+        maze = load_walls(maze,dim);
     }
     static private int[][] load_walls(int[][] map , int dim){
         int[][] maze = new int [dim][dim];
