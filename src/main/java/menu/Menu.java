@@ -15,41 +15,74 @@ import java.io.IOException;
 
 public class Menu implements MenuInterface {
     private Screen screen;
-    public Menu(Screen screen){
+    public Menu(Screen screen, int type ){
         this.screen = screen;
-        draw();
+        draw(type);
     }
-    public void draw() {
+    public void draw(int type) {
         TextGraphics textgraphics = screen.newTextGraphics();
         textgraphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         textgraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(200, 200), ' ');
-
         final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
-        new ActionListDialogBuilder()
-                .setCanCancel(false)
-                .setTitle("Game menu")
-                .setDescription("                                                                                                                       ")
-                .addAction("Start Game", new Runnable() {
-                    @Override
-                    public void run() {
-                        Game.setState(1);
-                        Game.setInitialize(true);
-                    }
-                })
-                .addAction("Instructions", new Runnable() {
-                    @Override
-                    public void run() {
-                        Game.setState(2);
-                    }
-                })
-                .addAction("Exit", new Runnable() {
-                    @Override
-                    public void run() {
-                       Game.setState(3);
-                    }
-                })
-                .build()
-                .showDialog(textGUI);
+        switch (type) {
+            case 1:
+                new ActionListDialogBuilder()
+                        .setCanCancel(false)
+                        .setTitle("Game menu")
+                        .setDescription("                                                                                                                       ")
+                        .addAction("Start Game", new Runnable() {
+                            @Override
+                            public void run() {
+                                Game.setState(1);
+
+                            }
+                        })
+                        .addAction("Instructions", new Runnable() {
+                            @Override
+                            public void run() {
+                                Game.setState(2);
+                            }
+                        })
+                        .addAction("Exit", new Runnable() {
+                            @Override
+                            public void run() {
+                                Game.setState(3);
+                            }
+                        })
+                        .build()
+                        .showDialog(textGUI);
+                break;
+            case 2:
+                new ActionListDialogBuilder()
+                        .setCanCancel(false)
+                        .setTitle("Pause menu")
+                        .setDescription("                                                                                                                       ")
+                        .addAction("Resume Game", new Runnable() {
+                            @Override
+                            public void run() {
+                                Game.setState(1);
+
+                            }
+                        })
+                        .addAction("Restart", new Runnable() {
+                            @Override
+                            public void run() {
+                                Game.setState(4);
+
+                            }
+                        })
+                        .addAction("Exit", new Runnable() {
+                            @Override
+                            public void run() {
+                                Game.setState(3);
+                            }
+                        })
+                        .build()
+                        .showDialog(textGUI);
+                break;
+        }
+
+
 
 
 

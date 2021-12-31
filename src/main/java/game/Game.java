@@ -82,10 +82,13 @@ public class Game implements GameInterface {
             while(true) {
                 switch (state){
                     case 0: //Initial State
-                        menu = new Menu(screen);
+                        menu = new Menu(screen,1);
                         break;
                     case 1: //Game Started
-                        if(!initialized) maze = new Maze(dimension);
+                        if(!initialized){
+                            maze = new Maze(dimension);
+                            Game.setInitialize(true);
+                        }
                         draw();
                         com.googlecode.lanterna.input.KeyStroke key = screen.readInput();
                         processKey(key);
@@ -94,7 +97,7 @@ public class Game implements GameInterface {
                         if (key.getKeyType() == KeyType.EOF)
                             quit(0);
                         if (key.getKeyType() == KeyType.Escape){
-                            menu = new Menu(screen);
+                            menu = new Menu(screen,2);
                             //TODO continuar isto
                         }
                         break;
@@ -103,6 +106,10 @@ public class Game implements GameInterface {
                         break;
                     case 3: // Exit
                         quit(0);
+                        break;
+                    case 4: // restart
+                        initialized = false;
+                        state = 1;
                         break;
                 }
             }
