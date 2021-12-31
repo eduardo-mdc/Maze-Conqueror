@@ -33,6 +33,7 @@ public class Menu implements MenuInterface {
                     @Override
                     public void run() {
                         Game.setState(1);
+                        Game.setInitialize(true);
                     }
                 })
                 .addAction("Instructions", new Runnable() {

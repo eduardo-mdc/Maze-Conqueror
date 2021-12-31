@@ -5,14 +5,17 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
+import element.Element;
 import element.dynam.Hero;
 import element.position.Position;
 import element.position.PositionInterface;
+import element.stat.End;
 import element.stat.Wall;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Maze {
+    private boolean init;
     private int[][] maze;
     private int dim;
     private Hero hero;
@@ -20,7 +23,8 @@ public class Maze {
     final private String backgroundcolor = "#000000";
 
     public Maze(int dim){
-        hero = new Hero(15, 10);
+        init = false;
+        hero = new Hero(1, 1);
         elements = new ArrayList<>();
         this.dim = dim;
         do {
@@ -79,14 +83,15 @@ public class Maze {
         return new Position(hero.getPosition().getX() + 1, hero.getPosition().getY());
     }
 
+    //TODO E possivel passar por alguns elementos
     private boolean canHeroMove(PositionInterface position) {
         return (position.getX() >= 0 && position.getX() < dim) &&
                 (position.getY() >= 0 && position.getY() < dim) &&
-                !walls.contains(new Wall(position.getX(), position.getY()));
+                !elements.contains(new Wall(position.getX(), position.getY()));
+    }
 
     private void createEnd(){
         elements.add(new End(dim-2,dim-2));
-
     }
 
     public void draw(TextGraphics screen) {

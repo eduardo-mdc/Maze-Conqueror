@@ -17,6 +17,7 @@ public class Game implements GameInterface {
     private Maze maze;
     private Menu menu;
     private Instructions intructions;
+    private static boolean initialized = false;
     private static int state = 0;
     private int screenH;
     private int screenW;
@@ -36,6 +37,10 @@ public class Game implements GameInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    static public void setInitialize(boolean value){
+        initialized = value;
     }
 
     private void getDimension() {
@@ -79,14 +84,18 @@ public class Game implements GameInterface {
                         menu = new Menu(screen);
                         break;
                     case 1: //Game Started
-                        maze = new Maze(dimension);
+                        if(!initialized) maze = new Maze(dimension);
                         draw();
                         com.googlecode.lanterna.input.KeyStroke key = screen.readInput();
                         processKey(key);
                         if (key.getKeyType() == KeyType.Character && key.getCharacter() == ('q'))
                             quit(0);
                         if (key.getKeyType() == KeyType.EOF)
-                            break;
+                            quit(0);
+                        if (key.getKeyType() == KeyType.Escape){
+                            menu = new Menu(screen);
+                            //TODO continuar isto
+                        }
                         break;
                     case 2: // Instructions
                         intructions = new Instructions(screen);
