@@ -98,7 +98,6 @@ public class Game implements GameInterface {
                             quit(0);
                         if (key.getKeyType() == KeyType.Escape){
                             menu = new Menu(screen,2);
-                            //TODO continuar isto
                         }
                         break;
                     case 2: // Instructions
