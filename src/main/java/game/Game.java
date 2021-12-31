@@ -23,7 +23,6 @@ public class Game implements GameInterface{
     private int dimension = 25;
 
     public Game(){
-        maze = new Maze(dimension);
         try {
             TerminalSize terminalSize = new TerminalSize(screenW, screenH);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
@@ -67,27 +66,23 @@ public class Game implements GameInterface{
         try {
             while(true) {
                 switch (state){
-                    case 0: // foi ao menu
+                    case 0: //Initial State
                         menu = new Menu(screen);
                         break;
-                    case 1: // esta a jogar o jogo
+                    case 1: //Game Started
+                        maze = new Maze(dimension);
                         draw();
                         com.googlecode.lanterna.input.KeyStroke key = screen.readInput();
                         if (key.getKeyType() == KeyType.Character && key.getCharacter() == ('q'))
-                            screen.close();
+                            quit(0);
                         if (key.getKeyType() == KeyType.EOF)
                             break;
                         break;
-                    case 2: // instructions
+                    case 2: // Instructions
                         intructions = new Instructions(screen);
                         break;
-                    case 3: // exit
-                        try {
-                            screen.stopScreen();
-                            System.exit(0);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                    case 3: // Exit
+                        quit(0);
                         break;
                 }
             }
@@ -95,6 +90,11 @@ public class Game implements GameInterface{
             e.printStackTrace();
         }
 
+    }
+
+    void quit(int status) throws IOException {
+        screen.stopScreen();
+        System.exit(status);
     }
 
 }

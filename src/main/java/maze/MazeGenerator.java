@@ -3,7 +3,6 @@ package maze;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Random;
-import java.util.Arrays;
 
 public class MazeGenerator {
     private Stack<Node> stack = new Stack<>();

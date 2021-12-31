@@ -4,19 +4,21 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import element.Element;
+import element.stat.End;
 import element.stat.Wall;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Maze {
     private int[][] maze;
     private int dim;
-    private ArrayList<Wall> walls;
+    private ArrayList<Element> elements;
+    final private String backgroundcolor = "#000000";
 
     public Maze(int dim){
-        walls = new ArrayList<>();
+        elements = new ArrayList<>();
 
         this.dim = dim;
         do {
@@ -26,8 +28,9 @@ public class Maze {
         }while (maze[dim-3][dim-3] == 0);
         maze = load_walls(maze,dim);
 
-        createWalls();
+        createElements();
     }
+
     static private int[][] load_walls(int[][] map , int dim){
         int[][] maze = new int [dim][dim];
         for(int i = 1 ; i < dim-1; i++ ){
@@ -38,23 +41,33 @@ public class Maze {
         return maze;
     }
 
+    private void createElements() {
+        createWalls();
+        createEnd();
+    }
+
     private void createWalls() {
         for(int i = 0; i < dim; i++){
             for(int j = 0; j < dim; j++){
-                if(maze[i][j] == 0) walls.add(new Wall(i,j));
+                if(maze[i][j] == 0) elements.add(new Wall(i,j));
             }
         }
     }
 
-    public void draw(TextGraphics screen) {
-        screen.setBackgroundColor(TextColor.Factory.fromString("#336699"));
-        screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(dim, dim), ' ');
-
-        for (Wall wall : walls)
-            wall.draw(screen);
+    private void createEnd(){
+        elements.add(new End(dim-2,dim-2));
     }
 
-    public String stringMaze() {
+    public void draw(TextGraphics screen) {
+        screen.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
+        screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(dim, dim), ' ');
+
+        for (Element element : elements)
+            element.draw(screen);
+    }
+
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int[] row : maze) {
             sb.append(Arrays.toString(row) + "\n");

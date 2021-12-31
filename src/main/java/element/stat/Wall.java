@@ -12,9 +12,9 @@ public class Wall extends StaticElement {
     }
 
     public void draw(TextGraphics screen) {
-        screen.setForegroundColor(TextColor.Factory.fromString("#333366"));
+        screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
         screen.enableModifiers(SGR.BOLD);
-        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "0");
+        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "#");
     }
 
     @Override
