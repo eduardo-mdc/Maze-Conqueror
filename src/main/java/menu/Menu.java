@@ -61,14 +61,12 @@ public class Menu implements MenuInterface {
                             @Override
                             public void run() {
                                 Game.setState(1);
-
                             }
                         })
                         .addAction("Restart", new Runnable() {
                             @Override
                             public void run() {
                                 Game.setState(4);
-
                             }
                         })
                         .addAction("Exit", new Runnable() {
