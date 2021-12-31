@@ -9,6 +9,8 @@ import com.googlecode.lanterna.terminal.Terminal;
 import maze.Maze;
 import menu.Instructions;
 import menu.Menu;
+
+import java.awt.*;
 import java.io.IOException;
 
 public class Game implements GameInterface {
@@ -44,12 +46,11 @@ public class Game implements GameInterface {
     }
 
     private void getDimension() {
-       /* Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.screenH= (int) screenSize.getHeight();
-        this.screenW= (int) screenSize.getWidth()/2;*/
-        this.screenH = 200;
-        this.screenW = 200;
-        this.dimension = 50; //Insert Smart forumla later
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        System.out.printf(screenSize.toString());
+        this.screenH = (int) screenSize.getHeight()/20;
+        this.screenW = (int) screenSize.getWidth()/9;
+        this.dimension = (int) (screenH* 0.7); //Insert Smart forumla later
     }
 
     public static void setState(int newState) {
