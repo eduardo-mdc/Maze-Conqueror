@@ -5,8 +5,9 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.dynam.Hero;
+import element.position.Position;
+import element.position.PositionInterface;
 import element.stat.Wall;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,10 +16,11 @@ public class Maze {
     private int[][] maze;
     private int dim;
     private Hero hero;
-    private ArrayList<Wall> walls;
+    private List<Wall> walls;
 
     public Maze(int dim){
         walls = new ArrayList<>();
+        hero = new Hero(10, 10);
         this.dim = dim;
         do {
             MazeGenerator gen = new MazeGenerator(dim-2);
@@ -46,13 +48,44 @@ public class Maze {
         }
     }
 
+    public int getDim(){
+        return dim;
+    }
+    public void moveHero(PositionInterface position) {
+        if (canHeroMove(position))
+            hero.setPosition(position);
+    }
+
+
+    public PositionInterface moveUp() {
+        return new Position(hero.getPosition().getX(), hero.getPosition().getY() - 1);
+    }
+
+    public PositionInterface moveDown() {
+        return new Position(hero.getPosition().getX(), hero.getPosition().getY() + 1);
+    }
+
+    public PositionInterface moveLeft() {
+        return new Position(hero.getPosition().getX() - 1, hero.getPosition().getY());
+    }
+
+    public PositionInterface moveRight() {
+        return new Position(hero.getPosition().getX() + 1, hero.getPosition().getY());
+    }
+
+    private boolean canHeroMove(PositionInterface position) {
+        return (position.getX() >= 0 && position.getX() < dim) &&
+                (position.getY() >= 0 && position.getY() < dim) &&
+                !walls.contains(new Wall(position.getX(), position.getY()));
+    }
+
     public void draw(TextGraphics screen) {
         screen.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(dim, dim), ' ');
+        //hero.draw(screen);
         for (Wall wall : walls)
             wall.draw(screen);
 
-        //hero.draw(screen);
     }
 
     public String stringMaze() {
@@ -62,7 +95,4 @@ public class Maze {
         }
         return sb.toString();
     }
-
-
-
 }

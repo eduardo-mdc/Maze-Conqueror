@@ -1,4 +1,5 @@
 package game;
+
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -13,18 +14,18 @@ import menu.Menu;
 import java.awt.*;
 import java.io.IOException;
 
-public class Game implements GameInterface{
+public class Game implements GameInterface {
 
     private Screen screen;
     private Maze maze;
     private Menu menu;
     private Instructions intructions;
     private static int state = 0;
-    private int screenH ;
+    private int screenH;
     private int screenW;
     private int dimension;
 
-    public Game(){
+    public Game() {
         getDimension();
         maze = new Maze(dimension);
         try {
@@ -35,7 +36,7 @@ public class Game implements GameInterface{
             screen.setCursorPosition(null);
             screen.startScreen();
             screen.doResizeIfNecessary();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -49,34 +50,44 @@ public class Game implements GameInterface{
         this.dimension = 25; //Insert Smart forumla later
     }
 
-    public static void setState(int newState){
-        state = newState;
-    }
-    public static void getTerminal(int newState){
+    public static void setState(int newState) {
         state = newState;
     }
 
-    private void draw() throws IOException{
+    public static void getTerminal(int newState) {
+        state = newState;
+    }
+
+    private void draw() throws IOException {
         screen.clear();
         maze.draw(screen.newTextGraphics());
         screen.refresh();
     }
+
+    private void processKey(com.googlecode.lanterna.input.KeyStroke key) {
+        System.out.println(key);
+        switch (key.getKeyType()) {
+            case ArrowUp -> maze.moveHero(maze.moveUp());
+            case ArrowDown -> maze.moveHero(maze.moveDown());
+            case ArrowLeft -> maze.moveHero(maze.moveLeft());
+            case ArrowRight -> maze.moveHero(maze.moveRight());
+        }
+    }
+
     public void run() {
         try {
-            while(true) {
-                switch (state){
+            while (true) {
+                switch (state) {
                     case 0: // foi ao menu
                         menu = new Menu(screen);
                         break;
                     case 1: // esta a jogar o jogo
                         draw();
-
                         com.googlecode.lanterna.input.KeyStroke key = screen.readInput();
                         if (key.getKeyType() == KeyType.Character && key.getCharacter() == ('q'))
                             screen.close();
                         if (key.getKeyType() == KeyType.EOF)
                             break;
-                        break;
                     case 2: // instructions
                         intructions = new Instructions(screen);
                         break;
@@ -90,8 +101,10 @@ public class Game implements GameInterface{
                         break;
                 }
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 }

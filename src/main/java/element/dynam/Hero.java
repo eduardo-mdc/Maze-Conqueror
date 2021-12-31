@@ -7,7 +7,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Hero extends DynamicElement {
 
-    private Hero(int x, int y) {
+    public Hero(int x, int y) {
         super(x, y);
     }
 
