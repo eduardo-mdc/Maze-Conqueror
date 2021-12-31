@@ -4,23 +4,24 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+
 import element.dynam.Hero;
 import element.position.Position;
 import element.position.PositionInterface;
 import element.stat.Wall;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Maze {
     private int[][] maze;
     private int dim;
     private Hero hero;
-    private List<Wall> walls;
+    private ArrayList<Element> elements;
+    final private String backgroundcolor = "#000000";
 
     public Maze(int dim){
-        walls = new ArrayList<>();
         hero = new Hero(15, 10);
+        elements = new ArrayList<>();
         this.dim = dim;
         do {
             MazeGenerator gen = new MazeGenerator(dim-2);
@@ -28,8 +29,9 @@ public class Maze {
             maze = gen.getIntMaze();
         }while (maze[dim-3][dim-3] == 0);
         maze = load_walls(maze,dim);
-        createWalls();
+        createElements();
     }
+
     static private int[][] load_walls(int[][] map , int dim){
         int[][] maze = new int [dim][dim];
         for(int i = 1 ; i < dim-1; i++ ){
@@ -40,14 +42,18 @@ public class Maze {
         return maze;
     }
 
+    private void createElements() {
+        createWalls();
+        createEnd();
+    }
+
     private void createWalls() {
         for(int i = 0; i < dim; i++){
             for(int j = 0; j < dim; j++){
-                if(maze[i][j] == 0) walls.add(new Wall(i,j));
+                if(maze[i][j] == 0) elements.add(new Wall(i,j));
             }
         }
     }
-
     public int getDim(){
         return dim;
     }
@@ -77,17 +83,22 @@ public class Maze {
         return (position.getX() >= 0 && position.getX() < dim) &&
                 (position.getY() >= 0 && position.getY() < dim) &&
                 !walls.contains(new Wall(position.getX(), position.getY()));
+
+    private void createEnd(){
+        elements.add(new End(dim-2,dim-2));
+
     }
 
     public void draw(TextGraphics screen) {
-        screen.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        screen.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
         screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(dim, dim), ' ');
         hero.draw(screen);
-        for (Wall wall : walls)
-            wall.draw(screen);
+        for (Element element : elements)
+            element.draw(screen);
     }
 
-    public String stringMaze() {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int[] row : maze) {
             sb.append(Arrays.toString(row) + "\n");
