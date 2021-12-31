@@ -4,22 +4,24 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import element.Element;
-import element.stat.End;
-import element.stat.Wall;
 
+import element.dynam.Hero;
+import element.position.Position;
+import element.position.PositionInterface;
+import element.stat.Wall;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Maze {
     private int[][] maze;
     private int dim;
+    private Hero hero;
     private ArrayList<Element> elements;
     final private String backgroundcolor = "#000000";
 
     public Maze(int dim){
+        hero = new Hero(15, 10);
         elements = new ArrayList<>();
-
         this.dim = dim;
         do {
             MazeGenerator gen = new MazeGenerator(dim-2);
@@ -27,7 +29,6 @@ public class Maze {
             maze = gen.getIntMaze();
         }while (maze[dim-3][dim-3] == 0);
         maze = load_walls(maze,dim);
-
         createElements();
     }
 
@@ -53,15 +54,45 @@ public class Maze {
             }
         }
     }
+    public int getDim(){
+        return dim;
+    }
+    public void moveHero(PositionInterface position) {
+        if (canHeroMove(position))
+            hero.setPosition(position);
+    }
+
+
+    public PositionInterface moveUp() {
+        return new Position(hero.getPosition().getX(), hero.getPosition().getY() - 1);
+    }
+
+    public PositionInterface moveDown() {
+        return new Position(hero.getPosition().getX(), hero.getPosition().getY() + 1);
+    }
+
+    public PositionInterface moveLeft() {
+        return new Position(hero.getPosition().getX() - 1, hero.getPosition().getY());
+    }
+
+    public PositionInterface moveRight() {
+        return new Position(hero.getPosition().getX() + 1, hero.getPosition().getY());
+    }
+
+    private boolean canHeroMove(PositionInterface position) {
+        return (position.getX() >= 0 && position.getX() < dim) &&
+                (position.getY() >= 0 && position.getY() < dim) &&
+                !walls.contains(new Wall(position.getX(), position.getY()));
 
     private void createEnd(){
         elements.add(new End(dim-2,dim-2));
+
     }
 
     public void draw(TextGraphics screen) {
         screen.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
         screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(dim, dim), ' ');
-
+        hero.draw(screen);
         for (Element element : elements)
             element.draw(screen);
     }
@@ -74,7 +105,4 @@ public class Maze {
         }
         return sb.toString();
     }
-
-
-
 }
