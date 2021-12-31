@@ -20,7 +20,7 @@ public class Maze {
 
     public Maze(int dim){
         walls = new ArrayList<>();
-        hero = new Hero(10, 10);
+        hero = new Hero(15, 10);
         this.dim = dim;
         do {
             MazeGenerator gen = new MazeGenerator(dim-2);
@@ -82,7 +82,7 @@ public class Maze {
     public void draw(TextGraphics screen) {
         screen.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(dim, dim), ' ');
-        //hero.draw(screen);
+        hero.draw(screen);
         for (Wall wall : walls)
             wall.draw(screen);
 

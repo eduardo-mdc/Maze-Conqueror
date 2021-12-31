@@ -16,7 +16,7 @@ public abstract class Element implements ElementInterface{
     }
 
     @Override
-    public void setPosition(Position position) {
+    public void setPosition(PositionInterface position) {
         this.position = position;
     }
 

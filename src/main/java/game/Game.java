@@ -6,12 +6,9 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import element.dynam.Hero;
 import maze.Maze;
 import menu.Instructions;
 import menu.Menu;
-
-import java.awt.*;
 import java.io.IOException;
 
 public class Game implements GameInterface {
@@ -47,7 +44,7 @@ public class Game implements GameInterface {
         this.screenW= (int) screenSize.getWidth()/2;*/
         this.screenH = 200;
         this.screenW = 200;
-        this.dimension = 25; //Insert Smart forumla later
+        this.dimension = 50; //Insert Smart forumla later
     }
 
     public static void setState(int newState) {
