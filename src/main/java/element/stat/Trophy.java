@@ -5,9 +5,9 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class End extends StaticElement {
+public class Trophy extends StaticElement {
 
-    public End(int x, int y) {
+    public Trophy(int x, int y) {
         super(x, y);
     }
 

@@ -9,12 +9,12 @@ import element.Element;
 import element.dynam.Hero;
 import element.position.Position;
 import element.position.PositionInterface;
-import element.stat.End;
+import element.stat.Trophy;
 import element.stat.Wall;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Maze {
+public class Maze implements MazeInterface{
     private boolean init;
     private int[][] maze;
     private int dim;
@@ -35,7 +35,6 @@ public class Maze {
         maze = load_walls(maze,dim);
         createElements();
     }
-
     static private int[][] load_walls(int[][] map , int dim){
         int[][] maze = new int [dim][dim];
         for(int i = 1 ; i < dim-1; i++ ){
@@ -45,12 +44,10 @@ public class Maze {
         }
         return maze;
     }
-
     private void createElements() {
         createWalls();
-        createEnd();
+        createTrophy();
     }
-
     private void createWalls() {
         for(int i = 0; i < dim; i++){
             for(int j = 0; j < dim; j++){
@@ -65,35 +62,27 @@ public class Maze {
         if (canHeroMove(position))
             hero.setPosition(position);
     }
-
-
     public PositionInterface moveUp() {
         return new Position(hero.getPosition().getX(), hero.getPosition().getY() - 1);
     }
-
     public PositionInterface moveDown() {
         return new Position(hero.getPosition().getX(), hero.getPosition().getY() + 1);
     }
-
     public PositionInterface moveLeft() {
         return new Position(hero.getPosition().getX() - 1, hero.getPosition().getY());
     }
-
     public PositionInterface moveRight() {
         return new Position(hero.getPosition().getX() + 1, hero.getPosition().getY());
     }
-
     //TODO E possivel passar por alguns elementos
     private boolean canHeroMove(PositionInterface position) {
         return (position.getX() >= 0 && position.getX() < dim) &&
                 (position.getY() >= 0 && position.getY() < dim) &&
                 !elements.contains(new Wall(position.getX(), position.getY()));
     }
-
-    private void createEnd(){
-        elements.add(new End(dim-2,dim-2));
+    private void createTrophy(){
+        elements.add(new Trophy(dim-2,dim-2));
     }
-
     public void draw(TextGraphics screen) {
         screen.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
         screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(dim, dim), ' ');
@@ -101,7 +90,6 @@ public class Maze {
         for (Element element : elements)
             element.draw(screen);
     }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
