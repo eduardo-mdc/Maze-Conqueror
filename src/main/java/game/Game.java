@@ -81,6 +81,7 @@ public class Game implements GameInterface {
                     case 1: // esta a jogar o jogo
                         draw();
                         com.googlecode.lanterna.input.KeyStroke key = screen.readInput();
+                        processKey(key);
                         if (key.getKeyType() == KeyType.Character && key.getCharacter() == ('q'))
                             screen.close();
                         if (key.getKeyType() == KeyType.EOF)

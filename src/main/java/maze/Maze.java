@@ -85,7 +85,6 @@ public class Maze {
         hero.draw(screen);
         for (Wall wall : walls)
             wall.draw(screen);
-
     }
 
     public String stringMaze() {
