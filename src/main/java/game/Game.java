@@ -27,13 +27,7 @@ public class Game implements GameInterface {
         setDimension();
         maze = new Maze(dimension);
         try {
-            TerminalSize terminalSize = new TerminalSize(screenW, screenH);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-            Terminal terminal = terminalFactory.createTerminal();
-            screen = new TerminalScreen(terminal);
-            screen.setCursorPosition(null);
-            screen.startScreen();
-            screen.doResizeIfNecessary();
+            loadInitialScreen();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,6 +46,16 @@ public class Game implements GameInterface {
     public int getscreenH() {return screenH;}
 
     public int getscreenW() {return screenW;}
+
+    private void loadInitialScreen() throws IOException {
+        TerminalSize terminalSize = new TerminalSize(screenW, screenH);
+        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+        Terminal terminal = terminalFactory.createTerminal();
+        screen = new TerminalScreen(terminal);
+        screen.setCursorPosition(null);
+        screen.startScreen();
+        screen.doResizeIfNecessary();
+    }
 
     private void setDimension() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
