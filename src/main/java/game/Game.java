@@ -17,15 +17,16 @@ public class Game implements GameInterface {
     private Screen screen;
     private Maze maze;
     private Menu menu;
-    private static boolean initialized = false;
-    private static int state = 0;
+    private boolean initialized = false;
+    private int state;
     private int screenH;
     private int screenW;
     private int dimension;
 
     public Game(){
         setDimension();
-        maze = new Maze(dimension);
+        maze = new Maze(this,dimension);
+        state = 0;
         try {
             loadInitialScreen();
         } catch (IOException e) {
@@ -33,18 +34,23 @@ public class Game implements GameInterface {
         }
     }
 
-    public static void setInitialize(boolean value){initialized = value;}
+    @Override
+    public void setInitialize(boolean value){initialized = value;}
 
-    public static void setState(int newState) {
+    @Override
+    public void setState(int newState) {
         state = newState;
     }
 
-    public static void getTerminal(int newState) {
+    @Override
+    public void getTerminal(int newState) {
         state = newState;
     }
 
+    @Override
     public int getscreenH() {return screenH;}
 
+    @Override
     public int getscreenW() {return screenW;}
 
     private void loadInitialScreen() throws IOException {
@@ -82,8 +88,8 @@ public class Game implements GameInterface {
         }
     }
     private void initialize(){
-        maze = new Maze(dimension);
-        Game.setInitialize(true);
+        maze = new Maze(this,dimension);
+        setInitialize(true);
     }
     private void readKey() throws IOException {
         com.googlecode.lanterna.input.KeyStroke key = screen.readInput();
@@ -93,10 +99,10 @@ public class Game implements GameInterface {
         if (key.getKeyType() == KeyType.EOF)
             quit(0);
         if (key.getKeyType() == KeyType.Escape){
-            menu = new Menu(screen,2);
+            menu = new Menu(this,screen,2);
         }
     }
-    private void newgame(){
+    private void newGame(){
         initialized = false;
         state = 1;
     }
@@ -104,16 +110,18 @@ public class Game implements GameInterface {
         initialized = false;
         state = 1;
     }
-    void quit(int status) throws IOException {
+    @Override
+   public void quit(int status) throws IOException {
         screen.stopScreen();
         System.exit(status);
     }
+    @Override
     public void run() {
         try {
             while(true) {
                 switch (state){
                     case 0: // load initial menu
-                        menu = new Menu(screen,1);
+                        menu = new Menu(this,screen,1);
                         break;
                     case 1: // load game
                         if(!initialized) initialize();
@@ -121,7 +129,7 @@ public class Game implements GameInterface {
                         readKey();
                         break;
                     case 2: // load instructions menu
-                        menu = new Menu(screen,3);
+                        menu = new Menu(this,screen,3);
                         break;
                     case 3: // Exit
                         quit(0);
@@ -130,8 +138,8 @@ public class Game implements GameInterface {
                         restart();
                         break;
                     case 5:
-                        newgame();
-                        menu = new Menu(screen,1);
+                        newGame();
+                        menu = new Menu(this,screen,1);
                         break;
                 }
             }
