@@ -78,22 +78,14 @@ public class Game implements GameInterface {
         screen.refresh();
     }
 
-    private void processKey(com.googlecode.lanterna.input.KeyStroke key) {
-        System.out.println(key);
-        switch (key.getKeyType()) {
-            case ArrowUp -> maze.moveHero(maze.moveUp());
-            case ArrowDown -> maze.moveHero(maze.moveDown());
-            case ArrowLeft -> maze.moveHero(maze.moveLeft());
-            case ArrowRight -> maze.moveHero(maze.moveRight());
-        }
-    }
+
     private void initialize(){
         maze = new Maze(this,dimension);
         setInitialize(true);
     }
     private void readKey() throws IOException {
         com.googlecode.lanterna.input.KeyStroke key = screen.readInput();
-        processKey(key);
+        maze.processKey(key);
         if (key.getKeyType() == KeyType.Character && key.getCharacter() == ('q'))
             quit(0);
         if (key.getKeyType() == KeyType.EOF)

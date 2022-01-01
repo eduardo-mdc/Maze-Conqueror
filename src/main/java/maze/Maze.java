@@ -76,25 +76,19 @@ public class Maze implements MazeInterface {
         }
     }
 
+    public void processKey(com.googlecode.lanterna.input.KeyStroke key) {
+        System.out.println(key);
+        switch (key.getKeyType()) {
+            case ArrowUp -> moveHero(hero.moveUp());
+            case ArrowDown -> moveHero(hero.moveDown());
+            case ArrowLeft -> moveHero(hero.moveLeft());
+            case ArrowRight -> moveHero(hero.moveRight());
+        }
+    }
+
     public boolean endGame(PositionInterface position) {
         if (position.getX() == dim - 2 && position.getY() == dim - 2) return true;
         else return false;
-    }
-
-    public PositionInterface moveUp() {
-        return new Position(hero.getPosition().getX(), hero.getPosition().getY() - 1);
-    }
-
-    public PositionInterface moveDown() {
-        return new Position(hero.getPosition().getX(), hero.getPosition().getY() + 1);
-    }
-
-    public PositionInterface moveLeft() {
-        return new Position(hero.getPosition().getX() - 1, hero.getPosition().getY());
-    }
-
-    public PositionInterface moveRight() {
-        return new Position(hero.getPosition().getX() + 1, hero.getPosition().getY());
     }
 
     //TODO E possivel passar por alguns elementos

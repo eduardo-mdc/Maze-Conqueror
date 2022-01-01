@@ -1,4 +1,5 @@
 import com.googlecode.lanterna.graphics.TextGraphics;
+import element.dynam.DynamicElement;
 import element.dynam.Hero;
 import element.position.PositionInterface;
 import org.junit.jupiter.api.Assertions;
@@ -20,7 +21,7 @@ public class HeroTest {
     public void moveUpTest() {
         Mockito.when(position.getX()).thenReturn(5);
         Mockito.when(position.getY()).thenReturn(7);
-        Position positionUp = hero.moveUp();
+        PositionInterface positionUp = hero.moveUp();
         Assertions.assertEquals(positionUp.getX(), 5);
         Assertions.assertEquals(positionUp.getY(), 6);
     }
@@ -29,7 +30,7 @@ public class HeroTest {
     public void moveDownTest() {
         Mockito.when(position.getX()).thenReturn(5);
         Mockito.when(position.getY()).thenReturn(7);
-        Position positionDown = hero.moveDown();
+        PositionInterface positionDown = hero.moveDown();
         Assertions.assertEquals(positionDown.getX(), 5);
         Assertions.assertEquals(positionDown.getY(), 8);
     }
@@ -38,7 +39,7 @@ public class HeroTest {
     public void moveLeftTest() {
         Mockito.when(position.getX()).thenReturn(5);
         Mockito.when(position.getY()).thenReturn(7);
-        Position positionLeft = hero.moveLeft();
+        PositionInterface positionLeft = hero.moveLeft();
         Assertions.assertEquals(positionLeft.getX(), 4);
         Assertions.assertEquals(positionLeft.getY(), 7);
 
@@ -48,10 +49,9 @@ public class HeroTest {
     public void moveRightTest() {
         Mockito.when(position.getX()).thenReturn(5);
         Mockito.when(position.getY()).thenReturn(7);
-        Position positionRight = hero.moveRight();
+        PositionInterface positionRight = hero.moveRight();
         Assertions.assertEquals(positionRight.getX(), 6);
         Assertions.assertEquals(positionRight.getY(), 7);
-
     }
 
     @Test
@@ -59,7 +59,5 @@ public class HeroTest {
         TextGraphics graphics = Mockito.mock(TextGraphics.class);
         hero.draw(graphics);
         Assertions.assertTrue(hero.getPosition() != null);
-
     }
-
 }
