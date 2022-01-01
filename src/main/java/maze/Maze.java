@@ -11,7 +11,6 @@ import element.position.Position;
 import element.position.PositionInterface;
 import element.stat.Trophy;
 import element.stat.Wall;
-import game.Game;
 import game.GameInterface;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class Maze implements MazeInterface {
     public Maze(GameInterface game,int dim) {
         this.game = game;
         init = false;
-        hero = new Hero(1, 1);
+        hero = new Hero(new Position(1,1));
         elements = new ArrayList<>();
         this.dim = dim;
         do {
@@ -59,7 +58,7 @@ public class Maze implements MazeInterface {
     private void createWalls() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                if (maze[i][j] == 0) elements.add(new Wall(i, j));
+                if (maze[i][j] == 0) elements.add(new Wall(new Position(i, j)));
             }
         }
     }
@@ -102,11 +101,11 @@ public class Maze implements MazeInterface {
     private boolean canHeroMove(PositionInterface position) {
         return (position.getX() >= 0 && position.getX() < dim) &&
                 (position.getY() >= 0 && position.getY() < dim) &&
-                !elements.contains(new Wall(position.getX(), position.getY()));
+                !elements.contains(new Wall(new Position(position.getX(), position.getY())));
     }
 
     private void createTrophy() {
-        elements.add(new Trophy(dim - 2, dim - 2));
+        elements.add(new Trophy(new Position(dim - 2, dim - 2)));
     }
 
     public void draw(TextGraphics screen) {

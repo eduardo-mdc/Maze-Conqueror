@@ -6,8 +6,8 @@ import element.position.PositionInterface;
 
 public abstract class DynamicElement extends Element {
 
-    protected DynamicElement(int x, int y) {
-        super(x, y);
+    protected DynamicElement(PositionInterface position) {
+        super(position);
     }
 
     public abstract void draw(TextGraphics screen);

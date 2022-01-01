@@ -2,11 +2,12 @@ package element.stat;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Element;
+import element.position.PositionInterface;
 
 public abstract class StaticElement extends Element {
 
-    public StaticElement(int x, int y) {
-        super(x, y);
+    public StaticElement(PositionInterface position) {
+        super(position);
     }
 
     public abstract void draw(TextGraphics screen);

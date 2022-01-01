@@ -6,8 +6,8 @@ import element.position.PositionInterface;
 public abstract class Element implements ElementInterface{
     private PositionInterface position;
 
-    protected Element(int x, int y){
-        position = new Position(x,y);
+    protected Element(PositionInterface position){
+        this.position = position;
     }
 
     @Override
