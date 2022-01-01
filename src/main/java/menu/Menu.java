@@ -14,6 +14,7 @@ import game.Game;
 import java.io.IOException;
 
 public class Menu implements MenuInterface {
+    final private String backgroundcolor = "#000000";
     private Screen screen;
     public Menu(Screen screen, int type ){
         this.screen = screen;
@@ -21,7 +22,7 @@ public class Menu implements MenuInterface {
     }
     public void draw(int type) {
         TextGraphics textgraphics = screen.newTextGraphics();
-        textgraphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        textgraphics.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
         textgraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(200, 200), ' ');
         final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
         switch (type) {
@@ -73,6 +74,20 @@ public class Menu implements MenuInterface {
                             @Override
                             public void run() {
                                 Game.setState(3);
+                            }
+                        })
+                        .build()
+                        .showDialog(textGUI);
+                break;
+            case 3:
+                new ActionListDialogBuilder()
+                        .setCanCancel(false)
+                        .setTitle("Instructions menu")
+                        .setDescription("                                                                                                                       ")
+                        .addAction("Instructions WIP", new Runnable() {
+                            @Override
+                            public void run() {
+                                Game.setState(1);
                             }
                         })
                         .build()
