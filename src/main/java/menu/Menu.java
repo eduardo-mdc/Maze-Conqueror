@@ -7,7 +7,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 import com.googlecode.lanterna.screen.Screen;
-import element.stat.Wall;
 import game.Game;
 
 import java.io.IOException;
@@ -17,6 +16,7 @@ public class Menu implements MenuInterface {
     private Screen screen;
     public Menu(Screen screen, int type ) throws IOException {
         this.screen = screen;
+        screen.clear();
         draw(type);
     }
     public void draw(int type) throws IOException {
@@ -34,7 +34,6 @@ public class Menu implements MenuInterface {
                             @Override
                             public void run() {
                                 Game.setState(1);
-
                             }
                         })
                         .addAction("Instructions", new Runnable() {
@@ -92,13 +91,18 @@ public class Menu implements MenuInterface {
                 Button button = new Button("Back", new Runnable() {
                     @Override
                     public void run() {
-                        //TODO make this go to menu inicital
+                        try {
+                            Game.setState(1);
+                            Menu menu = new Menu(screen,1);
+                            //TODO Error making all buttons go to intructions
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         System.out.println("MAKE ME GO BACKK!!!");
                     }
                 });
 
                 button.addTo(panel);
-
                 panel.addComponent(new EmptySpace(new TerminalSize(0, 0)));
                 BasicWindow window = new BasicWindow();
                 window.setComponent(panel);

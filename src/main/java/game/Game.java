@@ -58,7 +58,8 @@ public class Game implements GameInterface {
         System.out.printf(screenSize.toString());
         this.screenH = (int) screenSize.getHeight()/20;
         this.screenW = (int) screenSize.getWidth()/9;
-        this.dimension = (int) (screenH* 0.7); //Insert Smart forumla later
+        //this.dimension = (int) (screenH* 0.7); //Insert Smart forumla later
+        this.dimension= 5;
     }
 
     private void draw() throws IOException {
@@ -91,6 +92,10 @@ public class Game implements GameInterface {
             menu = new Menu(screen,2);
         }
     }
+    private void newgame(){
+        initialized = false;
+        state = 1;
+    }
     private void restart(){
         initialized = false;
         state = 1;
@@ -99,7 +104,6 @@ public class Game implements GameInterface {
         screen.stopScreen();
         System.exit(status);
     }
-
     public void run() {
         try {
             while(true) {
@@ -120,6 +124,10 @@ public class Game implements GameInterface {
                         break;
                     case 4: // restart
                         restart();
+                        break;
+                    case 5:
+                        newgame();
+                        menu = new Menu(screen,1);
                         break;
                 }
             }

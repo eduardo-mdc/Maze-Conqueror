@@ -11,6 +11,8 @@ import element.position.Position;
 import element.position.PositionInterface;
 import element.stat.Trophy;
 import element.stat.Wall;
+import game.Game;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -59,8 +61,16 @@ public class Maze implements MazeInterface{
         return dim;
     }
     public void moveHero(PositionInterface position) {
-        if (canHeroMove(position))
-            hero.setPosition(position);
+        if(!endGame(position)){
+            if (canHeroMove(position))
+                hero.setPosition(position);
+        }else{
+            Game.setState(5);
+        }
+    }
+    public boolean endGame(PositionInterface position){
+        if (position.getX() == dim-2 && position.getY() == dim-2) return true;
+        else return false;
     }
     public PositionInterface moveUp() {
         return new Position(hero.getPosition().getX(), hero.getPosition().getY() - 1);
