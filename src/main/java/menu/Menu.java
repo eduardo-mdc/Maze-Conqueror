@@ -65,6 +65,12 @@ public class Menu implements MenuInterface {
                         game.setState(1);
                     }
                 })
+                .addAction("Main Menu", new Runnable() {
+                    @Override
+                    public void run() {
+                        game.setState(0);
+                    }
+                })
                 .addAction("Restart", new Runnable() {
                     @Override
                     public void run() {
@@ -82,38 +88,30 @@ public class Menu implements MenuInterface {
     }
 
     private void instructionsMenu(WindowBasedTextGUI textGUI) throws IOException {
-        this.type = 1;
-        screen.startScreen();
-        Panel panel = new Panel();
-        panel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
-        panel.setPosition(new TerminalPosition(50, 50));
+        new ActionListDialogBuilder()
+                .setCanCancel(false)
+                .setTitle("Instructions")
+                .setDescription("                                                                                                                       ")
+                .addAction("Ir do inicio ate ao trofeu", new Runnable() {
+                    @Override
+                    public void run() {
 
-        final TextBox linha1 = new TextBox(new TerminalSize(30, 5), "Instrucoes para o jogo \nVai do ponto a para o ponto B").addTo(panel);
+                    }
+                })
+                .addAction("", new Runnable() {
+                    @Override
+                    public void run() {
 
-        linha1.setReadOnly(true);
-        linha1.setEnabled(false);
-
-        Button button = new Button("Back", new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Menu menu = new Menu(game, screen, 1);
-                    //TODO Error making all buttons go to intructions
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("MAKE ME GO BACKK!!!");
-            }
-        });
-
-        button.addTo(panel);
-        panel.addComponent(new EmptySpace(new TerminalSize(0, 0)));
-        BasicWindow window = new BasicWindow();
-        window.setComponent(panel);
-
-        // Create gui and start gui
-        MultiWindowTextGUI gui1 = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
-        gui1.addWindowAndWait(window);
+                    }
+                })
+                .addAction("Back", new Runnable() {
+                    @Override
+                    public void run() {
+                        game.setState(0);
+                    }
+                })
+                .build()
+                .showDialog(textGUI);
     }
 
     public void draw(int type) throws IOException {

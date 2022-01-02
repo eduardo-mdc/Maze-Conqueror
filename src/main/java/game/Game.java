@@ -1,6 +1,7 @@
 package game;
 
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
@@ -61,6 +62,7 @@ public class Game implements GameInterface {
         screen.setCursorPosition(null);
         screen.startScreen();
         screen.doResizeIfNecessary();
+        screen.newTextGraphics().setBackgroundColor(TextColor.Factory.fromString("BLUE"));
     }
 
     private void setDimension() {

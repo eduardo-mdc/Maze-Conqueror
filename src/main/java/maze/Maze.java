@@ -23,7 +23,7 @@ public class Maze implements MazeInterface {
     private int dim;
     private Hero hero;
     private ArrayList<Element> elements;
-    final private String backgroundcolor = "#000000";
+    final private String backgroundcolor = "BLUE";
 
     public Maze(GameInterface game,int dim) {
         this.game = game;
