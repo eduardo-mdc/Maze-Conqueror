@@ -1,6 +1,6 @@
 package element;
 
-import element.position.Position;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.PositionInterface;
 
 public abstract class Element implements ElementInterface{
@@ -20,4 +20,6 @@ public abstract class Element implements ElementInterface{
         this.position = position;
     }
 
+    @Override
+    public  abstract void draw(TextGraphics screen);
 }

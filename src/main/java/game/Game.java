@@ -24,9 +24,9 @@ public class Game implements GameInterface {
     private int screenW;
     private int dimension;
 
-    public Game(){
+    public Game() {
         setDimension();
-        maze = new Maze(this,dimension);
+        maze = new Maze(this, dimension);
         state = 0;
         try {
             loadInitialScreen();
@@ -36,7 +36,9 @@ public class Game implements GameInterface {
     }
 
     @Override
-    public void setInitialize(boolean value){initialized = value;}
+    public void setInitialize(boolean value) {
+        initialized = value;
+    }
 
     @Override
     public void setState(int newState) {
@@ -49,10 +51,14 @@ public class Game implements GameInterface {
     }
 
     @Override
-    public int getscreenH() {return screenH;}
+    public int getscreenH() {
+        return screenH;
+    }
 
     @Override
-    public int getscreenW() {return screenW;}
+    public int getscreenW() {
+        return screenW;
+    }
 
     private void loadInitialScreen() throws IOException {
         TerminalSize terminalSize = new TerminalSize(screenW, screenH);
@@ -68,10 +74,10 @@ public class Game implements GameInterface {
     private void setDimension() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         System.out.printf(screenSize.toString());
-        this.screenH = (int) screenSize.getHeight()/20;
-        this.screenW = (int) screenSize.getWidth()/9;
-        //this.dimension = (int) (screenH* 0.7); //Insert Smart forumla later
-        this.dimension= 5;
+        this.screenH = (int) screenSize.getHeight() / 20;
+        this.screenW = (int) screenSize.getWidth() / 9;
+        //this.dimension = (int) (screenH* 0.7); //Insert Smart formula later
+        this.dimension = 5;
     }
 
     private void draw() throws IOException {
@@ -81,10 +87,11 @@ public class Game implements GameInterface {
     }
 
 
-    private void initialize(){
-        maze = new Maze(this,dimension);
+    private void initialize() {
+        maze = new Maze(this, dimension);
         setInitialize(true);
     }
+
     private void readKey() throws IOException {
         com.googlecode.lanterna.input.KeyStroke key = screen.readInput();
         maze.processKey(key);
@@ -92,38 +99,42 @@ public class Game implements GameInterface {
             quit(0);
         if (key.getKeyType() == KeyType.EOF)
             quit(0);
-        if (key.getKeyType() == KeyType.Escape){
-            menu = new Menu(this,screen,2);
+        if (key.getKeyType() == KeyType.Escape) {
+            menu = new Menu(this, screen, 2);
         }
     }
-    private void newGame(){
+
+    private void newGame() {
         initialized = false;
         state = 1;
     }
-    private void restart(){
+
+    private void restart() {
         initialized = false;
         state = 1;
     }
+
     @Override
-   public void quit(int status) throws IOException {
+    public void quit(int status) throws IOException {
         screen.stopScreen();
         System.exit(status);
     }
+
     @Override
     public void run() {
         try {
-            while(true) {
-                switch (state){
+            while (true) {
+                switch (state) {
                     case 0: // load initial menu
-                        menu = new Menu(this,screen,1);
+                        menu = new Menu(this, screen, 1);
                         break;
                     case 1: // load game
-                        if(!initialized) initialize();
+                        if (!initialized) initialize();
                         draw();
                         readKey();
                         break;
                     case 2: // load instructions menu
-                        menu = new Menu(this,screen,3);
+                        menu = new Menu(this, screen, 3);
                         break;
                     case 3: // Exit
                         quit(0);
@@ -133,7 +144,7 @@ public class Game implements GameInterface {
                         break;
                     case 5:
                         newGame();
-                        menu = new Menu(this,screen,1);
+                        menu = new Menu(this, screen, 1);
                         break;
                 }
             }
