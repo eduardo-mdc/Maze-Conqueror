@@ -122,15 +122,9 @@ public class Menu implements MenuInterface {
         textgraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(200, 200), ' ');
         final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
         switch (type) {
-            case 1:
-                startMenu(textGUI);
-                break;
-            case 2:
-                pauseMenu(textGUI);
-                break;
-            case 3:
-                instructionsMenu(textGUI);
-                break;
+            case 1 -> startMenu(textGUI);
+            case 2 -> pauseMenu(textGUI);
+            case 3 -> instructionsMenu(textGUI);
         }
     }
 }

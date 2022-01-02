@@ -1,7 +1,4 @@
-import maze.*;
-import menu.*;
-import game.*;
-import element.*;
+import game.Game;
 
 public class ApplicationMain {
     public static void main(String[] args) {

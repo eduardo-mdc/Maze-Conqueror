@@ -14,9 +14,9 @@ public class Hero extends DynamicElement {
     }
 
     public void draw(TextGraphics screen) {
-        screen.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
-        screen.enableModifiers(SGR.BOLD);
-        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "X");
+        screen.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
+        screen.enableModifiers(SGR.BORDERED);
+        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "@");
     }
 
     public PositionInterface moveUp() {
