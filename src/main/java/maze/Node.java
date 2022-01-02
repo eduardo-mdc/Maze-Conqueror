@@ -1,11 +1,23 @@
 package maze;
 
-public class Node {
-    public final int x;
-    public final int y;
+import element.position.PositionInterface;
 
-    Node(int x, int y) {
-        this.x = x;
-        this.y = y;
+public class Node {
+    private final PositionInterface position;
+
+    public Node(PositionInterface position) {
+        this.position = position;
+    }
+
+    public PositionInterface getPosition() {
+        return position;
+    }
+
+    public int getX() {
+        return position.getX();
+    }
+
+    public int getY() {
+        return position.getY();
     }
 }
