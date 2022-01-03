@@ -3,10 +3,12 @@ import element.Element;
 import element.ElementInterface;
 import element.position.Position;
 import element.position.PositionInterface;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class ElementTest {
     PositionInterface position;
@@ -26,7 +28,7 @@ public class ElementTest {
     public void setPositionTest() {
         PositionInterface newPosition = Mockito.mock(Position.class);
         element.setPosition(newPosition);
-        Assertions.assertEquals(element.getPosition(), newPosition);
+        assertEquals(element.getPosition(), newPosition);
     }
 
     @Test
@@ -37,7 +39,7 @@ public class ElementTest {
             }
         };
         PositionInterface newPosition = element.getPosition();
-        Assertions.assertEquals(newPosition, position);
+        assertEquals(newPosition, position);
 
     }
 }
