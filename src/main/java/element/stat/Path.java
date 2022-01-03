@@ -13,7 +13,7 @@ public class Path extends StaticElement {
     }
 
     public void draw(TextGraphics screen) {
-        screen.setForegroundColor(TextColor.Factory.fromString("RED"));
+        screen.setForegroundColor(TextColor.Factory.fromString("YELLOW"));
         screen.enableModifiers(SGR.BOLD);
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "O");
     }

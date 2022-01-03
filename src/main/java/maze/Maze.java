@@ -18,7 +18,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Maze implements MazeInterface {
-    final private Position begin = new Position(1,1);
+    final private int xIncr = 10;
+    final private int yIncr = 10;
+    private Position begin;
     private Position ending;
     private boolean init;
     private GameInterface game;
@@ -33,7 +35,8 @@ public class Maze implements MazeInterface {
         //Initialize Variables
         this.game = game;
         this.dim = dim;
-        this.ending = new Position(dim-2,dim-2);
+        this.begin = begin = new Position(1+xIncr,1+yIncr);
+        this.ending = new Position(dim-2+xIncr,dim-2+yIncr);
         init = false;
         elements = new ArrayList<>();
         path = new ArrayList<>();
@@ -99,8 +102,8 @@ public class Maze implements MazeInterface {
 
     //TODO E possivel passar por alguns elementos
     private boolean canHeroMove(PositionInterface position) {
-        return (position.getX() >= 0 && position.getX() < dim) &&
-                (position.getY() >= 0 && position.getY() < dim) &&
+        return (position.getX() >= 0 && position.getX() < dim+xIncr) &&
+                (position.getY() >= 0 && position.getY() < dim+yIncr) &&
                 !elements.contains(new Wall(new Position(position.getX(), position.getY())));
     }
 
@@ -111,14 +114,14 @@ public class Maze implements MazeInterface {
     private void createWalls() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                if (maze[i][j] == 0) elements.add(new Wall(new Position(i, j)));
+                if (maze[i][j] == 0) elements.add(new Wall(new Position(i+xIncr, j+yIncr)));
             }
         }
     }
 
     public void draw(TextGraphics screen) {
         screen.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
-        screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(dim, dim), ' ');
+        screen.fillRectangle(new TerminalPosition(xIncr, yIncr), new TerminalSize(dim, dim), ' ');
         for (Element element : elements)
             element.draw(screen);
         for (Path tile : path)
