@@ -10,8 +10,8 @@ import static org.mockito.Mockito.*;
 
 
 public class HeroTest {
-    Hero hero;
-    PositionInterface position;
+    private Hero hero;
+    private PositionInterface position;
 
     @BeforeEach
     public void helper() {
