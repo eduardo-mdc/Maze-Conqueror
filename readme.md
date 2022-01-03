@@ -10,3 +10,5 @@
 - [ ] Hero Documentation
 - [ ] Improve Menu
 - [ ] Improve Maze Visuals (With custom font?)
+- [X] Added Red and normal Path 
+- [ ] Fix duplicate path bug
