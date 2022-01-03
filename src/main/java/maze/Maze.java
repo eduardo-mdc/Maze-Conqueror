@@ -133,8 +133,8 @@ public class Maze implements MazeInterface {
     }
 
     private void createHpBar(){
-        int xsize = 40;
-        int ysize = 5;
+        int xsize = hero.getHealth() + 2 ;
+        int ysize = 3;
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
                 if (i == 0 || i == xsize-1 || j == 0 || j == ysize-1) elements.add(new HpBar(new Position(i+1, j+1)));
@@ -144,7 +144,9 @@ public class Maze implements MazeInterface {
     }
 
     private void loadHearts() {
-        for (int i = 0 ; i < hero.getHealth();i++)elements.add(new Heart(new Position(i+1, 2)));
+        for (int i = 1 ; i <= hero.getHealth();i++){
+            elements.add(new Heart(new Position(i+1, 2)));
+        }
     }
 
     public void draw(TextGraphics screen) {
