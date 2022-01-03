@@ -20,6 +20,10 @@ public class Hero extends DynamicElement {
     }
     public int getHealth(){return this.health;}
 
+    public void heroTakesDamage(){this.health--;}
+    
+    public void HeroHeals(){this.health++;}
+
     public void setHealth(int newHealth){this.health = newHealth;}
 
     public PositionInterface moveUp() {

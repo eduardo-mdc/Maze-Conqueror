@@ -1,4 +1,4 @@
-package element.stat;
+package element.Static;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Element;

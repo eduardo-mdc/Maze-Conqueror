@@ -1,4 +1,4 @@
-package element.stat;
+package element.Static;
 
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;

@@ -9,7 +9,7 @@ import element.Element;
 import element.dynam.Hero;
 import element.position.Position;
 import element.position.PositionInterface;
-import element.stat.*;
+import element.Static.*;
 import game.GameInterface;
 
 import java.util.ArrayList;
