@@ -8,7 +8,7 @@ import element.position.Position;
 import element.position.PositionInterface;
 
 public class Hero extends DynamicElement {
-
+    private int health;
     public Hero(PositionInterface position) {
         super(position);
     }
@@ -18,6 +18,9 @@ public class Hero extends DynamicElement {
         screen.enableModifiers(SGR.BORDERED);
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "@");
     }
+    public int getHealth(){return this.health;}
+
+    public void setHealth(int newHealth){this.health = newHealth;}
 
     public PositionInterface moveUp() {
         return new Position(getPosition().getX(), getPosition().getY() - 1);

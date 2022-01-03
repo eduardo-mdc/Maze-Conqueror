@@ -31,6 +31,9 @@ public class Maze implements MazeInterface {
     private ArrayList<Element> elements;
     private Queue<Path> path;
     final private String backgroundcolor = "BLUE";
+    //todo change hero constructor to accept starting hp as a variable and the correspondent tests
+    private int heroHealth = 5;
+
 
     public Maze(GameInterface game,int dim) {
         //Initialize Variables
@@ -43,6 +46,7 @@ public class Maze implements MazeInterface {
         elements = new ArrayList<>();
         path = new LinkedList<>();
         hero = new Hero(begin);
+        hero.setHealth(heroHealth);
 
         //Generate correct maze
         do {
@@ -136,6 +140,11 @@ public class Maze implements MazeInterface {
                 if (i == 0 || i == xsize-1 || j == 0 || j == ysize-1) elements.add(new HpBar(new Position(i+1, j+1)));
             }
         }
+        loadHearts();
+    }
+
+    private void loadHearts() {
+        for (int i = 0 ; i < hero.getHealth();i++)elements.add(new Heart(new Position(i+1, 2)));
     }
 
     public void draw(TextGraphics screen) {
