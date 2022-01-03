@@ -17,6 +17,7 @@ public class HeroTest {
         position = Mockito.mock(PositionInterface.class);
         hero = new Hero(position);
     }
+
     @Test
     public void takesDamageTest() {
         int hp = hero.getHealth();
