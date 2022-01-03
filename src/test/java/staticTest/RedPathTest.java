@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 
 public class RedPathTest {
+
     private RedPath redPath;
     private PositionInterface position;
 

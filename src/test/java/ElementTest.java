@@ -11,8 +11,8 @@ import static org.mockito.Mockito.mock;
 
 
 public class ElementTest {
-    PositionInterface position;
-    ElementInterface element;
+    private PositionInterface position;
+    private ElementInterface element;
 
     @BeforeEach
     public void helper() {

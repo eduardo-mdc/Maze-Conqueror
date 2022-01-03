@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PositionTest {
-    PositionInterface currentPosition;
-    PositionInterface exceptedPosition;
+    private PositionInterface currentPosition;
+    private PositionInterface exceptedPosition;
 
 
     @BeforeEach
