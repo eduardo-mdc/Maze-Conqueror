@@ -1,3 +1,5 @@
+package staticTest;
+
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Static.HpBar;
 import element.position.PositionInterface;

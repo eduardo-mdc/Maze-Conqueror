@@ -1,3 +1,4 @@
+package mazeTest;
 
 import element.position.PositionInterface;
 import maze.Node;

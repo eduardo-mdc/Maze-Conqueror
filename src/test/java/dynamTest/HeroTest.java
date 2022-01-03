@@ -1,3 +1,5 @@
+package dynamTest;
+
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.dynam.Hero;
 import element.position.PositionInterface;

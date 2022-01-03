@@ -1,26 +1,27 @@
+package staticTest;
+
 import com.googlecode.lanterna.graphics.TextGraphics;
-import element.Static.Heart;
+import element.Static.RedPath;
 import element.position.PositionInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-public class HeartTest {
-    private Heart heart;
+public class RedPathTest {
+    private RedPath redPath;
     private PositionInterface position;
 
     @BeforeEach
     public void helper() {
         position = mock(PositionInterface.class);
-        heart = mock(Heart.class);
+        redPath = mock(RedPath.class);
     }
 
     @Test
     public void drawTest() {
         TextGraphics graphics = mock(TextGraphics.class);
-        heart.draw(graphics);
-        verify(heart, times(1)).draw(graphics);
+        redPath.draw(graphics);
+        verify(redPath, times(1)).draw(graphics);
     }
-
 }
