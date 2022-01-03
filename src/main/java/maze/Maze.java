@@ -120,8 +120,7 @@ public class Maze implements MazeInterface {
             case ArrowRight -> checkTile(hero.moveRight());
         }
     }
-
-
+    
     private boolean checkWall(PositionInterface position) {
         for (Element tile : elements) {
             if (tile instanceof Wall)
