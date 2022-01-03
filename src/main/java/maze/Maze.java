@@ -29,7 +29,7 @@ public class Maze implements MazeInterface {
     private int dim;
     private Hero hero;
     private ArrayList<Element> elements;
-    private Queue<Path> path;
+    private ArrayList<Path> path;
     final private String backgroundcolor = "BLUE";
     //todo change hero constructor to accept starting hp as a variable and the correspondent tests
     private int heroHealth = 5;
@@ -44,7 +44,7 @@ public class Maze implements MazeInterface {
         init = false;
         counter = 0;
         elements = new ArrayList<>();
-        path = new LinkedList<>();
+        path = new ArrayList<>();
         hero = new Hero(begin);
         hero.setHealth(heroHealth);
 
@@ -81,43 +81,77 @@ public class Maze implements MazeInterface {
         return dim;
     }
 
-    public void moveHero(PositionInterface position) {
-        if (!endGame(position)) {
-            if (canHeroMove(position)){
-                counter++;
-                path.add(new Path(hero.getPosition()));
-                hero.setPosition(position);
-                if(counter == 2){
-                    PositionInterface pathPosition = path.remove().getPosition();
-                    elements.add(new RedPath(pathPosition));
-                    counter = 0;
-                }
-            }
-        } else {
-            game.setState(5);
+    public void checkTile(PositionInterface position) {
+        if(position.equals(ending)){
+            winGame();
+            return;
         }
+        else{
+            if(checkRedPath(position)){
+                System.out.println("ouch");
+            }
+            if (!checkWall(position)){
+                moveHero(position);
+            }
+        }
+    }
+
+    public void moveHero(PositionInterface position){
+        counter++;
+        path.add(new Path(hero.getPosition()));
+        hero.setPosition(position);
+        if(counter == 2){
+            PositionInterface pathPosition = path.remove(0).getPosition();
+            elements.add(new RedPath(pathPosition));
+            counter = 0;
+        }
+    }
+
+    public void winGame(){
+        game.setState(5);
     }
 
     public void processKey(com.googlecode.lanterna.input.KeyStroke key) {
         System.out.println(key);
         switch (key.getKeyType()) {
-            case ArrowUp -> moveHero(hero.moveUp());
-            case ArrowDown -> moveHero(hero.moveDown());
-            case ArrowLeft -> moveHero(hero.moveLeft());
-            case ArrowRight -> moveHero(hero.moveRight());
+            case ArrowUp -> checkTile(hero.moveUp());
+            case ArrowDown -> checkTile(hero.moveDown());
+            case ArrowLeft -> checkTile(hero.moveLeft());
+            case ArrowRight -> checkTile(hero.moveRight());
         }
     }
 
-    public boolean endGame(PositionInterface position) {
-        if (position.equals(ending)) return true;
-        else return false;
+
+    private boolean checkWall(PositionInterface position) {
+        for (Element tile : elements) {
+            if (tile instanceof Wall)
+                if (tile.getPosition().equals(position)) return true;
+        }
+        return false;
     }
 
-    //TODO E possivel passar por alguns elementos
-    private boolean canHeroMove(PositionInterface position) {
-        return (position.getX() < dim+xIncr) &&
-                (position.getY() < dim+yIncr) &&
-                !elements.contains(new Wall(new Position(position.getX(), position.getY())));
+/*
+    //Generic Implementation of checkElement
+    private <T> boolean checkElement(PositionInterface position) {
+        for (Element tile : elements) {
+            if (tile instanceof T)
+                if (tile.getPosition().equals(position)) return true;
+        }
+        return false;
+    }
+*/
+
+
+    private boolean checkRedPath(PositionInterface position) {
+        for (Element tile : elements){
+            if (tile instanceof RedPath)
+                if(tile.getPosition().equals(position)) return true;
+        }
+        return false;
+    }
+
+    private boolean checkPath(PositionInterface position) {
+        return elements.contains(new Path(new Position(position.getX(), position.getY())));
     }
 
     private void createTrophy() {
