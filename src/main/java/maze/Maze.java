@@ -10,16 +10,20 @@ import element.dynam.Hero;
 import element.position.Position;
 import element.position.PositionInterface;
 import element.stat.Path;
+import element.stat.RedPath;
 import element.stat.Trophy;
 import element.stat.Wall;
 import game.GameInterface;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Maze implements MazeInterface {
     final private int xIncr = 10;
     final private int yIncr = 10;
+    private int counter;
     private Position begin;
     private Position ending;
     private boolean init;
@@ -28,7 +32,7 @@ public class Maze implements MazeInterface {
     private int dim;
     private Hero hero;
     private ArrayList<Element> elements;
-    private ArrayList<Path> path;
+    private Queue<Path> path;
     final private String backgroundcolor = "BLUE";
 
     public Maze(GameInterface game,int dim) {
@@ -38,8 +42,9 @@ public class Maze implements MazeInterface {
         this.begin = begin = new Position(1+xIncr,1+yIncr);
         this.ending = new Position(dim-2+xIncr,dim-2+yIncr);
         init = false;
+        counter = 0;
         elements = new ArrayList<>();
-        path = new ArrayList<>();
+        path = new LinkedList<>();
         hero = new Hero(begin);
 
         //Generate correct maze
@@ -77,8 +82,14 @@ public class Maze implements MazeInterface {
     public void moveHero(PositionInterface position) {
         if (!endGame(position)) {
             if (canHeroMove(position)){
+                counter++;
                 path.add(new Path(hero.getPosition()));
                 hero.setPosition(position);
+                if(counter == 2){
+                    PositionInterface pathPosition = path.remove().getPosition();
+                    elements.add(new RedPath(pathPosition));
+                    counter = 0;
+                }
             }
         } else {
             game.setState(5);
@@ -102,8 +113,8 @@ public class Maze implements MazeInterface {
 
     //TODO E possivel passar por alguns elementos
     private boolean canHeroMove(PositionInterface position) {
-        return (position.getX() >= 0 && position.getX() < dim+xIncr) &&
-                (position.getY() >= 0 && position.getY() < dim+yIncr) &&
+        return (position.getX() < dim+xIncr) &&
+                (position.getY() < dim+yIncr) &&
                 !elements.contains(new Wall(new Position(position.getX(), position.getY())));
     }
 
