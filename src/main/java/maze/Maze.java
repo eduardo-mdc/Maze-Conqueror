@@ -9,6 +9,7 @@ import element.Element;
 import element.dynam.Hero;
 import element.position.Position;
 import element.position.PositionInterface;
+import element.stat.Path;
 import element.stat.Trophy;
 import element.stat.Wall;
 import game.GameInterface;
@@ -17,26 +18,37 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Maze implements MazeInterface {
+    final private Position begin = new Position(1,1);
+    private Position ending;
     private boolean init;
     private GameInterface game;
     private int[][] maze;
     private int dim;
     private Hero hero;
     private ArrayList<Element> elements;
+    private ArrayList<Path> path;
     final private String backgroundcolor = "BLUE";
 
     public Maze(GameInterface game,int dim) {
+        //Initialize Variables
         this.game = game;
-        init = false;
-        hero = new Hero(new Position(1,1));
-        elements = new ArrayList<>();
         this.dim = dim;
+        this.ending = new Position(dim-2,dim-2);
+        init = false;
+        elements = new ArrayList<>();
+        path = new ArrayList<>();
+        hero = new Hero(begin);
+
+        //Generate correct maze
         do {
             MazeGenerator gen = new MazeGenerator(dim - 2);
             gen.generateMaze();
             maze = gen.getIntMaze();
         } while (maze[dim - 3][dim - 3] == 0);
+
+        //Create bigger matrix with outer walls
         maze = load_walls(maze, dim);
+        //Create elements and insert them to element list
         createElements();
     }
 
@@ -55,22 +67,16 @@ public class Maze implements MazeInterface {
         createTrophy();
     }
 
-    private void createWalls() {
-        for (int i = 0; i < dim; i++) {
-            for (int j = 0; j < dim; j++) {
-                if (maze[i][j] == 0) elements.add(new Wall(new Position(i, j)));
-            }
-        }
-    }
-
     public int getDim() {
         return dim;
     }
 
     public void moveHero(PositionInterface position) {
         if (!endGame(position)) {
-            if (canHeroMove(position))
+            if (canHeroMove(position)){
+                path.add(new Path(hero.getPosition()));
                 hero.setPosition(position);
+            }
         } else {
             game.setState(5);
         }
@@ -87,7 +93,7 @@ public class Maze implements MazeInterface {
     }
 
     public boolean endGame(PositionInterface position) {
-        if (position.getX() == dim - 2 && position.getY() == dim - 2) return true;
+        if (position.equals(ending)) return true;
         else return false;
     }
 
@@ -99,15 +105,25 @@ public class Maze implements MazeInterface {
     }
 
     private void createTrophy() {
-        elements.add(new Trophy(new Position(dim - 2, dim - 2)));
+        elements.add(new Trophy(ending));
+    }
+
+    private void createWalls() {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                if (maze[i][j] == 0) elements.add(new Wall(new Position(i, j)));
+            }
+        }
     }
 
     public void draw(TextGraphics screen) {
         screen.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
         screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(dim, dim), ' ');
-        hero.draw(screen);
         for (Element element : elements)
             element.draw(screen);
+        for (Path tile : path)
+            tile.draw(screen);
+        hero.draw(screen);
     }
 
     @Override

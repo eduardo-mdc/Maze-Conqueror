@@ -77,7 +77,7 @@ public class Game implements GameInterface {
         this.screenH = (int) screenSize.getHeight() / 20;
         this.screenW = (int) screenSize.getWidth() / 9;
         //this.dimension = (int) (screenH* 0.7); //Insert Smart formula later
-        this.dimension = 5;
+        this.dimension = 25;
     }
 
     private void draw() throws IOException {
@@ -94,7 +94,6 @@ public class Game implements GameInterface {
 
     private void readKey() throws IOException {
         com.googlecode.lanterna.input.KeyStroke key = screen.readInput();
-        maze.processKey(key);
         if (key.getKeyType() == KeyType.Character && key.getCharacter() == ('q'))
             quit(0);
         if (key.getKeyType() == KeyType.EOF)
@@ -102,6 +101,7 @@ public class Game implements GameInterface {
         if (key.getKeyType() == KeyType.Escape) {
             menu = new Menu(this, screen, 2);
         }
+        maze.processKey(key);
     }
 
     private void newGame() {
