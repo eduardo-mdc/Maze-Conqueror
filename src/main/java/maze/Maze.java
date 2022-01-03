@@ -9,10 +9,7 @@ import element.Element;
 import element.dynam.Hero;
 import element.position.Position;
 import element.position.PositionInterface;
-import element.stat.Path;
-import element.stat.RedPath;
-import element.stat.Trophy;
-import element.stat.Wall;
+import element.stat.*;
 import game.GameInterface;
 
 import java.util.ArrayList;
@@ -21,8 +18,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Maze implements MazeInterface {
-    final private int xIncr = 10;
-    final private int yIncr = 10;
+    final private int xIncr = 50;
+    final private int yIncr = 15;
     private int counter;
     private Position begin;
     private Position ending;
@@ -71,6 +68,7 @@ public class Maze implements MazeInterface {
     }
 
     private void createElements() {
+        createHpBar();
         createWalls();
         createTrophy();
     }
@@ -126,6 +124,16 @@ public class Maze implements MazeInterface {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 if (maze[i][j] == 0) elements.add(new Wall(new Position(i+xIncr, j+yIncr)));
+            }
+        }
+    }
+
+    private void createHpBar(){
+        int xsize = 40;
+        int ysize = 5;
+        for (int i = 0; i < xsize; i++) {
+            for (int j = 0; j < ysize; j++) {
+                if (i == 0 || i == xsize-1 || j == 0 || j == ysize-1) elements.add(new HpBar(new Position(i+1, j+1)));
             }
         }
     }
