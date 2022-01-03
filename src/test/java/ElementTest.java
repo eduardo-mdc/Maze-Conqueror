@@ -5,9 +5,9 @@ import element.position.Position;
 import element.position.PositionInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 
 public class ElementTest {
@@ -16,7 +16,7 @@ public class ElementTest {
 
     @BeforeEach
     public void helper() {
-        position = Mockito.mock(PositionInterface.class);
+        position = mock(PositionInterface.class);
         element = new Element(position) {
             @Override
             public void draw(TextGraphics screen) {
@@ -26,7 +26,7 @@ public class ElementTest {
 
     @Test
     public void setPositionTest() {
-        PositionInterface newPosition = Mockito.mock(Position.class);
+        PositionInterface newPosition = mock(Position.class);
         element.setPosition(newPosition);
         assertEquals(element.getPosition(), newPosition);
     }
@@ -40,6 +40,5 @@ public class ElementTest {
         };
         PositionInterface newPosition = element.getPosition();
         assertEquals(newPosition, position);
-
     }
 }

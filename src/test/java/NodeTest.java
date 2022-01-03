@@ -3,8 +3,10 @@ import element.position.PositionInterface;
 import maze.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 public class NodeTest {
@@ -13,7 +15,7 @@ public class NodeTest {
 
     @BeforeEach
     public void helper() {
-        position = Mockito.mock(PositionInterface.class);
+        position = mock(PositionInterface.class);
         node = new Node(position);
     }
 
@@ -25,14 +27,14 @@ public class NodeTest {
 
     @Test
     public void getXTest() {
-        Mockito.when(position.getX()).thenReturn(5);
+        when(position.getX()).thenReturn(5);
         int x = node.getX();
         assertEquals(5, x);
     }
 
     @Test
     public void getYTest() {
-        Mockito.when(position.getY()).thenReturn(6);
+        when(position.getY()).thenReturn(6);
         int y = node.getY();
         assertEquals(6, y);
     }
