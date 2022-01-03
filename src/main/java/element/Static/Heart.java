@@ -23,6 +23,5 @@ public class Heart extends StaticElement {
         if (o == null || this.getClass() != o.getClass()) return false;
         return (this == o ||
                 this.getPosition().equals(((Wall) o).getPosition()));
-
     }
 }

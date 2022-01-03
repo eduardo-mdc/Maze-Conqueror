@@ -71,7 +71,7 @@ public class HeroTest {
     }
 
     @Test
-    public void draw() {
+    public void drawTest() {
         Hero tempHero = mock(Hero.class);
         TextGraphics graphics = mock(TextGraphics.class);
         tempHero.draw(graphics);
