@@ -7,10 +7,10 @@ import java.util.Stack;
 import java.util.Random;
 
 public class MazeGenerator {
-    private Stack<Node> stack = new Stack<>();
-    private Random rand = new Random();
-    private int[][] maze;
-    private int dimension;
+    private final Stack<Node> stack = new Stack<>();
+    private final Random rand = new Random();
+    private final int[][] maze;
+    private final int dimension;
 
     public MazeGenerator(int dim) {
         maze = new int[dim][dim];

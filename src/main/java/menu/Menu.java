@@ -15,9 +15,9 @@ import java.io.IOException;
 public class Menu implements MenuInterface {
 
     private final String backgroundcolor = "#000000";
-    private GameInterface game;
-    private Screen screen;
-    private int type;
+    private final GameInterface game;
+    private final Screen screen;
+    private final int type;
 
     public Menu(GameInterface game, Screen screen, int type) throws IOException {
         this.screen = screen;
@@ -63,12 +63,6 @@ public class Menu implements MenuInterface {
                     @Override
                     public void run() {
                         game.setState(1);
-                    }
-                })
-                .addAction("Main Menu", new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setState(0);
                     }
                 })
                 .addAction("Restart", new Runnable() {

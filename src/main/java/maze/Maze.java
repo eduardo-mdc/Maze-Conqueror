@@ -22,17 +22,17 @@ public class Maze implements MazeInterface {
     final private int yIncr = 15;
     private int counter;
     private Position begin;
-    private Position ending;
-    private boolean init;
-    private GameInterface game;
+    private final Position ending;
+    private final boolean init;
+    private final GameInterface game;
     private int[][] maze;
-    private int dim;
-    private Hero hero;
-    private ArrayList<Element> elements;
-    private ArrayList<Path> path;
+    private final int dim;
+    private final Hero hero;
+    private final ArrayList<Element> elements;
+    private final ArrayList<Path> path;
     final private String backgroundcolor = "BLUE";
     //todo change hero constructor to accept starting hp as a variable and the correspondent tests
-    private int heroHealth = 5;
+    private final int heroHealth = 5;
 
 
     public Maze(GameInterface game,int dim) {
@@ -88,7 +88,9 @@ public class Maze implements MazeInterface {
         }
         else{
             if(checkRedPath(position)){
-                System.out.println("ouch");
+                unloadHearts();
+                hero.heroTakesDamage();
+                loadHearts();
             }
             if (!checkWall(position)){
                 moveHero(position);
@@ -120,7 +122,7 @@ public class Maze implements MazeInterface {
             case ArrowRight -> checkTile(hero.moveRight());
         }
     }
-    
+
     private boolean checkWall(PositionInterface position) {
         for (Element tile : elements) {
             if (tile instanceof Wall)
@@ -181,14 +183,21 @@ public class Maze implements MazeInterface {
             elements.add(new Heart(new Position(i+1, 2)));
         }
     }
+    private void unloadHearts() {
+        for (int i = 1 ; i <= hero.getHealth();i++){
+            elements.remove(new Heart(new Position(i+1, 2)));
+        }
+    }
 
     public void draw(TextGraphics screen) {
         screen.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
         screen.fillRectangle(new TerminalPosition(xIncr, yIncr), new TerminalSize(dim, dim), ' ');
+
         for (Element element : elements)
             element.draw(screen);
         for (Path tile : path)
             tile.draw(screen);
+        loadHearts();
         hero.draw(screen);
     }
 
