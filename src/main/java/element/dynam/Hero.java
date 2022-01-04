@@ -22,6 +22,12 @@ public class Hero extends DynamicElement {
     }
     public int getHealth(){return this.health;}
 
+    public boolean isDead(){
+        if(health == 0){
+            return true;
+        }return false;
+    }
+
     public void heroTakesDamage(){this.health--;}
 
     public void heroHeals(){this.health++;}

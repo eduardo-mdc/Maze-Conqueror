@@ -29,6 +29,7 @@ public class Maze implements MazeInterface {
     private final int dim;
     private final Hero hero;
     private final ArrayList<Element> elements;
+    private final ArrayList<Element> hp;
     private final ArrayList<Path> path;
     final private String backgroundcolor = "BLUE";
     //todo change hero constructor to accept starting hp as a variable and the correspondent tests
@@ -43,6 +44,7 @@ public class Maze implements MazeInterface {
         this.ending = new Position(dim-2+xIncr,dim-2+yIncr);
         init = false;
         counter = 0;
+        hp = new ArrayList<>();
         elements = new ArrayList<>();
         path = new ArrayList<>();
         hero = new Hero(begin);
@@ -59,6 +61,7 @@ public class Maze implements MazeInterface {
         maze = load_walls(maze, dim);
         //Create elements and insert them to element list
         createElements();
+
     }
 
     static private int[][] load_walls(int[][] map, int dim) {
@@ -88,9 +91,9 @@ public class Maze implements MazeInterface {
         }
         else{
             if(checkRedPath(position)){
-                unloadHearts();
                 hero.heroTakesDamage();
                 loadHearts();
+                if (hero.isDead())gameOver();
             }
             if (!checkWall(position)){
                 moveHero(position);
@@ -111,6 +114,10 @@ public class Maze implements MazeInterface {
 
     public void winGame(){
         game.setState(5);
+    }
+
+    public void gameOver(){
+        game.setState(0);
     }
 
     public void processKey(com.googlecode.lanterna.input.KeyStroke key) {
@@ -179,20 +186,17 @@ public class Maze implements MazeInterface {
     }
 
     private void loadHearts() {
+        hp.clear();
         for (int i = 1 ; i <= hero.getHealth();i++){
-            elements.add(new Heart(new Position(i+1, 2)));
-        }
-    }
-    private void unloadHearts() {
-        for (int i = 1 ; i <= hero.getHealth();i++){
-            elements.remove(new Heart(new Position(i+1, 2)));
+            hp.add(new Heart(new Position(i+1, 2)));
         }
     }
 
     public void draw(TextGraphics screen) {
         screen.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
         screen.fillRectangle(new TerminalPosition(xIncr, yIncr), new TerminalSize(dim, dim), ' ');
-
+        for (Element element : hp)
+            element.draw(screen);
         for (Element element : elements)
             element.draw(screen);
         for (Path tile : path)
