@@ -7,11 +7,15 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import maze.Maze;
 import menu.Menu;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class Game implements GameInterface {
 
@@ -31,6 +35,10 @@ public class Game implements GameInterface {
         try {
             loadInitialScreen();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (FontFormatException e) {
             e.printStackTrace();
         }
     }
@@ -60,10 +68,33 @@ public class Game implements GameInterface {
         return screenW;
     }
 
-    private void loadInitialScreen() throws IOException {
+    private void loadFonts(DefaultTerminalFactory factory) throws IOException, FontFormatException, URISyntaxException {
+        URL resource = getClass().getClassLoader().getResource("fount.ttf");
+        File fontFile = new File(resource.toURI());
+        Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
+
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(font);
+
+
+
+        Font loadedFont = font.deriveFont(Font.PLAIN, 25);
+        AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
+        factory.setTerminalEmulatorFontConfiguration(fontConfig);
+        factory.setForceAWTOverSwing(true);
+
+    }
+
+    private void loadInitialScreen() throws IOException, URISyntaxException, FontFormatException {
+
+
         TerminalSize terminalSize = new TerminalSize(screenW, screenH);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+
+       // loadFonts(terminalFactory);
+
         Terminal terminal = terminalFactory.createTerminal();
+
         screen = new TerminalScreen(terminal);
         screen.setCursorPosition(null);
         screen.startScreen();

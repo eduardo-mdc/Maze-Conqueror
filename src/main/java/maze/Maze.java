@@ -116,9 +116,7 @@ public class Maze implements MazeInterface {
         game.setState(5);
     }
 
-    public void gameOver(){
-        game.setState(0);
-    }
+    public void gameOver(){game.setState(0);hero.setHealth(heroHealth);}
 
     public void processKey(com.googlecode.lanterna.input.KeyStroke key) {
         System.out.println(key);

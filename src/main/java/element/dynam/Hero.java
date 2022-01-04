@@ -9,7 +9,7 @@ import element.position.PositionInterface;
 
 public class Hero extends DynamicElement {
     private int health;
-    private int maxhealth; //todo ver se isto é necessario implementar
+    private int maxhealth;
 
     public Hero(PositionInterface position) {
         super(position);
