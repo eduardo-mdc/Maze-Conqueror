@@ -14,8 +14,7 @@ import game.GameInterface;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.List;
 
 public class Maze implements MazeInterface {
     final private int xIncr = 50;
@@ -28,24 +27,24 @@ public class Maze implements MazeInterface {
     private int[][] maze;
     private final int dim;
     private final Hero hero;
-    private final ArrayList<Element> elements;
-    private final ArrayList<Element> hp;
-    private final ArrayList<Path> path;
+    private final List<Element> staticElems;
+    private final List<Heart> hp;
+    private final List<Path> path;
     final private String backgroundcolor = "BLUE";
     //todo change hero constructor to accept starting hp as a variable and the correspondent tests
     private final int heroHealth = 5;
 
 
-    public Maze(GameInterface game,int dim) {
+    public Maze(GameInterface game, int dim) {
         //Initialize Variables
         this.game = game;
         this.dim = dim;
-        this.begin = begin = new Position(1+xIncr,1+yIncr);
-        this.ending = new Position(dim-2+xIncr,dim-2+yIncr);
+        this.begin = new Position(1 + xIncr, 1 + yIncr);
+        this.ending = new Position(dim - 2 + xIncr, dim - 2 + yIncr);
         init = false;
         counter = 0;
         hp = new ArrayList<>();
-        elements = new ArrayList<>();
+        staticElems = new ArrayList<>();
         path = new ArrayList<>();
         hero = new Hero(begin);
         hero.setHealth(heroHealth);
@@ -85,38 +84,40 @@ public class Maze implements MazeInterface {
     }
 
     public void checkTile(PositionInterface position) {
-        if(position.equals(ending)){
+        if (position.equals(ending)) {
             winGame();
             return;
-        }
-        else{
-            if(checkRedPath(position)){
+        } else {
+            if (checkRedPath(position)) {
                 hero.heroTakesDamage();
                 loadHearts();
-                if (hero.isDead())gameOver();
+                if (hero.isDead()) gameOver();
             }
-            if (!checkWall(position)){
+            if (!checkWall(position)) {
                 moveHero(position);
             }
         }
     }
 
-    public void moveHero(PositionInterface position){
+    public void moveHero(PositionInterface position) {
         counter++;
         path.add(new Path(hero.getPosition()));
         hero.setPosition(position);
-        if(counter == 2){
+        if (counter == 2) {
             PositionInterface pathPosition = path.remove(0).getPosition();
-            elements.add(new RedPath(pathPosition));
+            staticElems.add(new RedPath(pathPosition));
             counter = 0;
         }
     }
 
-    public void winGame(){
+    public void winGame() {
         game.setState(5);
     }
 
-    public void gameOver(){game.setState(0);hero.setHealth(heroHealth);}
+    public void gameOver() {
+        game.setState(0);
+        hero.setHealth(heroHealth);
+    }
 
     public void processKey(com.googlecode.lanterna.input.KeyStroke key) {
         System.out.println(key);
@@ -129,16 +130,15 @@ public class Maze implements MazeInterface {
     }
 
     private boolean checkWall(PositionInterface position) {
-        for (Element tile : elements) {
+        for (Element tile : staticElems) {
             if (tile instanceof Wall)
                 if (tile.getPosition().equals(position)) return true;
         }
         return false;
     }
 
-/*
     //Generic Implementation of checkElement
-    private <T> boolean checkElement(PositionInterface position) {
+ /*   private <T> boolean checkElement (PositionInterface position) {
         for (Element tile : elements) {
             if (tile instanceof T)
                 if (tile.getPosition().equals(position)) return true;
@@ -149,35 +149,36 @@ public class Maze implements MazeInterface {
 
 
     private boolean checkRedPath(PositionInterface position) {
-        for (Element tile : elements){
+        for (Element tile : staticElems) {
             if (tile instanceof RedPath)
-                if(tile.getPosition().equals(position)) return true;
+                if (tile.getPosition().equals(position)) return true;
         }
         return false;
     }
 
     private boolean checkPath(PositionInterface position) {
-        return elements.contains(new Path(new Position(position.getX(), position.getY())));
+        return staticElems.contains(new Path(new Position(position.getX(), position.getY())));
     }
 
     private void createTrophy() {
-        elements.add(new Trophy(ending));
+        staticElems.add(new Trophy(ending));
     }
 
     private void createWalls() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                if (maze[i][j] == 0) elements.add(new Wall(new Position(i+xIncr, j+yIncr)));
+                if (maze[i][j] == 0) staticElems.add(new Wall(new Position(i + xIncr, j + yIncr)));
             }
         }
     }
 
-    private void createHpBar(){
-        int xsize = hero.getHealth() + 2 ;
+    private void createHpBar() {
+        int xsize = hero.getHealth() + 2;
         int ysize = 3;
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
-                if (i == 0 || i == xsize-1 || j == 0 || j == ysize-1) elements.add(new HpBar(new Position(i+1, j+1)));
+                if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1)
+                    staticElems.add(new HpBar(new Position(i + 1, j + 1)));
             }
         }
         loadHearts();
@@ -185,8 +186,8 @@ public class Maze implements MazeInterface {
 
     private void loadHearts() {
         hp.clear();
-        for (int i = 1 ; i <= hero.getHealth();i++){
-            hp.add(new Heart(new Position(i+1, 2)));
+        for (int i = 1; i <= hero.getHealth(); i++) {
+            hp.add(new Heart(new Position(i + 1, 2)));
         }
     }
 
@@ -195,7 +196,7 @@ public class Maze implements MazeInterface {
         screen.fillRectangle(new TerminalPosition(xIncr, yIncr), new TerminalSize(dim, dim), ' ');
         for (Element element : hp)
             element.draw(screen);
-        for (Element element : elements)
+        for (Element element : staticElems)
             element.draw(screen);
         for (Path tile : path)
             tile.draw(screen);

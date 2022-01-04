@@ -18,11 +18,4 @@ public class HpBar extends StaticElement {
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), ".");
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || this.getClass() != o.getClass()) return false;
-        return (this == o ||
-                this.getPosition().equals(((Wall) o).getPosition()));
-
-    }
 }

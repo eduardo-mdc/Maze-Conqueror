@@ -3,10 +3,12 @@ package element;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.PositionInterface;
 
-public abstract class Element implements ElementInterface{
+import java.util.Objects;
+
+public abstract class Element implements ElementInterface {
     private PositionInterface position;
 
-    protected Element(PositionInterface position){
+    protected Element(PositionInterface position) {
         this.position = position;
     }
 
@@ -21,5 +23,13 @@ public abstract class Element implements ElementInterface{
     }
 
     @Override
-    public  abstract void draw(TextGraphics screen);
+    public abstract void draw(TextGraphics screen);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Element element = (Element) o;
+        return Objects.equals(position, element.position);
+    }
 }

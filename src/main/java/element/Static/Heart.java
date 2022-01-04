@@ -17,11 +17,4 @@ public class Heart extends StaticElement {
         screen.enableModifiers(SGR.BOLD);
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "X");
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || this.getClass() != o.getClass()) return false;
-        return (this == o ||
-                this.getPosition().equals(((Wall) o).getPosition()));
-    }
 }

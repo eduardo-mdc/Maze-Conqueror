@@ -16,10 +16,11 @@ public class Hero extends DynamicElement {
     }
 
     public void draw(TextGraphics screen) {
-        screen.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
+        screen.setForegroundColor(TextColor.Factory.fromString("GREEN"));
         screen.enableModifiers(SGR.BORDERED);
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "@");
     }
+
     public int getHealth(){return this.health;}
 
     public boolean isDead(){
