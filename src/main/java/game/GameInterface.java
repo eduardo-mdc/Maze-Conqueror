@@ -2,7 +2,7 @@ package game;
 import java.io.IOException;
 
 /**
- *  Game class which manages the state of the elements that make up the game.
+ * Game class which manages the state of the elements that make up the game.
  *
  * @author Eduardo Correia
  * @author Alberto Serra
