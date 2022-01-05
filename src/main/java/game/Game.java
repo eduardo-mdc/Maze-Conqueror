@@ -17,7 +17,6 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 /**
  * Main Game class which manages the state of the program.
@@ -57,44 +56,26 @@ public class Game implements GameInterface {
         }
     }
 
-    /**
-     * Changes the value of the variable initialize to control the state of the game.
-     *
-     * @param value boolean value to change to.
-     */
+
+    @Override
     public void setInitialize(boolean value) {
         initialized = value;
     }
 
-    /**
-     * Changes the state of the state machine
-     * <p>
-     * (1) Initial menu.
-     * (2) Load the game.
-     * (3) Exit.
-     * (4) Restart the game.
-     * (5) Cleans old game and goes to main menu.
-     *
-     * @param newState value of the new state.
-     */
+
+    @Override
     public void setState(int newState) {
         state = newState;
     }
 
-    /**
-     * Returns the height of the screen.
-     *
-     * @return value of the screen height.
-     */
+
+    @Override
     public int getscreenH() {
         return screenH;
     }
 
-    /**
-     * Returns the width of the screen.
-     *
-     * @return value of the screen width.
-     */
+
+    @Override
     public int getscreenW() {
         return screenW;
     }
@@ -165,27 +146,20 @@ public class Game implements GameInterface {
         maze.processKey(key);
     }
 
-    /**
-     * Initializes a new game, used when there was a previous game running.
-     */
+    @Override
     public void restartGame() {
         initialized = false;
         state = 1;
     }
 
-    /**
-     * Quits the game. Receives an integer to quit check if the game was exited successfully,
-     *
-     * @param status integer corresponding to the type of exit.
-     */
+    @Override
     public void quit(int status) throws IOException {
         screen.stopScreen();
         System.exit(status);
     }
 
-    /**
-     * Main game loop. Constantly checks the state of the game and runs code accordingly.
-     */
+
+    @Override
     public void run() {
         try {
             while (true) {

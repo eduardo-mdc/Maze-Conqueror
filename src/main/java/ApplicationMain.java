@@ -1,4 +1,5 @@
 import game.Game;
+import game.GameInterface;
 
 /**
  * ApplicationMain class used to launch the game.
@@ -15,7 +16,7 @@ public class ApplicationMain {
      * @param args String which contains the arguments to run the program.
      */
     public static void main(String[] args) {
-        Game game = new Game();
+        GameInterface game = new Game();
         game.run();
     }
 }

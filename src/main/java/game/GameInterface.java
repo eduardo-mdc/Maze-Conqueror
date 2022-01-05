@@ -1,23 +1,65 @@
 package game;
+
 import java.io.IOException;
 
-
-
+/**
+ * Main Game interface which manages the state of the program.
+ *
+ * @author Eduardo Correia
+ * @author Alberto Serra
+ * @author José Carvalho
+ */
 public interface GameInterface {
 
+    /**
+     * Changes the value of the variable initialize to control the state of the game.
+     *
+     * @param value boolean value to change to.
+     */
     void setInitialize(boolean value);
 
+
+    /**
+     * Changes the state of the state machine
+     * <p>
+     * (1) Initial menu.
+     * (2) Load the game.
+     * (3) Exit.
+     * (4) Restart the game.
+     * (5) Cleans old game and goes to main menu.
+     *
+     * @param newState value of the new state.
+     */
     void setState(int newState);
 
+    /**
+     * Returns the height of the screen.
+     *
+     * @return value of the screen height.
+     */
     int getscreenH();
 
+    /**
+     * Returns the width of the screen.
+     *
+     * @return value of the screen width.
+     */
     int getscreenW();
 
-    void quit(int status) throws IOException;
-
-    void run();
     /**
      * Creates a new game re/initializing the variables to run the game.
      */
     void restartGame();
+
+    /**
+     * Quits the game. Receives an integer to quit check if the game was exited successfully,
+     *
+     * @param status integer corresponding to the type of exit.
+     */
+    void quit(int status) throws IOException;
+
+    /**
+     * Main game loop. Constantly checks the state of the game and runs code accordingly.
+     */
+    void run();
 }
