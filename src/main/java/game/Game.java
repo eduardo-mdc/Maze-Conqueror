@@ -42,7 +42,7 @@ public class Game implements GameInterface {
      * Constructor for the game Class.
      */
     public Game() {
-        setDimension();
+        setDimension(53, 50, 40);
         maze = new Maze(this, dimension);
         state = 0;
         try {
@@ -62,21 +62,30 @@ public class Game implements GameInterface {
         initialized = value;
     }
 
+    @Override
+    public int getState() {
+        return state;
+    }
+
+    @Override
+    public boolean getInitialized() {
+        return initialized;
+    }
+
 
     @Override
     public void setState(int newState) {
         state = newState;
     }
 
-
     @Override
-    public int getscreenH() {
+    public int getScreenH() {
         return screenH;
     }
 
 
     @Override
-    public int getscreenW() {
+    public int getScreenW() {
         return screenW;
     }
 
@@ -106,10 +115,10 @@ public class Game implements GameInterface {
     /**
      * Sets the dimension for the lanterna screen based on the user's physical screen resolution.
      */
-    private void setDimension() {
-        this.screenH = 53;
-        this.screenW = 50;
-        this.dimension = 40;
+    private void setDimension(int screenH, int screenW, int dimension) {
+        this.screenH = screenH;
+        this.screenW = screenW;
+        this.dimension = dimension;
     }
 
     /**

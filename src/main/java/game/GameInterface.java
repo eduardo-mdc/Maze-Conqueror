@@ -20,7 +20,21 @@ public interface GameInterface {
 
 
     /**
-     * Changes the state of the state machine
+     * Return the value of state.
+     *
+     * @return int state variable value.
+     */
+    int getState();
+
+    /**
+     * Return the value of initialized.
+     *
+     * @return value of the initialized variable.
+     */
+    boolean getInitialized();
+
+    /**
+     * Changes the state of the state machine.
      * <p>
      * (1) Initial menu.
      * (2) Load the game.
@@ -37,14 +51,14 @@ public interface GameInterface {
      *
      * @return value of the screen height.
      */
-    int getscreenH();
+    int getScreenH();
 
     /**
      * Returns the width of the screen.
      *
      * @return value of the screen width.
      */
-    int getscreenW();
+    int getScreenW();
 
     /**
      * Creates a new game re/initializing the variables to run the game.
