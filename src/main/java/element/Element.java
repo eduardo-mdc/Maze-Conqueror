@@ -58,6 +58,7 @@ public abstract class Element implements ElementInterface {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Element element = (Element) o;
-        return Objects.equals(position, element.position);
+        return position.equals(element.position) && color.equals(element.color) && format == element.format && character.equals(element.character);
     }
+
 }

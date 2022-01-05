@@ -2,11 +2,13 @@ import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Element;
 import element.ElementInterface;
+import element.Static.Wall;
 import element.position.Position;
 import element.position.PositionInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -82,4 +84,18 @@ public class ElementTest {
         assertEquals(tempElem.getCharacter(), element.getCharacter());
     }
 
+    @Test
+    public void equalsTest() {
+        ElementInterface tempWall1 = new Wall(position, "#FF0000", SGR.BOLD, "X");
+        ElementInterface tempWall2 = new Wall(position, "#FF0000", SGR.BOLD, "X");
+        ElementInterface tempWall3 = new Wall(position, "#FF0055", SGR.ITALIC, "Y");
+        ElementInterface tempWall4 = new Wall(position, "#FF0000", SGR.BLINK, "X");
+        ElementInterface tempWall5 = new Wall(position, "#000000", SGR.BORDERED, "Z");
+        ElementInterface tempWall6 = new Wall(position, "#000000", SGR.BORDERED, "Z");
+        assertTrue(tempWall1.equals(tempWall2));
+        assertTrue(tempWall5.equals(tempWall6));
+        assertFalse(tempWall1.equals(tempWall3));
+        assertFalse(tempWall1.equals(tempWall5));
+        assertFalse(tempWall1.equals(tempWall6));
+    }
 }
