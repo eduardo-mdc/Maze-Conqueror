@@ -157,7 +157,7 @@ public class Maze implements MazeInterface {
      * Sets the game state to lost.
      */
     public void gameOver() {
-        game.newGame();
+        game.restartGame();
         game.setState(0);
         hero.setHealth(heroHealth);
     }

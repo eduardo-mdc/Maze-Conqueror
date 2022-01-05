@@ -16,7 +16,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-
+/**
+ * Main Game class which manages the state of the program.
+ *
+ * @author Eduardo Correia
+ * @author Alberto Serra
+ * @author José Carvalho
+ */
 public class Game implements GameInterface {
 
     private Screen screen;
@@ -28,6 +34,11 @@ public class Game implements GameInterface {
     private int screenW;
     private int dimension;
 
+    //TODO refactor error catching in game constructor
+
+    /**
+     * Constructor for the game Class.
+     */
     public Game() {
         setDimension();
         maze = new Maze(this, dimension);
@@ -43,31 +54,46 @@ public class Game implements GameInterface {
         }
     }
 
-    @Override
+    /**
+     * Changes the value of the variable initialize to control the state of the game.
+     * @param value boolean value to change to.
+     */
     public void setInitialize(boolean value) {
         initialized = value;
     }
 
-    @Override
+    /**
+     * Changes the state of the state machine
+     *
+     * (1) Initial menu.
+     * (2) Load the game.
+     * (3) Exit.
+     * (4) Restart the game.
+     * (5) Cleans old game and goes to main menu.
+     *
+     * @param newState value of the new state.
+     *
+     */
     public void setState(int newState) {
         state = newState;
     }
-
-    @Override
-    public void getTerminal(int newState) {
-        state = newState;
-    }
-
-    @Override
+    /**
+     * Returns the height of the screen.
+     * @return value of the screen height.
+     */
     public int getscreenH() {
         return screenH;
     }
 
-    @Override
+    /**
+     * Returns the width of the screen.
+     * @return value of the screen width.
+     */
     public int getscreenW() {
         return screenW;
     }
 
+    //TODO create documentation for font loading.
     private void loadFonts(DefaultTerminalFactory factory) throws IOException, FontFormatException, URISyntaxException {
         URL resource = getClass().getClassLoader().getResource("fount.ttf");
         File fontFile = new File(resource.toURI());
@@ -100,6 +126,9 @@ public class Game implements GameInterface {
         screen.newTextGraphics().setBackgroundColor(TextColor.Factory.fromString("BLACK"));
     }
 
+    /**
+     * Sets the dimension for the lanterna screen based on the user's physical screen resolution.
+     */
     private void setDimension() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         System.out.printf(screenSize.toString());
@@ -109,17 +138,27 @@ public class Game implements GameInterface {
        // this.dimension = 25;
     }
 
+    /**
+     * Draws the game on the lanterna screen.
+     */
     private void draw() throws IOException {
         screen.clear();
         maze.draw(screen.newTextGraphics());
         screen.refresh();
     }
 
+    /**
+     * Generates the maze for the game to use.
+     */
     private void initialize() {
         maze = new Maze(this, dimension);
         setInitialize(true);
     }
 
+    //TODO change readkey() into a tread so it doesn't interrupt operation.
+    /**
+     * Reads the user's input and runs code accordingly.
+     */
     private void readKey() throws IOException {
         com.googlecode.lanterna.input.KeyStroke key = screen.readInput();
         if (key.getKeyType() == KeyType.Character && key.getCharacter() == ('q'))
@@ -132,20 +171,26 @@ public class Game implements GameInterface {
         maze.processKey(key);
     }
 
-    public void newGame() {
+    /**
+     * Initializes a new game, used when there was a previous game running.
+     */
+    public void restartGame() {
         initialized = false;
         state = 1;
     }
 
-
-
-    @Override
+    /**
+     * Quits the game. Receives an integer to quit check if the game was exited successfully,
+     * @param status integer corresponding to the type of exit.
+     */
     public void quit(int status) throws IOException {
         screen.stopScreen();
         System.exit(status);
     }
 
-    @Override
+    /**
+     *  Main game loop. Constantly checks the state of the game and runs code accordingly.
+     */
     public void run() {
         try {
             while (true) {
@@ -165,10 +210,10 @@ public class Game implements GameInterface {
                         quit(0);
                         break;
                     case 4: // restart
-                        newGame();
+                        restartGame();
                         break;
                     case 5:
-                        newGame();
+                        restartGame();
                         menu = new Menu(this, screen, 1);
                         break;
                 }
