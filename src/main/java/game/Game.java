@@ -93,7 +93,6 @@ public class Game implements GameInterface {
         return screenW;
     }
 
-    private void loadFonts(DefaultTerminalFactory factory) throws IOException, FontFormatException, URISyntaxException {
     private void loadInitialScreen() throws IOException, URISyntaxException, FontFormatException {
         File fontFile = new File("src/main/resources/square.ttf");
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
