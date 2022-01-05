@@ -19,6 +19,14 @@ public class Menu implements MenuInterface {
     private final Screen screen;
     private final int type;
 
+    /**
+     * Main constructor of the class.
+     * @param game Game running.
+     * @param screen Scren to load the menu on.
+     * @param type type of menu to load.
+     * @throws IOException .
+     */
+
     public Menu(GameInterface game, Screen screen, int type) throws IOException {
         this.screen = screen;
         this.game = game;
@@ -26,6 +34,11 @@ public class Menu implements MenuInterface {
         this.type = type;
         draw(this.type);
     }
+
+    /**
+     *  load menu type one.
+     *  @param textGUI base interface for the TextGUI.
+     */
 
     private void startMenu(WindowBasedTextGUI textGUI) {
         new ActionListDialogBuilder()
@@ -54,6 +67,10 @@ public class Menu implements MenuInterface {
                 .showDialog(textGUI);
     }
 
+    /**
+     *  loads menu type 2.
+     * @param textGUI base interface for the TextGUI.
+     */
     private void pauseMenu(WindowBasedTextGUI textGUI) {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
@@ -81,6 +98,11 @@ public class Menu implements MenuInterface {
                 .showDialog(textGUI);
     }
 
+    /**
+     * loads menu type 3.
+     * @param textGUI base interface for the TextGUI.
+     * @throws IOException
+     */
     private void instructionsMenu(WindowBasedTextGUI textGUI) throws IOException {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
@@ -108,6 +130,15 @@ public class Menu implements MenuInterface {
                 .showDialog(textGUI);
     }
 
+    /**
+     * Draws the menu into the given screen.
+     * Type 1 = Starting Menu.
+     * Type 2 = Pause Menu.
+     * Type 3 = Instructions Menu.
+     * @param type type of menu to draw.
+     * @throws IOException .
+     */
+    
     public void draw(int type) throws IOException {
         TextGraphics textgraphics = screen.newTextGraphics();
         textgraphics.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
