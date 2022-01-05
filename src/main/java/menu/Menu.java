@@ -138,7 +138,7 @@ public class Menu implements MenuInterface {
      * @param type type of menu to draw.
      * @throws IOException .
      */
-    
+
     public void draw(int type) throws IOException {
         TextGraphics textgraphics = screen.newTextGraphics();
         textgraphics.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
