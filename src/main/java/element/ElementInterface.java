@@ -4,6 +4,13 @@ import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.PositionInterface;
 
+/**
+ * The Element interface is the base interface for the objects present in the maze.
+ *
+ * @author Eduardo Correia
+ * @author Alberto Serra
+ * @author José Carvalho
+ */
 public interface ElementInterface {
 
     String getColor();

@@ -23,31 +23,23 @@ public class Position implements PositionInterface{
             this.x = x;
             this.y = y;
         }
-        /**
-         * Returns the X coordinate.
-         * @return Integer corresponding to the X value.
-         */
+
+        @Override
         public int getX() {
             return x;
         }
-        /**
-         * Sets the X coordinate.
-         * @param x Integer to change the x value to.
-         */
+
+        @Override
         public void setX(int x) {
             this.x = x;
         }
-        /**
-         * Returns the Y coordinate.
-         * @return Integer corresponding to the Y value.
-         */
+
+        @Override
         public int getY() {
             return y;
         }
-        /**
-         * Sets the Y coordinate.
-         * @param y Integer to change the x value to.
-         */
+
+        @Override
         public void setY(int y) {
             this.y = y;
         }
