@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Random;
 
+/**
+ * Class which contains an algorithm to generate a random maze, represented by an array of ones and zeros. Code sourced
+ * from https://github.com/oppenheimj/maze-generator
+ *
+ * @author oppenheimj
+ */
 public class MazeGenerator {
     private final Stack<Node> stack = new Stack<>();
     private final Random rand = new Random();
