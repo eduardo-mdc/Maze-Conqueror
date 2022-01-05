@@ -19,7 +19,7 @@ public class TrophyTest {
     }
 
     @Test
-    public void drawTest() {
+    public void verifyDrawTest() {
         TextGraphics graphics = mock(TextGraphics.class);
         trophy.draw(graphics);
         verify(trophy, times(1)).draw(graphics);

@@ -20,7 +20,7 @@ public class RedPathTest {
     }
 
     @Test
-    public void drawTest() {
+    public void verifyDrawTest() {
         TextGraphics graphics = mock(TextGraphics.class);
         redPath.draw(graphics);
         verify(redPath, times(1)).draw(graphics);

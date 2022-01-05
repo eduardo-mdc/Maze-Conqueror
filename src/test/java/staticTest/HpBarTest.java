@@ -20,7 +20,7 @@ public class HpBarTest {
     }
 
     @Test
-    public void drawTest() {
+    public void verifyDrawTest() {
         TextGraphics graphics = mock(TextGraphics.class);
         hpbar.draw(graphics);
         verify(hpbar, times(1)).draw(graphics);

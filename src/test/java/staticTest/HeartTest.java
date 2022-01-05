@@ -19,7 +19,7 @@ public class HeartTest {
     }
 
     @Test
-    public void drawTest() {
+    public void verifyDrawTest() {
         TextGraphics graphics = mock(TextGraphics.class);
         heart.draw(graphics);
         verify(heart, times(1)).draw(graphics);

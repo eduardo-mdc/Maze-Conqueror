@@ -19,7 +19,7 @@ public class PathTest {
     }
 
     @Test
-    public void drawTest() {
+    public void verifyDrawTest() {
         TextGraphics graphics = mock(TextGraphics.class);
         path.draw(graphics);
         verify(path, times(1)).draw(graphics);

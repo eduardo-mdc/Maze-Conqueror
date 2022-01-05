@@ -19,10 +19,9 @@ public class WallTest {
     }
 
     @Test
-    public void drawTest() {
+    public void verifyDrawTest() {
         TextGraphics graphics = mock(TextGraphics.class);
         wall.draw(graphics);
         verify(wall, times(1)).draw(graphics);
     }
-
 }

@@ -21,14 +21,17 @@ public abstract class Element implements ElementInterface {
         this.character = character;
     }
 
+    @Override
     public String getColor() {
         return color;
     }
 
+    @Override
     public SGR getFormat() {
         return format;
     }
 
+    @Override
     public String getCharacter() {
         return character;
     }
