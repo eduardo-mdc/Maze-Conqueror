@@ -7,6 +7,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.PositionInterface;
 
 import java.util.Objects;
+
 /**
  * The Element class is the base class for the objects present in the maze. All elements extend from this class.
  *
@@ -22,9 +23,10 @@ public abstract class Element implements ElementInterface {
 
     /**
      * Constructor for the Element class. Receives a position, color, format, and character to represent the object.
-     * @param position sets the position of the element on the lanterna screen.
-     * @param color sets the color of the element on the lanterna screen.
-     * @param format sets the format of the element on the lanterna screen.
+     *
+     * @param position  sets the position of the element on the lanterna screen.
+     * @param color     sets the color of the element on the lanterna screen.
+     * @param format    sets the format of the element on the lanterna screen.
      * @param character sets the character of the element on the lanterna screen.
      */
     public Element(PositionInterface position, String color, SGR format, String character) {
@@ -34,50 +36,32 @@ public abstract class Element implements ElementInterface {
         this.character = character;
     }
 
-    /**
-     * Returns the color of the element.
-     * @return string value of the element's color.
-     */
+    @Override
     public String getColor() {
         return color;
     }
 
-    /**
-     * Returns the format of the element.
-     * @return string value of the element's format.
-     */
+    @Override
     public SGR getFormat() {
         return format;
     }
 
-    /**
-     * Returns the Character of the element.
-     * @return string value of the element's character.
-     */
+    @Override
     public String getCharacter() {
         return character;
     }
 
-    /**
-     * Returns the position of the element.
-     * @return position object corresponding to the element's location on the screen.
-     */
+    @Override
     public PositionInterface getPosition() {
         return position;
     }
 
-    /**
-     * Sets the position of the element.
-     * @param position Position (x,y) to set the element on.
-     */
+    @Override
     public void setPosition(PositionInterface position) {
         this.position = position;
     }
 
-    /**
-     *  Draws the element in a given screen.
-     * @param screen Screen to draw the element on.
-     */
+    @Override
     public void draw(TextGraphics screen) {
         screen.setForegroundColor(TextColor.Factory.fromString(color));
         screen.enableModifiers(format);
@@ -86,6 +70,7 @@ public abstract class Element implements ElementInterface {
 
     /**
      * Verifies equality to another object.
+     *
      * @param o object to compare to.
      * @return boolean representing the equality of the objects.
      */

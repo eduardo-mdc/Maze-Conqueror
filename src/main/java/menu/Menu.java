@@ -11,15 +11,15 @@ import game.GameInterface;
 
 import java.io.IOException;
 
-public class Menu implements MenuInterface {
+/**
+ * Menu class generate various types of menus.
+ *
+ * @author Eduardo Correia
+ * @author Alberto Serra
+ * @author José Carvalho
+ */
 
-    /**
-     * Menu class generate various types of menus
-     *
-     * @author Eduardo Correia
-     * @author Alberto Serra
-     * @author José Carvalho
-     */
+public class Menu implements MenuInterface {
 
     private final String backgroundcolor = "#000000";
     private final GameInterface game;
@@ -28,9 +28,10 @@ public class Menu implements MenuInterface {
 
     /**
      * Main constructor of the class.
-     * @param game Game running.
-     * @param screen Scren to load the menu on.
-     * @param type type of menu to load.
+     *
+     * @param game   Game running.
+     * @param screen Screen to load the menu on.
+     * @param type   type of menu to load.
      * @throws IOException .
      */
 
@@ -42,10 +43,7 @@ public class Menu implements MenuInterface {
         draw(this.type);
     }
 
-    /**
-     *  load menu type one.
-     *  @param textGUI base interface for the TextGUI.
-     */
+
     @Override
     public void startMenu(WindowBasedTextGUI textGUI) {
         new ActionListDialogBuilder()
@@ -74,10 +72,7 @@ public class Menu implements MenuInterface {
                 .showDialog(textGUI);
     }
 
-    /**
-     *  loads menu type 2.
-     * @param textGUI base interface for the TextGUI.
-     */
+
     @Override
     public void pauseMenu(WindowBasedTextGUI textGUI) {
         new ActionListDialogBuilder()
@@ -106,11 +101,7 @@ public class Menu implements MenuInterface {
                 .showDialog(textGUI);
     }
 
-    /**
-     * loads menu type 3.
-     * @param textGUI base interface for the TextGUI.
-     * @throws IOException
-     */
+
     @Override
     public void instructionsMenu(WindowBasedTextGUI textGUI) throws IOException {
         new ActionListDialogBuilder()
@@ -139,14 +130,7 @@ public class Menu implements MenuInterface {
                 .showDialog(textGUI);
     }
 
-    /**
-     * Draws the menu into the given screen.
-     * Type 1 = Starting Menu.
-     * Type 2 = Pause Menu.
-     * Type 3 = Instructions Menu.
-     * @param type type of menu to draw.
-     * @throws IOException .
-     */
+
     @Override
     public void draw(int type) throws IOException {
         TextGraphics textgraphics = screen.newTextGraphics();
