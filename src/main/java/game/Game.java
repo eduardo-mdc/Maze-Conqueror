@@ -93,30 +93,21 @@ public class Game implements GameInterface {
         return screenW;
     }
 
-    //TODO create documentation for font loading.
     private void loadFonts(DefaultTerminalFactory factory) throws IOException, FontFormatException, URISyntaxException {
-        URL resource = getClass().getClassLoader().getResource("fount.ttf");
-        File fontFile = new File(resource.toURI());
-        Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
-
+    private void loadInitialScreen() throws IOException, URISyntaxException, FontFormatException {
+        File fontFile = new File("src/main/resources/square.ttf");
+        Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
-
-        Font loadedFont = font.deriveFont(Font.PLAIN, 25);
+        Font loadedFont = font.deriveFont(Font.PLAIN, 10);
         AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
-        factory.setTerminalEmulatorFontConfiguration(fontConfig);
-        factory.setForceAWTOverSwing(true);
-
-    }
-
-    private void loadInitialScreen() throws IOException, URISyntaxException, FontFormatException {
-
 
         TerminalSize terminalSize = new TerminalSize(screenW, screenH);
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
 
-       // loadFonts(terminalFactory);
-
+        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
+        terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
+        terminalFactory.setForceAWTOverSwing(true);
+        terminalFactory.setInitialTerminalSize(terminalSize);
         Terminal terminal = terminalFactory.createTerminal();
 
         screen = new TerminalScreen(terminal);
@@ -130,12 +121,9 @@ public class Game implements GameInterface {
      * Sets the dimension for the lanterna screen based on the user's physical screen resolution.
      */
     private void setDimension() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        System.out.printf(screenSize.toString());
-        this.screenH = (int) screenSize.getHeight() / 20;
-        this.screenW = (int) screenSize.getWidth() / 9;
-        this.dimension = (int) (screenH* 0.7); //Insert Smart formula later
-       // this.dimension = 25;
+        this.screenH = 53;
+        this.screenW = 50;
+        this.dimension = 40;
     }
 
     /**

@@ -52,7 +52,7 @@ public class Menu implements MenuInterface {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
                 .setTitle("Game menu")
-                .setDescription("                                                                                                                       ")
+                .setDescription("                                   ")
                 .addAction("Start Game", new Runnable() {
                     @Override
                     public void run() {
@@ -83,7 +83,7 @@ public class Menu implements MenuInterface {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
                 .setTitle("Pause menu")
-                .setDescription("                                                                                                                       ")
+                .setDescription("                                   ")
                 .addAction("Resume Game", new Runnable() {
                     @Override
                     public void run() {
@@ -115,7 +115,7 @@ public class Menu implements MenuInterface {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
                 .setTitle("Instructions")
-                .setDescription("                                                                                                                       ")
+                .setDescription("                                   ")
                 .addAction("Ir do inicio ate ao trofeu", new Runnable() {
                     @Override
                     public void run() {

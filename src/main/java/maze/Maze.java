@@ -25,8 +25,8 @@ import java.util.*;
  * @author José Carvalho
  */
 public class Maze implements MazeInterface {
-    final private int xIncr = 50;
-    final private int yIncr = 15;
+    final private int xIncr = 5;
+    final private int yIncr = 8;
     private int counter;
     private Position begin;
     private final Position ending;
@@ -253,8 +253,8 @@ public class Maze implements MazeInterface {
         int ysize = 3;
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
-                if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1)
-                    staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "."));
+               if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1)
+                    staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "-"));
             }
         }
         loadHearts();
@@ -267,7 +267,7 @@ public class Maze implements MazeInterface {
     private void loadHearts() {
         hp.clear();
         for (int i = 1; i <= hero.getHealth(); i++) {
-            hp.add(new Heart(new Position(i + 1, 2), "#FF0000", SGR.BOLD, "X"));
+            hp.add(new Heart(new Position(i + 1, 2), "#FF0000", SGR.BOLD, "*"));
         }
     }
 
