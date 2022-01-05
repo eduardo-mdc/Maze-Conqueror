@@ -6,9 +6,9 @@ import element.position.PositionInterface;
 
 /**
  *  Class to contain and represent the dynamic elements of the game.
- * @author Eduardo Correia
- * @author Alberto Serra
- * @author José Carvalho
+ *  @author Eduardo Correia
+ *  @author Alberto Serra
+ *  @author José Carvalho
  */
 
 public abstract class DynamicElement extends Element {

@@ -1,6 +1,6 @@
 package element.position;
 /**
- * PositionInterface contains the functions to position the game elements relative to which other .
+ * PositionInterface contains the functions to position the game elements relative to which other.
  *
  * @author Eduardo Correia
  * @author Alberto Serra
