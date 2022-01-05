@@ -18,7 +18,7 @@ public class HeroTest {
     @BeforeEach
     public void helper() {
         position = mock(PositionInterface.class);
-        hero = new Hero(position);
+        hero = new Hero(position, null, null, null);
     }
 
     @Test

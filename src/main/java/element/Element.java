@@ -1,5 +1,8 @@
 package element;
 
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.PositionInterface;
 
@@ -7,9 +10,27 @@ import java.util.Objects;
 
 public abstract class Element implements ElementInterface {
     private PositionInterface position;
+    private String color;
+    private SGR format;
+    private String character;
 
-    protected Element(PositionInterface position) {
+    public Element(PositionInterface position, String color, SGR format, String character) {
         this.position = position;
+        this.color = color;
+        this.format = format;
+        this.character = character;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public SGR getFormat() {
+        return format;
+    }
+
+    public String getCharacter() {
+        return character;
     }
 
     @Override
@@ -23,7 +44,11 @@ public abstract class Element implements ElementInterface {
     }
 
     @Override
-    public abstract void draw(TextGraphics screen);
+    public void draw(TextGraphics screen) {
+        screen.setForegroundColor(TextColor.Factory.fromString(color));
+        screen.enableModifiers(format);
+        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), character);
+    }
 
     @Override
     public boolean equals(Object o) {

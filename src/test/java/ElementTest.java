@@ -17,7 +17,7 @@ public class ElementTest {
     @BeforeEach
     public void helper() {
         position = mock(PositionInterface.class);
-        element = new Element(position) {
+        element = new Element(position, null, null, null) {
             @Override
             public void draw(TextGraphics screen) {
             }
@@ -33,7 +33,7 @@ public class ElementTest {
 
     @Test
     public void GetPositionTest() {
-        ElementInterface element = new Element(position) {
+        ElementInterface element = new Element(position, null, null, null) {
             @Override
             public void draw(TextGraphics screen) {
             }

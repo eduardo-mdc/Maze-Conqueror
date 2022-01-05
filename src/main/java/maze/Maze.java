@@ -1,5 +1,6 @@
 package maze;
 
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
@@ -27,7 +28,7 @@ public class Maze implements MazeInterface {
     private int[][] maze;
     private final int dim;
     private final Hero hero;
-    private final List<Element> staticElems;
+    private final List<StaticElement> staticElems;
     private final List<Heart> hp;
     private final List<Path> path;
     final private String backgroundcolor = "BLUE";
@@ -46,7 +47,7 @@ public class Maze implements MazeInterface {
         hp = new ArrayList<>();
         staticElems = new ArrayList<>();
         path = new ArrayList<>();
-        hero = new Hero(begin);
+        hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
         hero.setHealth(heroHealth);
 
         //Generate correct maze
@@ -101,11 +102,11 @@ public class Maze implements MazeInterface {
 
     public void moveHero(PositionInterface position) {
         counter++;
-        path.add(new Path(hero.getPosition()));
+        path.add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "O"));
         hero.setPosition(position);
         if (counter == 2) {
             PositionInterface pathPosition = path.remove(0).getPosition();
-            staticElems.add(new RedPath(pathPosition));
+            staticElems.add(new RedPath(pathPosition, "RED", SGR.BOLD, "O"));
             counter = 0;
         }
     }
@@ -157,17 +158,17 @@ public class Maze implements MazeInterface {
     }
 
     private boolean checkPath(PositionInterface position) {
-        return staticElems.contains(new Path(new Position(position.getX(), position.getY())));
+        return staticElems.contains(new Path(new Position(position.getX(), position.getY()), "YELLOW", SGR.BOLD, "O"));
     }
 
     private void createTrophy() {
-        staticElems.add(new Trophy(ending));
+        staticElems.add(new Trophy(ending,"#F3CA28", SGR.BOLD, "$"));
     }
 
     private void createWalls() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                if (maze[i][j] == 0) staticElems.add(new Wall(new Position(i + xIncr, j + yIncr)));
+                if (maze[i][j] == 0) staticElems.add(new Wall(new Position(i + xIncr, j + yIncr),"#FFFFFF",SGR.BOLD,"#"));
             }
         }
     }
@@ -178,7 +179,7 @@ public class Maze implements MazeInterface {
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
                 if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1)
-                    staticElems.add(new HpBar(new Position(i + 1, j + 1)));
+                    staticElems.add(new HpBar(new Position(i + 1, j + 1),"#FFFFFF",SGR.BOLD,"."));
             }
         }
         loadHearts();
@@ -187,7 +188,7 @@ public class Maze implements MazeInterface {
     private void loadHearts() {
         hp.clear();
         for (int i = 1; i <= hero.getHealth(); i++) {
-            hp.add(new Heart(new Position(i + 1, 2)));
+            hp.add(new Heart(new Position(i + 1, 2),"#FF0000",SGR.BOLD,"X"));
         }
     }
 
