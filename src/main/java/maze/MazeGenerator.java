@@ -9,6 +9,8 @@ import java.util.Random;
 /**
  * Class which contains an algorithm to generate a random maze, represented by an array of ones and zeros. Code sourced
  * from https://github.com/oppenheimj/maze-generator
+ * <p>
+ * Adapted do the current application by Eduardo Correia, Alberto Serra, José Carvalho.
  *
  * @author oppenheimj
  */
