@@ -7,7 +7,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 import com.googlecode.lanterna.screen.Screen;
-import game.Game;
 import game.GameInterface;
 
 import java.io.IOException;
@@ -47,8 +46,8 @@ public class Menu implements MenuInterface {
      *  load menu type one.
      *  @param textGUI base interface for the TextGUI.
      */
-
-    private void startMenu(WindowBasedTextGUI textGUI) {
+    @Override
+    public void startMenu(WindowBasedTextGUI textGUI) {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
                 .setTitle("Game menu")
@@ -79,7 +78,8 @@ public class Menu implements MenuInterface {
      *  loads menu type 2.
      * @param textGUI base interface for the TextGUI.
      */
-    private void pauseMenu(WindowBasedTextGUI textGUI) {
+    @Override
+    public void pauseMenu(WindowBasedTextGUI textGUI) {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
                 .setTitle("Pause menu")
@@ -111,7 +111,8 @@ public class Menu implements MenuInterface {
      * @param textGUI base interface for the TextGUI.
      * @throws IOException
      */
-    private void instructionsMenu(WindowBasedTextGUI textGUI) throws IOException {
+    @Override
+    public void instructionsMenu(WindowBasedTextGUI textGUI) throws IOException {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
                 .setTitle("Instructions")
@@ -146,7 +147,7 @@ public class Menu implements MenuInterface {
      * @param type type of menu to draw.
      * @throws IOException .
      */
-
+    @Override
     public void draw(int type) throws IOException {
         TextGraphics textgraphics = screen.newTextGraphics();
         textgraphics.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));

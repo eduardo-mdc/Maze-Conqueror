@@ -9,6 +9,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import maze.Maze;
+import menu.MenuInterface;
 import menu.Menu;
 
 import java.awt.*;
@@ -27,7 +28,7 @@ public class Game implements GameInterface {
 
     private Screen screen;
     private Maze maze;
-    private Menu menu;
+    private MenuInterface menu;
     private boolean initialized = false;
     private int state;
     private int screenH;
