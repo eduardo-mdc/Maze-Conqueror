@@ -24,7 +24,6 @@ import java.util.*;
  * @author Alberto Serra
  * @author José Carvalho
  */
-
 public class Maze implements MazeInterface {
     final private int xIncr = 50;
     final private int yIncr = 15;
