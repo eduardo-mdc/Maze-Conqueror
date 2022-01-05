@@ -1,7 +1,6 @@
 package element.position;
 /**
  * The position class is responsible for handling the object's location on the lanterna screen.
- *
  * @author Eduardo Correia
  * @author Alberto Serra
  * @author José Carvalho
