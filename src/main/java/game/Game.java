@@ -135,15 +135,12 @@ public class Game implements GameInterface {
         maze.processKey(key);
     }
 
-    private void newGame() {
+    public void newGame() {
         initialized = false;
         state = 1;
     }
 
-    private void restart() {
-        initialized = false;
-        state = 1;
-    }
+
 
     @Override
     public void quit(int status) throws IOException {
@@ -171,7 +168,7 @@ public class Game implements GameInterface {
                         quit(0);
                         break;
                     case 4: // restart
-                        restart();
+                        newGame();
                         break;
                     case 5:
                         newGame();

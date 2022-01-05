@@ -117,6 +117,7 @@ public class Maze implements MazeInterface {
     }
 
     public void gameOver() {
+        game.newGame();
         game.setState(0);
         hero.setHealth(heroHealth);
     }
@@ -165,7 +166,6 @@ public class Maze implements MazeInterface {
     }
 */
 
-
     private void createTrophy() {
         staticElems.add(new Trophy(ending, "#F3CA28", SGR.BOLD, "$"));
     }
@@ -201,13 +201,14 @@ public class Maze implements MazeInterface {
     public void draw(TextGraphics screen) {
         screen.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
         screen.fillRectangle(new TerminalPosition(xIncr, yIncr), new TerminalSize(dim, dim), ' ');
+        loadHearts();
         for (Element element : hp)
             element.draw(screen);
         for (Element element : staticElems)
             element.draw(screen);
         for (Path tile : path)
             tile.draw(screen);
-        loadHearts();
+
         hero.draw(screen);
     }
 

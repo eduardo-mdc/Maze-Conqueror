@@ -17,4 +17,6 @@ public interface GameInterface {
     void quit(int status) throws IOException;
 
     void run();
+
+    void newGame();
 }
