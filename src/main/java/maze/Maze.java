@@ -13,9 +13,8 @@ import element.position.PositionInterface;
 import element.Static.*;
 import game.GameInterface;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+
 
 public class Maze implements MazeInterface {
     final private int xIncr = 50;
@@ -30,7 +29,7 @@ public class Maze implements MazeInterface {
     private final Hero hero;
     private final List<StaticElement> staticElems;
     private final List<Heart> hp;
-    private final List<Path> path;
+    private final Queue<Path> path;
     final private String backgroundcolor = "BLUE";
     //todo change hero constructor to accept starting hp as a variable and the correspondent tests
     private final int heroHealth = 5;
@@ -46,7 +45,7 @@ public class Maze implements MazeInterface {
         counter = 0;
         hp = new ArrayList<>();
         staticElems = new ArrayList<>();
-        path = new ArrayList<>();
+        path = new LinkedList<>();
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
         hero.setHealth(heroHealth);
 
@@ -93,6 +92,7 @@ public class Maze implements MazeInterface {
                 hero.heroTakesDamage();
                 loadHearts();
                 if (hero.isDead()) gameOver();
+                return;
             }
             if (!checkWall(position)) {
                 moveHero(position);
@@ -102,10 +102,11 @@ public class Maze implements MazeInterface {
 
     public void moveHero(PositionInterface position) {
         counter++;
-        path.add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "O"));
+        if(!checkPath(hero.getPosition()) && !checkRedPath(hero.getPosition()))
+            path.add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "O"));
         hero.setPosition(position);
         if (counter == 2) {
-            PositionInterface pathPosition = path.remove(0).getPosition();
+            PositionInterface pathPosition = path.remove().getPosition();
             staticElems.add(new RedPath(pathPosition, "RED", SGR.BOLD, "O"));
             counter = 0;
         }
@@ -138,6 +139,22 @@ public class Maze implements MazeInterface {
         return false;
     }
 
+    private boolean checkRedPath(PositionInterface position) {
+        for (Element tile : staticElems) {
+            if (tile instanceof RedPath)
+                if (tile.getPosition().equals(position)) return true;
+        }
+        return false;
+    }
+
+    private boolean checkPath(PositionInterface position) {
+        for (Element tile : path) {
+            if (tile instanceof Path)
+                if (tile.getPosition().equals(position)) return true;
+        }
+        return false;
+    }
+
     //Generic Implementation of checkElement
  /*   private <T> boolean checkElement (PositionInterface position) {
         for (Element tile : elements) {
@@ -148,18 +165,6 @@ public class Maze implements MazeInterface {
     }
 */
 
-
-    private boolean checkRedPath(PositionInterface position) {
-        for (Element tile : staticElems) {
-            if (tile instanceof RedPath)
-                if (tile.getPosition().equals(position)) return true;
-        }
-        return false;
-    }
-
-    private boolean checkPath(PositionInterface position) {
-        return staticElems.contains(new Path(new Position(position.getX(), position.getY()), "YELLOW", SGR.BOLD, "O"));
-    }
 
     private void createTrophy() {
         staticElems.add(new Trophy(ending, "#F3CA28", SGR.BOLD, "$"));
