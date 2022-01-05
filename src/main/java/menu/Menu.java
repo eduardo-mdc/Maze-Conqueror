@@ -14,6 +14,14 @@ import java.io.IOException;
 
 public class Menu implements MenuInterface {
 
+    /**
+     * Menu class generate various types of menus
+     *
+     * @author Eduardo Correia
+     * @author Alberto Serra
+     * @author José Carvalho
+     */
+
     private final String backgroundcolor = "#000000";
     private final GameInterface game;
     private final Screen screen;
