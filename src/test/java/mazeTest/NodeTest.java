@@ -5,6 +5,7 @@ import maze.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -38,5 +39,11 @@ public class NodeTest {
         when(position.getY()).thenReturn(6);
         int y = node.getY();
         assertEquals(6, y);
+    }
+
+    @Test
+    public void constructorTest() {
+        Node newNode = new Node(position);
+        assertTrue(newNode != null);
     }
 }

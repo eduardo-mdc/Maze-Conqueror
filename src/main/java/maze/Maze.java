@@ -162,13 +162,14 @@ public class Maze implements MazeInterface {
     }
 
     private void createTrophy() {
-        staticElems.add(new Trophy(ending,"#F3CA28", SGR.BOLD, "$"));
+        staticElems.add(new Trophy(ending, "#F3CA28", SGR.BOLD, "$"));
     }
 
     private void createWalls() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                if (maze[i][j] == 0) staticElems.add(new Wall(new Position(i + xIncr, j + yIncr),"#FFFFFF",SGR.BOLD,"#"));
+                if (maze[i][j] == 0)
+                    staticElems.add(new Wall(new Position(i + xIncr, j + yIncr), "#FFFFFF", SGR.BOLD, "#"));
             }
         }
     }
@@ -179,7 +180,7 @@ public class Maze implements MazeInterface {
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
                 if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1)
-                    staticElems.add(new HpBar(new Position(i + 1, j + 1),"#FFFFFF",SGR.BOLD,"."));
+                    staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "."));
             }
         }
         loadHearts();
@@ -188,7 +189,7 @@ public class Maze implements MazeInterface {
     private void loadHearts() {
         hp.clear();
         for (int i = 1; i <= hero.getHealth(); i++) {
-            hp.add(new Heart(new Position(i + 1, 2),"#FF0000",SGR.BOLD,"X"));
+            hp.add(new Heart(new Position(i + 1, 2), "#FF0000", SGR.BOLD, "X"));
         }
     }
 

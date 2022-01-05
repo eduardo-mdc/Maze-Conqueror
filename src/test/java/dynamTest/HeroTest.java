@@ -1,5 +1,6 @@
 package dynamTest;
 
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.dynam.Hero;
 import element.position.PositionInterface;
@@ -33,6 +34,20 @@ public class HeroTest {
         int hp = hero.getHealth();
         hero.heroHeals();
         assertTrue(hero.getHealth() == hp + 1);
+    }
+
+    @Test
+    public void setHealthTest() {
+        Hero tempHero = new Hero(position, null, null, null);
+        tempHero.setHealth(50);
+        assertEquals(tempHero.getHealth(),50);
+    }
+
+    @Test
+    public void isDeadTest() {
+        Hero tempHero = new Hero(position, null, null, null);
+        tempHero.setHealth(0);
+        assertTrue(tempHero.isDead());
     }
 
     @Test
@@ -78,5 +93,11 @@ public class HeroTest {
         TextGraphics graphics = mock(TextGraphics.class);
         tempHero.draw(graphics);
         verify(tempHero, times(1)).draw(graphics);
+    }
+
+    @Test
+    public void constructorTest() {
+        Hero tempHero = new Hero(position, "GREEN", SGR.BORDERED, "@");
+        assertTrue(tempHero != null);
     }
 }

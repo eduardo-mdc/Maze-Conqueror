@@ -1,8 +1,11 @@
+import com.googlecode.lanterna.SGR;
+import element.Static.Trophy;
 import element.position.Position;
 import element.position.PositionInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PositionTest {
@@ -38,6 +41,13 @@ public class PositionTest {
     public void getYTest() {
         int y = currentPosition.getY();
         assertEquals(5, y);
+    }
+
+
+    @Test
+    public void constructorTest() {
+        Position position = new Position(10, 10);
+        assertTrue(position != null);
     }
 
 }

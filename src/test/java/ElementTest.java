@@ -95,7 +95,17 @@ public class ElementTest {
         assertTrue(tempWall1.equals(tempWall2));
         assertTrue(tempWall5.equals(tempWall6));
         assertFalse(tempWall1.equals(tempWall3));
-        assertFalse(tempWall1.equals(tempWall5));
+        assertFalse(tempWall4.equals(tempWall5));
         assertFalse(tempWall1.equals(tempWall6));
+    }
+
+    @Test
+    public void constructorTest() {
+        ElementInterface tempElem = new Element(position, "#FF0000", SGR.BOLD, "X") {
+            @Override
+            public void draw(TextGraphics screen) {
+            }
+        };
+        assertTrue(tempElem != null);
     }
 }
