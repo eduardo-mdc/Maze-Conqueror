@@ -4,7 +4,7 @@ import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.PositionInterface;
 /**
- * ElementInterface contains the functions set and get the basic components of the element.
+ * The Element class is the base class for the objects present in the maze. All elements extend this class.
  *
  * @author Eduardo Correia
  * @author Alberto Serra
@@ -13,22 +13,22 @@ import element.position.PositionInterface;
 public interface ElementInterface {
     /**
      * Returns the color of the element.
-     * @return
+     * @return string value of the element's color.
      */
     String getColor();
     /**
      * Returns the format of the element.
-     * @return
+     * @return string value of the element's format.
      */
     SGR getFormat();
     /**
      * Returns the Character of the element.
-     * @return
+     * @return string value of the element's character.
      */
     String getCharacter();
     /**
      * Returns the position of the element.
-     * @return
+     * @return position object corresponding to the element's location on the screen.
      */
     PositionInterface getPosition();
     /**

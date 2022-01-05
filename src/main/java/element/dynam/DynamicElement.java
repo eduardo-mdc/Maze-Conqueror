@@ -13,8 +13,8 @@ import element.position.PositionInterface;
 
 public abstract class DynamicElement extends Element {
     /**
-     *  Constructor of the class DynamicElement
-      * @param position Position (x,y) to the element.
+     * Constructor of the class DynamicElement
+     * @param position Position (x,y) to the element.
      * @param color Color of the element.
      * @param format format SGR.
      * @param character Character to Represent the element.

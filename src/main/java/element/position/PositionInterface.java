@@ -1,7 +1,6 @@
 package element.position;
 /**
- * PositionInterface contains the functions to position the game elements relative to which other.
- *
+ * The position class is responsible for handling the object's location on the lanterna screen.
  * @author Eduardo Correia
  * @author Alberto Serra
  * @author José Carvalho
@@ -9,26 +8,23 @@ package element.position;
 
 public interface PositionInterface {
     /**
-     *  Returns the X position
-     * @return
+     * Returns the X coordinate.
+     * @return Integer corresponding to the X value.
      */
     int getX();
-
     /**
-     *  Sets the X position
-     * @param x x value to set
+     * Sets the X coordinate.
+     * @param x Integer to change the x value to.
      */
     void setX(int x);
-
     /**
-     * Returns the Y position
-     * @return
+     * Returns the Y coordinate.
+     * @return Integer corresponding to the Y value.
      */
     int getY();
-
     /**
-     * Sets the Y position
-     * @param y y value to set
+     * Sets the Y coordinate.
+     * @param y Integer to change the x value to.
      */
     void setY(int y);
 }
