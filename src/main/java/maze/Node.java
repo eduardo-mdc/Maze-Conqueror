@@ -2,6 +2,9 @@ package maze;
 
 import element.position.PositionInterface;
 
+/**
+ * Node class which stores a position object. Used for moze generation.
+ */
 public class Node{
     private final PositionInterface position;
 
