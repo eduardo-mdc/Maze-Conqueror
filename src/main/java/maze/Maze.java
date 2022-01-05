@@ -38,7 +38,7 @@ public class Maze implements MazeInterface {
     private final List<StaticElement> staticElems;
     private final List<Heart> hp;
     private final Queue<Path> path;
-    final private String backgroundcolor = "BLUE";
+    final private String backgroundcolor = "BLACK";
     //todo change hero constructor to accept starting hp as a variable and the correspondent tests
     private final int heroHealth = 5;
 
@@ -161,7 +161,6 @@ public class Maze implements MazeInterface {
         game.setState(0);
         hero.setHealth(heroHealth);
     }
-
 
     /**
      * Receives a key input from the player, check if it's an arrow key and run the appropriate code.

@@ -76,8 +76,6 @@ public class Game implements GameInterface {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
 
-
-
         Font loadedFont = font.deriveFont(Font.PLAIN, 25);
         AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
         factory.setTerminalEmulatorFontConfiguration(fontConfig);
@@ -99,7 +97,7 @@ public class Game implements GameInterface {
         screen.setCursorPosition(null);
         screen.startScreen();
         screen.doResizeIfNecessary();
-        screen.newTextGraphics().setBackgroundColor(TextColor.Factory.fromString("BLUE"));
+        screen.newTextGraphics().setBackgroundColor(TextColor.Factory.fromString("BLACK"));
     }
 
     private void setDimension() {
@@ -107,8 +105,8 @@ public class Game implements GameInterface {
         System.out.printf(screenSize.toString());
         this.screenH = (int) screenSize.getHeight() / 20;
         this.screenW = (int) screenSize.getWidth() / 9;
-        //this.dimension = (int) (screenH* 0.7); //Insert Smart formula later
-        this.dimension = 25;
+        this.dimension = (int) (screenH* 0.7); //Insert Smart formula later
+       // this.dimension = 25;
     }
 
     private void draw() throws IOException {
@@ -116,7 +114,6 @@ public class Game implements GameInterface {
         maze.draw(screen.newTextGraphics());
         screen.refresh();
     }
-
 
     private void initialize() {
         maze = new Maze(this, dimension);
