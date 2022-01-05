@@ -76,8 +76,6 @@ public class Game implements GameInterface {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
 
-
-
         Font loadedFont = font.deriveFont(Font.PLAIN, 25);
         AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
         factory.setTerminalEmulatorFontConfiguration(fontConfig);
