@@ -129,11 +129,11 @@ public class Maze implements MazeInterface {
     public void moveHero(PositionInterface position) {
         counter++;
         if (!checkPath(hero.getPosition()) && !checkRedPath(hero.getPosition()))
-            path.add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "O"));
+            path.add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
         hero.setPosition(position);
         if (counter == 2) {
             PositionInterface pathPosition = path.remove().getPosition();
-            staticElems.add(new RedPath(pathPosition, "RED", SGR.BOLD, "O"));
+            staticElems.add(new RedPath(pathPosition, "RED", SGR.BOLD, "{"));
             counter = 0;
         }
     }
