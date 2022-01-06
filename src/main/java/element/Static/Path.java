@@ -9,6 +9,8 @@ import element.position.PositionInterface;
  * @author Jose Carvalho
  * @author Alberto Serra
  */
+
+//TODO make path move with time.
 public class Path extends StaticElement {
     /**
      * Constructor for the Path class. Receives a position, color, format, and character to represent the object.
