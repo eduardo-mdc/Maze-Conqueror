@@ -235,22 +235,36 @@ public class Maze implements MazeInterface {
             }
         }
     }
+    /*   if (i == 0 && j == 0)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "a"));
+             if (i == xsize-1 && j == 0)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "c"));
+             if (i == 0 && j == ysize-1)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "g"));
+             if (i == xsize-1 && j == ysize-1)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "h"));
 
-    /**
-     * Creates an Hpbar object at the upper-left corner of the terminal.
+             if (i == 0 && j != 0 && j != ysize-1)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "e"));
+            if (i == xsize-1 && j != 0 && j != ysize-1)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "d"));
+            if (j == 0 && i != 0 && i != xsize-1)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "b"));
+             if (j == ysize-1 && i != 0 && i != xsize-1)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "f"));
+
      */
+/**
+* Creates an Hpbar object at the upper-left corner of the terminal. //todo not right
+*/
     private void createHpBar() {
-        int xsize = hero.getHealth() + 2;
-        int ysize = 3;
+        int xsize = dim;
+        int ysize = 5;
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
-                if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1)
-                   staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "-"));
-
-            }
+                if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1){
+                    staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "#"));
+                }
+                if (i == 14 || i == 28 || i == 42) staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "#"));
+          }
         }
         loadHearts();
+        staticElems.add(new HpBar(new Position(22, 3), "#FFFFFF", SGR.BOLD, "a"));
+        staticElems.add(new HpBar(new Position(36, 3), "#FFFFFF", SGR.BOLD, "b"));
     }
+
 
     //TODO change hearts to be stored to a stack instead.
 
@@ -260,7 +274,7 @@ public class Maze implements MazeInterface {
     private void loadHearts() {
         hp.clear();
         for (int i = 1; i <= hero.getHealth(); i++) {
-            hp.add(new Heart(new Position(i + 1, 2), "#FF0000", SGR.BOLD, "*"));
+            hp.add(new Heart(new Position(i + 1+xIncr, 3), "#FF0000", SGR.BOLD, "*"));
         }
     }
 
