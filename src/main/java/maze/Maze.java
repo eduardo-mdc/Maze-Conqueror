@@ -245,7 +245,8 @@ public class Maze implements MazeInterface {
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
                 if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1)
-                    staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "-"));
+                   staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "-"));
+
             }
         }
         loadHearts();
