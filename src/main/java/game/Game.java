@@ -164,7 +164,7 @@ public class Game implements GameInterface {
                 menu = new Menu(this, screen, 2);
             }
         }
-        maze.processKey(key);
+        maze.nextFrame(key);
     }
 
     @Override

@@ -148,7 +148,7 @@ public class Maze implements MazeInterface {
 
 
     @Override
-    public void processKey(com.googlecode.lanterna.input.KeyStroke key) {
+    public void nextFrame(com.googlecode.lanterna.input.KeyStroke key) {
         counter++;
         if(key!=null){
             switch (key.getKeyType()) {

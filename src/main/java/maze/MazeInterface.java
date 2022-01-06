@@ -55,7 +55,7 @@ public interface MazeInterface {
      *
      * @param key key input from the player.
      */
-    void processKey(com.googlecode.lanterna.input.KeyStroke key);
+    void nextFrame(com.googlecode.lanterna.input.KeyStroke key);
 
     /**
      * Draws the maze objects on the lanterna screen.
