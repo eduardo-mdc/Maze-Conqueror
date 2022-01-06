@@ -30,7 +30,7 @@ public class Game implements GameInterface {
     private Screen screen;
     private MazeInterface maze;
     private MenuInterface menu;
-    private boolean initialized = false;
+    private boolean initialized;
     private int state;
     private int screenH;
     private int screenW;
@@ -44,6 +44,7 @@ public class Game implements GameInterface {
     public Game() {
         setDimension(53, 50, 40);
         maze = new Maze(this, dimension);
+        initialized = false;
         state = 0;
         try {
             loadInitialScreen();
@@ -56,6 +57,10 @@ public class Game implements GameInterface {
         }
     }
 
+    @Override
+    public MenuInterface getMenu() {
+        return menu;
+    }
 
     @Override
     public void setInitialize(boolean value) {

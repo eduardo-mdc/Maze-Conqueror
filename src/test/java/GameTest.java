@@ -32,6 +32,11 @@ public class GameTest {
 
     }
 
+    @Test
+    public void getMenuTest() {
+        GameInterface tempGame = new Game();
+        assertTrue(null == tempGame.getMenu());
+    }
 
     @Test
     public void setStateTest() {
@@ -72,6 +77,11 @@ public class GameTest {
         doNothing().when(tempGame).quit(0);
         tempGame.quit(0);
         verify(tempGame, times(1)).quit(0);
+    }
+
+    @Test
+    public void runZeroStateTest() {
+
     }
 
 
