@@ -61,6 +61,15 @@ public interface GameInterface {
     int getScreenW();
 
     /**
+     * Sets the dimension for the lanterna screen based on the user's physical screen resolution.
+     *
+     * @param screenH
+     * @param screenW
+     * @param dimension
+     */
+    void setDimension(int screenH, int screenW, int dimension);
+
+    /**
      * Creates a new game re/initializing the variables to run the game.
      */
     void restartGame();

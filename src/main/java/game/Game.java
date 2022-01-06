@@ -112,10 +112,9 @@ public class Game implements GameInterface {
         screen.newTextGraphics().setBackgroundColor(TextColor.Factory.fromString("BLACK"));
     }
 
-    /**
-     * Sets the dimension for the lanterna screen based on the user's physical screen resolution.
-     */
-    private void setDimension(int screenH, int screenW, int dimension) {
+
+    @Override
+    public void setDimension(int screenH, int screenW, int dimension) {
         this.screenH = screenH;
         this.screenW = screenW;
         this.dimension = dimension;

@@ -1,10 +1,14 @@
+import com.googlecode.lanterna.graphics.TextGraphics;
 import game.Game;
 import game.GameInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 public class GameTest {
     private GameInterface game;
@@ -38,12 +42,38 @@ public class GameTest {
 
     @Test
     public void getScreenHTest() {
-
+        game.setDimension(3, 0, 0);
+        assertEquals(3, game.getScreenH());
     }
 
     @Test
     public void getScreenWTest() {
-
+        game.setDimension(0, 3, 0);
+        assertEquals(3, game.getScreenW());
     }
+
+    @Test
+    public void restartGameStateTest() {
+        int restartState = 1;
+        game.restartGame();
+        assertEquals(restartState, game.getState());
+    }
+
+    @Test
+    public void restartGameInitializedTest() {
+        boolean restartInitialized = false;
+        game.restartGame();
+        assertEquals(restartInitialized, game.getInitialized());
+    }
+
+    @Test
+    public void verifyQuitTest() throws IOException {
+        GameInterface tempGame = mock(GameInterface.class);
+        doNothing().when(tempGame).quit(0);
+        tempGame.quit(0);
+        verify(tempGame, times(1)).quit(0);
+    }
+
+
 }
 
