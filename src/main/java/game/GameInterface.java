@@ -83,12 +83,42 @@ public interface GameInterface {
      */
     void restartGame();
 
+
     /**
      * Quits the game. Receives an integer to quit check if the game was exited successfully,
      *
      * @param status integer corresponding to the type of exit.
+     * @throws IOException
      */
     void quit(int status) throws IOException;
+
+    /**
+     * Loads the game initial menu.
+     *
+     * @throws IOException
+     */
+    void loadInitialMenu() throws IOException;
+
+    /**
+     * Loads the game. Game is available to play after execution.
+     *
+     * @throws IOException
+     */
+    void loadGame() throws IOException;
+
+    /**
+     * Loads the game instructions menu. Gives information to the user about the objective of the game.
+     *
+     * @throws IOException
+     */
+    void loadInstructionsMenu() throws IOException;
+
+    /**
+     * Restarts the game menu when restarting the game.
+     *
+     * @throws IOException
+     */
+    void restartGameMenu() throws IOException;
 
     /**
      * Main game loop. Constantly checks the state of the game and runs code accordingly.

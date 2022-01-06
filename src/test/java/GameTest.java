@@ -1,4 +1,3 @@
-import com.googlecode.lanterna.graphics.TextGraphics;
 import game.Game;
 import game.GameInterface;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class GameTest {
@@ -80,10 +78,25 @@ public class GameTest {
     }
 
     @Test
-    public void runZeroStateTest() {
-
+    public void loadInitialMenuTest() throws IOException {
+        assertTrue(game.getMenu() == null);
+        game.loadInitialMenu();
+        int menuType = game.getMenu().getType();
+        assertTrue(game.getMenu() != null);
+        assertEquals(1, menuType);
     }
 
+    @Test
+    public void loadGameTest() throws IOException {
+        assertFalse(game.getInitialized());
+        game.loadGame();
+        assertTrue(game.getInitialized());
+    }
+
+    @Test
+    public void loadInstructionsMenuTest() throws IOException {
+
+    }
 
 }
 

@@ -171,35 +171,40 @@ public class Game implements GameInterface {
         System.exit(status);
     }
 
+    @Override
+    public void loadInitialMenu() throws IOException {
+        menu = new Menu(this, screen, 1);
+    }
 
+    @Override
+    public void loadGame() throws IOException {
+        if (!initialized) initialize();
+        draw();
+        readKey();
+    }
 
+    @Override
+    public void loadInstructionsMenu() throws IOException {
+        menu = new Menu(this, screen, 3);
+    }
+
+    @Override
+    public void restartGameMenu() throws IOException {
+        restartGame();
+        menu = new Menu(this, screen, 1);
+    }
 
     @Override
     public void run() {
         try {
             while (true) {
                 switch (state) {
-                    case 0: // load initial menu
-                        menu = new Menu(this, screen, 1);
-                        break;
-                    case 1: // load game
-                        if (!initialized) initialize();
-                        draw();
-                        readKey();
-                        break;
-                    case 2: // load instructions menu
-                        menu = new Menu(this, screen, 3);
-                        break;
-                    case 3: // Exit
-                        quit(0);
-                        break;
-                    case 4: // restart
-                        restartGame();
-                        break;
-                    case 5:
-                        restartGame();
-                        menu = new Menu(this, screen, 1);
-                        break;
+                    case 0 -> loadInitialMenu();
+                    case 1 -> loadGame();
+                    case 2 -> loadInstructionsMenu();
+                    case 3 -> quit(0);
+                    case 4 -> restartGame();
+                    case 5 -> restartGameMenu();
                 }
             }
         } catch (IOException e) {
