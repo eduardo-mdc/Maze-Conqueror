@@ -73,21 +73,21 @@ public class Menu implements MenuInterface {
     public void startMenu(WindowBasedTextGUI textGUI) {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
-                .setTitle("Game menu")
+                .setTitle("GAME MENU")
                 .setDescription("                                   ")
-                .addAction("Start Game", new Runnable() {
+                .addAction("START GAME", new Runnable() {
                     @Override
                     public void run() {
                         game.setState(1);
                     }
                 })
-                .addAction("Instructions", new Runnable() {
+                .addAction("INSTRUCTIONS", new Runnable() {
                     @Override
                     public void run() {
                         game.setState(2);
                     }
                 })
-                .addAction("Exit", new Runnable() {
+                .addAction("EXIT", new Runnable() {
                     @Override
                     public void run() {
                         game.setState(3);
@@ -102,21 +102,21 @@ public class Menu implements MenuInterface {
     public void pauseMenu(WindowBasedTextGUI textGUI) {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
-                .setTitle("Pause menu")
+                .setTitle("PAUSE MENU")
                 .setDescription("                                   ")
-                .addAction("Resume Game", new Runnable() {
+                .addAction("RESUME GAME", new Runnable() {
                     @Override
                     public void run() {
                         game.setState(1);
                     }
                 })
-                .addAction("Restart", new Runnable() {
+                .addAction("RESTART", new Runnable() {
                     @Override
                     public void run() {
                         game.setState(4);
                     }
                 })
-                .addAction("Exit", new Runnable() {
+                .addAction("EXIT", new Runnable() {
                     @Override
                     public void run() {
                         game.setState(3);
@@ -131,9 +131,9 @@ public class Menu implements MenuInterface {
     public void instructionsMenu(WindowBasedTextGUI textGUI) throws IOException {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
-                .setTitle("Instructions")
+                .setTitle("INSTRUCTIONS")
                 .setDescription("                                   ")
-                .addAction("Ir do inicio ate ao trofeu", new Runnable() {
+                .addAction("GO FROM BEGINNING TO THE TROPHY", new Runnable() {
                     @Override
                     public void run() {
 
@@ -145,7 +145,7 @@ public class Menu implements MenuInterface {
 
                     }
                 })
-                .addAction("Back", new Runnable() {
+                .addAction("BACK", new Runnable() {
                     @Override
                     public void run() {
                         game.setState(0);

@@ -98,7 +98,6 @@ public class ElementTest {
         assertFalse(tempWall4.equals(tempWall5));
         assertFalse(tempWall1.equals(tempWall6));
     }
-
     @Test
     public void constructorTest() {
         ElementInterface tempElem = new Element(position, "#FF0000", SGR.BOLD, "X") {
