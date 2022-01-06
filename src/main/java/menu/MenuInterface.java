@@ -1,6 +1,8 @@
 package menu;
 
 import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
+import com.googlecode.lanterna.screen.Screen;
+import game.GameInterface;
 
 import java.io.IOException;
 
@@ -13,6 +15,34 @@ import java.io.IOException;
  */
 
 public interface MenuInterface {
+
+    /**
+     * Returns the string representing the background color of the menu.
+     *
+     * @return Menu background color.
+     */
+    String getBackGroundColor();
+
+    /**
+     * Returns the current game object interface.
+     *
+     * @return game object interface.
+     */
+    GameInterface getGame();
+
+    /**
+     * Returns the used screen object in the menu.
+     *
+     * @return Screen object.
+     */
+    Screen getScreen();
+
+    /**
+     * Returns the type of the menu created.
+     *
+     * @return menu type.
+     */
+    int getType();
 
     /**
      * load menu type one.

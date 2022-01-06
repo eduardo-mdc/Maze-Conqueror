@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class Menu implements MenuInterface {
 
-    private final String backgroundcolor = "#000000";
+    private final String backGroundColor;
     private final GameInterface game;
     private final Screen screen;
     private final int type;
@@ -36,6 +36,7 @@ public class Menu implements MenuInterface {
      */
 
     public Menu(GameInterface game, Screen screen, int type) throws IOException {
+        backGroundColor = "#000000";
         this.screen = screen;
         this.game = game;
         screen.clear();
@@ -43,6 +44,25 @@ public class Menu implements MenuInterface {
         draw(this.type);
     }
 
+    @Override
+    public String getBackGroundColor() {
+        return backGroundColor;
+    }
+
+    @Override
+    public GameInterface getGame() {
+        return game;
+    }
+
+    @Override
+    public Screen getScreen() {
+        return screen;
+    }
+
+    @Override
+    public int getType() {
+        return type;
+    }
 
     @Override
     public void startMenu(WindowBasedTextGUI textGUI) {
@@ -134,7 +154,7 @@ public class Menu implements MenuInterface {
     @Override
     public void draw(int type) throws IOException {
         TextGraphics textgraphics = screen.newTextGraphics();
-        textgraphics.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
+        textgraphics.setBackgroundColor(TextColor.Factory.fromString(backGroundColor));
         textgraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(200, 200), ' ');
         final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
         switch (type) {
