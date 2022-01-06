@@ -17,6 +17,13 @@ import java.io.IOException;
 public interface MenuInterface {
 
     /**
+     * Sets the background string color.
+     *
+     * @param color
+     */
+    void setBackGroundColor(String color);
+
+    /**
      * Returns the string representing the background color of the menu.
      *
      * @return Menu background color.
