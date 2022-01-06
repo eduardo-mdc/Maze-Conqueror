@@ -13,9 +13,10 @@ public class Hero extends DynamicElement {
 
     /**
      * Constructor for the Hero class. Receives a position, color, format, and character to represent the object.
-     * @param position sets the position of the element on the lanterna screen.
-     * @param color sets the color of the element on the lanterna screen.
-     * @param format sets the format of the element on the lanterna screen.
+     *
+     * @param position  sets the position of the element on the lanterna screen.
+     * @param color     sets the color of the element on the lanterna screen.
+     * @param format    sets the format of the element on the lanterna screen.
      * @param character sets the character of the element on the lanterna screen.
      */
     public Hero(PositionInterface position, String color, SGR format, String character) {
@@ -24,6 +25,7 @@ public class Hero extends DynamicElement {
 
     /**
      * Gets the hero's health value.
+     *
      * @return integer value corresponding to the hero's health.
      */
     public int getHealth() {
@@ -32,6 +34,7 @@ public class Hero extends DynamicElement {
 
     /**
      * Checks whether the hero's health has reached 0.
+     *
      * @return boolean value corresponding to the hero's death state.
      */
     public boolean isDead() {
@@ -57,6 +60,7 @@ public class Hero extends DynamicElement {
 
     /**
      * Set the hero's health to a certain value.
+     *
      * @param newHealth new hero's health value.
      */
     public void setHealth(int newHealth) {
@@ -65,6 +69,7 @@ public class Hero extends DynamicElement {
 
     /**
      * Gets the position directly above from the hero's current position.
+     *
      * @return position directly above the hero's position.
      */
     public PositionInterface moveUp() {
@@ -73,6 +78,7 @@ public class Hero extends DynamicElement {
 
     /**
      * Gets the position directly below from the hero's current position.
+     *
      * @return position directly below the hero's position.
      */
     public PositionInterface moveDown() {
@@ -81,6 +87,7 @@ public class Hero extends DynamicElement {
 
     /**
      * Gets the position directly left from the hero's current position.
+     *
      * @return position directly left the hero's position.
      */
     public PositionInterface moveLeft() {
@@ -89,6 +96,7 @@ public class Hero extends DynamicElement {
 
     /**
      * Gets the position directly right from the hero's current position.
+     *
      * @return position directly right the hero's position.
      */
     public PositionInterface moveRight() {

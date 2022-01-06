@@ -9,13 +9,15 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import maze.Maze;
+import maze.MazeInterface;
+import menu.MenuInterface;
 import menu.Menu;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
+
 /**
  * Main Game class which manages the state of the program.
  *
@@ -26,9 +28,9 @@ import java.net.URL;
 public class Game implements GameInterface {
 
     private Screen screen;
-    private Maze maze;
-    private Menu menu;
-    private boolean initialized = false;
+    private MazeInterface maze;
+    private MenuInterface menu;
+    private boolean initialized;
     private int state;
     private int screenH;
     private int screenW;
@@ -40,8 +42,9 @@ public class Game implements GameInterface {
      * Constructor for the game Class.
      */
     public Game() {
-        setDimension();
+        setDimension(53, 50, 40);
         maze = new Maze(this, dimension);
+        initialized = false;
         state = 0;
         try {
             loadInitialScreen();
@@ -54,42 +57,40 @@ public class Game implements GameInterface {
         }
     }
 
-    /**
-     * Changes the value of the variable initialize to control the state of the game.
-     * @param value boolean value to change to.
-     */
+    @Override
+    public MenuInterface getMenu() {
+        return menu;
+    }
+
+    @Override
     public void setInitialize(boolean value) {
         initialized = value;
     }
 
-    /**
-     * Changes the state of the state machine
-     *
-     * (1) Initial menu.
-     * (2) Load the game.
-     * (3) Exit.
-     * (4) Restart the game.
-     * (5) Cleans old game and goes to main menu.
-     *
-     * @param newState value of the new state.
-     *
-     */
+    @Override
+    public int getState() {
+        return state;
+    }
+
+    @Override
+    public boolean getInitialized() {
+        return initialized;
+    }
+
+
+    @Override
     public void setState(int newState) {
         state = newState;
     }
-    /**
-     * Returns the height of the screen.
-     * @return value of the screen height.
-     */
-    public int getscreenH() {
+
+    @Override
+    public int getScreenH() {
         return screenH;
     }
 
-    /**
-     * Returns the width of the screen.
-     * @return value of the screen width.
-     */
-    public int getscreenW() {
+
+    @Override
+    public int getScreenW() {
         return screenW;
     }
 
@@ -116,13 +117,12 @@ public class Game implements GameInterface {
         screen.newTextGraphics().setBackgroundColor(TextColor.Factory.fromString("BLACK"));
     }
 
-    /**
-     * Sets the dimension for the lanterna screen based on the user's physical screen resolution.
-     */
-    private void setDimension() {
-        this.screenH = 53;
-        this.screenW = 50;
-        this.dimension = 40;
+
+    @Override
+    public void setDimension(int screenH, int screenW, int dimension) {
+        this.screenH = screenH;
+        this.screenW = screenW;
+        this.dimension = dimension;
     }
 
     /**
@@ -143,6 +143,7 @@ public class Game implements GameInterface {
     }
 
     //TODO change readkey() into a tread so it doesn't interrupt operation.
+
     /**
      * Reads the user's input and runs code accordingly.
      */
@@ -158,51 +159,52 @@ public class Game implements GameInterface {
         maze.processKey(key);
     }
 
-    /**
-     * Initializes a new game, used when there was a previous game running.
-     */
+    @Override
     public void restartGame() {
         initialized = false;
         state = 1;
     }
 
-    /**
-     * Quits the game. Receives an integer to quit check if the game was exited successfully,
-     * @param status integer corresponding to the type of exit.
-     */
+    @Override
     public void quit(int status) throws IOException {
         screen.stopScreen();
         System.exit(status);
     }
 
-    /**
-     *  Main game loop. Constantly checks the state of the game and runs code accordingly.
-     */
+    @Override
+    public void loadInitialMenu() throws IOException {
+        menu = new Menu(this, screen, 1);
+    }
+
+    @Override
+    public void loadGame() throws IOException {
+        if (!initialized) initialize();
+        draw();
+        readKey();
+    }
+
+    @Override
+    public void loadInstructionsMenu() throws IOException {
+        menu = new Menu(this, screen, 3);
+    }
+
+    @Override
+    public void restartGameMenu() throws IOException {
+        restartGame();
+        menu = new Menu(this, screen, 1);
+    }
+
+    @Override
     public void run() {
         try {
             while (true) {
                 switch (state) {
-                    case 0: // load initial menu
-                        menu = new Menu(this, screen, 1);
-                        break;
-                    case 1: // load game
-                        if (!initialized) initialize();
-                        draw();
-                        readKey();
-                        break;
-                    case 2: // load instructions menu
-                        menu = new Menu(this, screen, 3);
-                        break;
-                    case 3: // Exit
-                        quit(0);
-                        break;
-                    case 4: // restart
-                        restartGame();
-                        break;
-                    case 5:
-                        restartGame();
-                        menu = new Menu(this, screen, 1);
-                        break;
+                    case 0 -> loadInitialMenu();
+                    case 1 -> loadGame();
+                    case 2 -> loadInstructionsMenu();
+                    case 3 -> quit(0);
+                    case 4 -> restartGame();
+                    case 5 -> restartGameMenu();
                 }
             }
         } catch (IOException e) {

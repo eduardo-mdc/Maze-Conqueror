@@ -7,35 +7,36 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 import com.googlecode.lanterna.screen.Screen;
-import game.Game;
 import game.GameInterface;
 
 import java.io.IOException;
 
+/**
+ * Menu class generate various types of menus.
+ *
+ * @author Eduardo Correia
+ * @author Alberto Serra
+ * @author José Carvalho
+ */
+
 public class Menu implements MenuInterface {
 
-    /**
-     * Menu class generate various types of menus
-     *
-     * @author Eduardo Correia
-     * @author Alberto Serra
-     * @author José Carvalho
-     */
-
-    private final String backgroundcolor = "#000000";
+    private final String backGroundColor;
     private final GameInterface game;
     private final Screen screen;
     private final int type;
 
     /**
      * Main constructor of the class.
-     * @param game Game running.
-     * @param screen Scren to load the menu on.
-     * @param type type of menu to load.
+     *
+     * @param game   Game running.
+     * @param screen Screen to load the menu on.
+     * @param type   type of menu to load.
      * @throws IOException .
      */
 
     public Menu(GameInterface game, Screen screen, int type) throws IOException {
+        backGroundColor = "#000000";
         this.screen = screen;
         this.game = game;
         screen.clear();
@@ -43,12 +44,28 @@ public class Menu implements MenuInterface {
         draw(this.type);
     }
 
-    /**
-     *  load menu type one.
-     *  @param textGUI base interface for the TextGUI.
-     */
+    @Override
+    public String getBackGroundColor() {
+        return backGroundColor;
+    }
 
-    private void startMenu(WindowBasedTextGUI textGUI) {
+    @Override
+    public GameInterface getGame() {
+        return game;
+    }
+
+    @Override
+    public Screen getScreen() {
+        return screen;
+    }
+
+    @Override
+    public int getType() {
+        return type;
+    }
+
+    @Override
+    public void startMenu(WindowBasedTextGUI textGUI) {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
                 .setTitle("Game menu")
@@ -75,11 +92,9 @@ public class Menu implements MenuInterface {
                 .showDialog(textGUI);
     }
 
-    /**
-     *  loads menu type 2.
-     * @param textGUI base interface for the TextGUI.
-     */
-    private void pauseMenu(WindowBasedTextGUI textGUI) {
+
+    @Override
+    public void pauseMenu(WindowBasedTextGUI textGUI) {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
                 .setTitle("Pause menu")
@@ -106,12 +121,9 @@ public class Menu implements MenuInterface {
                 .showDialog(textGUI);
     }
 
-    /**
-     * loads menu type 3.
-     * @param textGUI base interface for the TextGUI.
-     * @throws IOException
-     */
-    private void instructionsMenu(WindowBasedTextGUI textGUI) throws IOException {
+
+    @Override
+    public void instructionsMenu(WindowBasedTextGUI textGUI) throws IOException {
         new ActionListDialogBuilder()
                 .setCanCancel(false)
                 .setTitle("Instructions")
@@ -138,18 +150,11 @@ public class Menu implements MenuInterface {
                 .showDialog(textGUI);
     }
 
-    /**
-     * Draws the menu into the given screen.
-     * Type 1 = Starting Menu.
-     * Type 2 = Pause Menu.
-     * Type 3 = Instructions Menu.
-     * @param type type of menu to draw.
-     * @throws IOException .
-     */
 
+    @Override
     public void draw(int type) throws IOException {
         TextGraphics textgraphics = screen.newTextGraphics();
-        textgraphics.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
+        textgraphics.setBackgroundColor(TextColor.Factory.fromString(backGroundColor));
         textgraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(200, 200), ' ');
         final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
         switch (type) {
