@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class Menu implements MenuInterface {
 
-    private final String backGroundColor;
+    private String backGroundColor;
     private final GameInterface game;
     private final Screen screen;
     private final int type;
@@ -36,12 +36,17 @@ public class Menu implements MenuInterface {
      */
 
     public Menu(GameInterface game, Screen screen, int type) throws IOException {
-        backGroundColor = "#000000";
+        setBackGroundColor("#000000");
         this.screen = screen;
         this.game = game;
         screen.clear();
         this.type = type;
         draw(this.type);
+    }
+
+    @Override
+    public void setBackGroundColor(String color) {
+        this.backGroundColor = color;
     }
 
     @Override
