@@ -99,7 +99,7 @@ public class Game implements GameInterface {
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
-        Font loadedFont = font.deriveFont(Font.PLAIN, 20);
+        Font loadedFont = font.deriveFont(Font.PLAIN, 15);
         AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
 
         TerminalSize terminalSize = new TerminalSize(screenW, screenH);
