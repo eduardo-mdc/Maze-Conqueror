@@ -39,10 +39,8 @@ public class Maze implements MazeInterface {
     private final List<Heart> hp;
     private final Queue<Path> path;
     final private String backgroundcolor = "BLACK";
-    //todo change hero constructor to accept starting hp as a variable and the correspondent tests
+    //TODO change hero constructor to accept starting hp as a variable and the correspondent tests
     private final int heroHealth = 5;
-
-
     /**
      * Constructor for the maze class. Requires a game class in which the maze shall be used and an appropriate dimension.
      *
