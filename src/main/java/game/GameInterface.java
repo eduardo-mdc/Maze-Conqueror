@@ -104,7 +104,7 @@ public interface GameInterface {
      *
      * @throws IOException
      */
-    void loadGame() throws IOException;
+    void runGame() throws IOException;
 
     /**
      * Loads the game instructions menu. Gives information to the user about the objective of the game.

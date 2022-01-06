@@ -1,6 +1,5 @@
 import game.Game;
 import game.GameInterface;
-import menu.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -90,7 +89,7 @@ public class GameTest {
     @Test
     public void loadGameTest() throws IOException {
         assertFalse(game.getInitialized());
-        game.loadGame();
+        game.runGame();
         assertTrue(game.getInitialized());
     }
 

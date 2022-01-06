@@ -127,15 +127,9 @@ public class Maze implements MazeInterface {
 
     @Override
     public void moveHero(PositionInterface position) {
-        counter++;
         if (!checkPath(hero.getPosition()) && !checkRedPath(hero.getPosition()))
             path.add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
         hero.setPosition(position);
-        if (counter == 2) {
-            PositionInterface pathPosition = path.remove().getPosition();
-            staticElems.add(new RedPath(pathPosition, "RED", SGR.BOLD, "{"));
-            counter = 0;
-        }
     }
 
 
@@ -155,12 +149,21 @@ public class Maze implements MazeInterface {
 
     @Override
     public void processKey(com.googlecode.lanterna.input.KeyStroke key) {
-        System.out.println(key);
-        switch (key.getKeyType()) {
-            case ArrowUp -> checkTile(hero.moveUp());
-            case ArrowDown -> checkTile(hero.moveDown());
-            case ArrowLeft -> checkTile(hero.moveLeft());
-            case ArrowRight -> checkTile(hero.moveRight());
+        counter++;
+        if(key!=null){
+            switch (key.getKeyType()) {
+                case ArrowUp -> checkTile(hero.moveUp());
+                case ArrowDown -> checkTile(hero.moveDown());
+                case ArrowLeft -> checkTile(hero.moveLeft());
+                case ArrowRight -> checkTile(hero.moveRight());
+            }
+        }
+        if (counter == 10) {
+            if(path.size() != 0){
+                PositionInterface pathPosition = path.remove().getPosition();
+                staticElems.add(new RedPath(pathPosition, "RED", SGR.BOLD, "{"));
+            }
+            counter = 0;
         }
     }
 
