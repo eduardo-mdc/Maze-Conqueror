@@ -146,8 +146,8 @@ represent them in a structured efficient way.
 **Pattern**
 
 The two main patterns applied specifically to the multiple elements were the **_Strategy Pattern_**, which defines a
-family of algorithms, like the draw method, encapsulate each one of the and make them interchangeable, and the
-**_Factory Method Pattern_**, which is defined by an Element interface, used to create the Class object, but let those
+family of algorithms, like the draw method, encapsulates each one and makes them interchangeable, and the
+**_Factory Method Pattern_**, which is defined by an Element interface, used to create the Class object, but lets those
 elements sub-classes decide which class they should instantiate.
 
 **Implementation**
