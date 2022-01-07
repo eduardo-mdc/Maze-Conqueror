@@ -5,7 +5,7 @@
 > The game consists of solving procedurally generated mazes as fast as possible while avoiding any obstacles in your path. Obstacles such as
 > complicated paths, enemies and the impending red path, which stops backtracking, all make this exciting maze solving experience unique.
 
-> This project was developed by *Eduardo Correia* (*up201909914*@fc.up.pt) and *José Carvalho* (*up202005827*@fc.up.pt) and *Alberto Serra* (*up202103627*@fe.up.pt) for LDTS 2021-22.
+> This project was developed by *Eduardo Correia* (*up201909914*@fc.up.pt), *José Carvalho* (*up202005827*@fc.up.pt) and *Alberto Serra* (*up202103627*@fe.up.pt) for LDTS 2021-22.
 
 ## Screenshots / Gifs
 
@@ -126,7 +126,7 @@ The use of the **_State Pattern_** in the current design allows the following be
 
 - The several states that represent the different game states become explicit in the code, instead of relying on a
   series of flags.
-- A well organized code, readable code.
+- A well organized, readable code.
 - Minimal conditional complexity.
 
 **Maze Pattern**
