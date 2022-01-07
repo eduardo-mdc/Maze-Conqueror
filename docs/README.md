@@ -159,7 +159,7 @@ which means that this implementation will need to be refactored.
 
 >The following are the code smells we could identify in our project.
 ------
-
+#### **Large Class**
 **Problem**
 
 Currently, the `Maze` class is responsible for too much code, handling game elements that should be outside of its reach, for example the `Hearts` class, which should be handled in the `Game`.
@@ -169,6 +169,17 @@ Currently, the `Maze` class is responsible for too much code, handling game elem
 Refactor the `Hearts` handling code to be in a different class.
 
 ------
+#### **Long Method**
+**Problem**
+
+Currently, the constructor for the `Maze` class is simply too big, which is simply due to the size of this class. 
+
+**Solution**
+
+Create more functions to divide the code and make it more readable. This, however, only propagates the Large class code smell that exists within this class.
+
+------
+#### **Bad optimization**
 **Problem**
 
 The `Heart` element is currently stored in a `ArrayList`, which is not as efficient as storing it in a stack, for our use case. This is due to the implementation of the `remove()` method in the `List` class which has a complexity of `O(n)`. <p>
@@ -179,7 +190,7 @@ Comparatively speaking, the `pop()` method in a `Stack` has a complexity of `O(1
 Change the code to accept `Hearts` in a `Stack` instead of a `ArrayList`.
 
 ------
-
+#### **Wrong construction**
 **Problem**
 
 The `Hero` class constructor does not currently accept health as an argument, which means we need to call the `setHealth()` function 
@@ -190,7 +201,7 @@ unnecessarily after we create an instance.
 Change the `Hero` constructor to accept heath.
 
 ------
-
+#### **Switch Statments**
 **Problem**
 
 Currently, the `checkTile()` function in the `Maze` class consists of nested if's, which makes it quite hard to read and understand.
@@ -200,11 +211,20 @@ Currently, the `checkTile()` function in the `Maze` class consists of nested if'
 Change the function to work based of a state design or a switch. 
 
 ------
+#### **Dead Code**
+**Problem**
+
+The `Maze.ToString()` method is never used, however this functions helps out for debugging purposes.
+
+**Solution**
+
+Remove the function.
 
 ### TESTING
 
-- Screenshot of coverage report.
-- Link to mutation testing report.
+>We currently have 63 tests which give us the following coverage
+
+![img](screenshots/TestsWithCoverage.png)
 
 ### SELF-EVALUATION
 
