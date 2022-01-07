@@ -23,7 +23,7 @@ The following screenshots illustrate and gifs the general look of our game, as w
 ### Finishing the game
 ![img](gifs/FinishingGame.gif)
 
-## IMPLEMENTED FEATURES
+## Implemented Features
 
 
 ### Main Menu
