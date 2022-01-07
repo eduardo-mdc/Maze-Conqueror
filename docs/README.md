@@ -7,11 +7,28 @@
 
 > This project was developed by *Eduardo Correia* (*up201909914*@fc.up.pt) and *José Carvalho* (*<insertemailplease>*@fc.up.pt) and *Alberto Serra* (*<insertemailplease>*@fe.up.pt) for LDTS 2021-22.
 
+## Screenshots / Gifs
+
+The following screenshots illustrate and gifs the general look of our game, as well as the divergent functionalities:
+
+### Start Menu
+![img](gifs/MainMenu.gif)
+
+### Playing the game
+![img](gifs/StartingGame.gif)
+
+### Pause menu
+![img](screenshots/PauseMenuUML.png)
+
+### Finishing the game
+![img](gifs/FinishingGame.gif)
+
 ## IMPLEMENTED FEATURES
+
 
 ### Main Menu
 
->This section is in regard to the menu the player sees and interacts with when he starts up the game.
+>This section is in regard to the menu the player sees and interacts with when he starts up the game. The current visual aspect is a WIP.
 - **Start Game** - Allows the player to start the game.
 - **Instructions (WIP)** - Opens a new screen with info on how to play the game.
 - **Exit** - Closes the game.
@@ -28,7 +45,7 @@
 - **Pause** - Allows the player to pause the game.
 
 ### Pause Menu
->This section details the features in regard to the pause menu.
+>This section details the features in regard to the pause menu. The current visual aspect is a WIP.
 - **Resume Game** - Allows the player to resume the game.
 - **Restart** - Allows the player to restart the game.
 - **Exit** - Closes the game.
@@ -36,7 +53,16 @@
 
 ### PLANNED FEATURES
 
->
+>This section details the planned features for the game as a whole. These may be subject to change as we develop the project.
+
+- **Multithreaded Input** - Currently the game runs on a single thread. This is not acceptable due to the fact that the getInput method from lanterna stops the process from running, which prevents time based mechanics. Currently there's a WIP branch that gets input from another thread.
+- **Refactor the Menus** - The current menus are pre-made from the lanterna library which are incompatible with the threaded KeyboardListener class (in WIP branch). As such these will have to be remade in order to account for these incompatibilities.
+- **Points** - Finish the game with a certain amount of points, the faster you complete the maze, the higher your points. Points are also acquired whenever you enter a new empty tile.
+- **Continue Playing** - Continue playing after completing the first maze (with a new randomly generated maze) in order to increase your total points. The maze may increase in difficulty.
+- **Enemies** - Add enemies with random movement that deal contact damage.
+- **Portals** - Static elements which, on contact teleport the player to another portal on the maze. 
+- **Other Special Elements** - Special elements which cause different effects on contact, these are still in discussion. 
+- **Items** - Special items that can be acquired that interact with the maze in some way.
 
 ### DESIGN
 
