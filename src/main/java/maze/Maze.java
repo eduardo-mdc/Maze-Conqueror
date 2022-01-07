@@ -123,13 +123,13 @@ public class Maze implements MazeInterface {
             winGame();
             return;
         } else {
-            if (checkRedPath(position)) {
+            if (checkElement(position,RedPath.class)) {
                 hero.heroTakesDamage();
                 loadHearts();
                 if (hero.isDead()) gameOver();
                 return;
             }
-            if (!checkWall(position)) {
+            if (!checkElement(position,Wall.class)) {
                 moveHero(position);
             }
         }
@@ -139,7 +139,7 @@ public class Maze implements MazeInterface {
     @Override
     public void moveHero(PositionInterface position) {
         counter++;
-        if (!checkPath(hero.getPosition()) && !checkRedPath(hero.getPosition()))
+        if (!checkPath(hero.getPosition()) && !checkElement(hero.getPosition(),RedPath.class))
             path.add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
         hero.setPosition(position);
         if (counter == 2) {
@@ -155,14 +155,12 @@ public class Maze implements MazeInterface {
         game.setState(5);
     }
 
-
     @Override
     public void gameOver() {
         game.restartGame();
         game.setState(0);
         hero.setHealth(heroHealth);
     }
-
 
     @Override
     public void processKey(com.googlecode.lanterna.input.KeyStroke key) {
@@ -173,34 +171,6 @@ public class Maze implements MazeInterface {
             case ArrowLeft -> checkTile(hero.moveLeft());
             case ArrowRight -> checkTile(hero.moveRight());
         }
-    }
-
-    /**
-     * Checks if there's a Wall object at a given position
-     *
-     * @param position position to check
-     * @return boolean corresponding to the existence of a Wall object
-     */
-    private boolean checkWall(PositionInterface position) {
-        for (Element tile : staticElems) {
-            if (tile instanceof Wall)
-                if (tile.getPosition().equals(position)) return true;
-        }
-        return false;
-    }
-
-    /**
-     * Checks if there's a RedPath object at a given position.
-     *
-     * @param position position to check.
-     * @return boolean corresponding to the existence of a RedPath object.
-     */
-    private boolean checkRedPath(PositionInterface position) {
-        for (Element tile : staticElems) {
-            if (tile instanceof RedPath)
-                if (tile.getPosition().equals(position)) return true;
-        }
-        return false;
     }
 
     /**
@@ -217,23 +187,25 @@ public class Maze implements MazeInterface {
         return false;
     }
 
-    /*
-   //Generic Implementation of checkElement
-   private <T> boolean checkElement (PositionInterface position) {
-        for (Element tile : elements) {
-            if (tile instanceof T)
-                if (tile.getPosition().equals(position)) return true;
+    /**
+     * Check if there's an element of a given class at a certain position in staticElems
+     * @param position position to check.
+     * @param cl Class type to check
+     * @return corresponding to the existence of a cl object at the given position.
+     */
+   private boolean checkElement(PositionInterface position, Class cl) {
+        for (Element tile : staticElems) {
+            if (cl.isInstance(tile) && tile.getPosition().equals(position)) return true;
         }
         return false;
     }
-*/
+
 
 
     @Override
     public void createTrophy() {
         staticElems.add(new Trophy(ending, "#F3CA28", SGR.BOLD, "$"));
     }
-
 
     @Override
     public void createWalls() {
@@ -244,17 +216,6 @@ public class Maze implements MazeInterface {
             }
         }
     }
-    /*   if (i == 0 && j == 0)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "a"));
-             if (i == xsize-1 && j == 0)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "c"));
-             if (i == 0 && j == ysize-1)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "g"));
-             if (i == xsize-1 && j == ysize-1)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "h"));
-
-             if (i == 0 && j != 0 && j != ysize-1)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "e"));
-            if (i == xsize-1 && j != 0 && j != ysize-1)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "d"));
-            if (j == 0 && i != 0 && i != xsize-1)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "b"));
-             if (j == ysize-1 && i != 0 && i != xsize-1)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "f"));
-
-     */
 
     @Override
     public void createHpBar(int xs, int ys) {

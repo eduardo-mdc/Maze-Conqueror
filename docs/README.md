@@ -23,7 +23,7 @@ The following screenshots illustrate and gifs the general look of our game, as w
 ### Finishing the game
 ![img](gifs/FinishingGame.gif)
 
-## IMPLEMENTED FEATURES
+## Implemented Features
 
 
 ### Main Menu
@@ -34,6 +34,7 @@ The following screenshots illustrate and gifs the general look of our game, as w
 - **Exit** - Closes the game.
 
 ### Core Game
+
 >This section details the features of the core gameplay.
 - **Maze Generation** - Creates a new random maze with a reachable ending everytime the game is started.
 - **Movement** - Allows the player to move the hero character.
@@ -45,17 +46,18 @@ The following screenshots illustrate and gifs the general look of our game, as w
 - **Pause** - Allows the player to pause the game.
 
 ### Pause Menu
+
 >This section details the features in regard to the pause menu. The current visual aspect is a WIP.
 - **Resume Game** - Allows the player to resume the game.
 - **Restart** - Allows the player to restart the game.
 - **Exit** - Closes the game.
 
 
-### PLANNED FEATURES
+### Planned Features
 
 >This section details the planned features for the game as a whole. These may be subject to change as we develop the project.
 
-- **Multithreaded Input** - Currently the game runs on a single thread. This is not acceptable due to the fact that the getInput method from lanterna stops the process from running, which prevents time based mechanics. Currently there's a WIP branch that gets input from another thread.
+- **Multithreaded Input** - Currently the game runs on a single thread. This is not acceptable due to the fact that the `getInput()` method from `lanterna` stops the process from running, which prevents time based mechanics. Currently there's a WIP branch that gets input from another thread.
 - **Refactor the Menus** - The current menus are pre-made from the lanterna library which are incompatible with the threaded KeyboardListener class (in WIP branch). As such these will have to be remade in order to account for these incompatibilities.
 - **Points** - Finish the game with a certain amount of points, the faster you complete the maze, the higher your points. Points are also acquired whenever you enter a new empty tile.
 - **Continue Playing** - Continue playing after completing the first maze (with a new randomly generated maze) in order to increase your total points. The maze may increase in difficulty.
@@ -63,52 +65,69 @@ The following screenshots illustrate and gifs the general look of our game, as w
 - **Portals** - Static elements which, on contact teleport the player to another portal on the maze. 
 - **Other Special Elements** - Special elements which cause different effects on contact, these are still in discussion. 
 - **Items** - Special items that can be acquired that interact with the maze in some way.
+- **Leaderboard** - Highscore file that stores the best players.
+- **Shop** - Way to acquire items after the game is finished.
+- **Events** - Randomly deciding certain aspects of the maze, this is to add to the repeatability of the gameplay.
 
-### DESIGN
+### Design
 
-> This section should be organized in different subsections, each describing a different design problem that you had to solve during the project. Each subsection should be organized in four different parts:
-
-- **Problem in Context.** The description of the design context and the concrete problem that motivated the instantiation of the pattern. Someone else other than the original developer should be able to read and understand all the motivations for the decisions made. When refering to the implementation before the pattern was applied, don’t forget to [link to the relevant lines of code](https://help.github.com/en/articles/creating-a-permanent-link-to-a-code-snippet) in the appropriate version.
-- **The Pattern.** Identify the design pattern to be applied, why it was selected and how it is a good fit considering the existing design context and the problem at hand.
-- **Implementation.** Show how the pattern roles, operations and associations were mapped to the concrete design classes. Illustrate it with a UML class diagram, and refer to the corresponding source code with links to the relevant lines (these should be [relative links](https://help.github.com/en/articles/about-readmes#relative-links-and-image-paths-in-readme-files). When doing this, always point to the latest version of the code.
-- **Consequences.** Benefits and liabilities of the design after the pattern instantiation, eventually comparing these consequences with those of alternative solutions.
-
-**Example of one of such subsections**:
+> The project as a whole was designed with the test-driven development process, which consists on software requirements being converted to test cases before software is fully developed, and tracking all software development by repeatedly testing the software against all test cases.
 
 ------
 
-#### THE JUMP ACTION OF THE KANGAROOBOY SHOULD BEHAVE DIFFERENTLY DEPENDING ON ITS STATE
-
+#### The Core Game
 **Problem in Context**
 
-There was a lot of scattered conditional logic when deciding how the KangarooBoy should behave when jumping, as the jumps should be different depending on the items that came to his possession during the game (an helix will alow him to fly, driking a potion will allow him to jump double the height, etc.). This is a violation of the **Single Responsability Principle**. We could concentrate all the conditional logic in the same method to circumscribe the issue to that one method but the **Single Responsability Principle** would still be violated.
+The problem in question was figuring out what the game was currently doing and reacting by running code accordingly.
 
 **The Pattern**
 
-We have applied the **State** pattern. This pattern allows you to represent different states with different subclasses. We can switch to a different state of the application by switching to another implementation (i.e., another subclass). This pattern allowed to address the identified problems because […].
-
-**Implementation**
+The main pattern that is used to develop the project is the **_State Pattern_** which is a behavioral design pattern that lets an object alter its behavior when its internal state changes.
+This pattern allows you to represent different states with different subclasses. We can switch to a different state of the application by switching to another implementation (i.e., another subclass). This pattern allowed us to address the identified problems 
+because distinguishable states exist. Each state can lead to one or multiple states and can also end the process flow. 
 
 The following figure shows how the pattern’s roles were mapped to the application classes.
 
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg)
+**Implementation**
+
+Our State Machine relies on the game state or player actions to determine which state to go to next. 
+The Main Menu functions as a default state where many different actions can be performed. 
+These can depend on previous and current inputs, as well as states. 
+A Restart state can then be used to perform clean up actions.
+
+
+![img](UML/GameUML.png)
 
 These classes can be found in the following files:
 
-- [Character](https://web.fe.up.pt/~arestivo/page/courses/2021/lpoo/template/src/main/java/Character.java)
-- [JumpAbilityState](https://web.fe.up.pt/~arestivo/page/courses/2021/lpoo/template/src/main/java/JumpAbilityState.java)
-- [DoubleJumpState](https://web.fe.up.pt/~arestivo/page/courses/2021/lpoo/template/src/main/java/DoubleJumpState.java)
-- [HelicopterState](https://web.fe.up.pt/~arestivo/page/courses/2021/lpoo/template/src/main/java/HelicopterState.java)
-- [IncreasedGravityState](https://web.fe.up.pt/~arestivo/page/courses/2021/lpoo/template/src/main/java/IncreasedGravityState.java)
+- [Game](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/game/Game.java)
+- [GameInterface](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/game/GameInterface.java)
+- [Maze](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/maze/Maze.java)
+- [Menu](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/menu/Menu.java)
 
 **Consequences**
 
 The use of the State Pattern in the current design allows the following benefits:
 
-- The several states that represent the character’s hability to jump become explicit in the code, instead of relying on a series of flags.
-- We don’t need to have a long set of conditional if or switch statements associated with the various states; instead, polimorphism is used to activate the right behavior.
-- There are now more classes and instances to manage, but still in a reasonable number.
+- The several states that represent the different game states become explicit in the code, 
+instead of relying on a series of flags.
+- A well organized code, readable code.
+- Minimal conditional complexity.
 
+------
+#### Figuring out how to represent elements in the game.
+
+**Problem in Context**
+
+In our game, multiple elements like walls, paths and the player character exist, and we had to figure out a way to represent them
+in a structured efficient way. 
+
+**Implementation**
+
+To resolve this issue we created the `Element` class which is a super class to represent all the various elements in our game. Then we stored them in various data structures 
+(depending on efficiency).
+
+------
 #### KNOWN CODE SMELLS AND REFACTORING SUGGESTIONS
 
 > This section should describe 3 to 5 different code smells that you have identified in your current implementation, and suggest ways in which the code could be refactored to eliminate them. Each smell and refactoring suggestions should be described in its own subsection.
