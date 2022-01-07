@@ -123,13 +123,13 @@ public class Maze implements MazeInterface {
             winGame();
             return;
         } else {
-            if (checkElement(position,RedPath.class)) {
+            if (checkElement(position, RedPath.class)) {
                 hero.heroTakesDamage();
                 loadHearts();
                 if (hero.isDead()) gameOver();
                 return;
             }
-            if (!checkElement(position,Wall.class)) {
+            if (!checkElement(position, Wall.class)) {
                 moveHero(position);
             }
         }
@@ -139,7 +139,7 @@ public class Maze implements MazeInterface {
     @Override
     public void moveHero(PositionInterface position) {
         counter++;
-        if (!checkPath(hero.getPosition()) && !checkElement(hero.getPosition(),RedPath.class))
+        if (!checkPath(hero.getPosition()) && !checkElement(hero.getPosition(), RedPath.class))
             path.add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
         hero.setPosition(position);
         if (counter == 2) {
@@ -189,17 +189,17 @@ public class Maze implements MazeInterface {
 
     /**
      * Check if there's an element of a given class at a certain position in staticElems
+     *
      * @param position position to check.
-     * @param cl Class type to check
+     * @param cl       Class type to check
      * @return corresponding to the existence of a cl object at the given position.
      */
-   private boolean checkElement(PositionInterface position, Class cl) {
+    private boolean checkElement(PositionInterface position, Class cl) {
         for (Element tile : staticElems) {
             if (cl.isInstance(tile) && tile.getPosition().equals(position)) return true;
         }
         return false;
     }
-
 
 
     @Override
