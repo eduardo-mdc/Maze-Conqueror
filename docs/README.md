@@ -125,7 +125,15 @@ in a structured efficient way.
 **Implementation**
 
 To resolve this issue we created the `Element` class which is a super class to represent all the various elements in our game. Then we stored them in various data structures 
-(depending on efficiency).
+(depending on efficiency). These stored structures are located on the `Maze` class which then handles their use in the game.
+
+![img](UML/ElementSubClassesUML.png)
+
+**Consequences**
+
+- Easily obtain proprieties and status of all the elements present on the game.
+- Avoid code smells due to repeating the same code multiple times.
+- Can have multiple elements on the same position (which would be impossible if we represented the elements on a matrix for example).
 
 ------
 #### KNOWN CODE SMELLS AND REFACTORING SUGGESTIONS
