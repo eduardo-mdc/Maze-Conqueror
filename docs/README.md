@@ -276,7 +276,7 @@ Remove the function.
 
 ![img](screenshots/TestsWithCoverage.png)
 
-### SELF-EVALUATION
+### Self-Evaluation
 
 - Eduardo Correia: 33.3%
 - Jose Carvalho: 33.3%
