@@ -155,19 +155,51 @@ Using the `lanterna` prebuilt menu function, while simple to use, makes it so th
 which means that this implementation will need to be refactored.
 
 ------
-#### KNOWN CODE SMELLS AND REFACTORING SUGGESTIONS
+### Known code smells and refactoring suggestions.
 
-> This section should describe 3 to 5 different code smells that you have identified in your current implementation, and suggest ways in which the code could be refactored to eliminate them. Each smell and refactoring suggestions should be described in its own subsection.
+>The following are the code smells we could identify in our project.
+------
 
-**Example of such a subsection**:
+**Problem**
+
+Currently, the `Maze` class is responsible for too much code, handling game elements that should be outside of its reach, for example the `Hearts` class, which should be handled in the `Game`.
+
+**Solution**
+
+Refactor the `Hearts` handling code to be in a different class.
+
+------
+**Problem**
+
+The `Heart` element is currently stored in a `ArrayList`, which is not as efficient as storing it in a stack, for our use case. This is due to the implementation of the `remove()` method in the `List` class which has a complexity of `O(n)`. <p>
+Comparatively speaking, the `pop()` method in a `Stack` has a complexity of `O(1)`.
+
+**Solution**
+
+Change the code to accept `Hearts` in a `Stack` instead of a `ArrayList`.
 
 ------
 
-#### DATA CLASS
+**Problem**
 
-The `PlatformSegment` class is a **Data Class**, as it contains only fields, and no behavior. This is problematic because […].
+The `Hero` class constructor does not currently accept health as an argument, which means we need to call the `setHealth()` function 
+unnecessarily after we create an instance.
 
-A way to improve the code would be to move the `isPlatformSegmentSolid()` method to the `PlatformSegment` class, as this logic is purely concerned with the `PlatformSegment` class.
+**Solution**
+
+Change the `Hero` constructor to accept heath.
+
+------
+
+**Problem**
+
+Currently, the `checkTile()` function in the `Maze` class consists of nested if's, which makes it quite hard to read and understand.
+
+**Solution**
+
+Change the function to work based of a state design or a switch. 
+
+------
 
 ### TESTING
 
