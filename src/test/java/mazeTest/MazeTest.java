@@ -1,8 +1,11 @@
 package mazeTest;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
+import element.ElementInterface;
 import element.Static.Heart;
 import element.Static.StaticElement;
+import element.Static.Trophy;
+import element.Static.Wall;
 import game.GameInterface;
 import maze.Maze;
 import maze.MazeInterface;
@@ -18,6 +21,7 @@ public class MazeTest {
 
     private MazeInterface maze;
     private GameInterface game;
+    private List<StaticElement> staticElems;
     private int dim;
 
 
@@ -26,6 +30,7 @@ public class MazeTest {
         dim = 50;
         game = mock(GameInterface.class);
         maze = new Maze(game, dim);
+        staticElems = maze.getStaticElems();
     }
 
     @Test
@@ -51,7 +56,6 @@ public class MazeTest {
     @Test
     public void createHpBarTest() {
         List<Heart> hpList = maze.getHpList();
-        List<StaticElement> staticElems = maze.getStaticElems();
         int hpBarSize = hpList.size();
         assertEquals(hpBarSize, 5);
         assertFalse(hpList.isEmpty());
@@ -60,16 +64,21 @@ public class MazeTest {
 
     @Test
     public void createWallsTest() {
-
+        int wallCounter = 0;
+        int dimTotal = maze.getDim() * maze.getDim();
+        for (ElementInterface e : staticElems)
+            if (e instanceof Wall)
+                wallCounter += 1;
+        assertTrue(wallCounter < dimTotal);
+        assertFalse(wallCounter >= dimTotal);
     }
 
     @Test
     public void createTrophyTest() {
-        TextGraphics graphics = mock(TextGraphics.class);
-        MazeInterface tempMaze = mock(MazeInterface.class);
-        tempMaze.draw(graphics);
-        verify(tempMaze, times(1)).draw(graphics);
+        int trophy = 0;
+        for (ElementInterface e : staticElems)
+            if (e instanceof Trophy)
+                trophy += 1;
+        assertEquals(1, trophy);
     }
-
-
 }
