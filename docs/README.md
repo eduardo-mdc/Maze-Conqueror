@@ -133,6 +133,7 @@ The use of the **_State Pattern_** in the current design allows the following be
 
 The maze interface and class is a pivotal object in the application, being the arena where all elements will appear and
 interact. The **_Singleton Pattern_** ensures that this class only has one instance and provide a global access point.
+
 ------
 
 #### Figuring out how to represent elements in the game.
