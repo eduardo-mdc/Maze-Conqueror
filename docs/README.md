@@ -58,7 +58,7 @@ The following screenshots illustrate and gifs the general look of our game, as w
 >This section details the planned features for the game as a whole. These may be subject to change as we develop the project.
 
 - **Multithreaded Input** - Currently the game runs on a single thread. This is not acceptable due to the fact that the `getInput()` method from `lanterna` stops the process from running, which prevents time based mechanics. Currently there's a WIP branch that gets input from another thread.
-- **Refactor the Menus** - The current menus are pre-made from the lanterna library which are incompatible with the threaded KeyboardListener class (in WIP branch). As such these will have to be remade in order to account for these incompatibilities.
+- **Refactor the Menus** - The current menus are pre-made from the `lanterna` library which are incompatible with the threaded KeyboardListener class (in WIP branch). As such these will have to be remade in order to account for these incompatibilities.
 - **Points** - Finish the game with a certain amount of points, the faster you complete the maze, the higher your points. Points are also acquired whenever you enter a new empty tile.
 - **Continue Playing** - Continue playing after completing the first maze (with a new randomly generated maze) in order to increase your total points. The maze may increase in difficulty.
 - **Enemies** - Add enemies with random movement that deal contact damage.
@@ -122,6 +122,8 @@ instead of relying on a series of flags.
 In our game, multiple elements like walls, paths and the player character exist, and we had to figure out a way to represent them
 in a structured efficient way. 
 
+**Pattern**
+
 **Implementation**
 
 To resolve this issue we created the `Element` class which is a super class to represent all the various elements in our game. Then we stored them in various data structures 
@@ -134,6 +136,23 @@ To resolve this issue we created the `Element` class which is a super class to r
 - Easily obtain proprieties and status of all the elements present on the game.
 - Avoid code smells due to repeating the same code multiple times.
 - Can have multiple elements on the same position (which would be impossible if we represented the elements on a matrix for example).
+
+------
+#### Creating the Menu
+
+**Problem in Context**
+
+A menu/user interface is required to interact and manipulate the games current status, for example to start the game or exit it.
+
+**Implementation**
+
+We implemented 3 basic menus (Start Menu, Pause Menu, Instructions Menu) that derives from the basic `lanterna` class `ActionListDialogBuilder`. To select the menu the caller must indicate the type of menu.
+Each menu contains several buttons that allow you to perform functions within the game.
+
+**Consequences**
+
+Using the `lanterna` prebuilt menu function, while simple to use, makes it so the multithreaded approach to getting the user's input does not work,
+which means that this implementation will need to be refactored.
 
 ------
 #### KNOWN CODE SMELLS AND REFACTORING SUGGESTIONS
