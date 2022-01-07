@@ -41,6 +41,7 @@ public class Maze implements MazeInterface {
     final private String backgroundcolor = "BLACK";
     //TODO change hero constructor to accept starting hp as a variable and the correspondent tests
     private final int heroHealth = 5;
+
     /**
      * Constructor for the maze class. Requires a game class in which the maze shall be used and an appropriate dimension.
      *
@@ -246,19 +247,21 @@ public class Maze implements MazeInterface {
              if (j == ysize-1 && i != 0 && i != xsize-1)staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "f"));
 
      */
-/**
-* Creates an Hpbar object at the upper-left corner of the terminal. //todo not right
-*/
+
+    /**
+     * Creates an Hpbar object at the upper-left corner of the terminal. //todo not right
+     */
     private void createHpBar() {
         int xsize = dim;
         int ysize = 5;
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
-                if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1){
+                if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1) {
                     staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "#"));
                 }
-                if (i == 14 || i == 28 || i == 42) staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "#"));
-          }
+                if (i == 14 || i == 28 || i == 42)
+                    staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "#"));
+            }
         }
         loadHearts();
         staticElems.add(new HpBar(new Position(22, 3), "#FFFFFF", SGR.BOLD, "a"));
@@ -274,7 +277,7 @@ public class Maze implements MazeInterface {
     private void loadHearts() {
         hp.clear();
         for (int i = 1; i <= hero.getHealth(); i++) {
-            hp.add(new Heart(new Position(i + 1+xIncr, 3), "#FF0000", SGR.BOLD, "*"));
+            hp.add(new Heart(new Position(i + 1 + xIncr, 3), "#FF0000", SGR.BOLD, "*"));
         }
     }
 
