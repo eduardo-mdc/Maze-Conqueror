@@ -94,8 +94,18 @@ public class Maze implements MazeInterface {
     }
 
     @Override
+    public List<StaticElement> getStaticElems() {
+        return staticElems;
+    }
+
+    @Override
+    public List<Heart> getHpList() {
+        return hp;
+    }
+
+    @Override
     public void createElements() {
-        createHpBar();
+        createHpBar(dim, 5);
         createWalls();
         createTrophy();
     }
@@ -218,17 +228,15 @@ public class Maze implements MazeInterface {
     }
 */
 
-    /**
-     * Creates a Trophy at the ending position of the maze.
-     */
-    private void createTrophy() {
+
+    @Override
+    public void createTrophy() {
         staticElems.add(new Trophy(ending, "#F3CA28", SGR.BOLD, "$"));
     }
 
-    /**
-     * Creates walls objects corresponding to where the value 0 exists in the raw integer maze.
-     */
-    private void createWalls() {
+
+    @Override
+    public void createWalls() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 if (maze[i][j] == 0)
@@ -248,12 +256,10 @@ public class Maze implements MazeInterface {
 
      */
 
-    /**
-     * Creates an Hpbar object at the upper-left corner of the terminal. //todo not right
-     */
-    private void createHpBar() {
-        int xsize = dim;
-        int ysize = 5;
+    @Override
+    public void createHpBar(int xs, int ys) {
+        int xsize = xs;
+        int ysize = ys;
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
                 if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1) {
