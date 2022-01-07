@@ -55,7 +55,7 @@ The following screenshots illustrate and gifs the general look of our game, as w
 
 >This section details the planned features for the game as a whole. These may be subject to change as we develop the project.
 
-- **Multithreaded Input** - Currently the game runs on a single thread. This is not acceptable due to the fact that the getInput method from lanterna stops the process from running, which prevents time based mechanics. Currently there's a WIP branch that gets input from another thread.
+- **Multithreaded Input** - Currently the game runs on a single thread. This is not acceptable due to the fact that the `getInput()` method from `lanterna` stops the process from running, which prevents time based mechanics. Currently there's a WIP branch that gets input from another thread.
 - **Refactor the Menus** - The current menus are pre-made from the lanterna library which are incompatible with the threaded KeyboardListener class (in WIP branch). As such these will have to be remade in order to account for these incompatibilities.
 - **Points** - Finish the game with a certain amount of points, the faster you complete the maze, the higher your points. Points are also acquired whenever you enter a new empty tile.
 - **Continue Playing** - Continue playing after completing the first maze (with a new randomly generated maze) in order to increase your total points. The maze may increase in difficulty.
@@ -63,6 +63,9 @@ The following screenshots illustrate and gifs the general look of our game, as w
 - **Portals** - Static elements which, on contact teleport the player to another portal on the maze. 
 - **Other Special Elements** - Special elements which cause different effects on contact, these are still in discussion. 
 - **Items** - Special items that can be acquired that interact with the maze in some way.
+- **Leaderboard** - Highscore file that stores the best players.
+- **Shop** - Way to acquire items after the game is finished.
+- **Events** - Randomly deciding certain aspects of the maze, this is to add to the repeatability of the gameplay.
 
 ### DESIGN
 
