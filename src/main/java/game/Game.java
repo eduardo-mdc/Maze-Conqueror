@@ -13,7 +13,7 @@ import listener.KeyboardListener;
 import maze.Maze;
 import maze.MazeInterface;
 import menu.MenuInterface;
-import menu.Menu;
+import menu.MenuOLD;
 
 import java.awt.*;
 import java.io.File;
@@ -161,7 +161,7 @@ public class Game implements GameInterface {
             if (key.getKeyType() == KeyType.EOF)
                 quit(0);
             if (key.getKeyType() == KeyType.Escape) {
-                menu = new Menu(this, screen, 2);
+                menu = new MenuOLD(this, screen, 2);
             }
         }
         maze.nextFrame(key);
@@ -182,7 +182,7 @@ public class Game implements GameInterface {
 
     @Override
     public void loadInitialMenu() throws IOException {
-        menu = new Menu(this, screen, 1);
+        menu = new MenuOLD(this, screen, 1);
     }
 
     @Override
@@ -194,13 +194,13 @@ public class Game implements GameInterface {
 
     @Override
     public void loadInstructionsMenu() throws IOException {
-        menu = new Menu(this, screen, 3);
+        menu = new MenuOLD(this, screen, 3);
     }
 
     @Override
     public void restartGameMenu() throws IOException {
         restartGame();
-        menu = new Menu(this, screen, 1);
+        menu = new MenuOLD(this, screen, 1);
     }
 
     @Override

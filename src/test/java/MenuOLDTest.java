@@ -4,7 +4,7 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
 import game.Game;
-import menu.Menu;
+import menu.MenuOLD;
 import menu.MenuInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 
 
-public class MenuTest {
+public class MenuOLDTest {
     private MenuInterface menu;
     private Screen screen;
     private Game game;
@@ -24,12 +24,12 @@ public class MenuTest {
     public void helper() throws IOException {
         game = new Game();
         screen = new TerminalScreen(new DefaultTerminalFactory().createTerminal());
-        menu = new Menu(game, screen, 0);
+        menu = new MenuOLD(game, screen, 0);
     }
 
     @Test
     public void constructorTest() throws IOException {
-        MenuInterface tempMenu = new Menu(game, screen, 0);
+        MenuInterface tempMenu = new MenuOLD(game, screen, 0);
         assertTrue(tempMenu != null);
     }
 
@@ -50,14 +50,14 @@ public class MenuTest {
 
     @Test
     public void getGameTest() throws IOException {
-        MenuInterface tempMenu = new Menu(null, screen, 0);
+        MenuInterface tempMenu = new MenuOLD(null, screen, 0);
         assertEquals(tempMenu.getGame(), null);
         assertEquals(menu.getGame(), game);
     }
 
     @Test
     public void getScreenTest() throws IOException {
-        MenuInterface tempMenu = new Menu(null, screen, 0);
+        MenuInterface tempMenu = new MenuOLD(null, screen, 0);
         assertFalse(tempMenu.getScreen() == null);
         assertEquals(menu.getScreen(), screen);
     }
