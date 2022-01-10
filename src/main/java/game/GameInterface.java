@@ -124,4 +124,6 @@ public interface GameInterface {
      * Main game loop. Constantly checks the state of the game and runs code accordingly.
      */
     void run();
+
+    int getCurrentState();
 }

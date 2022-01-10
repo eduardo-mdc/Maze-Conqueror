@@ -107,7 +107,7 @@ public class Menu implements MenuInterface {
                 .addAction("RESUME GAME", new Runnable() {
                     @Override
                     public void run() {
-                        game.setState(1);
+
                     }
                 })
                 .addAction("RESTART", new Runnable() {

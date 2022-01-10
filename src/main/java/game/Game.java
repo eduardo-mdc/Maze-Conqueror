@@ -223,4 +223,11 @@ public class Game implements GameInterface {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public int getCurrentState() {
+        return state;
+    }
+
+
 }
