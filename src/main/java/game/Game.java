@@ -158,9 +158,16 @@ public class Game implements GameInterface {
     private void readKey(KeyStroke key) throws IOException {
         if(key != null){
             if ((key.getKeyType() == KeyType.Character && key.getCharacter() == ('q')) || (key.getKeyType() == KeyType.EOF)) quit(0);
-            if (key.getKeyType() == KeyType.Escape && this.getState() == 1) {
+            else if (key.getKeyType() == KeyType.Escape && this.getState() == 1) {
                 menu = new PauseMenu(this, screen);
                 this.setState(6);
+            }
+            if(this.getState() == 6){
+                switch (key.getKeyType()) {
+                    case ArrowUp -> menu.iterateSelection(-1);
+                    case ArrowDown -> menu.iterateSelection(1);
+                    case Enter -> menu.select();
+                }
             }
         }
         maze.nextFrame(key);

@@ -10,6 +10,7 @@ public class InstructionsButton extends Button implements Action {
     public InstructionsButton(Game game,Position position) {
         super(position);
         this.game = game;
+        setText("INSTRUCTIONS");
     }
 
     @Override

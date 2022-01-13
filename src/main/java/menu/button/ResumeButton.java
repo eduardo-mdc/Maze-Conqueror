@@ -10,6 +10,7 @@ public class ResumeButton extends Button implements Action {
     public ResumeButton(Game game,Position position) {
         super(position);
         this.game = game;
+        setText("RESUME");
     }
 
     @Override

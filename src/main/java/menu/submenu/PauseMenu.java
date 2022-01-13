@@ -24,7 +24,6 @@ public class PauseMenu extends Menu {
 
     public PauseMenu(Game game, Screen screen) throws IOException {
         super(game,screen);
-        btn = new ArrayList<>();
         btn = Arrays.asList(
                 new ResumeButton(game,new Position(xIncr,yIncr)),
                 new RestartButton(game,new Position(xIncr,yIncr+10)),

@@ -10,6 +10,7 @@ public class ExitButton extends Button implements Action {
     public ExitButton(Game game, Position position) {
         super(position);
         this.game = game;
+        setText("EXIT");
     }
 
     @Override

@@ -10,6 +10,7 @@ public class RestartButton extends Button implements Action {
     public RestartButton(Game game,Position position) {
         super(position);
         this.game = game;
+        setText("RESTART");
     }
 
     @Override

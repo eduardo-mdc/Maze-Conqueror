@@ -10,6 +10,7 @@ public class StartButton extends Button implements Action {
     public StartButton(Game game,Position position) {
         super(position);
         this.game = game;
+        setText("START");
     }
 
     @Override
