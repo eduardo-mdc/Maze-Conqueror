@@ -35,8 +35,8 @@ public class Menu {
 
     public void iterateSelection(int iterator){
         selected += iterator;
-        if(selected < 0) selected = 0;
-        else if(selected > btn.size()-1) selected = btn.size()-1;
+        if(selected < 0) selected = btn.size()-1;
+        else if(selected > btn.size()-1) selected = 0;
     }
 
     public void select(){
