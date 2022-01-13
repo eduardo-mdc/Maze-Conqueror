@@ -28,8 +28,6 @@ public class Menu {
 
     private final String backgroundcolor = "BLACK";
 
-
-
     public Menu(Game game, Screen screen) throws IOException {
         this.game = game;
         this.screen = screen;

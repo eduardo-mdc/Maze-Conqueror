@@ -21,6 +21,7 @@ public class Button extends GenericMenuElement implements Action{
     public String getCurrentColor() {
         return currentColor;
     }
+
     public void setCurrentColor(String newColor){
         currentColor = newColor;
     }
