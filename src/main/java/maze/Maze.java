@@ -158,8 +158,6 @@ public class Maze implements MazeInterface {
         return maze;
     }
 
-
-
     @Override
     public void createElements() {
         createHpBar();
@@ -206,8 +204,6 @@ public class Maze implements MazeInterface {
         }
     }
 
-
-
     /**
      * Creates an Hpbar object at the upper-left corner of the terminal.
      */
@@ -223,8 +219,6 @@ public class Maze implements MazeInterface {
         }
         loadHearts();
     }
-
-
 
     //TODO change hearts to be stored to a stack instead.
 

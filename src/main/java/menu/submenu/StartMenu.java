@@ -18,14 +18,14 @@ import java.util.List;
 
 public class StartMenu extends Menu {
     private final int xIncr = 10;
-    private final int yIncr = 5;
+    private final int yIncr = 20;
 
     public StartMenu(Game game, Screen screen) throws IOException {
         super(game,screen);
         btn = Arrays.asList(
                 new StartButton(game,new Position(xIncr,yIncr)),
-                new InstructionsButton(game,new Position(xIncr,yIncr+10)),
-                new ExitButton(game,new Position(xIncr,yIncr+20))
+                new InstructionsButton(game,new Position(xIncr,yIncr+5)),
+                new ExitButton(game,new Position(xIncr,yIncr+10))
         );
     }
 }

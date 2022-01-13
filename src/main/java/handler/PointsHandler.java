@@ -26,13 +26,17 @@ public class PointsHandler {
     }
 
     public void setPoints(Integer points) {
-        this.points = points;
+        if(points < 0) this.points = 0;
+        else this.points = points;
+    }
+
+    public void incrementPoints(Integer increment){
+        setPoints(points+increment);
     }
 
     public void draw(TextGraphics screen){
         screen.setForegroundColor(TextColor.Factory.fromString(color));
         screen.putString(new TerminalPosition(1, 5), ("SCORE " + points.toString()));
     }
-
 
 }

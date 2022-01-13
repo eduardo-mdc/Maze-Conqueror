@@ -42,6 +42,7 @@ public class HeroHandler {
 
     public void takeDamage(){
         hero.heroTakesDamage();
+        maze.getGame().getPointsHandler().incrementPoints(-130);
         maze.loadHearts();
         if (hero.isDead()){
             hero.setHealth(heroHealth);

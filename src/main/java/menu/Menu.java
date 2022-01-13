@@ -5,16 +5,12 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
-import element.Static.StaticElement;
 import element.position.Position;
 import game.Game;
-import menu.button.ExitButton;
-import menu.button.InstructionsButton;
-import menu.button.StartButton;
+import menu.submenu.TextMenuElement;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Menu {
@@ -22,8 +18,8 @@ public class Menu {
     private Screen screen;
 
     protected List<Button> btn;
-    private final int xIncr = 10;
-    private final int yIncr = 5;
+    protected List<TextMenuElement> texts;
+    protected String text;
     private int selected;
 
     private final String backgroundcolor = "BLACK";
@@ -32,6 +28,8 @@ public class Menu {
         this.game = game;
         this.screen = screen;
         btn = new ArrayList<>();
+        texts = new ArrayList<>();
+        text = "";
         selected = 0;
     }
 
@@ -45,6 +43,15 @@ public class Menu {
         btn.get(selected).execute();
     }
 
+    protected void splitText(String separator,int xIncr, int yIncr){
+        String[] strArr = text.split(separator);
+        int counter = 0;
+        for(String word : strArr){
+            texts.add(new TextMenuElement(new Position(xIncr,yIncr+counter),word));
+            counter += 2;
+        }
+    }
+
     public void draw(){
         int counter = 0;
         TextGraphics textgraphics = screen.newTextGraphics();
@@ -55,6 +62,9 @@ public class Menu {
             else button.setSelected(false);
             button.draw(textgraphics);
             counter++;
+        }
+        for(TextMenuElement element : texts){
+            element.draw(textgraphics);
         }
     }
 }

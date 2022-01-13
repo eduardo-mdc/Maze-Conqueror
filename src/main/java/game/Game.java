@@ -11,14 +11,10 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import handler.PointsHandler;
-import listener.KeyboardListener;
 import maze.Maze;
 import maze.MazeInterface;
 import menu.Menu;
-import menu.MenuOLD;
-import menu.submenu.InstructionsMenu;
-import menu.submenu.PauseMenu;
-import menu.submenu.StartMenu;
+import menu.submenu.*;
 
 import java.awt.*;
 import java.io.File;
@@ -190,9 +186,18 @@ public class Game implements GameInterface {
         this.setState(6);
     }
 
+    public void loadGameOverMenu() throws IOException{
+        menu = new GameOverMenu(this,screen);
+        this.setState(6);
+    }
+
+    public void loadVictoryMenu() throws IOException{
+        menu = new VictoryMenu(this,screen);
+        this.setState(6);
+    }
+
     @Override
     public void runGame() throws IOException {
-
         if (!initialized) initialize();
         KeyStroke key = screen.pollInput();
         readKey(key);
@@ -237,7 +242,9 @@ public class Game implements GameInterface {
                     case 2 -> loadInstructionsMenu();
                     case 3 -> quit(0);
                     case 4 -> restartGame();
+                    case 5 -> loadGameOverMenu();
                     case 6 -> runMenu();
+                    case 7 -> loadVictoryMenu();
                 }
                 Thread.sleep((int) (1000/fps));
             }
@@ -256,13 +263,12 @@ public class Game implements GameInterface {
 
     @Override
     public void winGame() {
-        setState(5);
+        setState(7);
     }
 
     @Override
     public void gameOver() {
-        restartGame();
-        setState(0);
+        setState(5);
     }
 
     @Override

@@ -16,12 +16,15 @@ import java.util.List;
 
 public class InstructionsMenu extends Menu {
     private final int xIncr = 10;
-    private final int yIncr = 5;
+    private final int yIncr = 20;
+
 
     public InstructionsMenu(Game game, Screen screen) throws IOException {
         super(game,screen);
+        text = "TO WIN YOU MUST REACH@THE TROPHY AT THE END";
+        splitText("@",xIncr,yIncr);
         btn = Arrays.asList(
-                new MainMenuButton(game,new Position(xIncr,yIncr))
+                new MainMenuButton(game,new Position(xIncr+7,yIncr+10))
         );
     }
 }

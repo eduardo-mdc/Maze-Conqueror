@@ -12,7 +12,7 @@ public class GenericMenuElement {
     private String backColor;
 
 
-    GenericMenuElement(Position position){
+    public GenericMenuElement(Position position){
         this.position = position;
         this.setBackColor("BLACK");
         this.setText("");
@@ -52,6 +52,7 @@ public class GenericMenuElement {
 
     public void draw(TextGraphics screen) {
         screen.setBackgroundColor(TextColor.Factory.fromString(getBackColor()));
+        screen.setForegroundColor(TextColor.Factory.fromString(getColor()));
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), getText());
     }
 
