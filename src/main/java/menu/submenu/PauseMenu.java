@@ -23,7 +23,7 @@ public class PauseMenu extends Menu {
         btn = Arrays.asList(
                 new ResumeButton(game,new Position(xIncr,yIncr)),
                 new RestartButton(game,new Position(xIncr,yIncr+10)),
-                new ExitButton(game,new Position(xIncr,yIncr+20))
+                new MainMenuButton(game,new Position(xIncr,yIncr+20))
         );
     }
 }

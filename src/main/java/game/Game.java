@@ -155,9 +155,11 @@ public class Game implements GameInterface {
     private void readKey(KeyStroke key) throws IOException {
         if(key != null){
             if ((key.getKeyType() == KeyType.Character && key.getCharacter() == ('q')) || (key.getKeyType() == KeyType.EOF)) quit(0);
-            else if (key.getKeyType() == KeyType.Escape && this.getState() == 1) {
-                menu = new PauseMenu(this, screen);
-                this.setState(6);
+            if(this.getState() == 1){
+                if (key.getKeyType() == KeyType.Escape){
+                    menu = new PauseMenu(this, screen);
+                    this.setState(6);
+                }
             }
             if(this.getState() == 6){
                 switch (key.getKeyType()) {
@@ -167,7 +169,6 @@ public class Game implements GameInterface {
                 }
             }
         }
-        maze.nextFrame(key);
     }
 
     @Override
@@ -191,7 +192,9 @@ public class Game implements GameInterface {
     @Override
     public void runGame() throws IOException {
         if (!initialized) initialize();
-        readKey(screen.pollInput());
+        KeyStroke key = screen.pollInput();
+        readKey(key);
+        maze.nextFrame(key);
         draw();
     }
 

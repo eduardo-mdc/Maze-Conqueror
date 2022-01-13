@@ -30,14 +30,13 @@ public class Maze implements MazeInterface {
     private int counter;
     private Position begin;
     private final Position ending;
-    private final boolean init;
     private final GameInterface game;
     private int[][] maze;
-    private final int dim;
-    private final Hero hero;
-    private final List<StaticElement> staticElems;
-    private final List<Heart> hp;
-    private final Queue<Path> path;
+    private int dim;
+    private Hero hero;
+    private List<StaticElement> staticElems;
+    private List<Heart> hp;
+    private Queue<Path> path;
     final private String backgroundcolor = "BLACK";
     //TODO change hero constructor to accept starting hp as a variable and the correspondent tests
     private final int heroHealth = 5;
@@ -53,13 +52,13 @@ public class Maze implements MazeInterface {
         this.dim = dim;
         this.begin = new Position(1 + xIncr, 1 + yIncr);
         this.ending = new Position(dim - 2 + xIncr, dim - 2 + yIncr);
-        init = false;
         counter = 0;
         hp = new ArrayList<>();
         staticElems = new ArrayList<>();
         path = new LinkedList<>();
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
         hero.setHealth(heroHealth);
+
 
         //Generate correct maze with the chosen algorithm
         do {
@@ -112,22 +111,24 @@ public class Maze implements MazeInterface {
             winGame();
             return;
         } else {
-            if (checkRedPath(position)) {
+            if (checkElement(position,RedPath.class)) {
                 hero.heroTakesDamage();
                 loadHearts();
                 if (hero.isDead()) gameOver();
                 return;
             }
-            if (!checkWall(position)) {
+            if (!checkElement(position,Wall.class)) {
                 moveHero(position);
             }
         }
     }
 
 
+
+
     @Override
     public void moveHero(PositionInterface position) {
-        if (!checkPath(hero.getPosition()) && !checkRedPath(hero.getPosition()))
+        if (!checkPath(hero.getPosition()) && !checkElement(hero.getPosition(),RedPath.class))
             path.add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
         hero.setPosition(position);
     }
@@ -168,34 +169,6 @@ public class Maze implements MazeInterface {
     }
 
     /**
-     * Checks if there's a Wall object at a given position
-     *
-     * @param position position to check
-     * @return boolean corresponding to the existence of a Wall object
-     */
-    private boolean checkWall(PositionInterface position) {
-        for (Element tile : staticElems) {
-            if (tile instanceof Wall)
-                if (tile.getPosition().equals(position)) return true;
-        }
-        return false;
-    }
-
-    /**
-     * Checks if there's a RedPath object at a given position.
-     *
-     * @param position position to check.
-     * @return boolean corresponding to the existence of a RedPath object.
-     */
-    private boolean checkRedPath(PositionInterface position) {
-        for (Element tile : staticElems) {
-            if (tile instanceof RedPath)
-                if (tile.getPosition().equals(position)) return true;
-        }
-        return false;
-    }
-
-    /**
      * Checks if there's a Path object at a given position.
      *
      * @param position position to check.
@@ -209,16 +182,19 @@ public class Maze implements MazeInterface {
         return false;
     }
 
-    /*
-   //Generic Implementation of checkElement
-   private <T> boolean checkElement (PositionInterface position) {
-        for (Element tile : elements) {
-            if (tile instanceof T)
-                if (tile.getPosition().equals(position)) return true;
+    /**
+     * Check if there's an element of a given class at a certain position in staticElems
+     *
+     * @param position position to check.
+     * @param cl       Class type to check
+     * @return corresponding to the existence of a cl object at the given position.
+     */
+    private boolean checkElement(PositionInterface position, Class cl) {
+        for (Element tile : staticElems) {
+            if (cl.isInstance(tile) && tile.getPosition().equals(position)) return true;
         }
         return false;
     }
-*/
 
     /**
      * Creates a Trophy at the ending position of the maze.

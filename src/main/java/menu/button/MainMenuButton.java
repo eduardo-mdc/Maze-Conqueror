@@ -15,6 +15,7 @@ public class MainMenuButton extends Button implements Action {
 
     @Override
     public void execute() {
+        game.restartGame();
         game.setState(0);
     }
 }
