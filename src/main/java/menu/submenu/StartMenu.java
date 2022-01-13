@@ -17,9 +17,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class StartMenu extends Menu {
-    private Game game;
-    private Screen screen;
-
     private final int xIncr = 10;
     private final int yIncr = 5;
 

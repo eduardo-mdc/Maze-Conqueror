@@ -14,6 +14,7 @@ import maze.Maze;
 import maze.MazeInterface;
 import menu.Menu;
 import menu.MenuOLD;
+import menu.submenu.InstructionsMenu;
 import menu.submenu.PauseMenu;
 import menu.submenu.StartMenu;
 
@@ -34,7 +35,6 @@ public class Game implements GameInterface {
     private Screen screen;
     private MazeInterface maze;
     private Menu menu;
-    private KeyboardListener keyboardInput;
     final private double fps = 30.0;
     private boolean initialized;
     private int state;
@@ -61,9 +61,6 @@ public class Game implements GameInterface {
         } catch (FontFormatException e) {
             e.printStackTrace();
         }
-        keyboardInput = new KeyboardListener(1000/fps,screen);
-        keyboardInput.start();
-
     }
 
     @Override
@@ -175,7 +172,6 @@ public class Game implements GameInterface {
 
     @Override
     public void restartGame() {
-        keyboardInput.interrupt();
         initialized = false;
         state = 1;
     }
@@ -195,12 +191,12 @@ public class Game implements GameInterface {
     @Override
     public void runGame() throws IOException {
         if (!initialized) initialize();
-        readKey(keyboardInput.getInput());
+        readKey(screen.pollInput());
         draw();
     }
 
     public void runMenu() throws IOException {
-        readKey(keyboardInput.getInput());
+        readKey(screen.pollInput());
         drawMenu();
     }
 
@@ -212,15 +208,10 @@ public class Game implements GameInterface {
 
     @Override
     public void loadInstructionsMenu() throws IOException {
+        menu = new InstructionsMenu(this,screen);
         this.setState(6);
     }
 
-    @Override
-    public void restartGameMenu() throws IOException {
-        restartGame();
-        menu = new StartMenu(this, screen);
-        this.setState(6);
-    }
 
 
 
@@ -234,7 +225,6 @@ public class Game implements GameInterface {
                     case 2 -> loadInstructionsMenu();
                     case 3 -> quit(0);
                     case 4 -> restartGame();
-                    case 5 -> restartGameMenu();
                     case 6 -> runMenu();
                 }
                 Thread.sleep((int) (1000/fps));

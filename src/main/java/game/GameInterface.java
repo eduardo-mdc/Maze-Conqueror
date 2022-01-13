@@ -112,14 +112,7 @@ public interface GameInterface {
      * @throws IOException
      */
     void loadInstructionsMenu() throws IOException;
-
-    /**
-     * Restarts the game menu when restarting the game.
-     *
-     * @throws IOException
-     */
-    void restartGameMenu() throws IOException;
-
+    
     /**
      * Main game loop. Constantly checks the state of the game and runs code accordingly.
      */
