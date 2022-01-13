@@ -58,7 +58,7 @@ public class Maze implements MazeInterface {
         this.ending = new Position(dim - 2 + xIncr, dim - 2 + yIncr);
         counter = 0;
         hp = new ArrayList<>();
-        staticElems = new ArrayList<>();
+        staticElems = new LinkedList<>();
         path = new LinkedList<>();
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
         heroHandler = new HeroHandler(hero,this);
@@ -84,8 +84,8 @@ public class Maze implements MazeInterface {
         return staticElems;
     }
 
-    public Queue<Path> getPath() {
-        return path;
+    public List<StaticElement> getPath() {
+        return (List)path;
     }
 
     public GameInterface getGame() {

@@ -5,10 +5,14 @@ import com.googlecode.lanterna.input.KeyStroke;
 import element.Element;
 import element.Static.Path;
 import element.Static.RedPath;
+import element.Static.StaticElement;
 import element.Static.Wall;
 import element.dynam.Hero;
 import element.position.PositionInterface;
 import maze.Maze;
+
+import java.util.Collection;
+import java.util.List;
 
 public class HeroHandler {
     private Hero hero;
@@ -27,18 +31,22 @@ public class HeroHandler {
             maze.getGame().winGame();
             return;
         } else {
-            if (checkElement(position, RedPath.class)) {
-                hero.heroTakesDamage();
-                maze.loadHearts();
-                if (hero.isDead()){
-                    hero.setHealth(heroHealth);
-                    maze.getGame().gameOver();
-                }
+            if (checkElement(position, RedPath.class,maze.getStaticElems())) {
+                takeDamage();
                 return;
             }
-            if (!checkElement(position, Wall.class)) {
+            if (!checkElement(position, Wall.class,maze.getStaticElems())) {
                 moveHero(position);
             }
+        }
+    }
+
+    public void takeDamage(){
+        hero.heroTakesDamage();
+        maze.loadHearts();
+        if (hero.isDead()){
+            hero.setHealth(heroHealth);
+            maze.getGame().gameOver();
         }
     }
 
@@ -52,34 +60,22 @@ public class HeroHandler {
     }
 
     public void moveHero(PositionInterface position) {
-        if (!checkPath(hero.getPosition()) && !checkElement(hero.getPosition(),RedPath.class))
+        if (!checkElement(hero.getPosition(),Path.class,maze.getPath()) && !checkElement(hero.getPosition(),RedPath.class,maze.getStaticElems()))
             maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
         hero.setPosition(position);
     }
 
-    /**
-     * Checks if there's a Path object at a given position.
-     *
-     * @param position position to check.
-     * @return boolean corresponding to the existence of a Path object.
-     */
-    private boolean checkPath(PositionInterface position) {
-        for (Element tile : maze.getPath()) {
-            if (tile instanceof Path)
-                if (tile.getPosition().equals(position)) return true;
-        }
-        return false;
-    }
 
     /**
-     * Check if there's an element of a given class at a certain position in staticElems
+     * Check if there's an element of a given class at a certain position in a given list.
      *
      * @param position position to check.
      * @param cl       Class type to check
+     * @param list     list to check objects.
      * @return corresponding to the existence of a cl object at the given position.
      */
-    private boolean checkElement(PositionInterface position, Class cl) {
-        for (Element tile : maze.getStaticElems()) {
+    private boolean checkElement(PositionInterface position, Class cl, List<StaticElement> list) {
+        for (Element tile : list) {
             if (cl.isInstance(tile) && tile.getPosition().equals(position)) return true;
         }
         return false;
