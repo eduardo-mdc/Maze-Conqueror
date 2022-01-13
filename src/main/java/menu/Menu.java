@@ -4,169 +4,59 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.gui2.*;
-import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 import com.googlecode.lanterna.screen.Screen;
-import game.GameInterface;
+import element.Static.StaticElement;
+import element.position.Position;
+import game.Game;
+import menu.button.ExitButton;
+import menu.button.InstructionsButton;
+import menu.button.StartButton;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-/**
- * Menu class generate various types of menus.
- *
- * @author Eduardo Correia
- * @author Alberto Serra
- * @author José Carvalho
- */
+public class Menu {
+    private Game game;
+    private Screen screen;
 
-public class Menu implements MenuInterface {
+    protected List<Button> btn;
+    private final int xIncr = 10;
+    private final int yIncr = 5;
+    private int selected;
 
-    private String backGroundColor;
-    private final GameInterface game;
-    private final Screen screen;
-    private final int type;
+    private final String backgroundcolor = "BLACK";
 
-    /**
-     * Main constructor of the class.
-     *
-     * @param game   Game running.
-     * @param screen Screen to load the menu on.
-     * @param type   type of menu to load.
-     * @throws IOException .
-     */
 
-    public Menu(GameInterface game, Screen screen, int type) throws IOException {
-        setBackGroundColor("#000000");
-        this.screen = screen;
+
+    public Menu(Game game, Screen screen) throws IOException {
         this.game = game;
-        screen.clear();
-        this.type = type;
-        draw(this.type);
+        this.screen = screen;
+        btn = new ArrayList<>();
+        selected = 0;
     }
 
-    @Override
-    public void setBackGroundColor(String color) {
-        this.backGroundColor = color;
+    public void iterateSelection(int iterator){
+        selected += iterator;
+        if(selected < 0) selected = 0;
+        else if(selected > btn.size()-1) selected = btn.size()-1;
     }
 
-    @Override
-    public String getBackGroundColor() {
-        return backGroundColor;
+    public void select(){
+        btn.get(selected).execute();
     }
 
-    @Override
-    public GameInterface getGame() {
-        return game;
-    }
-
-    @Override
-    public Screen getScreen() {
-        return screen;
-    }
-
-    @Override
-    public int getType() {
-        return type;
-    }
-
-    @Override
-    public void startMenu(WindowBasedTextGUI textGUI) {
-        new ActionListDialogBuilder()
-                .setCanCancel(false)
-                .setTitle("GAME MENU")
-                .setDescription("                                   ")
-                .addAction("START GAME", new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setState(1);
-                    }
-                })
-                .addAction("INSTRUCTIONS", new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setState(2);
-                    }
-                })
-                .addAction("EXIT", new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setState(3);
-                    }
-                })
-                .build()
-                .showDialog(textGUI);
-    }
-
-
-    @Override
-    public void pauseMenu(WindowBasedTextGUI textGUI) {
-        new ActionListDialogBuilder()
-                .setCanCancel(false)
-                .setTitle("PAUSE MENU")
-                .setDescription("                                   ")
-                .addAction("RESUME GAME", new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setState(1);
-                    }
-                })
-                .addAction("RESTART", new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setState(4);
-                    }
-                })
-                .addAction("EXIT", new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setState(3);
-                    }
-                })
-                .build()
-                .showDialog(textGUI);
-    }
-
-
-    @Override
-    public void instructionsMenu(WindowBasedTextGUI textGUI) throws IOException {
-        new ActionListDialogBuilder()
-                .setCanCancel(false)
-                .setTitle("INSTRUCTIONS")
-                .setDescription("                                   ")
-                .addAction("GO FROM BEGINNING TO THE TROPHY", new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                })
-                .addAction("", new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                })
-                .addAction("BACK", new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setState(0);
-                    }
-                })
-                .build()
-                .showDialog(textGUI);
-    }
-
-
-    @Override
-    public void draw(int type) throws IOException {
+    public void draw(){
+        int counter = 0;
         TextGraphics textgraphics = screen.newTextGraphics();
-        textgraphics.setBackgroundColor(TextColor.Factory.fromString(backGroundColor));
+        textgraphics.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
         textgraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(200, 200), ' ');
-        final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
-        switch (type) {
-            case 1 -> startMenu(textGUI);
-            case 2 -> pauseMenu(textGUI);
-            case 3 -> instructionsMenu(textGUI);
+        for(Button button : btn){
+            if(selected == counter) button.setSelected(true);
+            else button.setSelected(false);
+            button.draw(textgraphics);
+            counter++;
         }
     }
 }
-

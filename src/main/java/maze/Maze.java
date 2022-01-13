@@ -41,7 +41,6 @@ public class Maze implements MazeInterface {
     final private String backgroundcolor = "BLACK";
     //TODO change hero constructor to accept starting hp as a variable and the correspondent tests
     private final int heroHealth = 5;
-
     /**
      * Constructor for the maze class. Requires a game class in which the maze shall be used and an appropriate dimension.
      *
@@ -94,18 +93,8 @@ public class Maze implements MazeInterface {
     }
 
     @Override
-    public List<StaticElement> getStaticElems() {
-        return staticElems;
-    }
-
-    @Override
-    public List<Heart> getHpList() {
-        return hp;
-    }
-
-    @Override
     public void createElements() {
-        createHpBar(dim, 5);
+        createHpBar();
         createWalls();
         createTrophy();
     }
@@ -123,13 +112,13 @@ public class Maze implements MazeInterface {
             winGame();
             return;
         } else {
-            if (checkElement(position, RedPath.class)) {
+            if (checkRedPath(position)) {
                 hero.heroTakesDamage();
                 loadHearts();
                 if (hero.isDead()) gameOver();
                 return;
             }
-            if (!checkElement(position, Wall.class)) {
+            if (!checkWall(position)) {
                 moveHero(position);
             }
         }
@@ -138,15 +127,9 @@ public class Maze implements MazeInterface {
 
     @Override
     public void moveHero(PositionInterface position) {
-        counter++;
-        if (!checkPath(hero.getPosition()) && !checkElement(hero.getPosition(), RedPath.class))
+        if (!checkPath(hero.getPosition()) && !checkRedPath(hero.getPosition()))
             path.add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
         hero.setPosition(position);
-        if (counter == 2) {
-            PositionInterface pathPosition = path.remove().getPosition();
-            staticElems.add(new RedPath(pathPosition, "RED", SGR.BOLD, "{"));
-            counter = 0;
-        }
     }
 
 
@@ -155,6 +138,7 @@ public class Maze implements MazeInterface {
         game.setState(5);
     }
 
+
     @Override
     public void gameOver() {
         game.restartGame();
@@ -162,15 +146,53 @@ public class Maze implements MazeInterface {
         hero.setHealth(heroHealth);
     }
 
+
     @Override
-    public void processKey(com.googlecode.lanterna.input.KeyStroke key) {
-        System.out.println(key);
-        switch (key.getKeyType()) {
-            case ArrowUp -> checkTile(hero.moveUp());
-            case ArrowDown -> checkTile(hero.moveDown());
-            case ArrowLeft -> checkTile(hero.moveLeft());
-            case ArrowRight -> checkTile(hero.moveRight());
+    public void nextFrame(com.googlecode.lanterna.input.KeyStroke key) {
+        counter++;
+        if(key!=null){
+            switch (key.getKeyType()) {
+                case ArrowUp -> checkTile(hero.moveUp());
+                case ArrowDown -> checkTile(hero.moveDown());
+                case ArrowLeft -> checkTile(hero.moveLeft());
+                case ArrowRight -> checkTile(hero.moveRight());
+            }
         }
+        if (counter == 10) {
+            if(path.size() != 0){
+                PositionInterface pathPosition = path.remove().getPosition();
+                staticElems.add(new RedPath(pathPosition, "RED", SGR.BOLD, "{"));
+            }
+            counter = 0;
+        }
+    }
+
+    /**
+     * Checks if there's a Wall object at a given position
+     *
+     * @param position position to check
+     * @return boolean corresponding to the existence of a Wall object
+     */
+    private boolean checkWall(PositionInterface position) {
+        for (Element tile : staticElems) {
+            if (tile instanceof Wall)
+                if (tile.getPosition().equals(position)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if there's a RedPath object at a given position.
+     *
+     * @param position position to check.
+     * @return boolean corresponding to the existence of a RedPath object.
+     */
+    private boolean checkRedPath(PositionInterface position) {
+        for (Element tile : staticElems) {
+            if (tile instanceof RedPath)
+                if (tile.getPosition().equals(position)) return true;
+        }
+        return false;
     }
 
     /**
@@ -187,28 +209,28 @@ public class Maze implements MazeInterface {
         return false;
     }
 
-    /**
-     * Check if there's an element of a given class at a certain position in staticElems
-     *
-     * @param position position to check.
-     * @param cl       Class type to check
-     * @return corresponding to the existence of a cl object at the given position.
-     */
-    private boolean checkElement(PositionInterface position, Class cl) {
-        for (Element tile : staticElems) {
-            if (cl.isInstance(tile) && tile.getPosition().equals(position)) return true;
+    /*
+   //Generic Implementation of checkElement
+   private <T> boolean checkElement (PositionInterface position) {
+        for (Element tile : elements) {
+            if (tile instanceof T)
+                if (tile.getPosition().equals(position)) return true;
         }
         return false;
     }
+*/
 
-
-    @Override
-    public void createTrophy() {
+    /**
+     * Creates a Trophy at the ending position of the maze.
+     */
+    private void createTrophy() {
         staticElems.add(new Trophy(ending, "#F3CA28", SGR.BOLD, "$"));
     }
 
-    @Override
-    public void createWalls() {
+    /**
+     * Creates walls objects corresponding to where the value 0 exists in the raw integer maze.
+     */
+    private void createWalls() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 if (maze[i][j] == 0)
@@ -217,24 +239,21 @@ public class Maze implements MazeInterface {
         }
     }
 
-    @Override
-    public void createHpBar(int xs, int ys) {
-        int xsize = xs;
-        int ysize = ys;
+    /**
+     * Creates an Hpbar object at the upper-left corner of the terminal.
+     */
+    private void createHpBar() {
+        int xsize = hero.getHealth() + 2;
+        int ysize = 3;
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
-                if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1) {
-                    staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "#"));
-                }
-                if (i == 14 || i == 28 || i == 42)
-                    staticElems.add(new HpBar(new Position(i + xIncr, j + 1), "#FFFFFF", SGR.BOLD, "#"));
+                if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1)
+                   staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "-"));
+
             }
         }
         loadHearts();
-        staticElems.add(new HpBar(new Position(22, 3), "#FFFFFF", SGR.BOLD, "a"));
-        staticElems.add(new HpBar(new Position(36, 3), "#FFFFFF", SGR.BOLD, "b"));
     }
-
 
     //TODO change hearts to be stored to a stack instead.
 
@@ -244,7 +263,7 @@ public class Maze implements MazeInterface {
     private void loadHearts() {
         hp.clear();
         for (int i = 1; i <= hero.getHealth(); i++) {
-            hp.add(new Heart(new Position(i + 1 + xIncr, 3), "#FF0000", SGR.BOLD, "*"));
+            hp.add(new Heart(new Position(i + 1, 2), "#FF0000", SGR.BOLD, "*"));
         }
     }
 

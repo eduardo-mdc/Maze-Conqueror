@@ -1,6 +1,6 @@
 package game;
 
-import menu.MenuInterface;
+import menu.Menu;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public interface GameInterface {
      *
      * @return menu object.
      */
-    MenuInterface getMenu();
+    Menu getMenu();
 
     /**
      * Changes the value of the variable initialize to control the state of the game.
@@ -104,7 +104,7 @@ public interface GameInterface {
      *
      * @throws IOException
      */
-    void loadGame() throws IOException;
+    void runGame() throws IOException;
 
     /**
      * Loads the game instructions menu. Gives information to the user about the objective of the game.
@@ -112,16 +112,11 @@ public interface GameInterface {
      * @throws IOException
      */
     void loadInstructionsMenu() throws IOException;
-
-    /**
-     * Restarts the game menu when restarting the game.
-     *
-     * @throws IOException
-     */
-    void restartGameMenu() throws IOException;
-
+    
     /**
      * Main game loop. Constantly checks the state of the game and runs code accordingly.
      */
     void run();
+
+    int getCurrentState();
 }

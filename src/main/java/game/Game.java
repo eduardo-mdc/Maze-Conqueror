@@ -2,16 +2,21 @@ package game;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+import listener.KeyboardListener;
 import maze.Maze;
 import maze.MazeInterface;
-import menu.MenuInterface;
 import menu.Menu;
+import menu.MenuOLD;
+import menu.submenu.InstructionsMenu;
+import menu.submenu.PauseMenu;
+import menu.submenu.StartMenu;
 
 import java.awt.*;
 import java.io.File;
@@ -29,7 +34,8 @@ public class Game implements GameInterface {
 
     private Screen screen;
     private MazeInterface maze;
-    private MenuInterface menu;
+    private Menu menu;
+    final private double fps = 30.0;
     private boolean initialized;
     private int state;
     private int screenH;
@@ -58,7 +64,7 @@ public class Game implements GameInterface {
     }
 
     @Override
-    public MenuInterface getMenu() {
+    public Menu getMenu() {
         return menu;
     }
 
@@ -142,21 +148,26 @@ public class Game implements GameInterface {
         setInitialize(true);
     }
 
-    //TODO change readkey() into a tread so it doesn't interrupt operation.
 
     /**
      * Reads the user's input and runs code accordingly.
      */
-    private void readKey() throws IOException {
-        com.googlecode.lanterna.input.KeyStroke key = screen.readInput();
-        if (key.getKeyType() == KeyType.Character && key.getCharacter() == ('q'))
-            quit(0);
-        if (key.getKeyType() == KeyType.EOF)
-            quit(0);
-        if (key.getKeyType() == KeyType.Escape) {
-            menu = new Menu(this, screen, 2);
+    private void readKey(KeyStroke key) throws IOException {
+        if(key != null){
+            if ((key.getKeyType() == KeyType.Character && key.getCharacter() == ('q')) || (key.getKeyType() == KeyType.EOF)) quit(0);
+            else if (key.getKeyType() == KeyType.Escape && this.getState() == 1) {
+                menu = new PauseMenu(this, screen);
+                this.setState(6);
+            }
+            if(this.getState() == 6){
+                switch (key.getKeyType()) {
+                    case ArrowUp -> menu.iterateSelection(-1);
+                    case ArrowDown -> menu.iterateSelection(1);
+                    case Enter -> menu.select();
+                }
+            }
         }
-        maze.processKey(key);
+        maze.nextFrame(key);
     }
 
     @Override
@@ -173,26 +184,36 @@ public class Game implements GameInterface {
 
     @Override
     public void loadInitialMenu() throws IOException {
-        menu = new Menu(this, screen, 1);
+        menu = new StartMenu(this, screen);
+        this.setState(6);
     }
 
     @Override
-    public void loadGame() throws IOException {
+    public void runGame() throws IOException {
         if (!initialized) initialize();
+        readKey(screen.pollInput());
         draw();
-        readKey();
+    }
+
+    public void runMenu() throws IOException {
+        readKey(screen.pollInput());
+        drawMenu();
+    }
+
+    public void drawMenu() throws IOException{
+        screen.clear();
+        menu.draw();
+        screen.refresh();
     }
 
     @Override
     public void loadInstructionsMenu() throws IOException {
-        menu = new Menu(this, screen, 3);
+        menu = new InstructionsMenu(this,screen);
+        this.setState(6);
     }
 
-    @Override
-    public void restartGameMenu() throws IOException {
-        restartGame();
-        menu = new Menu(this, screen, 1);
-    }
+
+
 
     @Override
     public void run() {
@@ -200,15 +221,25 @@ public class Game implements GameInterface {
             while (true) {
                 switch (state) {
                     case 0 -> loadInitialMenu();
-                    case 1 -> loadGame();
+                    case 1 -> runGame();
                     case 2 -> loadInstructionsMenu();
                     case 3 -> quit(0);
                     case 4 -> restartGame();
-                    case 5 -> restartGameMenu();
+                    case 6 -> runMenu();
                 }
+                Thread.sleep((int) (1000/fps));
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
+
+    @Override
+    public int getCurrentState() {
+        return state;
+    }
+
+
 }

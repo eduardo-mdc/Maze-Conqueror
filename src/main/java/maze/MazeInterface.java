@@ -73,7 +73,7 @@ public interface MazeInterface {
      *
      * @param key key input from the player.
      */
-    void processKey(com.googlecode.lanterna.input.KeyStroke key);
+    void nextFrame(com.googlecode.lanterna.input.KeyStroke key);
 
     /**
      * Creates a Trophy at the ending position of the maze.
