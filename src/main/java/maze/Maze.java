@@ -41,7 +41,6 @@ public class Maze implements MazeInterface {
     private HeroHandler heroHandler;
     final private String backgroundcolor = "BLACK";
 
-
     //TODO change hero constructor to accept starting hp as a variable and the correspondent tests
 
     /**
@@ -74,12 +73,60 @@ public class Maze implements MazeInterface {
         maze = load_walls(maze, dim);
         //Create elements and insert them to element list
         createElements();
+        System.out.println(shortestPath(begin,ending));
+    }
+
+
+    public int shortestPath(Position start, Position end){
+       VisitedCell initialPoint = new VisitedCell(start.getX(),start.getY(),0);
+       Queue<VisitedCell> queue = new LinkedList<>();
+       queue.add(initialPoint);
+
+       VisitedCell cell = null;
+
+       boolean[][] isVisited = new boolean[dim][dim];
+       isVisited[start.getX()][start.getY()] = true;
+
+        while (!queue.isEmpty()) {
+            cell = queue.remove();
+
+            if (cell.getRow() == end.getX() && cell.getCol() == end.getY()) return cell.getDist(); // destination found
+
+            if (canCross(cell.getRow() - 1, cell.getCol(), isVisited)) { // move up
+                queue.add(new VisitedCell(cell.getRow() - 1, cell.getCol(), cell.getDist() + 1));
+                isVisited[cell.getRow() - 1][cell.getCol()] = true;
+            }
+            if (canCross(cell.getRow() + 1, cell.getCol(), isVisited)) { // move down
+                queue.add(new VisitedCell(cell.getRow() + 1, cell.getCol(), cell.getDist() + 1));
+                isVisited[cell.getRow() + 1][cell.getCol()] = true;
+            }
+            if (canCross(cell.getRow(), cell.getCol() - 1, isVisited)) { // move left
+                queue.add(new VisitedCell(cell.getRow(), cell.getCol() - 1, cell.getDist() + 1));
+                isVisited[cell.getRow()][cell.getCol() - 1] = true;
+            }
+            if (canCross(cell.getRow(), cell.getCol() + 1, isVisited)) { // move right
+                queue.add(new VisitedCell(cell.getRow(), cell.getCol() + 1, cell.getDist() + 1));
+                isVisited[cell.getRow()][cell.getCol() + 1] = true;
+            }
+        }
+        return cell.getDist();
+    }
+    private  boolean canCross(int x, int y, boolean[][] isVisited) {
+        if (x >= 0 && y >= 0 && x <dim && y < dim && maze[x][y] != '0' && isVisited[x][y] == false) {
+            return true;
+        }
+        return false;
     }
 
     public Position getEnding() {
         return ending;
     }
-
+    public int getYIncrement(){
+        return yIncr;
+    }
+    public int getXIncrement(){
+        return xIncr;
+    }
     public List<StaticElement> getStaticElems() {
         return staticElems;
     }
