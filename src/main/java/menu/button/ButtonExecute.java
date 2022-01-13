@@ -11,8 +11,7 @@ public class ButtonExecute implements Action {
         this.game = game;
     }
     @Override
-    public boolean execute() {
+    public void execute() {
         game.setState(nextState);
-        return true;
     }
 }

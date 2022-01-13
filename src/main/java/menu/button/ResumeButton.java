@@ -5,9 +5,9 @@ import game.Game;
 import menu.Action;
 import menu.Button;
 
-public class StartButton extends Button implements Action {
+public class ResumeButton extends Button implements Action {
     private Game game;
-    public StartButton(Game game,Position position) {
+    public ResumeButton(Game game,Position position) {
         super(position);
         this.game = game;
     }

@@ -77,6 +77,7 @@ public class GameTest {
         verify(tempGame, times(1)).quit(0);
     }
 
+    /*
     @Test
     public void loadInitialMenuTest() throws IOException {
         assertTrue(game.getMenu() == null);
@@ -84,7 +85,7 @@ public class GameTest {
         int menuType = game.getMenu().getType();
         assertTrue(game.getMenu() != null);
         assertEquals(1, menuType);
-    }
+    }*/
 
     @Test
     public void loadGameTest() throws IOException {
@@ -93,6 +94,7 @@ public class GameTest {
         assertTrue(game.getInitialized());
     }
 
+    /*
     @Test
     public void loadInstructionsMenuTest() throws IOException {
         game.loadInstructionsMenu();
@@ -101,6 +103,7 @@ public class GameTest {
         assertEquals(3, menuType);
     }
 
+
     @Test
     public void restartGameMenuTest() throws IOException {
         game.restartGameMenu();
@@ -108,6 +111,8 @@ public class GameTest {
         assertTrue(game.getMenu() != null);
         assertEquals(1, menuType);
     }
+
+     */
 
 }
 

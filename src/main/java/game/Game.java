@@ -12,8 +12,10 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import listener.KeyboardListener;
 import maze.Maze;
 import maze.MazeInterface;
-import menu.MenuInterface;
+import menu.Menu;
 import menu.MenuOLD;
+import menu.submenu.PauseMenu;
+import menu.submenu.StartMenu;
 
 import java.awt.*;
 import java.io.File;
@@ -31,7 +33,7 @@ public class Game implements GameInterface {
 
     private Screen screen;
     private MazeInterface maze;
-    private MenuInterface menu;
+    private Menu menu;
     private KeyboardListener keyboardInput;
     final private double fps = 30.0;
     private boolean initialized;
@@ -60,11 +62,12 @@ public class Game implements GameInterface {
             e.printStackTrace();
         }
         keyboardInput = new KeyboardListener(1000/fps,screen);
+        keyboardInput.start();
 
     }
 
     @Override
-    public MenuInterface getMenu() {
+    public Menu getMenu() {
         return menu;
     }
 
@@ -146,22 +149,18 @@ public class Game implements GameInterface {
     private void initialize() {
         maze = new Maze(this, dimension);
         setInitialize(true);
-        keyboardInput.start();
     }
 
-    //TODO change readkey() into a tread so it doesn't interrupt operation.
 
     /**
      * Reads the user's input and runs code accordingly.
      */
     private void readKey(KeyStroke key) throws IOException {
         if(key != null){
-            if (key.getKeyType() == KeyType.Character && key.getCharacter() == ('q'))
-                quit(0);
-            if (key.getKeyType() == KeyType.EOF)
-                quit(0);
-            if (key.getKeyType() == KeyType.Escape) {
-                menu = new MenuOLD(this, screen, 2);
+            if ((key.getKeyType() == KeyType.Character && key.getCharacter() == ('q')) || (key.getKeyType() == KeyType.EOF)) quit(0);
+            if (key.getKeyType() == KeyType.Escape && this.getState() == 1) {
+                menu = new PauseMenu(this, screen);
+                this.setState(6);
             }
         }
         maze.nextFrame(key);
@@ -182,7 +181,8 @@ public class Game implements GameInterface {
 
     @Override
     public void loadInitialMenu() throws IOException {
-        menu = new MenuOLD(this, screen, 1);
+        menu = new StartMenu(this, screen);
+        this.setState(6);
     }
 
     @Override
@@ -192,16 +192,30 @@ public class Game implements GameInterface {
         draw();
     }
 
+    public void runMenu() throws IOException {
+        readKey(keyboardInput.getInput());
+        drawMenu();
+    }
+
+    public void drawMenu() throws IOException{
+        screen.clear();
+        menu.draw();
+        screen.refresh();
+    }
+
     @Override
     public void loadInstructionsMenu() throws IOException {
-        menu = new MenuOLD(this, screen, 3);
+        this.setState(6);
     }
 
     @Override
     public void restartGameMenu() throws IOException {
         restartGame();
-        menu = new MenuOLD(this, screen, 1);
+        menu = new StartMenu(this, screen);
+        this.setState(6);
     }
+
+
 
     @Override
     public void run() {
@@ -214,6 +228,7 @@ public class Game implements GameInterface {
                     case 3 -> quit(0);
                     case 4 -> restartGame();
                     case 5 -> restartGameMenu();
+                    case 6 -> runMenu();
                 }
                 Thread.sleep((int) (1000/fps));
             }

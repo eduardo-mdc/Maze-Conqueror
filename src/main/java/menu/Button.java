@@ -10,30 +10,37 @@ import menu.GenericMenuElement;
 import menu.button.ButtonExecute;
 
 public class Button extends GenericMenuElement {
+    private int width;
+    private int height;
+    private String text;
+    private boolean selected;
 
-    private final Position position;
-    private final ButtonExecute action;
-    private final int width;
-    private final int height;
-    private final String text;
+    private String backColor;
+    private String selectedColor;
 
-    private final String textColor;
-    private final String backColor;
+    public Button(Position position) {
+        super(position);
+        backColor = "BLACK";
+        selectedColor = "YELLOW";
+    }
 
-    public Button(Position position, int width, int height, String text, ButtonExecute action, String textColor, String backColor) {
-        super(position,textColor);
-        this.position = position;
-        this.action = action;
-        this.width = width;
-        this.height = height;
-        this.text = text;
-        this.textColor = textColor;
-        this.backColor = backColor;
+    public String getText(){
+        return text;
+    }
+
+    public void setSelected(boolean value){
+        selected = value;
+        if(selected) setCurrentColor(selectedColor);
+        else setCurrentColor(getColor());
+    }
+
+    public boolean isSelected(){
+        return selected;
     }
 
     public void draw(TextGraphics screen) {
-        screen.setForegroundColor(TextColor.Factory.fromString(textColor));
-        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), text);
+        screen.setForegroundColor(TextColor.Factory.fromString(getCurrentColor()));
+        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), getText());
     }
 }
 

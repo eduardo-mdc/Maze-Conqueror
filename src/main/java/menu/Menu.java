@@ -1,5 +1,10 @@
 package menu;
 
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.screen.Screen;
 import element.Static.StaticElement;
 import element.position.Position;
 import game.Game;
@@ -13,13 +18,26 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Menu {
-    private  List<Button> btn = new ArrayList<>();
+    private Game game;
+    private Screen screen;
 
-    public Menu(Game game) throws IOException {
-        btn = Arrays.asList(
-                new StartButton(game,new Position(1,2),3,4),
-                new InstructionsButton(game,new Position(1,2),3,4),
-                new ExitButton(game,new Position(1,2),3,4)
-        );
+    private  List<Button> btn;
+    private final int xIncr = 10;
+    private final int yIncr = 5;
+
+    private final String backgroundcolor = "BLACK";
+
+    public Menu(Game game, Screen screen) throws IOException {
+        this.game = game;
+        this.screen = screen;
+    }
+
+    public void draw(){
+        TextGraphics textgraphics = screen.newTextGraphics();
+        textgraphics.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
+        textgraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(200, 200), ' ');
+        for(Button button : btn){
+            button.draw(textgraphics);
+        }
     }
 }

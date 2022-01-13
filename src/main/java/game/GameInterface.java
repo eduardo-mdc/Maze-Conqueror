@@ -1,6 +1,6 @@
 package game;
 
-import menu.MenuInterface;
+import menu.Menu;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public interface GameInterface {
      *
      * @return menu object.
      */
-    MenuInterface getMenu();
+    Menu getMenu();
 
     /**
      * Changes the value of the variable initialize to control the state of the game.
