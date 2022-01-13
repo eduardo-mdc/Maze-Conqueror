@@ -171,17 +171,6 @@ public class Game implements GameInterface {
         }
     }
 
-    @Override
-    public void restartGame() {
-        initialized = false;
-        state = 1;
-    }
-
-    @Override
-    public void quit(int status) throws IOException {
-        screen.stopScreen();
-        System.exit(status);
-    }
 
     @Override
     public void loadInitialMenu() throws IOException {
@@ -241,6 +230,31 @@ public class Game implements GameInterface {
     public int getCurrentState() {
         return state;
     }
+
+
+    @Override
+    public void winGame() {
+        setState(5);
+    }
+
+    @Override
+    public void gameOver() {
+        restartGame();
+        setState(0);
+    }
+
+    @Override
+    public void restartGame() {
+        initialized = false;
+        state = 1;
+    }
+
+    @Override
+    public void quit(int status) throws IOException {
+        screen.stopScreen();
+        System.exit(status);
+    }
+
 
 
 }

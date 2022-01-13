@@ -26,29 +26,7 @@ public interface MazeInterface {
      */
     int getDim();
 
-    /**
-     * Checks the tile that the player is attempting to move to and runs code accordingly.
-     *
-     * @param position position to which the player is attempting to move to.
-     */
-    void checkTile(PositionInterface position);
 
-    /**
-     * Moves the Hero to a certain position.
-     *
-     * @param position
-     */
-    void moveHero(PositionInterface position);
-
-    /**
-     * Sets the game state to won.
-     */
-    void winGame();
-
-    /**
-     * Sets the game state to lost.
-     */
-    void gameOver();
 
     /**
      * Receives a key input from the player, check if it's an arrow key and run the appropriate code.

@@ -12,6 +12,7 @@ import element.position.Position;
 import element.position.PositionInterface;
 import element.Static.*;
 import game.GameInterface;
+import handler.HeroHandler;
 
 import java.util.*;
 
@@ -37,9 +38,12 @@ public class Maze implements MazeInterface {
     private List<StaticElement> staticElems;
     private List<Heart> hp;
     private Queue<Path> path;
+    private HeroHandler heroHandler;
     final private String backgroundcolor = "BLACK";
+
+
     //TODO change hero constructor to accept starting hp as a variable and the correspondent tests
-    private final int heroHealth = 5;
+
     /**
      * Constructor for the maze class. Requires a game class in which the maze shall be used and an appropriate dimension.
      *
@@ -57,8 +61,7 @@ public class Maze implements MazeInterface {
         staticElems = new ArrayList<>();
         path = new LinkedList<>();
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
-        hero.setHealth(heroHealth);
-
+        heroHandler = new HeroHandler(hero,this);
 
         //Generate correct maze with the chosen algorithm
         do {
@@ -71,7 +74,22 @@ public class Maze implements MazeInterface {
         maze = load_walls(maze, dim);
         //Create elements and insert them to element list
         createElements();
+    }
 
+    public Position getEnding() {
+        return ending;
+    }
+
+    public List<StaticElement> getStaticElems() {
+        return staticElems;
+    }
+
+    public Queue<Path> getPath() {
+        return path;
+    }
+
+    public GameInterface getGame() {
+        return game;
     }
 
     /**
@@ -105,59 +123,12 @@ public class Maze implements MazeInterface {
     }
 
 
-    @Override
-    public void checkTile(PositionInterface position) {
-        if (position.equals(ending)) {
-            winGame();
-            return;
-        } else {
-            if (checkElement(position,RedPath.class)) {
-                hero.heroTakesDamage();
-                loadHearts();
-                if (hero.isDead()) gameOver();
-                return;
-            }
-            if (!checkElement(position,Wall.class)) {
-                moveHero(position);
-            }
-        }
-    }
-
-
-
-
-    @Override
-    public void moveHero(PositionInterface position) {
-        if (!checkPath(hero.getPosition()) && !checkElement(hero.getPosition(),RedPath.class))
-            path.add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
-        hero.setPosition(position);
-    }
-
-
-    @Override
-    public void winGame() {
-        game.setState(5);
-    }
-
-
-    @Override
-    public void gameOver() {
-        game.restartGame();
-        game.setState(0);
-        hero.setHealth(heroHealth);
-    }
-
 
     @Override
     public void nextFrame(com.googlecode.lanterna.input.KeyStroke key) {
         counter++;
         if(key!=null){
-            switch (key.getKeyType()) {
-                case ArrowUp -> checkTile(hero.moveUp());
-                case ArrowDown -> checkTile(hero.moveDown());
-                case ArrowLeft -> checkTile(hero.moveLeft());
-                case ArrowRight -> checkTile(hero.moveRight());
-            }
+            heroHandler.checkKey(key);
         }
         if (counter == 10) {
             if(path.size() != 0){
@@ -168,33 +139,6 @@ public class Maze implements MazeInterface {
         }
     }
 
-    /**
-     * Checks if there's a Path object at a given position.
-     *
-     * @param position position to check.
-     * @return boolean corresponding to the existence of a Path object.
-     */
-    private boolean checkPath(PositionInterface position) {
-        for (Element tile : path) {
-            if (tile instanceof Path)
-                if (tile.getPosition().equals(position)) return true;
-        }
-        return false;
-    }
-
-    /**
-     * Check if there's an element of a given class at a certain position in staticElems
-     *
-     * @param position position to check.
-     * @param cl       Class type to check
-     * @return corresponding to the existence of a cl object at the given position.
-     */
-    private boolean checkElement(PositionInterface position, Class cl) {
-        for (Element tile : staticElems) {
-            if (cl.isInstance(tile) && tile.getPosition().equals(position)) return true;
-        }
-        return false;
-    }
 
     /**
      * Creates a Trophy at the ending position of the maze.
@@ -236,7 +180,7 @@ public class Maze implements MazeInterface {
     /**
      * Creates hearts objects corresponding to the current hp of the Hero object.
      */
-    private void loadHearts() {
+    public void loadHearts() {
         hp.clear();
         for (int i = 1; i <= hero.getHealth(); i++) {
             hp.add(new Heart(new Position(i + 1, 2), "#FF0000", SGR.BOLD, "*"));

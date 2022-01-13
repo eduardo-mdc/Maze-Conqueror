@@ -82,8 +82,6 @@ public interface GameInterface {
      * Creates a new game re/initializing the variables to run the game.
      */
     void restartGame();
-
-
     /**
      * Quits the game. Receives an integer to quit check if the game was exited successfully,
      *
@@ -117,6 +115,9 @@ public interface GameInterface {
      * Main game loop. Constantly checks the state of the game and runs code accordingly.
      */
     void run();
+
+    void winGame();
+    void gameOver();
 
     int getCurrentState();
 }
