@@ -13,6 +13,7 @@ import element.position.PositionInterface;
 import element.Static.*;
 import game.GameInterface;
 import handler.HeroHandler;
+import handler.PointsHandler;
 
 import java.util.*;
 
@@ -40,6 +41,8 @@ public class Maze implements MazeInterface {
     private Queue<Path> path;
     private HeroHandler heroHandler;
     final private String backgroundcolor = "BLACK";
+    private PointsHandler pointsHandler;
+    private List<Position> visited;
 
     //TODO change hero constructor to accept starting hp as a variable and the correspondent tests
 
@@ -61,6 +64,7 @@ public class Maze implements MazeInterface {
         path = new LinkedList<>();
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
         heroHandler = new HeroHandler(hero,this);
+        pointsHandler = game.getPointsHandler();
 
         //Generate correct maze with the chosen algorithm
         do {
@@ -77,15 +81,17 @@ public class Maze implements MazeInterface {
     }
 
 
-    public int shortestPath(Position start, Position end){
-       VisitedCell initialPoint = new VisitedCell(start.getX(),start.getY(),0);
-       Queue<VisitedCell> queue = new LinkedList<>();
-       queue.add(initialPoint);
+    public int shortestPath(Position IncrementedStart, Position IncrementedEnd){
+        Position start = new Position(IncrementedStart);
+        Position end = new Position(IncrementedEnd);
+        VisitedCell initialPoint = new VisitedCell(start.getX(),start.getY(),0);
+        Queue<VisitedCell> queue = new LinkedList<>();
+        queue.add(initialPoint);
 
-       VisitedCell cell = null;
+        VisitedCell cell = null;
 
-       boolean[][] isVisited = new boolean[dim][dim];
-       isVisited[start.getX()][start.getY()] = true;
+        boolean[][] isVisited = new boolean[dim][dim];
+        isVisited[start.getX()][start.getY()] = true;
 
         while (!queue.isEmpty()) {
             cell = queue.remove();
@@ -111,6 +117,7 @@ public class Maze implements MazeInterface {
         }
         return cell.getDist();
     }
+
     private  boolean canCross(int x, int y, boolean[][] isVisited) {
         if (x >= 0 && y >= 0 && x <dim && y < dim && maze[x][y] != '0' && isVisited[x][y] == false) {
             return true;
@@ -121,12 +128,7 @@ public class Maze implements MazeInterface {
     public Position getEnding() {
         return ending;
     }
-    public int getYIncrement(){
-        return yIncr;
-    }
-    public int getXIncrement(){
-        return xIncr;
-    }
+
     public List<StaticElement> getStaticElems() {
         return staticElems;
     }
@@ -156,20 +158,18 @@ public class Maze implements MazeInterface {
         return maze;
     }
 
+
+
     @Override
     public void createElements() {
         createHpBar();
         createWalls();
         createTrophy();
     }
-
-
     @Override
     public int getDim() {
         return dim;
     }
-
-
 
     @Override
     public void nextFrame(com.googlecode.lanterna.input.KeyStroke key) {
@@ -184,8 +184,8 @@ public class Maze implements MazeInterface {
             }
             counter = 0;
         }
-    }
 
+    }
 
     /**
      * Creates a Trophy at the ending position of the maze.
@@ -206,6 +206,8 @@ public class Maze implements MazeInterface {
         }
     }
 
+
+
     /**
      * Creates an Hpbar object at the upper-left corner of the terminal.
      */
@@ -222,6 +224,8 @@ public class Maze implements MazeInterface {
         loadHearts();
     }
 
+
+
     //TODO change hearts to be stored to a stack instead.
 
     /**
@@ -233,7 +237,6 @@ public class Maze implements MazeInterface {
             hp.add(new Heart(new Position(i + 1, 2), "#FF0000", SGR.BOLD, "*"));
         }
     }
-
 
     @Override
     public void draw(TextGraphics screen) {

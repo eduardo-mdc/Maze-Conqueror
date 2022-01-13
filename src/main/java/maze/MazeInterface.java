@@ -2,6 +2,7 @@ package maze;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.PositionInterface;
+import game.GameInterface;
 
 /**
  * Maze interface which contains the elements that make up the game, this includes, but is not limited to, static elements such as hero, path, walls, other special
@@ -41,4 +42,6 @@ public interface MazeInterface {
      * @param screen lanterna screen to draw to.
      */
     void draw(TextGraphics screen);
+
+    GameInterface getGame();
 }

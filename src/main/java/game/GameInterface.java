@@ -1,5 +1,6 @@
 package game;
 
+import handler.PointsHandler;
 import menu.Menu;
 
 import java.io.IOException;
@@ -117,7 +118,10 @@ public interface GameInterface {
     void run();
 
     void winGame();
+
     void gameOver();
 
     int getCurrentState();
+
+    PointsHandler getPointsHandler();
 }

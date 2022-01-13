@@ -24,6 +24,11 @@ public class Position implements PositionInterface{
             this.y = y;
         }
 
+        public Position(Position pos){
+            this.x = pos.getX();
+            this.y = pos.getY();
+        }
+
         @Override
         public int getX() {
             return x;
@@ -42,6 +47,11 @@ public class Position implements PositionInterface{
         @Override
         public void setY(int y) {
             this.y = y;
+        }
+
+        public void changePos(int x, int y){
+            this.x += x;
+            this.y += y;
         }
 
         /**

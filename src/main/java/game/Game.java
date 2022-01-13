@@ -2,6 +2,7 @@ package game;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -9,6 +10,7 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+import handler.PointsHandler;
 import listener.KeyboardListener;
 import maze.Maze;
 import maze.MazeInterface;
@@ -41,6 +43,11 @@ public class Game implements GameInterface {
     private int screenH;
     private int screenW;
     private int dimension;
+    private int counter = 0;
+
+
+
+    private PointsHandler pointsHandler;
 
     //TODO refactor error catching in game constructor
 
@@ -51,6 +58,7 @@ public class Game implements GameInterface {
         setDimension(53, 50, 40);
         maze = new Maze(this, dimension);
         initialized = false;
+        counter = 0;
         state = 0;
         try {
             loadInitialScreen();
@@ -131,12 +139,15 @@ public class Game implements GameInterface {
         this.dimension = dimension;
     }
 
+
     /**
      * Draws the game on the lanterna screen.
      */
     private void draw() throws IOException {
         screen.clear();
-        maze.draw(screen.newTextGraphics());
+        TextGraphics textGraphics = screen.newTextGraphics();
+        maze.draw(textGraphics);
+        pointsHandler.draw(textGraphics);
         screen.refresh();
     }
 
@@ -146,6 +157,7 @@ public class Game implements GameInterface {
     private void initialize() {
         maze = new Maze(this, dimension);
         setInitialize(true);
+        pointsHandler = new PointsHandler(maze);
     }
 
 
@@ -180,16 +192,26 @@ public class Game implements GameInterface {
 
     @Override
     public void runGame() throws IOException {
+
         if (!initialized) initialize();
         KeyStroke key = screen.pollInput();
         readKey(key);
         maze.nextFrame(key);
+        if(counter >= 15){
+            pointsHandler.setPoints(pointsHandler.getPoints()-1);
+            counter = 0;
+        }
+        counter++;
         draw();
     }
 
     public void runMenu() throws IOException {
         readKey(screen.pollInput());
         drawMenu();
+    }
+
+    public PointsHandler getPointsHandler() {
+        return pointsHandler;
     }
 
     public void drawMenu() throws IOException{

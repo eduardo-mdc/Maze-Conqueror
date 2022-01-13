@@ -11,7 +11,6 @@ import element.dynam.Hero;
 import element.position.PositionInterface;
 import maze.Maze;
 
-import java.util.Collection;
 import java.util.List;
 
 public class HeroHandler {
