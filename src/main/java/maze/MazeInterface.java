@@ -1,11 +1,7 @@
 package maze;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
-import element.Static.Heart;
-import element.Static.StaticElement;
 import element.position.PositionInterface;
-
-import java.util.List;
 
 /**
  * Maze interface which contains the elements that make up the game, this includes, but is not limited to, static elements such as hero, path, walls, other special
@@ -17,20 +13,6 @@ import java.util.List;
  * @author José Carvalho
  */
 public interface MazeInterface {
-
-    /**
-     * Return the list of the elements that belong to the Static Element class.
-     *
-     * @return the list of the maze Static elements.
-     */
-    List<StaticElement> getStaticElems();
-
-    /**
-     * Return the list of Heart objects in the maze.
-     *
-     * @return the list containing the Hearts objects.
-     */
-    List<Heart> getHpList();
 
     /**
      * Function to create the elements that exist within the maze.
@@ -74,24 +56,6 @@ public interface MazeInterface {
      * @param key key input from the player.
      */
     void nextFrame(com.googlecode.lanterna.input.KeyStroke key);
-
-    /**
-     * Creates a Trophy at the ending position of the maze.
-     */
-    void createTrophy();
-
-    /**
-     * Creates walls objects corresponding to where the value 0 exists in the raw integer maze.
-     */
-    void createWalls();
-
-    /**
-     * Creates an Hpbar object at the upper-left corner of the terminal. //todo not right
-     *
-     * @param xs - xSize
-     * @param ys - ySize
-     */
-    void createHpBar(int xs, int ys);
 
     /**
      * Draws the maze objects on the lanterna screen.
