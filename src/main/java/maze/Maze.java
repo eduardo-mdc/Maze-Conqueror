@@ -6,6 +6,7 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
+import maze.ShortestPath;
 import element.Element;
 import element.dynam.Hero;
 import element.position.Position;
@@ -71,8 +72,8 @@ public class Maze implements MazeInterface {
         maze = load_walls(maze, dim);
         //Create elements and insert them to element list
         createElements();
-        System.out.println("este e o caminho  mais curto "+ shortestPath(begin, ending));
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        ShortestPath anao = new ShortestPath(maze,dim,new Position(begin,-xIncr,-yIncr),new Position(ending,-xIncr,-yIncr));
+
     }
 
     @Override
