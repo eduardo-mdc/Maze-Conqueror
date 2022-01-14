@@ -31,9 +31,22 @@ public class Menu {
         texts = new ArrayList<>();
         text = "";
         selected = 0;
+        loadWalls();
     }
 
-    public void iterateSelection(int iterator) {
+    public void loadWalls(){
+        for ( int i = 0 ; i < game.getScreenW(); i ++ ){
+            for (int j = 0 ; j < game.getScreenH(); j++)
+                if (i <=1 || j <= 1 || j >= game.getScreenH()-2 || i >= game.getScreenW()-2)  texts.add(new TextMenuElement(new Position(i,j),"#"));
+
+        }
+
+    }
+    public static int getMiddle(int screenWidth, String text) {
+        int middle = text.length() / 2;
+        return screenWidth / 2 - middle;
+    }
+    public void iterateSelection(int iterator){
         selected += iterator;
         if (selected < 0) selected = btn.size() - 1;
         else if (selected > btn.size() - 1) selected = 0;

@@ -100,13 +100,13 @@ public class Maze implements MazeInterface {
             cell = queue.remove();
             if (cell.getRow() == end.getX() && cell.getCol() == end.getY())
                 return distFound(cell);
-            else if (canCross(cell.getRow() - 1, cell.getCol(), isVisited))// move up
+            if (canCross(cell.getRow() - 1, cell.getCol(), isVisited))// move up
                 cellMoveUp(queue, cell, isVisited);
-            else if (canCross(cell.getRow() + 1, cell.getCol(), isVisited)) // move down
+            if (canCross(cell.getRow() + 1, cell.getCol(), isVisited)) // move down
                 cellMoveDown(queue, cell, isVisited);
-            else if (canCross(cell.getRow(), cell.getCol() - 1, isVisited))// move left
+            if (canCross(cell.getRow(), cell.getCol() - 1, isVisited))// move left
                 cellMoveLeft(queue, cell, isVisited);
-            else if (canCross(cell.getRow(), cell.getCol() + 1, isVisited)) // move right
+            if (canCross(cell.getRow(), cell.getCol() + 1, isVisited)) // move right
                 cellMoveRight(queue, cell, isVisited);
         }
         return cell.getDist();
