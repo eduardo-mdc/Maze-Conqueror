@@ -2,10 +2,9 @@ package menu.button;
 
 import element.position.Position;
 import game.Game;
-import menu.Action;
 import menu.Button;
 
-public class MainMenuButton extends Button implements Action {
+public class MainMenuButton extends Button{
     private Game game;
     public MainMenuButton(Game game,Position position) {
         super(position);

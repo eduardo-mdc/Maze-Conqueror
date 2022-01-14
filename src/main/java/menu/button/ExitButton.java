@@ -2,10 +2,10 @@ package menu.button;
 
 import element.position.Position;
 import game.Game;
-import menu.Action;
 import menu.Button;
+import menu.ButtonInterface;
 
-public class ExitButton extends Button implements Action {
+public class ExitButton extends Button {
     private Game game;
 
     public ExitButton(Game game, Position position) {

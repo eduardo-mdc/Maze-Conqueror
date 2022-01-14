@@ -64,9 +64,11 @@ public class Game implements GameInterface {
         }
     }
 
-    public static Class<GameInterface> getGame() {
-        return GameInterface.class;
-    }
+    /**
+     * public static Class<GameInterface> getGame() {
+     * return GameInterface.class;
+     * }
+     */
 
     @Override
     public Menu getMenu() {
