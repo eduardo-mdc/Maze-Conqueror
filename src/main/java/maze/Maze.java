@@ -74,7 +74,8 @@ public class Maze implements MazeInterface {
         System.out.println(shortestPath(begin, ending));
     }
 
-    private MazeGenerator getMazeGenerator(int dim) {
+    @Override
+    public MazeGenerator getMazeGenerator(int dim) {
         MazeGenerator gen = null;
         do {
             gen = new MazeGenerator(dim - 2);
@@ -85,7 +86,8 @@ public class Maze implements MazeInterface {
     }
 
 
-    public int shortestPath(Position incrementedStart, Position incrementedEnd) {
+    @Override
+    public int shortestPath(PositionInterface incrementedStart, PositionInterface incrementedEnd) {
         VisitedCell cell = null;
         PositionInterface start = new Position(incrementedStart);
         PositionInterface end = new Position(incrementedEnd);
@@ -110,33 +112,39 @@ public class Maze implements MazeInterface {
         return cell.getDist();
     }
 
-    private boolean[][] getIsVisitedArray(PositionInterface start) {
+    @Override
+    public boolean[][] getIsVisitedArray(PositionInterface start) {
         boolean[][] isVisited = new boolean[dim][dim];
         isVisited[start.getX()][start.getY()] = true;
         return isVisited;
     }
 
-    private void cellMoveRight(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
+    @Override
+    public void cellMoveRight(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
         queue.add(new VisitedCell(cell.getRow(), cell.getCol() + 1, cell.getDist() + 1));
         isVisited[cell.getRow()][cell.getCol() + 1] = true;
     }
 
-    private void cellMoveLeft(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
+    @Override
+    public void cellMoveLeft(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
         queue.add(new VisitedCell(cell.getRow(), cell.getCol() - 1, cell.getDist() + 1));
         isVisited[cell.getRow()][cell.getCol() - 1] = true;
     }
 
-    private void cellMoveDown(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
+    @Override
+    public void cellMoveDown(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
         queue.add(new VisitedCell(cell.getRow() + 1, cell.getCol(), cell.getDist() + 1));
         isVisited[cell.getRow() + 1][cell.getCol()] = true;
     }
 
-    private void cellMoveUp(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
+    @Override
+    public void cellMoveUp(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
         queue.add(new VisitedCell(cell.getRow() - 1, cell.getCol(), cell.getDist() + 1));
         isVisited[cell.getRow() - 1][cell.getCol()] = true;
     }
 
-    private int distFound(VisitedCell cell) {
+    @Override
+    public int distFound(VisitedCell cell) {
         return cell.getDist();
     }
 
@@ -147,18 +155,22 @@ public class Maze implements MazeInterface {
         return false;
     }
 
-    public Position getEnding() {
+    @Override
+    public PositionInterface getEnding() {
         return ending;
     }
 
+    @Override
     public List<StaticElement> getStaticElems() {
         return staticElems;
     }
 
+    @Override
     public List<StaticElement> getPath() {
         return (List) path;
     }
 
+    @Override
     public GameInterface getGame() {
         return game;
     }
