@@ -7,6 +7,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import element.position.Position;
 import game.Game;
+import game.GameInterface;
 import menu.submenu.TextMenuElement;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
-    private Game game;
+    private GameInterface game;
     private Screen screen;
     protected List<Button> btn;
     protected List<TextMenuElement> texts;
@@ -23,7 +24,7 @@ public class Menu {
 
     private final String backgroundcolor = "BLACK";
 
-    public Menu(Game game, Screen screen) throws IOException {
+    public Menu(GameInterface game, Screen screen) throws IOException {
         this.game = game;
         this.screen = screen;
         btn = new ArrayList<>();
