@@ -2,7 +2,6 @@ package maze;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Static.StaticElement;
-import element.position.Position;
 import element.position.PositionInterface;
 import game.GameInterface;
 
