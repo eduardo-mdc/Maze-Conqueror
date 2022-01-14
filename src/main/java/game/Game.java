@@ -40,9 +40,6 @@ public class Game implements GameInterface {
     private int screenW;
     private int dimension;
     private int counter = 0;
-
-
-
     private PointsHandler pointsHandler;
 
     //TODO refactor error catching in game constructor
@@ -104,6 +101,12 @@ public class Game implements GameInterface {
         return screenW;
     }
 
+    @Override
+    public PointsHandler getPointsHandler() {
+        return pointsHandler;
+    }
+
+
     private void loadInitialScreen() throws IOException, URISyntaxException, FontFormatException {
         File fontFile = new File("src/main/resources/ldts1.ttf");
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
@@ -161,15 +164,16 @@ public class Game implements GameInterface {
      * Reads the user's input and runs code accordingly.
      */
     private void readKey(KeyStroke key) throws IOException {
-        if(key != null){
-            if ((key.getKeyType() == KeyType.Character && key.getCharacter() == ('q')) || (key.getKeyType() == KeyType.EOF)) quit(0);
-            if(this.getState() == 1){
-                if (key.getKeyType() == KeyType.Escape){
+        if (key != null) {
+            if ((key.getKeyType() == KeyType.Character && key.getCharacter() == ('q')) || (key.getKeyType() == KeyType.EOF))
+                quit(0);
+            if (this.getState() == 1) {
+                if (key.getKeyType() == KeyType.Escape) {
                     menu = new PauseMenu(this, screen);
                     this.setState(6);
                 }
             }
-            if(this.getState() == 6){
+            if (this.getState() == 6) {
                 switch (key.getKeyType()) {
                     case ArrowUp -> menu.iterateSelection(-1);
                     case ArrowDown -> menu.iterateSelection(1);
@@ -186,14 +190,23 @@ public class Game implements GameInterface {
         this.setState(6);
     }
 
-    public void loadGameOverMenu() throws IOException{
-        menu = new GameOverMenu(this,screen);
+    @Override
+    public void loadGameOverMenu() throws IOException {
+        menu = new GameOverMenu(this, screen);
         this.setState(6);
     }
 
-    public void loadVictoryMenu() throws IOException{
-        menu = new VictoryMenu(this,screen);
+    @Override
+    public void loadVictoryMenu() throws IOException {
+        menu = new VictoryMenu(this, screen);
         this.setState(6);
+    }
+
+    @Override
+    public void drawMenu() throws IOException {
+        screen.clear();
+        menu.draw();
+        screen.refresh();
     }
 
     @Override
@@ -202,32 +215,23 @@ public class Game implements GameInterface {
         KeyStroke key = screen.pollInput();
         readKey(key);
         maze.nextFrame(key);
-        if(counter >= 15){
-            pointsHandler.setPoints(pointsHandler.getPoints()-1);
+        if (counter >= 15) {
+            pointsHandler.setPoints(pointsHandler.getPoints() - 1);
             counter = 0;
         }
         counter++;
         draw();
     }
 
+    @Override
     public void runMenu() throws IOException {
         readKey(screen.pollInput());
         drawMenu();
     }
 
-    public PointsHandler getPointsHandler() {
-        return pointsHandler;
-    }
-
-    public void drawMenu() throws IOException{
-        screen.clear();
-        menu.draw();
-        screen.refresh();
-    }
-
     @Override
     public void loadInstructionsMenu() throws IOException {
-        menu = new InstructionsMenu(this,screen);
+        menu = new InstructionsMenu(this, screen);
         this.setState(6);
     }
 
@@ -246,7 +250,7 @@ public class Game implements GameInterface {
                     case 6 -> runMenu();
                     case 7 -> loadVictoryMenu();
                 }
-                Thread.sleep((int) (1000/fps));
+                Thread.sleep((int) (1000 / fps));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -254,12 +258,6 @@ public class Game implements GameInterface {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public int getCurrentState() {
-        return state;
-    }
-
 
     @Override
     public void winGame() {
@@ -282,7 +280,6 @@ public class Game implements GameInterface {
         screen.stopScreen();
         System.exit(status);
     }
-
 
 
 }

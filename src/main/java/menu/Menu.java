@@ -16,7 +16,6 @@ import java.util.List;
 public class Menu {
     private Game game;
     private Screen screen;
-
     protected List<Button> btn;
     protected List<TextMenuElement> texts;
     protected String text;

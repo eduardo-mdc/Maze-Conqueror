@@ -71,6 +71,13 @@ public interface GameInterface {
     int getScreenW();
 
     /**
+     * Returns the game Points Handler.
+     *
+     * @return the points handler object.
+     */
+    PointsHandler getPointsHandler();
+
+    /**
      * Sets the dimension for the lanterna screen based on the user's physical screen resolution.
      *
      * @param screenH
@@ -83,6 +90,7 @@ public interface GameInterface {
      * Creates a new game re/initializing the variables to run the game.
      */
     void restartGame();
+
     /**
      * Quits the game. Receives an integer to quit check if the game was exited successfully,
      *
@@ -99,6 +107,20 @@ public interface GameInterface {
     void loadInitialMenu() throws IOException;
 
     /**
+     * Loads the game over menu.
+     *
+     * @throws IOException
+     */
+    void loadGameOverMenu() throws IOException;
+
+    /**
+     * Loads the game victory menu.
+     *
+     * @throws IOException
+     */
+    void loadVictoryMenu() throws IOException;
+
+    /**
      * Loads the game. Game is available to play after execution.
      *
      * @throws IOException
@@ -106,22 +128,41 @@ public interface GameInterface {
     void runGame() throws IOException;
 
     /**
+     * Draws the game current Menu with lanterna framework.
+     *
+     * @throws IOException
+     */
+    void drawMenu() throws IOException;
+
+    /**
      * Loads the game instructions menu. Gives information to the user about the objective of the game.
      *
      * @throws IOException
      */
     void loadInstructionsMenu() throws IOException;
-    
+
     /**
      * Main game loop. Constantly checks the state of the game and runs code accordingly.
      */
     void run();
 
+    /**
+     * Sets the game to the winning state.
+     */
     void winGame();
 
+    /**
+     * Sets the game to the end losing state.
+     */
     void gameOver();
 
-    int getCurrentState();
 
-    PointsHandler getPointsHandler();
+    /**
+     * Run the menu, reading the keys input and drawing the corresponding menu.
+     *
+     * @throws IOException
+     */
+    void runMenu() throws IOException;
+
+
 }
