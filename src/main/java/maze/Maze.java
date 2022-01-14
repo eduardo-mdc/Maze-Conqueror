@@ -66,143 +66,23 @@ public class Maze implements MazeInterface {
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
         heroHandler = new HeroHandler(hero, this);
         pointsHandler = game.getPointsHandler();
-        //Generate correct maze with the chosen algorithm
-        MazeGenerator gen = getMazeGenerator(dim);
-        //Create bigger matrix with outer walls
-        maze = load_walls(maze, dim);
-        //Create elements and insert them to element list
-        createElements();
-        ShortestPath anao = new ShortestPath(maze,dim,new Position(begin,-xIncr,-yIncr),new Position(ending,-xIncr,-yIncr));
+        ShortestPath shortestPath = null;
 
+        getMaze(dim);
+        maze = load_walls(maze, dim);
+
+        createElements();
     }
 
-    @Override
-    public MazeGenerator getMazeGenerator(int dim) {
+
+    public void getMaze(int dim) {
         MazeGenerator gen = null;
+        ShortestPath shortestPath = null;
         do {
             gen = new MazeGenerator(dim - 2);
             gen.generateMaze();
             maze = gen.getIntMaze();
         } while (maze[dim - 3][dim - 3] == 0);
-        return gen;
-    }
-
-
-    @Override
-    public int shortestPath(PositionInterface incrementedStart, PositionInterface incrementedEnd) {
-        VisitedCell cell = null;
-
-
-
-        PositionInterface start = new Position(incrementedStart,-xIncr,-yIncr);
-        PositionInterface end = new Position(incrementedEnd ,-xIncr,-yIncr);
-
-        System.out.println(end.getX() + "-" + end.getY());
-        if ( 1 < end.getY()){
-            System.out.println("a");
-        }
-        else System.out.println("b");
-        System.out.println(start.getX() + "-" + start.getY());
-        VisitedCell initialPoint = new VisitedCell(start.getX(), start.getY(), 0);
-        Queue<VisitedCell> queue = new LinkedList<>();
-        queue.add(initialPoint);
-        boolean[][] isVisited = getIsVisitedArray(start);
-
-        while (!queue.isEmpty()) {
-            cell = queue.remove();
-            if (cell.getRow() == end.getX() && cell.getCol() == end.getY()){
-                System.out.println("found trophy");
-                return distFound(cell);
-
-            }
-
-            if (canCross(cell.getRow() - 1, cell.getCol(), isVisited)){
-                // move up
-                System.out.println("moved left");
-                cellMoveUp(queue, cell, isVisited);
-            }
-
-
-            if (canCross(cell.getRow() + 1, cell.getCol(), isVisited)){
-                // move down
-
-                System.out.println("moved right");
-                cellMoveDown(queue, cell, isVisited);
-            }
-
-
-            if (canCross(cell.getRow(), cell.getCol() - 1, isVisited)){
-                // move left
-                System.out.println("moved up");
-
-                cellMoveLeft(queue, cell, isVisited);
-            }
-
-
-
-
-            if (canCross(cell.getRow(), cell.getCol() + 1, isVisited)){
-                // move right
-                System.out.println("moved down");
-
-                cellMoveRight(queue, cell, isVisited);
-            }
-
-        }
-        for (int i = 0 ; i < dim; i ++){
-            for (int j = 0; j < dim ; j++){
-               if (isVisited[i][j]) System.out.print("[1]");
-               else System.out.print("[0]");
-            }
-            System.out.println("a");
-        }
-
-
-        return cell.getDist();
-    }
-
-
-    @Override
-    public boolean[][] getIsVisitedArray(PositionInterface start) {
-        boolean[][] isVisited = new boolean[dim][dim];
-        isVisited[start.getX()][start.getY()] = true;
-        return isVisited;
-    }
-
-    @Override
-    public void cellMoveRight(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
-        queue.add(new VisitedCell(cell.getRow(), cell.getCol() + 1, cell.getDist() + 1));
-        isVisited[cell.getRow()][cell.getCol() + 1] = true;
-    }
-
-    @Override
-    public void cellMoveLeft(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
-        queue.add(new VisitedCell(cell.getRow(), cell.getCol() - 1, cell.getDist() + 1));
-        isVisited[cell.getRow()][cell.getCol() - 1] = true;
-    }
-
-    @Override
-    public void cellMoveDown(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
-        queue.add(new VisitedCell(cell.getRow() + 1, cell.getCol(), cell.getDist() + 1));
-        isVisited[cell.getRow() + 1][cell.getCol()] = true;
-    }
-
-    @Override
-    public void cellMoveUp(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
-        queue.add(new VisitedCell(cell.getRow() - 1, cell.getCol(), cell.getDist() + 1));
-        isVisited[cell.getRow() - 1][cell.getCol()] = true;
-    }
-
-    @Override
-    public int distFound(VisitedCell cell) {
-        return cell.getDist();
-    }
-
-    private boolean canCross(int x, int y, boolean[][] isVisited) {
-        if (x >= 1 && y >= 1 && x < dim -1&& y < dim-1 && maze[x][y] != 0 && isVisited[x][y] == false) {
-            return true;
-        }
-        return false;
     }
 
     @Override
