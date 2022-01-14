@@ -63,63 +63,85 @@ public class Maze implements MazeInterface {
         staticElems = new LinkedList<>();
         path = new LinkedList<>();
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
-        heroHandler = new HeroHandler(hero,this);
+        heroHandler = new HeroHandler(hero, this);
         pointsHandler = game.getPointsHandler();
-
         //Generate correct maze with the chosen algorithm
-        do {
-            MazeGenerator gen = new MazeGenerator(dim - 2);
-            gen.generateMaze();
-            maze = gen.getIntMaze();
-        } while (maze[dim - 3][dim - 3] == 0);
-
+        MazeGenerator gen = getMazeGenerator(dim);
         //Create bigger matrix with outer walls
         maze = load_walls(maze, dim);
         //Create elements and insert them to element list
         createElements();
-        System.out.println(shortestPath(begin,ending));
+        System.out.println(shortestPath(begin, ending));
+    }
+
+    private MazeGenerator getMazeGenerator(int dim) {
+        MazeGenerator gen = null;
+        do {
+            gen = new MazeGenerator(dim - 2);
+            gen.generateMaze();
+            maze = gen.getIntMaze();
+        } while (maze[dim - 3][dim - 3] == 0);
+        return gen;
     }
 
 
-    public int shortestPath(Position IncrementedStart, Position IncrementedEnd){
-        Position start = new Position(IncrementedStart);
-        Position end = new Position(IncrementedEnd);
-        VisitedCell initialPoint = new VisitedCell(start.getX(),start.getY(),0);
+    public int shortestPath(Position incrementedStart, Position incrementedEnd) {
+        VisitedCell cell = null;
+        PositionInterface start = new Position(incrementedStart);
+        PositionInterface end = new Position(incrementedEnd);
+        VisitedCell initialPoint = new VisitedCell(start.getX(), start.getY(), 0);
         Queue<VisitedCell> queue = new LinkedList<>();
         queue.add(initialPoint);
-
-        VisitedCell cell = null;
-
-        boolean[][] isVisited = new boolean[dim][dim];
-        isVisited[start.getX()][start.getY()] = true;
+        boolean[][] isVisited = getIsVisitedArray(start);
 
         while (!queue.isEmpty()) {
             cell = queue.remove();
-
-            if (cell.getRow() == end.getX() && cell.getCol() == end.getY()) return cell.getDist(); // destination found
-
-            if (canCross(cell.getRow() - 1, cell.getCol(), isVisited)) { // move up
-                queue.add(new VisitedCell(cell.getRow() - 1, cell.getCol(), cell.getDist() + 1));
-                isVisited[cell.getRow() - 1][cell.getCol()] = true;
-            }
-            if (canCross(cell.getRow() + 1, cell.getCol(), isVisited)) { // move down
-                queue.add(new VisitedCell(cell.getRow() + 1, cell.getCol(), cell.getDist() + 1));
-                isVisited[cell.getRow() + 1][cell.getCol()] = true;
-            }
-            if (canCross(cell.getRow(), cell.getCol() - 1, isVisited)) { // move left
-                queue.add(new VisitedCell(cell.getRow(), cell.getCol() - 1, cell.getDist() + 1));
-                isVisited[cell.getRow()][cell.getCol() - 1] = true;
-            }
-            if (canCross(cell.getRow(), cell.getCol() + 1, isVisited)) { // move right
-                queue.add(new VisitedCell(cell.getRow(), cell.getCol() + 1, cell.getDist() + 1));
-                isVisited[cell.getRow()][cell.getCol() + 1] = true;
-            }
+            if (cell.getRow() == end.getX() && cell.getCol() == end.getY())
+                return distFound(cell);
+            else if (canCross(cell.getRow() - 1, cell.getCol(), isVisited))// move up
+                cellMoveUp(queue, cell, isVisited);
+            else if (canCross(cell.getRow() + 1, cell.getCol(), isVisited)) // move down
+                cellMoveDown(queue, cell, isVisited);
+            else if (canCross(cell.getRow(), cell.getCol() - 1, isVisited))// move left
+                cellMoveLeft(queue, cell, isVisited);
+            else if (canCross(cell.getRow(), cell.getCol() + 1, isVisited)) // move right
+                cellMoveRight(queue, cell, isVisited);
         }
         return cell.getDist();
     }
 
-    private  boolean canCross(int x, int y, boolean[][] isVisited) {
-        if (x >= 0 && y >= 0 && x <dim && y < dim && maze[x][y] != '0' && isVisited[x][y] == false) {
+    private boolean[][] getIsVisitedArray(PositionInterface start) {
+        boolean[][] isVisited = new boolean[dim][dim];
+        isVisited[start.getX()][start.getY()] = true;
+        return isVisited;
+    }
+
+    private void cellMoveRight(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
+        queue.add(new VisitedCell(cell.getRow(), cell.getCol() + 1, cell.getDist() + 1));
+        isVisited[cell.getRow()][cell.getCol() + 1] = true;
+    }
+
+    private void cellMoveLeft(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
+        queue.add(new VisitedCell(cell.getRow(), cell.getCol() - 1, cell.getDist() + 1));
+        isVisited[cell.getRow()][cell.getCol() - 1] = true;
+    }
+
+    private void cellMoveDown(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
+        queue.add(new VisitedCell(cell.getRow() + 1, cell.getCol(), cell.getDist() + 1));
+        isVisited[cell.getRow() + 1][cell.getCol()] = true;
+    }
+
+    private void cellMoveUp(Queue<VisitedCell> queue, VisitedCell cell, boolean[][] isVisited) {
+        queue.add(new VisitedCell(cell.getRow() - 1, cell.getCol(), cell.getDist() + 1));
+        isVisited[cell.getRow() - 1][cell.getCol()] = true;
+    }
+
+    private int distFound(VisitedCell cell) {
+        return cell.getDist();
+    }
+
+    private boolean canCross(int x, int y, boolean[][] isVisited) {
+        if (x >= 0 && y >= 0 && x < dim && y < dim && maze[x][y] != '0' && isVisited[x][y] == false) {
             return true;
         }
         return false;
@@ -134,7 +156,7 @@ public class Maze implements MazeInterface {
     }
 
     public List<StaticElement> getPath() {
-        return (List)path;
+        return (List) path;
     }
 
     public GameInterface getGame() {
@@ -164,6 +186,7 @@ public class Maze implements MazeInterface {
         createWalls();
         createTrophy();
     }
+
     @Override
     public int getDim() {
         return dim;
@@ -172,11 +195,10 @@ public class Maze implements MazeInterface {
     @Override
     public void nextFrame(com.googlecode.lanterna.input.KeyStroke key) {
         counter++;
-        if(key!=null){
+        if (key != null)
             heroHandler.checkKey(key);
-        }
         if (counter == 10) {
-            if(path.size() != 0){
+            if (path.size() != 0) {
                 PositionInterface pathPosition = path.remove().getPosition();
                 staticElems.add(new RedPath(pathPosition, "RED", SGR.BOLD, "{"));
             }
@@ -213,8 +235,7 @@ public class Maze implements MazeInterface {
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
                 if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1)
-                   staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "-"));
-
+                    staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "-"));
             }
         }
         loadHearts();

@@ -4,25 +4,26 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.Position;
+import element.position.PositionInterface;
 
 public class GenericMenuElement {
-    private Position position;
+    private PositionInterface position;
     private String color;
     private String text;
     private String backColor;
 
 
-    public GenericMenuElement(Position position){
+    public GenericMenuElement(PositionInterface position){
         this.position = position;
         this.setBackColor("BLACK");
         this.setText("");
         this.setColor("WHITE");
     }
-    public Position getPosition() {
+    public PositionInterface getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(PositionInterface position) {
         this.position = position;
     }
 

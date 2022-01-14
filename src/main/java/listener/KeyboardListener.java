@@ -12,6 +12,7 @@ public class KeyboardListener extends Thread{
     private Queue<KeyStroke> input;
     private Screen screen;
     double frameTime;
+
     public KeyboardListener(double frameTime, Screen screen){
         this.frameTime = frameTime;
         this.screen = screen;

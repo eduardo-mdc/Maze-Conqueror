@@ -19,7 +19,7 @@ public class HeroHandler {
     private final int heroHealth = 5;
 
 
-    public HeroHandler(Hero hero, Maze maze){
+    public HeroHandler(Hero hero, Maze maze) {
         this.hero = hero;
         this.maze = maze;
         hero.setHealth(heroHealth);
@@ -30,27 +30,27 @@ public class HeroHandler {
             maze.getGame().winGame();
             return;
         } else {
-            if (checkElement(position, RedPath.class,maze.getStaticElems())) {
+            if (checkElement(position, RedPath.class, maze.getStaticElems())) {
                 takeDamage();
                 return;
             }
-            if (!checkElement(position, Wall.class,maze.getStaticElems())) {
+            if (!checkElement(position, Wall.class, maze.getStaticElems())) {
                 moveHero(position);
             }
         }
     }
 
-    public void takeDamage(){
+    public void takeDamage() {
         hero.heroTakesDamage();
         maze.getGame().getPointsHandler().incrementPoints(-130);
         maze.loadHearts();
-        if (hero.isDead()){
+        if (hero.isDead()) {
             hero.setHealth(heroHealth);
             maze.getGame().gameOver();
         }
     }
 
-    public void checkKey(KeyStroke key){
+    public void checkKey(KeyStroke key) {
         switch (key.getKeyType()) {
             case ArrowUp -> checkTile(hero.moveUp());
             case ArrowDown -> checkTile(hero.moveDown());
@@ -60,7 +60,7 @@ public class HeroHandler {
     }
 
     public void moveHero(PositionInterface position) {
-        if (!checkElement(hero.getPosition(),Path.class,maze.getPath()) && !checkElement(hero.getPosition(),RedPath.class,maze.getStaticElems()))
+        if (!checkElement(hero.getPosition(), Path.class, maze.getPath()) && !checkElement(hero.getPosition(), RedPath.class, maze.getStaticElems()))
             maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
         hero.setPosition(position);
     }

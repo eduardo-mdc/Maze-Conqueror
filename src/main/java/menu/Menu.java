@@ -33,37 +33,37 @@ public class Menu {
         selected = 0;
     }
 
-    public void iterateSelection(int iterator){
+    public void iterateSelection(int iterator) {
         selected += iterator;
-        if(selected < 0) selected = btn.size()-1;
-        else if(selected > btn.size()-1) selected = 0;
+        if (selected < 0) selected = btn.size() - 1;
+        else if (selected > btn.size() - 1) selected = 0;
     }
 
-    public void select(){
+    public void select() {
         btn.get(selected).execute();
     }
 
-    protected void splitText(String separator,int xIncr, int yIncr){
+    protected void splitText(String separator, int xIncr, int yIncr) {
         String[] strArr = text.split(separator);
         int counter = 0;
-        for(String word : strArr){
-            texts.add(new TextMenuElement(new Position(xIncr,yIncr+counter),word));
+        for (String word : strArr) {
+            texts.add(new TextMenuElement(new Position(xIncr, yIncr + counter), word));
             counter += 2;
         }
     }
 
-    public void draw(){
+    public void draw() {
         int counter = 0;
         TextGraphics textgraphics = screen.newTextGraphics();
         textgraphics.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
         textgraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(200, 200), ' ');
-        for(Button button : btn){
-            if(selected == counter) button.setSelected(true);
+        for (Button button : btn) {
+            if (selected == counter) button.setSelected(true);
             else button.setSelected(false);
             button.draw(textgraphics);
             counter++;
         }
-        for(TextMenuElement element : texts){
+        for (TextMenuElement element : texts) {
             element.draw(textgraphics);
         }
     }
