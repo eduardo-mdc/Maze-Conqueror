@@ -6,7 +6,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.Position;
 import element.position.PositionInterface;
 
-public class GenericMenuElement {
+public class GenericMenuElement{
     private PositionInterface position;
     private String color;
     private String text;

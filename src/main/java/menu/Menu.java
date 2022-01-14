@@ -52,6 +52,7 @@ public class Menu {
         }
     }
 
+
     public void draw() {
         int counter = 0;
         TextGraphics textgraphics = screen.newTextGraphics();
