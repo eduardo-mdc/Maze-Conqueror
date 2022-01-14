@@ -24,9 +24,10 @@ public class Position implements PositionInterface{
             this.y = y;
         }
 
-        public Position(PositionInterface pos){
-            this.x = pos.getX();
-            this.y = pos.getY();
+
+        public Position(PositionInterface pos,int incrX , int incrY){
+            this.x = pos.getX() + incrX;
+            this.y = pos.getY() + incrY;
         }
 
         @Override

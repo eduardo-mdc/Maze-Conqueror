@@ -74,7 +74,7 @@ public class HeroHandler {
      * @param list     list to check objects.
      * @return corresponding to the existence of a cl object at the given position.
      */
-    private boolean checkElement(PositionInterface position, Class cl, List<StaticElement> list) {
+    private boolean checkElement(PositionInterface position, Class cl, Iterable<StaticElement> list) {
         for (Element tile : list) {
             if (cl.isInstance(tile) && tile.getPosition().equals(position)) return true;
         }

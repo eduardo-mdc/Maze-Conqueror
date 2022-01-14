@@ -134,7 +134,7 @@ public interface MazeInterface {
      *
      * @return the path converted to list.
      */
-    List<StaticElement> getPath();
+    Queue<StaticElement> getPath();
 
     /**
      * Returns the only instance of game executing in the game.

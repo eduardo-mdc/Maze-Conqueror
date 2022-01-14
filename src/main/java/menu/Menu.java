@@ -42,10 +42,7 @@ public class Menu {
         }
 
     }
-    public static int getMiddle(int screenWidth, String text) {
-        int middle = text.length() / 2;
-        return screenWidth / 2 - middle;
-    }
+
     public void iterateSelection(int iterator){
         selected += iterator;
         if (selected < 0) selected = btn.size() - 1;

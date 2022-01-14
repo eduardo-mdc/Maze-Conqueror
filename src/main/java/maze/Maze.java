@@ -38,7 +38,7 @@ public class Maze implements MazeInterface {
     private Hero hero;
     private List<StaticElement> staticElems;
     private List<Heart> hp;
-    private Queue<Path> path;
+    private Queue<StaticElement> path;
     private HeroHandler heroHandler;
     final private String backgroundcolor = "BLACK";
     private PointsHandler pointsHandler;
@@ -71,7 +71,8 @@ public class Maze implements MazeInterface {
         maze = load_walls(maze, dim);
         //Create elements and insert them to element list
         createElements();
-        System.out.println(shortestPath(begin, ending));
+        System.out.println("este e o caminho  mais curto "+ shortestPath(begin, ending));
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 
     @Override
@@ -89,8 +90,18 @@ public class Maze implements MazeInterface {
     @Override
     public int shortestPath(PositionInterface incrementedStart, PositionInterface incrementedEnd) {
         VisitedCell cell = null;
-        PositionInterface start = new Position(incrementedStart);
-        PositionInterface end = new Position(incrementedEnd);
+
+
+
+        PositionInterface start = new Position(incrementedStart,-xIncr,-yIncr);
+        PositionInterface end = new Position(incrementedEnd ,-xIncr,-yIncr);
+
+        System.out.println(end.getX() + "-" + end.getY());
+        if ( 1 < end.getY()){
+            System.out.println("a");
+        }
+        else System.out.println("b");
+        System.out.println(start.getX() + "-" + start.getY());
         VisitedCell initialPoint = new VisitedCell(start.getX(), start.getY(), 0);
         Queue<VisitedCell> queue = new LinkedList<>();
         queue.add(initialPoint);
@@ -98,19 +109,57 @@ public class Maze implements MazeInterface {
 
         while (!queue.isEmpty()) {
             cell = queue.remove();
-            if (cell.getRow() == end.getX() && cell.getCol() == end.getY())
+            if (cell.getRow() == end.getX() && cell.getCol() == end.getY()){
+                System.out.println("found trophy");
                 return distFound(cell);
-            if (canCross(cell.getRow() - 1, cell.getCol(), isVisited))// move up
+
+            }
+
+            if (canCross(cell.getRow() - 1, cell.getCol(), isVisited)){
+                // move up
+                System.out.println("moved left");
                 cellMoveUp(queue, cell, isVisited);
-            if (canCross(cell.getRow() + 1, cell.getCol(), isVisited)) // move down
+            }
+
+
+            if (canCross(cell.getRow() + 1, cell.getCol(), isVisited)){
+                // move down
+
+                System.out.println("moved right");
                 cellMoveDown(queue, cell, isVisited);
-            if (canCross(cell.getRow(), cell.getCol() - 1, isVisited))// move left
+            }
+
+
+            if (canCross(cell.getRow(), cell.getCol() - 1, isVisited)){
+                // move left
+                System.out.println("moved up");
+
                 cellMoveLeft(queue, cell, isVisited);
-            if (canCross(cell.getRow(), cell.getCol() + 1, isVisited)) // move right
+            }
+
+
+
+
+            if (canCross(cell.getRow(), cell.getCol() + 1, isVisited)){
+                // move right
+                System.out.println("moved down");
+
                 cellMoveRight(queue, cell, isVisited);
+            }
+
         }
+        for (int i = 0 ; i < dim; i ++){
+            for (int j = 0; j < dim ; j++){
+               if (isVisited[i][j]) System.out.print("[1]");
+               else System.out.print("[0]");
+            }
+            System.out.println("a");
+        }
+
+
         return cell.getDist();
     }
+
 
     @Override
     public boolean[][] getIsVisitedArray(PositionInterface start) {
@@ -149,7 +198,7 @@ public class Maze implements MazeInterface {
     }
 
     private boolean canCross(int x, int y, boolean[][] isVisited) {
-        if (x >= 0 && y >= 0 && x < dim && y < dim && maze[x][y] != '0' && isVisited[x][y] == false) {
+        if (x >= 1 && y >= 1 && x < dim -1&& y < dim-1 && maze[x][y] != 0 && isVisited[x][y] == false) {
             return true;
         }
         return false;
@@ -166,8 +215,8 @@ public class Maze implements MazeInterface {
     }
 
     @Override
-    public List<StaticElement> getPath() {
-        return (List) path;
+    public Queue<StaticElement> getPath() {
+        return path;
     }
 
     @Override
@@ -273,7 +322,7 @@ public class Maze implements MazeInterface {
             element.draw(screen);
         for (Element element : staticElems)
             element.draw(screen);
-        for (Path tile : path)
+        for (StaticElement tile : path)
             tile.draw(screen);
         loadHearts();
         hero.draw(screen);
