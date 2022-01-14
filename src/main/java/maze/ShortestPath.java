@@ -14,6 +14,8 @@ public class ShortestPath {
     private int dim;
     private static final int[] row = {-1, 0, 0, 1};
     private static final int[] col = {0, -1, 1, 0};
+    private boolean[][] visited;
+
 
     ShortestPath(int[][] grid, int dim, Position begin, Position end) {
         this.grid = grid;
@@ -40,9 +42,8 @@ public class ShortestPath {
         return (row >= 0) && (row < mat.length) && (col >= 0) && (col < mat[0].length)
                 && mat[row][col] == 1 && !visited[row][col];
     }
-    private boolean[][] visited;
-    private int findShortestPathLength() {
 
+    private int findShortestPathLength() {
         visited = new boolean[dim][dim];
         visited[i][j] = true;
 
