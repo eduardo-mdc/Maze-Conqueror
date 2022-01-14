@@ -7,7 +7,8 @@ import menu.ButtonInterface;
 
 public class InstructionsButton extends Button {
     private Game game;
-    public InstructionsButton(Game game,Position position) {
+
+    public InstructionsButton(Game game, Position position) {
         super(position);
         this.game = game;
         setText("INSTRUCTIONS");

@@ -5,7 +5,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.Position;
 
-public abstract class Button extends GenericMenuElement implements ButtonInterface, ActionInterface {
+public abstract class Button extends GenericMenuElement implements ButtonInterface {
 
     private boolean selected;
     private String currentColor;

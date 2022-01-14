@@ -1,6 +1,8 @@
 package menu;
 
-public interface ButtonInterface {
+import menu.submenu.GenericMenuElementInterface;
+
+public interface ButtonInterface extends GenericMenuElementInterface {
 
     /**
      * Return the button current color string.
@@ -22,4 +24,10 @@ public interface ButtonInterface {
      * @param value
      */
     void setSelected(boolean value);
+
+    /**
+     * When a button is clicked, this executes the button action.
+     * The button will execute his current function and make behavioral changes to the application.
+     */
+    void execute();
 }
