@@ -1,4 +1,4 @@
-package ButtonTest;
+package buttonTest;
 
 
 import com.googlecode.lanterna.graphics.TextGraphics;
