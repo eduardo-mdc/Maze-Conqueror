@@ -3,25 +3,24 @@ package handler;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.input.KeyStroke;
 import element.Element;
-import element.Static.Path;
-import element.Static.RedPath;
-import element.Static.StaticElement;
-import element.Static.Wall;
+import element.Static.*;
 import element.dynam.Hero;
 import element.position.PositionInterface;
+import game.GameInterface;
 import maze.Maze;
 
-import java.util.List;
 
 public class HeroHandler {
     private Hero hero;
     private Maze maze;
+    private GameInterface game;
     private final int heroHealth = 5;
 
 
     public HeroHandler(Hero hero, Maze maze) {
         this.hero = hero;
         this.maze = maze;
+        game = maze.getGame();
         hero.setHealth(heroHealth);
     }
 
@@ -60,11 +59,13 @@ public class HeroHandler {
     }
 
     public void moveHero(PositionInterface position) {
-        if (!checkElement(hero.getPosition(), Path.class, maze.getPath()) && !checkElement(hero.getPosition(), RedPath.class, maze.getStaticElems()))
+        if (!checkElement(hero.getPosition(), Path.class, maze.getPath()) && !checkElement(hero.getPosition(), RedPath.class, maze.getStaticElems())){
             maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
+            maze.removePoint(position);
+            game.getPointsHandler().incrementPoints(1);
+        }
         hero.setPosition(position);
     }
-
 
     /**
      * Check if there's an element of a given class at a certain position in a given list.

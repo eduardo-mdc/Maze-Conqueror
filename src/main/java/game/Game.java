@@ -162,7 +162,7 @@ public class Game implements GameInterface {
     private void initialize() {
         maze = new Maze(this, dimension);
         setInitialize(true);
-        pointsHandler = new PointsHandler(maze);
+        pointsHandler = new PointsHandler();
     }
 
 

@@ -15,6 +15,7 @@ import element.Static.*;
 import game.GameInterface;
 import handler.HeroHandler;
 import handler.PointsHandler;
+import org.codehaus.groovy.control.StaticImportVisitor;
 
 import java.util.*;
 
@@ -42,8 +43,6 @@ public class Maze implements MazeInterface {
     private Queue<StaticElement> path;
     private HeroHandler heroHandler;
     final private String backgroundcolor = "BLACK";
-    private PointsHandler pointsHandler;
-    private List<Position> visited;
 
     //TODO change hero constructor to accept starting hp as a variable and the correspondent tests
 
@@ -65,7 +64,6 @@ public class Maze implements MazeInterface {
         path = new LinkedList<>();
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
         heroHandler = new HeroHandler(hero, this);
-        pointsHandler = game.getPointsHandler();
         ShortestPath shortestPath = null;
 
         getMaze(dim);
@@ -127,6 +125,7 @@ public class Maze implements MazeInterface {
         createHpBar();
         createWalls();
         createTrophy();
+        createPoints();
     }
 
     @Override
@@ -183,6 +182,15 @@ public class Maze implements MazeInterface {
         loadHearts();
     }
 
+    private void createPoints(){
+        for (int i = 1; i < dim; i++) {
+            for (int j = 1; j < dim; j++) {
+                if (maze[i][j] == 1 && !ending.equals(i+xIncr,j+yIncr) && !begin.equals(i+xIncr,j+yIncr))
+                    staticElems.add(new Point(new Position(i + xIncr, j + yIncr), "YELLOW", SGR.BOLD, "."));
+            }
+        }
+    }
+
     //TODO change hearts to be stored to a stack instead.
 
     /**
@@ -203,7 +211,7 @@ public class Maze implements MazeInterface {
             element.draw(screen);
         for (Element element : staticElems)
             element.draw(screen);
-        for (StaticElement tile : path)
+        for (Element tile : path)
             tile.draw(screen);
         loadHearts();
         hero.draw(screen);
@@ -221,6 +229,16 @@ public class Maze implements MazeInterface {
             sb.append(Arrays.toString(row) + "\n");
         }
         return sb.toString();
+    }
+
+    public void removePoint(PositionInterface position) {
+        for(Element element : staticElems){
+            if(element.getClass() == Point.class && element.getPosition() == position){
+                staticElems.remove(element);
+                return;
+            }
+        }
+
     }
 }
 
