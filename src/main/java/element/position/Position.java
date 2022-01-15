@@ -70,4 +70,9 @@ public class Position implements PositionInterface{
             if(this.getX() == x && this.getY() == y) return true;
             return false;
         }
+
+        @Override
+        public String toString(){
+            return "(" + getX() + "," + getY() + ")" ;
+        }
 }

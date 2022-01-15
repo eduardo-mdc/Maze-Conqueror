@@ -62,7 +62,7 @@ public class HeroHandler {
         if (!checkElement(hero.getPosition(), Path.class, maze.getPath()) && !checkElement(hero.getPosition(), RedPath.class, maze.getStaticElems())){
             maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
             maze.removePoint(position);
-            game.getPointsHandler().incrementPoints(1);
+            game.getPointsHandler().incrementPoints(2);
         }
         hero.setPosition(position);
     }

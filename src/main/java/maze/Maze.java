@@ -6,7 +6,7 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-import maze.ShortestPath;
+import handler.PortalHandler;
 import element.Element;
 import element.dynam.Hero;
 import element.position.Position;
@@ -14,8 +14,6 @@ import element.position.PositionInterface;
 import element.Static.*;
 import game.GameInterface;
 import handler.HeroHandler;
-import handler.PointsHandler;
-import org.codehaus.groovy.control.StaticImportVisitor;
 
 import java.util.*;
 
@@ -64,7 +62,7 @@ public class Maze implements MazeInterface {
         path = new LinkedList<>();
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
         heroHandler = new HeroHandler(hero, this);
-        ShortestPath shortestPath = null;
+
 
         getMaze(dim);
         maze = load_walls(maze, dim);
@@ -72,10 +70,22 @@ public class Maze implements MazeInterface {
         createElements();
     }
 
+    public int getxIncr() {
+        return xIncr;
+    }
+
+    public int getyIncr() {
+        return yIncr;
+    }
+
+    public Position getBegin() {
+        return begin;
+    }
+
+
 
     public void getMaze(int dim) {
         MazeGenerator gen = null;
-        ShortestPath shortestPath = null;
         do {
             gen = new MazeGenerator(dim - 2);
             gen.generateMaze();
@@ -126,6 +136,7 @@ public class Maze implements MazeInterface {
         createWalls();
         createTrophy();
         createPoints();
+        createPortals();
     }
 
     @Override
@@ -189,6 +200,12 @@ public class Maze implements MazeInterface {
                     staticElems.add(new Point(new Position(i + xIncr, j + yIncr), "YELLOW", SGR.BOLD, "."));
             }
         }
+    }
+
+    private void createPortals(){
+        PortalHandler portalHandler = new PortalHandler(this);
+        staticElems.add(portalHandler.getPortalA());
+        staticElems.add(portalHandler.getPortalB());
     }
 
     //TODO change hearts to be stored to a stack instead.
