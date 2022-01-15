@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.Position;
+import element.position.PositionInterface;
 
 public abstract class Button extends GenericMenuElement implements ButtonInterface {
 
@@ -11,7 +12,7 @@ public abstract class Button extends GenericMenuElement implements ButtonInterfa
     private String currentColor;
     private String selectedColor;
 
-    protected Button(Position position) {
+    public Button(PositionInterface position) {
         super(position);
         selectedColor = "YELLOW";
         currentColor = getColor();

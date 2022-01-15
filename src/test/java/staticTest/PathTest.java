@@ -2,7 +2,6 @@ package staticTest;
 
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import element.Static.Heart;
 import element.Static.Path;
 import element.position.PositionInterface;
 import org.junit.jupiter.api.BeforeEach;

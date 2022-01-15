@@ -1,4 +1,4 @@
-package ButtonTest;
+package ButtonsTest;
 
 public class InstructionsButtonTest {
 }
