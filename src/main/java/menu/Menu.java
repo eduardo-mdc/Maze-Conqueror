@@ -53,6 +53,15 @@ public class Menu implements MenuInterface {
         return text;
     }
 
+    @Override
+    public List<ButtonInterface> getButtonsList() {
+        return btn;
+    }
+
+    @Override
+    public List<TextMenuElement> getTextList() {
+        return texts;
+    }
 
     @Override
     public void loadWalls() {
@@ -93,20 +102,27 @@ public class Menu implements MenuInterface {
         }
     }
 
-    @Override
-    public void draw() {
-        int counter = 0;
-        TextGraphics textgraphics = screen.newTextGraphics();
-        textgraphics.setBackgroundColor(TextColor.Factory.fromString(backGroundColor));
-        textgraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(200, 200), ' ');
+    public void buttonDraw(int counter, TextGraphics textgraphics) {
         for (ButtonInterface button : btn) {
             if (selected == counter) button.setSelected(true);
             else button.setSelected(false);
             button.draw(textgraphics);
             counter++;
         }
-        for (TextMenuElement element : texts) {
+    }
+
+    public void textMenuElementDraw(TextGraphics textgraphics) {
+        for (TextMenuElement element : texts)
             element.draw(textgraphics);
-        }
+    }
+
+    @Override
+    public void draw() {
+        int counter = 0;
+        TextGraphics textgraphics = screen.newTextGraphics();
+        textgraphics.setBackgroundColor(TextColor.Factory.fromString(backGroundColor));
+        textgraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(200, 200), ' ');
+        buttonDraw(counter, textgraphics);
+        textMenuElementDraw(textgraphics);
     }
 }

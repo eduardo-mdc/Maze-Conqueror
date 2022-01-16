@@ -1,10 +1,10 @@
 package menu;
 
-import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import com.googlecode.lanterna.screen.Screen;
 import game.GameInterface;
+import menu.submenu.TextMenuElement;
 
-import java.io.IOException;
+import java.util.List;
 
 /**
  * Menu interface generate various types of menus.
@@ -45,6 +45,20 @@ public interface MenuInterface {
      * @return the menu text,
      */
     String getText();
+
+    /**
+     * Return the menu buttons list, containing all the buttons to be selected for the menu.
+     *
+     * @return buttons list.
+     */
+    List<ButtonInterface> getButtonsList();
+
+    /**
+     * Return the menu text list.
+     *
+     * @return menu text list.
+     */
+    List<TextMenuElement> getTextList();
 
     /**
      * Loads the Menu visual walls used for design proposes.
