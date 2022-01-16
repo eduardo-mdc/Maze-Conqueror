@@ -1,14 +1,13 @@
 package menu.button;
 
-import element.position.Position;
-import game.Game;
+import element.position.PositionInterface;
+import game.GameInterface;
 import menu.Button;
-import menu.ButtonInterface;
 
 public class InstructionsButton extends Button {
-    private Game game;
+    private GameInterface game;
 
-    public InstructionsButton(Game game, Position position) {
+    public InstructionsButton(GameInterface game, PositionInterface position) {
         super(position);
         this.game = game;
         setText("INSTRUCTIONS");
