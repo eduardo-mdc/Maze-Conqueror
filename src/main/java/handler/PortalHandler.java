@@ -25,8 +25,8 @@ public class PortalHandler {
             entryPosition = new Position(generateNumber(xIncr+maze.getDim()-1,xIncr+1),generateNumber(yIncr+maze.getDim()-1,yIncr+1));
             endPosition = new Position(generateNumber(xIncr+maze.getDim()-1,xIncr+1),generateNumber(yIncr+maze.getDim()-1,yIncr+1));
         }while (checkCoordinates(entryPosition) && checkCoordinates(endPosition));
-        portalA = new Portal(entryPosition,"BLUE", SGR.BOLD,"#");
-        portalB = new Portal(endPosition,"BLUE", SGR.BOLD,"#");
+        portalA = new Portal(entryPosition,"BLUE", SGR.BOLD,"p");
+        portalB = new Portal(endPosition,"BLUE", SGR.BOLD,"p");
         System.out.println(portalA.getPosition());
         System.out.println(portalB.getPosition());
 

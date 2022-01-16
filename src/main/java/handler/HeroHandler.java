@@ -55,8 +55,10 @@ public class HeroHandler {
             case ArrowDown -> checkTile(hero.moveDown());
             case ArrowLeft -> checkTile(hero.moveLeft());
             case ArrowRight -> checkTile(hero.moveRight());
+            case Enter -> maze.isIt911Again(hero.getPosition().getX(),hero.getPosition().getY());
         }
     }
+
 
     public void moveHero(PositionInterface position) {
         if (!checkElement(hero.getPosition(), Path.class, maze.getPath()) && !checkElement(hero.getPosition(), RedPath.class, maze.getStaticElems())){
