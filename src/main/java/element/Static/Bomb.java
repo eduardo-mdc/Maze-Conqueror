@@ -10,6 +10,4 @@ public class Bomb extends StaticElement{
         super(position, color, format, character);
 
     }
-
-
 }

@@ -56,6 +56,7 @@ public class HeroHandler {
             case ArrowLeft -> checkTile(hero.moveLeft());
             case ArrowRight -> checkTile(hero.moveRight());
             case Enter -> maze.isIt911Again(hero.getPosition().getX(),hero.getPosition().getY());
+            case Delete -> maze.generateCoin(hero.getPosition().getX(),hero.getPosition().getY());
         }
     }
 
@@ -66,6 +67,7 @@ public class HeroHandler {
             maze.removePoint(position);
             game.getPointsHandler().incrementPoints(2);
         }
+        if(checkElement(hero.getPosition(),Coin.class, maze.getStaticElems()))game.getPointsHandler().incrementPoints(2); // trying to gain points when he gets a coin
         hero.setPosition(position);
     }
 

@@ -198,7 +198,7 @@ public class Maze implements MazeInterface {
         for (int i = 1; i < dim; i++) {
             for (int j = 1; j < dim; j++) {
                 if (maze[i][j] == 1 && !ending.equals(i+xIncr,j+yIncr) && !begin.equals(i+xIncr,j+yIncr))
-                    staticElems.add(new Point(new Position(i + xIncr, j + yIncr), "YELLOW", SGR.BOLD, "."));
+                    staticElems.add(new Point(new Position(i + xIncr, j + yIncr), "Black", SGR.BOLD, " "));
             }
         }
     }
@@ -262,5 +262,10 @@ public class Maze implements MazeInterface {
     public void isIt911Again(int x , int y) {
         staticElems.add(new Bomb(new Position( x+1, y), "RED", SGR.BOLD, "b"));
     }
+    public void generateCoin(int x , int y) {
+        staticElems.add(new Coin(new Position( x+1, y), "Yellow", SGR.BOLD, "a"));
+    }
+
+
 }
 
