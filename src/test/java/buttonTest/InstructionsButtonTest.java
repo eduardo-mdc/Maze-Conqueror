@@ -28,7 +28,7 @@ public class InstructionsButtonTest {
 
     @Test
     public void constructorTest() {
-        ButtonInterface instructionsButtonTemp = new MainMenuButton(game, position);
+        ButtonInterface instructionsButtonTemp = new  InstructionsButton(game, position);
         assertTrue(instructionsButtonTemp != null);
         assertTrue(instructionsButton != null);
     }
