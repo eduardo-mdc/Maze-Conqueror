@@ -13,15 +13,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu {
+public class Menu implements MenuInterface {
     private GameInterface game;
     private Screen screen;
     protected List<ButtonInterface> btn;
     protected List<TextMenuElement> texts;
     protected String text;
     private int selected;
-
-    private final String backgroundcolor = "BLACK";
+    private final String backGroundColor;
 
     public Menu(GameInterface game, Screen screen) throws IOException {
         this.game = game;
@@ -30,9 +29,32 @@ public class Menu {
         texts = new ArrayList<>();
         text = "";
         selected = 0;
+        backGroundColor = "BLACK";
         loadWalls();
     }
 
+    @Override
+    public String getBackGroundColor() {
+        return backGroundColor;
+    }
+
+    @Override
+    public GameInterface getGame() {
+        return game;
+    }
+
+    @Override
+    public Screen getScreen() {
+        return screen;
+    }
+
+    @Override
+    public String getText() {
+        return text;
+    }
+
+
+    @Override
     public void loadWalls() {
         for (int i = 0; i < game.getScreenW(); i++) {
             for (int j = 0; j < game.getScreenH(); j++)
@@ -43,22 +65,26 @@ public class Menu {
 
     }
 
-    public static int getMiddle(int screenWidth, String text) {
+    @Override
+    public int getMiddle(int screenWidth, String text) {
         int middle = text.length() / 2;
         return screenWidth / 2 - middle;
     }
 
+    @Override
     public void iterateSelection(int iterator) {
         selected += iterator;
         if (selected < 0) selected = btn.size() - 1;
         else if (selected > btn.size() - 1) selected = 0;
     }
 
+    @Override
     public void select() {
         btn.get(selected).execute();
     }
 
-    protected void splitText(String separator, int xIncr, int yIncr) {
+    @Override
+    public void splitText(String separator, int xIncr, int yIncr) {
         String[] strArr = text.split(separator);
         int counter = 0;
         for (String word : strArr) {
@@ -67,11 +93,11 @@ public class Menu {
         }
     }
 
-
+    @Override
     public void draw() {
         int counter = 0;
         TextGraphics textgraphics = screen.newTextGraphics();
-        textgraphics.setBackgroundColor(TextColor.Factory.fromString(backgroundcolor));
+        textgraphics.setBackgroundColor(TextColor.Factory.fromString(backGroundColor));
         textgraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(200, 200), ' ');
         for (ButtonInterface button : btn) {
             if (selected == counter) button.setSelected(true);

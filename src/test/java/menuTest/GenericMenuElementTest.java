@@ -1,4 +1,4 @@
-package MenuElement;
+package menuTest;
 
 public class GenericMenuElementTest {
 }

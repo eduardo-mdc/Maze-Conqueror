@@ -16,12 +16,6 @@ import java.io.IOException;
 
 public interface MenuInterface {
 
-    /**
-     * Sets the background string color.
-     *
-     * @param color
-     */
-    void setBackGroundColor(String color);
 
     /**
      * Returns the string representing the background color of the menu.
@@ -44,43 +38,51 @@ public interface MenuInterface {
      */
     Screen getScreen();
 
-    /**
-     * Returns the type of the menu created.
-     *
-     * @return menu type.
-     */
-    int getType();
 
     /**
-     * load menu type one.
+     * Return the menu text shown in gui of the application.
      *
-     * @param textGUI base interface for the TextGUI.
+     * @return the menu text,
      */
-    void startMenu(WindowBasedTextGUI textGUI);
+    String getText();
 
     /**
-     * loads menu type 2.
-     *
-     * @param textGUI base interface for the TextGUI.
+     * Loads the Menu visual walls used for design proposes.
      */
-    void pauseMenu(WindowBasedTextGUI textGUI);
+    void loadWalls();
 
     /**
-     * loads menu type 3.
+     * Return the middle of the text String displayed in the Menu screen.
      *
-     * @param textGUI base interface for the TextGUI.
-     * @throws IOException
+     * @param screenWidth
+     * @param text
+     * @return the middle of the text String.
      */
-    void instructionsMenu(WindowBasedTextGUI textGUI) throws IOException;
+    int getMiddle(int screenWidth, String text);
 
     /**
-     * Draws the menu into the given screen.
-     * Type 1 = Starting Menu.
-     * Type 2 = Pause Menu.
-     * Type 3 = Instructions Menu.
+     * Iterates the selection of buttons to use.
      *
-     * @param type type of menu to draw.
-     * @throws IOException .
+     * @param iterator
      */
-    void draw(int type) throws IOException;
+    void iterateSelection(int iterator);
+
+    /**
+     * Selects the usage of a certain selected button.
+     */
+    void select();
+
+    /**
+     * Splits the text into words and add them to the list of texts.
+     *
+     * @param separator
+     * @param xIncr
+     * @param yIncr
+     */
+    void splitText(String separator, int xIncr, int yIncr);
+
+    /**
+     * Draws the menu object into the screen.
+     */
+    void draw();
 }
