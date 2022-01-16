@@ -1,13 +1,15 @@
 package menu.button;
 
 import element.position.Position;
+import element.position.PositionInterface;
 import game.Game;
+import game.GameInterface;
 import menu.Button;
 
 public class StartButton extends Button {
-    private Game game;
+    private GameInterface game;
 
-    public StartButton(Game game, Position position) {
+    public StartButton(GameInterface game, PositionInterface position) {
         super(position);
         this.game = game;
         setText("START");
