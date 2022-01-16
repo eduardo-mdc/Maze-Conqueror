@@ -61,6 +61,13 @@ public interface MenuInterface {
     List<TextMenuElement> getTextList();
 
     /**
+     * Returns the number of the button selected.
+     *
+     * @return number of the button.
+     */
+    int getSelected();
+
+    /**
      * Loads the Menu visual walls used for design proposes.
      */
     void loadWalls();

@@ -64,6 +64,11 @@ public class Menu implements MenuInterface {
     }
 
     @Override
+    public int getSelected() {
+        return selected;
+    }
+
+    @Override
     public void loadWalls() {
         for (int i = 0; i < game.getScreenW(); i++) {
             for (int j = 0; j < game.getScreenH(); j++)
