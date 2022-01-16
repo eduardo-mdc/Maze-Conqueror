@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class GameTest {
@@ -77,42 +77,12 @@ public class GameTest {
         verify(tempGame, times(1)).quit(0);
     }
 
-    /*
-    @Test
-    public void loadInitialMenuTest() throws IOException {
-        assertTrue(game.getMenu() == null);
-        game.loadInitialMenu();
-        int menuType = game.getMenu().getType();
-        assertTrue(game.getMenu() != null);
-        assertEquals(1, menuType);
-    }*/
-
     @Test
     public void loadGameTest() throws IOException {
         assertFalse(game.getInitialized());
         game.runGame();
         assertTrue(game.getInitialized());
     }
-
-    /*
-    @Test
-    public void loadInstructionsMenuTest() throws IOException {
-        game.loadInstructionsMenu();
-        int menuType = game.getMenu().getType();
-        assertTrue(game.getMenu() != null);
-        assertEquals(3, menuType);
-    }
-
-
-    @Test
-    public void restartGameMenuTest() throws IOException {
-        game.restartGameMenu();
-        int menuType = game.getMenu().getType();
-        assertTrue(game.getMenu() != null);
-        assertEquals(1, menuType);
-    }
-
-     */
 
 }
 

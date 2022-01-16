@@ -1,5 +1,4 @@
 plugins {
-    id 'groovy'
     id 'java'
     id 'application'
 }
@@ -12,11 +11,14 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.codehaus.groovy:groovy-all:3.0.5'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
     implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.1'
     testImplementation 'org.mockito:mockito-core:3.7.7'
+}
+test {
+    maxHeapSize = "1024m"
+    jvmArgs "-XX:MaxPermSize=256m"
 }
 
 test {
@@ -24,5 +26,5 @@ test {
 }
 
 application {
-    mainClass.set("Application")
+    mainClass.set("ApplicationMain")
 }

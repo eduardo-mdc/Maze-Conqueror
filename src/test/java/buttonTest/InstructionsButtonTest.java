@@ -5,14 +5,13 @@ import element.position.PositionInterface;
 import game.Game;
 import game.GameInterface;
 import menu.ButtonInterface;
-import menu.button.ExitButton;
 import menu.button.InstructionsButton;
-import menu.button.MainMenuButton;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class InstructionsButtonTest {
     private ButtonInterface instructionsButton;
@@ -28,7 +27,7 @@ public class InstructionsButtonTest {
 
     @Test
     public void constructorTest() {
-        ButtonInterface instructionsButtonTemp = new  InstructionsButton(game, position);
+        ButtonInterface instructionsButtonTemp = new InstructionsButton(game, position);
         assertTrue(instructionsButtonTemp != null);
         assertTrue(instructionsButton != null);
     }
