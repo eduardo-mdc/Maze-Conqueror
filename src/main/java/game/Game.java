@@ -10,6 +10,7 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+import handler.BombsHandler;
 import handler.PointsHandler;
 import maze.Maze;
 import maze.MazeInterface;
@@ -41,6 +42,7 @@ public class Game implements GameInterface {
     private int dimension;
     private int counter = 0;
     private PointsHandler pointsHandler;
+    private BombsHandler bombsHandler;
 
     //TODO refactor error catching in game constructor
 
@@ -48,7 +50,7 @@ public class Game implements GameInterface {
      * Constructor for the game Class.
      */
     public Game() {
-        setDimension(53, 50, 10);
+        setDimension(53, 50, 40);
         maze = new Maze(this, dimension);
         initialized = false;
         counter = 0;
@@ -111,6 +113,9 @@ public class Game implements GameInterface {
     public PointsHandler getPointsHandler() {
         return pointsHandler;
     }
+    public BombsHandler getBombsHandler() {
+        return bombsHandler;
+    }
 
 
     private void loadInitialScreen() throws IOException, URISyntaxException, FontFormatException {
@@ -152,6 +157,7 @@ public class Game implements GameInterface {
         screen.clear();
         TextGraphics textGraphics = screen.newTextGraphics();
         maze.draw(textGraphics);
+        bombsHandler.draw(textGraphics);
         pointsHandler.draw(textGraphics);
         screen.refresh();
     }
@@ -163,6 +169,8 @@ public class Game implements GameInterface {
         maze = new Maze(this, dimension);
         setInitialize(true);
         pointsHandler = new PointsHandler();
+        bombsHandler = new BombsHandler();
+
     }
 
 

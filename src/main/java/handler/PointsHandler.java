@@ -28,7 +28,7 @@ public class PointsHandler {
 
     public void draw(TextGraphics screen){
         screen.setForegroundColor(TextColor.Factory.fromString(color));
-        screen.putString(new TerminalPosition(1, 5), ("SCORE " + points.toString()));
+        screen.putString(new TerminalPosition(5, 2), ("SCORE " + points.toString()));
     }
 
 }

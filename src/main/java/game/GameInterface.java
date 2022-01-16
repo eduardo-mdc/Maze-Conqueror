@@ -1,5 +1,6 @@
 package game;
 
+import handler.BombsHandler;
 import handler.PointsHandler;
 import menu.Menu;
 
@@ -165,4 +166,5 @@ public interface GameInterface {
     void runMenu() throws IOException;
 
 
+    BombsHandler getBombsHandler();
 }

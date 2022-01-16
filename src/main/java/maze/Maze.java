@@ -7,6 +7,8 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import com.googlecode.lanterna.input.KeyStroke;
+import game.Game;
+import handler.BombsHandler;
 import handler.PortalHandler;
 import element.Element;
 import element.dynam.Hero;
@@ -134,6 +136,7 @@ public class Maze implements MazeInterface {
     @Override
     public void createElements() {
         createHpBar();
+        loadHearts();
         createWalls();
         createTrophy();
         createPoints();
@@ -187,11 +190,13 @@ public class Maze implements MazeInterface {
         int ysize = 3;
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
-                if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1)
-                    staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "-"));
+                if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1){
+
+                }
+                    //staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "-"));
             }
         }
-        loadHearts();
+
     }
 
     private void createPoints(){
@@ -217,7 +222,7 @@ public class Maze implements MazeInterface {
     public void loadHearts() {
         hp.clear();
         for (int i = 1; i <= hero.getHealth(); i++) {
-            hp.add(new Heart(new Position(i + 1, 2), "#FF0000", SGR.BOLD, "*"));
+            hp.add(new Heart(new Position(i + 15, 2), "#FF0000", SGR.BOLD, "*"));
         }
     }
 
@@ -261,8 +266,10 @@ public class Maze implements MazeInterface {
 
     public void isIt911Again(int x , int y) {
         staticElems.add(new Bomb(new Position( x+1, y), "RED", SGR.BOLD, "b"));
+
     }
     public void generateCoin(int x , int y) {
+        game.getBombsHandler().incrementBombs(-1);
         staticElems.add(new Coin(new Position( x+1, y), "Yellow", SGR.BOLD, "a"));
     }
 
