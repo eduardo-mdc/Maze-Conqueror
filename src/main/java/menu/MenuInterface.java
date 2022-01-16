@@ -1,5 +1,6 @@
 package menu;
 
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import game.GameInterface;
 import menu.submenu.TextMenuElement;
@@ -101,6 +102,21 @@ public interface MenuInterface {
      * @param yIncr
      */
     void splitText(String separator, int xIncr, int yIncr);
+
+    /**
+     * Checks the selected buttons and apply the buttons drawing into the screen.
+     *
+     * @param counter
+     * @param textgraphics
+     */
+    void buttonDraw(int counter, TextGraphics textgraphics);
+
+    /**
+     * Draws all the text menu elements in the text screen.
+     *
+     * @param textgraphics
+     */
+    void textMenuElementDraw(TextGraphics textgraphics);
 
     /**
      * Draws the menu object into the screen.

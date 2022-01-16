@@ -107,6 +107,8 @@ public class Menu implements MenuInterface {
         }
     }
 
+
+    @Override
     public void buttonDraw(int counter, TextGraphics textgraphics) {
         for (ButtonInterface button : btn) {
             if (selected == counter) button.setSelected(true);
@@ -116,6 +118,7 @@ public class Menu implements MenuInterface {
         }
     }
 
+    @Override
     public void textMenuElementDraw(TextGraphics textgraphics) {
         for (TextMenuElement element : texts)
             element.draw(textgraphics);

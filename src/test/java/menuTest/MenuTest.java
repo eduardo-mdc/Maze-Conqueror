@@ -6,8 +6,10 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import game.Game;
 import game.GameInterface;
+import menu.ButtonInterface;
 import menu.Menu;
 import menu.MenuInterface;
+import menu.submenu.TextMenuElement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -84,12 +86,12 @@ public class MenuTest {
 
     @Test
     public void iterateSelectionTest() {
-        //default size of the button list is zero.
-        assertEquals(menu.getSelected(), 0);
-        menu.iterateSelection(-98);
-        assertEquals(menu.getSelected(), -1);
-        menu.iterateSelection(100);
-        assertEquals(menu.getSelected(), 0);
+        // text list size increments.
+        assertEquals(menu.getTextList().size(), 396);
+        menu.splitText("some text", 5, 5);
+        assertEquals(menu.getTextList().size(), 397);
+        menu.splitText("some text", 5, 5);
+        assertEquals(menu.getTextList().size(), 398);
     }
 
     @Test
@@ -101,17 +103,31 @@ public class MenuTest {
 
     @Test
     public void splitTextTest() {
-
+        assertEquals(menu.getSelected(), 0);
+        menu.iterateSelection(-100);
+        assertEquals(menu.getSelected(), -1);
+        menu.iterateSelection(200);
+        assertEquals(menu.getSelected(), 0);
     }
 
     @Test
-    public void buttonDrawTest() {
-
+    public void verifyButtonDrawTest() {
+        int counter = 0;
+        MenuInterface menuTemp = mock(MenuInterface.class);
+        ButtonInterface button = mock(ButtonInterface.class);
+        TextGraphics textgraphics = screen.newTextGraphics();
+        menuTemp.buttonDraw(counter, textgraphics);
+        verify(button, times(menuTemp.getButtonsList().size())).draw(textgraphics);
+        assertEquals(0, menuTemp.getButtonsList().size());
     }
 
     @Test
     public void textMenuElementDrawTest() {
-
+        TextMenuElement element = mock(TextMenuElement.class);
+        MenuInterface menuTemp = mock(MenuInterface.class);
+        TextGraphics textgraphics = screen.newTextGraphics();
+        menuTemp.textMenuElementDraw(textgraphics);
+        verify(element, times(menuTemp.getTextList().size())).draw(textgraphics);
     }
 
     @Test
