@@ -1,13 +1,13 @@
 package menu.button;
 
-import element.position.Position;
-import game.Game;
+import element.position.PositionInterface;
+import game.GameInterface;
 import menu.Button;
 
 public class RestartButton extends Button {
-    private Game game;
+    private GameInterface game;
 
-    public RestartButton(Game game, Position position) {
+    public RestartButton(GameInterface game, PositionInterface position) {
         super(position);
         this.game = game;
         setText("RESTART");
