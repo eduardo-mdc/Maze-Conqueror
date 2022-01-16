@@ -6,6 +6,7 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
+import com.googlecode.lanterna.input.KeyStroke;
 import handler.PortalHandler;
 import element.Element;
 import element.dynam.Hero;
@@ -145,7 +146,7 @@ public class Maze implements MazeInterface {
     }
 
     @Override
-    public void nextFrame(com.googlecode.lanterna.input.KeyStroke key) {
+    public void nextFrame(KeyStroke key) {
         counter++;
         if (key != null)
             heroHandler.checkKey(key);
@@ -256,6 +257,10 @@ public class Maze implements MazeInterface {
             }
         }
 
+    }
+
+    public void isIt911Again(int x , int y) {
+        staticElems.add(new Bomb(new Position( x+1, y), "RED", SGR.BOLD, "b"));
     }
 }
 

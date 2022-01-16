@@ -48,7 +48,7 @@ public class Game implements GameInterface {
      * Constructor for the game Class.
      */
     public Game() {
-        setDimension(53, 50, 40);
+        setDimension(53, 50, 10);
         maze = new Maze(this, dimension);
         initialized = false;
         counter = 0;

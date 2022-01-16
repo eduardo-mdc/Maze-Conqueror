@@ -16,11 +16,12 @@ public class VictoryMenu extends Menu {
 
     public VictoryMenu(Game game, Screen screen) throws IOException {
         super(game, screen);
-        text = "VICTORY@SCORE " + game.getPointsHandler().getPoints().toString() + "@";
+        text = "VICTORY!!@@@@SCORE " + game.getPointsHandler().getPoints().toString() + "@";
         splitText("@", xIncr, yIncr);
+
         btn = Arrays.asList(
-                new MainMenuButton(game, new Position(xIncr, yIncr + 5)),
-                new ExitButton(game, new Position(xIncr, yIncr + 10))
+                new MainMenuButton(game, new Position(xIncr, yIncr + 15)),
+                new ExitButton(game, new Position(xIncr, yIncr + 20))
         );
     }
 }
