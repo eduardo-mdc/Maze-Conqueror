@@ -2,6 +2,7 @@ package element.position;
 
 /**
  * The position interface is responsible for handling the object's location on the lanterna screen.
+ *
  * @author Eduardo Correia
  * @author Alberto Serra
  * @author José Carvalho
@@ -34,4 +35,12 @@ public interface PositionInterface {
      * @param y Integer to change the x value to.
      */
     void setY(int y);
+
+    /**
+     * Sums the values of the arguments x and y to the current position.
+     *
+     * @param x
+     * @param y
+     */
+    void changePos(int x, int y);
 }

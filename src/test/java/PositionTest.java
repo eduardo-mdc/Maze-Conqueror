@@ -1,5 +1,4 @@
-import com.googlecode.lanterna.SGR;
-import element.Static.Trophy;
+
 import element.position.Position;
 import element.position.PositionInterface;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +16,27 @@ public class PositionTest {
     public void helper() {
         currentPosition = new Position(3, 5);
         exceptedPosition = new Position(6, 8);
+    }
+
+    @Test
+    public void constructor1Test() {
+        PositionInterface position = new Position(10, 10);
+        assertTrue(position != null);
+    }
+
+    @Test
+    public void constructor2Test() {
+        PositionInterface position = new Position(currentPosition, 10, 10);
+        assertTrue(position != null);
+    }
+
+    @Test
+    public void changePosTest() {
+        PositionInterface tempPos = new Position(13, 17);
+        currentPosition.changePos(10, 12);
+        assertEquals(tempPos.getX(), currentPosition.getX());
+        assertEquals(tempPos.getY(), currentPosition.getY());
+
     }
 
     @Test
@@ -42,12 +62,4 @@ public class PositionTest {
         int y = currentPosition.getY();
         assertEquals(5, y);
     }
-
-
-    @Test
-    public void constructorTest() {
-        Position position = new Position(10, 10);
-        assertTrue(position != null);
-    }
-
 }
