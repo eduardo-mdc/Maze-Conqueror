@@ -113,6 +113,8 @@ public class Game implements GameInterface {
     public PointsHandler getPointsHandler() {
         return pointsHandler;
     }
+
+    @Override
     public BombsHandler getBombsHandler() {
         return bombsHandler;
     }
@@ -162,10 +164,8 @@ public class Game implements GameInterface {
         screen.refresh();
     }
 
-    /**
-     * Generates the maze for the game to use.
-     */
-    private void initialize() {
+    @Override
+    public void initialize() {
         maze = new Maze(this, dimension);
         setInitialize(true);
         pointsHandler = new PointsHandler();

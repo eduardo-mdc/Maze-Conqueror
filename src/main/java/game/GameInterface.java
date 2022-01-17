@@ -78,6 +78,14 @@ public interface GameInterface {
      */
     PointsHandler getPointsHandler();
 
+
+    /**
+     * Returns the game Bombs Handler.
+     *
+     * @return the bombs handler object.
+     */
+    BombsHandler getBombsHandler();
+
     /**
      * Sets the dimension for the lanterna screen based on the user's physical screen resolution.
      *
@@ -99,6 +107,11 @@ public interface GameInterface {
      * @throws IOException
      */
     void quit(int status) throws IOException;
+
+    /**
+     * Generates the maze and the element handlers for the game to use.
+     */
+    void initialize();
 
     /**
      * Loads the game initial menu.
@@ -165,6 +178,4 @@ public interface GameInterface {
      */
     void runMenu() throws IOException;
 
-
-    BombsHandler getBombsHandler();
 }
