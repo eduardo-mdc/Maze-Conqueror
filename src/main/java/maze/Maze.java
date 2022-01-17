@@ -272,7 +272,5 @@ public class Maze implements MazeInterface {
         game.getBombsHandler().incrementBombs(-1);
         staticElems.add(new Coin(new Position( x+1, y), "Yellow", SGR.BOLD, "a"));
     }
-
-
 }
 
