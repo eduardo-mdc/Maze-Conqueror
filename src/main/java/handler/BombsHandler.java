@@ -23,11 +23,12 @@ public class BombsHandler {
     }
 
     public void incrementBombs(Integer increment){
-        setBomb(bomb +increment);
+        setBomb(bomb + increment);
     }
 
     public void draw(TextGraphics screen){
         screen.setForegroundColor(TextColor.Factory.fromString(color));
         screen.putString(new TerminalPosition(25, 2), ("b " + bomb.toString()));
     }
+
 }
