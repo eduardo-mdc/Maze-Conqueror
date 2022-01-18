@@ -182,5 +182,11 @@ public interface GameInterface {
      */
     void runMenu() throws IOException;
 
+    boolean isInvincible();
+
     void incrementBombs();
+
+    void turnInvincible();
+
+     void unlockShop();
 }

@@ -46,14 +46,14 @@ public class ShopHandler {
 
     private void effect(int id) {
         switch (id){
-         case 1 -> game.incrementHeroHp();
-         case 2 -> game.incrementBombs();
+         case 0 -> game.incrementHeroHp();
+         case 1 -> game.incrementBombs();
+         case 2 -> game.turnInvincible();
         }
     }
 
     public void initializeShop() {
         addItem("*","HEALTH",20, 1000);
         addItem("b","BOMBS",10, 5000);
-        addItem("X","SOMETHING",10, 100000);
     }
 }

@@ -24,8 +24,6 @@ public class HeroHandler {
 
     }
 
-
-
     public void checkTile(PositionInterface position) {
         int index;
         if (position.equals(maze.getEnding())) {
@@ -57,9 +55,14 @@ public class HeroHandler {
     public void takeDamage() {
         levelHandler = game.getLevelHandler();
         int level = levelHandler.getLevel();
-        hero.heroTakesDamage();
-        maze.getGame().getPointsHandler().incrementPoints(-100 + (int)(level*0.10));
-        maze.loadHearts();
+
+        if(!game.isInvincible()){
+            System.out.printf("DAMAGE!");
+            hero.heroTakesDamage();
+            maze.getGame().getPointsHandler().incrementPoints(-100 + (int)(level*0.10));
+            maze.loadHearts();
+        }
+
 
         if (hero.isDead()) {
             maze.getGame().gameOver();

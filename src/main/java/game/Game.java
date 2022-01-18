@@ -49,6 +49,8 @@ public class Game implements GameInterface {
     private LevelHandler levelHandler;
     private ShopHandler shopHandler;
     private int heroHp = maxHP;
+    private boolean isUnlocked = false;
+    private boolean invensible = false;
 
     //TODO refactor error catching in game constructor
 
@@ -182,9 +184,9 @@ public class Game implements GameInterface {
         shopHandler = new ShopHandler(this);
         pointsHandler = new PointsHandler();
         levelHandler = new LevelHandler();
+        bombsHandler = new BombsHandler(maze);
         decrease = (int) (levelHandler.getLevel() * 0.3);
     }
-
 
     /**
      * Reads the user's input and runs code accordingly.
@@ -237,16 +239,26 @@ public class Game implements GameInterface {
     @Override
     public void runGame() throws IOException {
         if (!initialized) initialize();
+        if (levelHandler.getLevel() == 10 && !isUnlocked){
+            isUnlocked = true;
+            unlockShop();
+        }
+
         KeyStroke key = screen.pollInput();
         readKey(key);
         maze.nextFrame(key);
+        
         if (counter >= 15) {
-
             pointsHandler.setPoints(pointsHandler.getPoints() - decrease);
             counter = 0;
         }
         counter++;
         draw();
+    }
+
+    @Override
+    public void unlockShop() {
+        shopHandler.addItem("X","SOMETHING",1, 10000);
     }
 
     @Override
@@ -260,6 +272,16 @@ public class Game implements GameInterface {
         int oldBombs = bombsHandler.getBombs();
         if (oldBombs < bombsHandler.getMaxbomb())
          bombsHandler.setBomb(oldBombs++);
+    }
+
+    public boolean isInvincible(){
+        return invensible;
+    }
+
+    @Override
+    public void turnInvincible() {
+        System.out.printf("SIM");
+        invensible = true;
     }
 
     @Override
@@ -293,6 +315,7 @@ public class Game implements GameInterface {
 
     @Override
     public void winGame() {
+        if(invensible) {invensible = false;}
         setState(7);
     }
 
@@ -311,6 +334,7 @@ public class Game implements GameInterface {
         initialized = false;
         state = 1;
     }
+
     public void generateNewMaze(){
         maze = new Maze(this, dimension);
     }
@@ -319,6 +343,7 @@ public class Game implements GameInterface {
         menu = new ShopMenu(this, screen);
         this.setState(6);
     }
+
     public void nextMap(){
         levelHandler.nextLevel();
         decrease = (int) (levelHandler.getLevel() * 0.3);
@@ -327,11 +352,10 @@ public class Game implements GameInterface {
         generateNewMaze();
         state = 1 ;
     }
+
     @Override
     public void quit(int status) throws IOException {
         screen.stopScreen();
         System.exit(status);
     }
-
-
 }

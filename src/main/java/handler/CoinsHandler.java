@@ -16,6 +16,7 @@ public class CoinsHandler extends RandomPosition{
     public void generateCoin(){
         maze.getCoins().add(new Coin(getRandomPosition(maze.getEmptyTiles().size()-1),"YELLOW",SGR.BOLD,"a"));
     }
+
     public void obtainCoin(int index){
         Position position = (Position) maze.getCoins().get(index).getPosition();
         maze.getGame().getPointsHandler().incrementPoints(100 + 100*(int)(0.1 * maze.getLevelhandler().getLevel()));
