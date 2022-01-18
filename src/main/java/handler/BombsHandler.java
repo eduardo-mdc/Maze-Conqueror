@@ -47,7 +47,7 @@ public class BombsHandler {
             if (pos.equals(position)) flag = true;
         if (flag && getBombs()>0){
             this.incrementBombs(-1);
-            maze.getBombs().add(new Bomb(position, "RED", SGR.BOLD, "b"));
+            maze.getBombs().add(new Bomb(position, "BLACK", SGR.BOLD, "b"));
         }
     }
 

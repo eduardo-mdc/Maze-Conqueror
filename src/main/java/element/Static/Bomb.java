@@ -9,13 +9,24 @@ import java.util.List;
 
 public class Bomb extends StaticElement{
     private int timer;
-    private final int radius = 2;
+    private final int radius = 3;
+    private String colour1;
+    private final String colour2 = "RED";
     public Bomb(PositionInterface position, String color, SGR format, String character) {
         super(position, color, format, character);
+        this.colour1 = this.getColor();
         timer = 90;
     }
     public void bombTick(){
+        if (timer%10 == 0) alternateColour();
         timer--;
+    }
+    private void alternateColour(){
+        if (this.getColor().equals(colour1)){
+            this.setColor(colour2);
+            return;
+        }
+        this.setColor(colour1);
     }
     public int getTimer(){
         return timer;
@@ -25,10 +36,10 @@ public class Bomb extends StaticElement{
     }
     private void destroy(List<StaticElement> list, PositionInterface position, int radius){
         if(radius > 0){
-            for(StaticElement wall : list){
-                if (wall.getClass() == Wall.class && wall.getPosition().equals(position)){
-                    if(!((Wall) wall).isOuterWall()){
-                        list.remove(wall);
+            for(StaticElement element : list){
+                if (element.getClass() == Wall.class && element.getPosition().equals(position)){
+                    if(!((Wall) element).isOuterWall()){
+                        list.remove(element);
                         break;
                     }
                 }

@@ -17,6 +17,8 @@ import java.util.Objects;
  */
 public abstract class Element implements ElementInterface {
     private PositionInterface position;
+
+
     private String color;
     private SGR format;
     private String character;
@@ -80,5 +82,10 @@ public abstract class Element implements ElementInterface {
         Element element = (Element) o;
         return position.equals(element.position) && color.equals(element.color) && format == element.format && character.equals(element.character);
     }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
 
 }

@@ -52,7 +52,7 @@ public class Game implements GameInterface {
      * Constructor for the game Class.
      */
     public Game() {
-        setDimension(52, 50, 10);
+        setDimension(52, 50, 40);
         initialized = false;
         counter = 0;
         state = 0;
