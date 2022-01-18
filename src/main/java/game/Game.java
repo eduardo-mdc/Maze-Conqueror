@@ -101,7 +101,7 @@ public class Game implements GameInterface {
 
     public int getHeroHp(){return heroHp;}
 
-    public void setHeroHp(int newHp){heroHp = newHp;}
+    public void incrementHeroHp(){if (heroHp< maxHP)heroHp++;}
 
     @Override
     public void setState(int newState) {
@@ -175,7 +175,7 @@ public class Game implements GameInterface {
         restartHeroHp();
         generateNewMaze();
         setInitialize(true);
-        shopHandler = new ShopHandler();
+        shopHandler = new ShopHandler(this);
         pointsHandler = new PointsHandler();
         bombsHandler = new BombsHandler();
     }
@@ -248,6 +248,13 @@ public class Game implements GameInterface {
     public void runMenu() throws IOException {
         readKey(screen.pollInput());
         drawMenu();
+    }
+
+    @Override
+    public void incrementBombs() {
+        int oldBombs = bombsHandler.getBombs();
+        if (oldBombs < bombsHandler.getMaxbomb())
+         bombsHandler.setBomb(oldBombs++);
     }
 
     @Override

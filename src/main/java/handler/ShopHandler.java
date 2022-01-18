@@ -1,13 +1,17 @@
 package handler;
+import game.GameInterface;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShopHandler {
+    private GameInterface game;
     private List<String> name = new ArrayList<>();
     private List<Integer> amount = new ArrayList<>();
     private List<Integer> price = new ArrayList<>();
 
-    public ShopHandler(){
+    public ShopHandler(GameInterface game){
+        this.game = game;
         initializeShop();
     }
 
@@ -31,8 +35,18 @@ public class ShopHandler {
     public int getTotalItems(){return name.size();}
     public void sell(int id){
         if(getAmount(id)>0){
-            amount.set(id,amount.get(1) -1);
+            int actualAmount = amount.get(id);
+            amount.set(id,actualAmount - 1);
+            effect(id);
         }
+
+    }
+
+    private void effect(int id) {
+     switch (id){
+         case 1 -> game.incrementHeroHp();
+         case 2 -> game.incrementBombs();
+     }
     }
 
     public void initializeShop() {

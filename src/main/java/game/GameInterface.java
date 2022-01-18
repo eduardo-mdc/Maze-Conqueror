@@ -22,7 +22,7 @@ public interface GameInterface {
      * @return menu object.
      */
     Menu getMenu();
-
+    void incrementHeroHp();
     /**
      * Changes the value of the variable initialize to control the state of the game.
      *
@@ -180,4 +180,5 @@ public interface GameInterface {
      */
     void runMenu() throws IOException;
 
+    void incrementBombs();
 }

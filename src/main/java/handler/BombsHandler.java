@@ -5,12 +5,17 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class BombsHandler {
+    public Integer getMaxbomb() {
+        return maxbomb;
+    }
+
     private Integer bomb;
+    private Integer maxbomb = 5 ;
     private final String color = "WHITE";
 
 
     public BombsHandler(){
-        bomb = 5;
+        bomb = maxbomb;
     }
 
     public Integer getBombs() {
