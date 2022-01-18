@@ -50,7 +50,7 @@ public class Game implements GameInterface {
      * Constructor for the game Class.
      */
     public Game() {
-        setDimension(52, 50, 20);
+        setDimension(52, 50, 10);
         initialized = false;
         counter = 0;
         state = 0;
@@ -165,11 +165,10 @@ public class Game implements GameInterface {
 
     @Override
     public void initialize() {
-        maze = new Maze(this, dimension);
+        generateNewMaze();
         setInitialize(true);
         pointsHandler = new PointsHandler();
         bombsHandler = new BombsHandler();
-
     }
 
 
@@ -262,6 +261,7 @@ public class Game implements GameInterface {
                     case 5 -> loadGameOverMenu();
                     case 6 -> runMenu();
                     case 7 -> loadVictoryMenu();
+                    case 8 -> nextMap();
                 }
                 Thread.sleep((int) (1000 / fps));
             }
@@ -287,7 +287,14 @@ public class Game implements GameInterface {
         initialized = false;
         state = 1;
     }
+    public void generateNewMaze(){
+        maze = new Maze(this, dimension);
+    }
 
+    public void nextMap(){
+        generateNewMaze();
+        state = 1 ;
+    }
     @Override
     public void quit(int status) throws IOException {
         screen.stopScreen();
