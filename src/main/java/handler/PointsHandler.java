@@ -9,7 +9,7 @@ public class PointsHandler {
     private final String color = "WHITE";
 
 
-    public PointsHandler(){
+    public PointsHandler() {
         points = 1000;
     }
 
@@ -18,15 +18,15 @@ public class PointsHandler {
     }
 
     public void setPoints(Integer points) {
-        if(points < 0) this.points = 0;
+        if (points < 0) this.points = 0;
         else this.points = points;
     }
 
-    public void incrementPoints(Integer increment){
-        setPoints(points+increment);
+    public void incrementPoints(Integer increment) {
+        setPoints(points + increment);
     }
 
-    public void draw(TextGraphics screen){
+    public void draw(TextGraphics screen) {
         screen.setForegroundColor(TextColor.Factory.fromString(color));
         screen.putString(new TerminalPosition(5, 2), ("SCORE " + points.toString()));
     }

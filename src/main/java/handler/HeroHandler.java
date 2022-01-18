@@ -7,7 +7,6 @@ import element.Static.*;
 import element.dynam.Hero;
 import element.position.PositionInterface;
 import game.GameInterface;
-import maze.Maze;
 import maze.MazeInterface;
 
 
