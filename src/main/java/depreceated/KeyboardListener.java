@@ -1,4 +1,4 @@
-package listener;
+package depreceated;
 
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;

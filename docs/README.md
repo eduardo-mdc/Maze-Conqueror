@@ -31,10 +31,10 @@ The following screenshots illustrate and gifs the general look of our game, as w
 
 ### Main Menu
 
-> This section is in regard to the menu the player sees and interacts with when he starts up the game. The current visual aspect is a WIP.
+> This section is in regard to the menu the player sees and interacts with when he starts up the game.
 
 - **Start Game** - Allows the player to start the game.
-- **Instructions (WIP)** - Opens a new screen with info on how to play the game.
+- **Instructions** - Opens a new screen with info on how to play the game.
 - **Exit** - Closes the game.
 
 ### Core Game
@@ -50,36 +50,37 @@ The following screenshots illustrate and gifs the general look of our game, as w
   damage to the player.
 - **Health** - The player's hit points, enables the player to take damage, and on reaching 0, finishes the game.
 - **Pause** - Allows the player to pause the game.
+- **Multithreaded Input** - The game does not stop and wait for player input.
+- **Refactored Menus** - Hand-made menus that change the state of the game. These include, starting, pausing and finishing the game. Changed from default lanterna menu's.
+- **Points** - The faster you complete the maze, the higher your points. Points are also acquired whenever you enter a new empty tile or pickup a coin.
+- **Coins** - Randomly generated elements which, on contact give the player more points.
+- **Portals** - Randomly generated elements which, on contact teleport the player to another portal on the maze.
 
 ### Pause Menu
 
-> This section details the features in regard to the pause menu. The current visual aspect is a WIP.
+> This section details the features in regard to the pause menu.
 
 - **Resume Game** - Allows the player to resume the game.
 - **Restart** - Allows the player to restart the game.
 - **Exit** - Closes the game.
 
+
+### Game Over/Victory Menu
+
+> This section details the features in regard to the Game Over/Victory menu. 
+- **Main Menu** - Allows the player to return to the main menu.
+- **Exit** - Allows the player to exit the game.
+
 ### Planned Features
 
 > This section details the planned features for the game as a whole. These may be subject to change as we develop the project.
 
-- **Multithreaded Input** - Currently the game runs on a single thread. This is not acceptable due to the fact that
-  the `getInput()` method from `lanterna` stops the process from running, which prevents time based mechanics. Currently
-  there's a WIP branch that gets input from another thread.
-- **Refactor the Menus** - The current menus are pre-made from the `lanterna` library which are incompatible with the
-  threaded KeyboardListener class (in WIP branch). As such these will have to be remade in order to account for these
-  incompatibilities.
-- **Points** - Finish the game with a certain amount of points, the faster you complete the maze, the higher your
-  points. Points are also acquired whenever you enter a new empty tile.
 - **Continue Playing** - Continue playing after completing the first maze (with a new randomly generated maze) in order
   to increase your total points. The maze may increase in difficulty.
 - **Enemies** - Add enemies with random movement that deal contact damage.
-- **Portals** - Static elements which, on contact teleport the player to another portal on the maze.
-- **Other Special Elements** - Special elements which cause different effects on contact, these are still in discussion.
 - **Items** - Special items that can be acquired that interact with the maze in some way.
 - **Leaderboard** - Highscore file that stores the best players.
 - **Shop** - Way to acquire items after the game is finished.
-- **Events** - Randomly deciding certain aspects of the maze, this is to add to the repeatability of the gameplay.
 
 ### Design
 
@@ -188,7 +189,7 @@ user's input does not work, which means that this implementation will need to be
 
 ------
 
-### Known code smells and refactoring suggestions.
+### Known code smells/problems and refactoring suggestions.
 
 > The following are the code smells we could identify in our project.
 ------
@@ -266,9 +267,23 @@ Change the function to work based of a state design or a switch.
 
 The `Maze.ToString()` method is never used, however this functions helps out for debugging purposes.
 
-**Solution**
+-----
+#### **Using a single threaded codeflow**
 
-Remove the function.
+While discussing the project, the question of whether we should use a multithreaded approach was brought up.<p> 
+At the beginning we thought this would be inevitable,
+due to the fact that the `lanterna` `getInput()` method interrupts the processing of the code, much like a system input function. So we developed a `KeyboardListener`
+class which would run on a separate Thread. This class would queue up the inputs read from the user, without interrupting the code. We managed to circumvent this issue however, using the `screen.pollInput()` which 
+essentially did the same thing.<p>
+
+Another instance we thought of using threads was with the handler package. The classes present within this class are currently are instantiated on the `Maze` and `Game` class. <p>
+
+The idea of handling certain aspects of the game in an asynchronous manner, at first did look appealing, yet this brought up the question of what would happen if established classes where modified in an 
+unordered manner, which would wind up introducing unwanted problems. So we decided to run everything on a single, timed thread, running currently at 30 frames per second.
+
+----
+
+
 
 ### TESTING
 
