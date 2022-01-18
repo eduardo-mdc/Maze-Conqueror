@@ -45,7 +45,7 @@ public class Maze implements MazeInterface {
     private Queue<StaticElement> path;
     private HeroHandler heroHandler;
     private PortalHandler portalHandler;
-
+    private int currentHealth;
 
 
     private CoinsHandler coinsHandler;
@@ -66,12 +66,13 @@ public class Maze implements MazeInterface {
         this.begin = new Position(1 + xIncr, 1 + yIncr);
         this.ending = new Position(dim - 2 + xIncr, dim - 2 + yIncr);
         counter = 0;
+        currentHealth = game.getHeroHp();
         hp = new ArrayList<>();
         staticElems = new LinkedList<>();
         emptyTiles = new LinkedList<>();
         path = new LinkedList<>();
         coins = new LinkedList<>();
-        hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
+        hero = new Hero(begin, "GREEN", SGR.BORDERED, "@",currentHealth);
         heroHandler = new HeroHandler(hero, this);
         getMaze(dim);
         maze = load_walls(maze, dim);
@@ -92,7 +93,6 @@ public class Maze implements MazeInterface {
     public Position getBegin() {
         return begin;
     }
-
 
     public void getMaze(int dim) {
         MazeGenerator gen = null;
@@ -194,7 +194,9 @@ public class Maze implements MazeInterface {
             }
         }
     }
-
+    public int getActualHeroHp(){
+        return hero.getHealth();
+    }
     /**
      * Creates an Hpbar object at the upper-left corner of the terminal.
      */

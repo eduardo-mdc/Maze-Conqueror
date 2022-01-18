@@ -113,6 +113,7 @@ public interface MazeInterface {
      * @param y
      */
     void generateBombs(int x, int y);
+    int getActualHeroHp();
 
     List<Position> getEmptyTiles();
 

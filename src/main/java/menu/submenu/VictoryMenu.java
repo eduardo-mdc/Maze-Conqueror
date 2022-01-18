@@ -20,8 +20,9 @@ public class VictoryMenu extends Menu {
         splitText("@", xIncr, yIncr);
 
         btn = Arrays.asList(
-                new MainMenuButton(game, new Position(xIncr, yIncr + 15)),
-                new ExitButton(game, new Position(xIncr, yIncr + 20))
+                new ShopMenu(game, new Position(xIncr, yIncr + 15)),
+                new MainMenuButton(game,new Position(xIncr,yIncr+20)),
+                new ExitButton(game, new Position(xIncr, yIncr + 25))
         );
     }
 }
