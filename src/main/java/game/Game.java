@@ -41,8 +41,10 @@ public class Game implements GameInterface {
     private int screenW;
     private int dimension;
     private int counter;
+    private int maxHP = 5;
     private PointsHandler pointsHandler;
     private BombsHandler bombsHandler;
+    private int heroHp = maxHP;
 
     //TODO refactor error catching in game constructor
 
@@ -64,7 +66,9 @@ public class Game implements GameInterface {
             e.printStackTrace();
         }
     }
-
+    private void restartHeroHp(){
+        heroHp = maxHP;
+    }
     /**
      * public static Class<GameInterface> getGame() {
      * return GameInterface.class;
@@ -91,6 +95,9 @@ public class Game implements GameInterface {
         return initialized;
     }
 
+    public int getHeroHp(){return heroHp;}
+
+    public void setHeroHp(int newHp){heroHp = newHp;}
 
     @Override
     public void setState(int newState) {
@@ -101,7 +108,6 @@ public class Game implements GameInterface {
     public int getScreenH() {
         return screenH;
     }
-
 
     @Override
     public int getScreenW() {
@@ -117,7 +123,6 @@ public class Game implements GameInterface {
     public BombsHandler getBombsHandler() {
         return bombsHandler;
     }
-
 
     private void loadInitialScreen() throws IOException, URISyntaxException, FontFormatException {
         File fontFile = new File("src/main/resources/ldts1.ttf");
@@ -142,14 +147,12 @@ public class Game implements GameInterface {
         screen.newTextGraphics().setBackgroundColor(TextColor.Factory.fromString("BLACK"));
     }
 
-
     @Override
     public void setDimension(int screenH, int screenW, int dimension) {
         this.screenH = screenH;
         this.screenW = screenW;
         this.dimension = dimension;
     }
-
 
     /**
      * Draws the game on the lanterna screen.
@@ -165,6 +168,7 @@ public class Game implements GameInterface {
 
     @Override
     public void initialize() {
+        restartHeroHp();
         generateNewMaze();
         setInitialize(true);
         pointsHandler = new PointsHandler();
@@ -292,6 +296,7 @@ public class Game implements GameInterface {
     }
 
     public void nextMap(){
+        this.heroHp = maze.getActualHeroHp();
         generateNewMaze();
         state = 1 ;
     }

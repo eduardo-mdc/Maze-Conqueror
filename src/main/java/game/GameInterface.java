@@ -85,6 +85,7 @@ public interface GameInterface {
      * @return the bombs handler object.
      */
     BombsHandler getBombsHandler();
+    int getHeroHp();
 
     /**
      * Sets the dimension for the lanterna screen based on the user's physical screen resolution.

@@ -15,14 +15,11 @@ public class HeroHandler {
     private Hero hero;
     private MazeInterface maze;
     private GameInterface game;
-    private final int heroHealth = 5;
-
 
     public HeroHandler(Hero hero, MazeInterface maze) {
         this.hero = hero;
         this.maze = maze;
         game = maze.getGame();
-        hero.setHealth(heroHealth);
     }
 
     public void checkTile(PositionInterface position) {
@@ -57,8 +54,8 @@ public class HeroHandler {
         hero.heroTakesDamage();
         maze.getGame().getPointsHandler().incrementPoints(-130);
         maze.loadHearts();
+
         if (hero.isDead()) {
-            hero.setHealth(heroHealth);
             maze.getGame().gameOver();
         }
     }
