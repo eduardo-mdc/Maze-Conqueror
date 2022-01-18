@@ -12,6 +12,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import handler.BombsHandler;
 import handler.PointsHandler;
+import handler.ShopHandler;
 import maze.Maze;
 import maze.MazeInterface;
 import menu.Menu;
@@ -44,6 +45,7 @@ public class Game implements GameInterface {
     private int maxHP = 5;
     private PointsHandler pointsHandler;
     private BombsHandler bombsHandler;
+    private ShopHandler shopHandler;
     private int heroHp = maxHP;
 
     //TODO refactor error catching in game constructor
@@ -94,6 +96,8 @@ public class Game implements GameInterface {
     public boolean getInitialized() {
         return initialized;
     }
+
+    public ShopHandler getShopHandler(){return this.shopHandler;};
 
     public int getHeroHp(){return heroHp;}
 
@@ -171,6 +175,7 @@ public class Game implements GameInterface {
         restartHeroHp();
         generateNewMaze();
         setInitialize(true);
+        shopHandler = new ShopHandler();
         pointsHandler = new PointsHandler();
         bombsHandler = new BombsHandler();
     }
@@ -295,8 +300,10 @@ public class Game implements GameInterface {
     public void generateNewMaze(){
         maze = new Maze(this, dimension);
     }
+
     public void loadShop() throws IOException {
         menu = new ShopMenu(this, screen);
+        this.setState(6);
     }
     public void nextMap(){
         this.heroHp = maze.getActualHeroHp();
