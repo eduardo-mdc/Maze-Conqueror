@@ -83,8 +83,10 @@ public class HeroHandler {
 
     public void moveHero(PositionInterface position) {
         if (checkEmpty(hero.getPosition())){
+            levelHandler = game.getLevelHandler();
+            int level = levelHandler.getLevel();
             maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
-            game.getPointsHandler().incrementPoints(2);
+            game.getPointsHandler().incrementPoints(2 * (int)(level*0.5));
             maze.getEmptyTiles().remove(new Position((Position) hero.getPosition()));
         }
         hero.setPosition(position);
