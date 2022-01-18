@@ -8,4 +8,5 @@ public class TextMenuElement extends GenericMenuElement {
         super(position);
         setText(text);
     }
+
 }

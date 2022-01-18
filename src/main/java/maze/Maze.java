@@ -17,6 +17,7 @@ import element.position.PositionInterface;
 import element.Static.*;
 import game.GameInterface;
 import handler.HeroHandler;
+import menu.submenu.TextMenuElement;
 
 import java.util.*;
 
@@ -150,7 +151,7 @@ public class Maze implements MazeInterface {
 
     @Override
     public void createElements() {
-        createHpBar();
+        //createHpBar();
         loadHearts();
         createWalls();
         createTrophy();
@@ -214,19 +215,17 @@ public class Maze implements MazeInterface {
     /**
      * Creates an Hpbar object at the upper-left corner of the terminal.
      */
-    private void createHpBar() {
+   /* private void createHpBar() {
         int xsize = hero.getHealth() + 2;
         int ysize = 3;
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
                 if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1) {
-
                 }
-                //staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "-"));
             }
         }
 
-    }
+    }*/
 
 
     private void createPortals() {
@@ -252,6 +251,7 @@ public class Maze implements MazeInterface {
             hp.add(new Heart(new Position(i + 15, 2), "#FF0000", SGR.BOLD, "*"));
         }
     }
+
 
     @Override
     public void draw(TextGraphics screen) {

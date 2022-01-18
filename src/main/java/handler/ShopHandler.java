@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShopHandler {
-    private GameInterface game;
-    private List<String> name = new ArrayList<>();
-    private List<Integer> amount = new ArrayList<>();
-    private List<Integer> price = new ArrayList<>();
+
+    private final GameInterface game;
+    private final List<String> name = new ArrayList<>();
+    private final List<Integer> amount = new ArrayList<>();
+    private final List<Integer> price = new ArrayList<>();
 
     public ShopHandler(GameInterface game){
         this.game = game;
@@ -32,21 +33,22 @@ public class ShopHandler {
         this.amount.add(amount);
         this.price.add(price);
     }
+
     public int getTotalItems(){return name.size();}
+
     public void sell(int id){
         if(getAmount(id)>0){
             int actualAmount = amount.get(id);
             amount.set(id,actualAmount - 1);
             effect(id);
         }
-
     }
 
     private void effect(int id) {
-     switch (id){
+        switch (id){
          case 1 -> game.incrementHeroHp();
          case 2 -> game.incrementBombs();
-     }
+        }
     }
 
     public void initializeShop() {

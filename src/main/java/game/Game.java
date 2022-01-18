@@ -11,6 +11,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import handler.BombsHandler;
+import handler.LevelHandler;
 import handler.PointsHandler;
 import handler.ShopHandler;
 import maze.Maze;
@@ -45,6 +46,7 @@ public class Game implements GameInterface {
     private int maxHP = 5;
     private PointsHandler pointsHandler;
     private BombsHandler bombsHandler;
+    private LevelHandler levelHandler;
     private ShopHandler shopHandler;
     private int heroHp = maxHP;
 
@@ -52,9 +54,10 @@ public class Game implements GameInterface {
 
     /**
      * Constructor for the game Class.
-     */
+     **/
+
     public Game() {
-        setDimension(52, 50, 40);
+        setDimension(52, 50, 10);
         initialized = false;
         counter = 0;
         state = 0;
@@ -68,6 +71,7 @@ public class Game implements GameInterface {
             e.printStackTrace();
         }
     }
+
     private void restartHeroHp(){
         heroHp = maxHP;
     }
@@ -165,6 +169,7 @@ public class Game implements GameInterface {
         screen.clear();
         TextGraphics textGraphics = screen.newTextGraphics();
         maze.draw(textGraphics);
+        levelHandler.draw(textGraphics);
         pointsHandler.draw(textGraphics);
         screen.refresh();
     }
@@ -176,6 +181,7 @@ public class Game implements GameInterface {
         setInitialize(true);
         shopHandler = new ShopHandler(this);
         pointsHandler = new PointsHandler();
+        levelHandler = new LevelHandler();
     }
 
 
@@ -234,8 +240,9 @@ public class Game implements GameInterface {
         KeyStroke key = screen.pollInput();
         readKey(key);
         maze.nextFrame(key);
+
         if (counter >= 15) {
-            pointsHandler.setPoints(pointsHandler.getPoints() - 1);
+            pointsHandler.setPoints(pointsHandler.getPoints()- (levelHandler.getLevel()/10));
             counter = 0;
         }
         counter++;
@@ -311,6 +318,7 @@ public class Game implements GameInterface {
         this.setState(6);
     }
     public void nextMap(){
+        levelHandler.nextLevel();
         this.heroHp = maze.getActualHeroHp();
         generateNewMaze();
         state = 1 ;
