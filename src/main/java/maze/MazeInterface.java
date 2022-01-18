@@ -2,6 +2,7 @@ package maze;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Static.StaticElement;
+import element.position.Position;
 import element.position.PositionInterface;
 import game.GameInterface;
 
@@ -52,6 +53,32 @@ public interface MazeInterface {
     void draw(TextGraphics screen);
 
 
+    /**
+     * Returns the xIncr variable of the maze.
+     *
+     * @return xIncr variable of the maze.
+     */
+    int getxIncr();
+
+    /**
+     * Returns the yIncr variable of the maze.
+     *
+     * @return yIncr variable of the maze.
+     */
+    int getyIncr();
+
+    /**
+     * Returns the inital (beginning) position of the maze.
+     *
+     * @return beginning position
+     */
+    PositionInterface getBegin();
+
+    /**
+     * Returns the final (ending) position of the maze.
+     *
+     * @return ending position.
+     */
     PositionInterface getEnding();
 
     /**
