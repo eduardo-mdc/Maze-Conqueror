@@ -5,6 +5,7 @@ import element.Static.StaticElement;
 import element.position.Position;
 import element.position.PositionInterface;
 import game.GameInterface;
+import handler.PortalHandler;
 
 import java.util.Dictionary;
 import java.util.List;
@@ -120,4 +121,6 @@ public interface MazeInterface {
     void generateCoin(int x, int y);
 
     List<Position> getEmptyTiles();
+
+    PortalHandler getPortalHandler();
 }

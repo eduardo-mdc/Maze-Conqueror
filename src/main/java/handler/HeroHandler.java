@@ -39,7 +39,8 @@ public class HeroHandler {
             }
             index = checkElement(position, Portal.class, maze.getStaticElems());
             if (index != 0) {
-                teleportHero(index);
+                Portal portal = (Portal) maze.getStaticElems().get(index);
+                teleportHero(maze.getPortalHandler().getOtherPortal(portal));
                 return;
             }
         }
@@ -56,14 +57,10 @@ public class HeroHandler {
         }
     }
 
-    private void teleportHero(int index){
+    private void teleportHero(Portal portal){
         int counter = 0;
-        for(StaticElement element : maze.getStaticElems()){
-            if(element.getClass() == Portal.class && index != counter) {
-                maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
-                hero.setPosition(element.getPosition());
-            }
-        }
+        maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
+        hero.setPosition(portal.getPosition());
     }
 
     public void checkKey(KeyStroke key) {

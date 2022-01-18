@@ -42,6 +42,10 @@ public class Maze implements MazeInterface {
     private List<Heart> hp;
     private Queue<StaticElement> path;
     private HeroHandler heroHandler;
+
+
+
+    private PortalHandler portalHandler;
     final private String backgroundcolor = "BLACK";
 
     //TODO change hero constructor to accept starting hp as a variable and the correspondent tests
@@ -203,7 +207,7 @@ public class Maze implements MazeInterface {
 
 
     private void createPortals() {
-        PortalHandler portalHandler = new PortalHandler(this);
+        portalHandler = new PortalHandler(this);
         staticElems.add(portalHandler.getPortalA());
         staticElems.add(portalHandler.getPortalB());
     }
@@ -265,8 +269,8 @@ public class Maze implements MazeInterface {
         return emptyTiles;
     }
 
-    public void setEmptyTiles(List<Position> emptyTiles) {
-        this.emptyTiles = emptyTiles;
+    public PortalHandler getPortalHandler() {
+        return portalHandler;
     }
 }
 
