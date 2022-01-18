@@ -34,7 +34,7 @@ public class Bomb extends StaticElement{
         return timer;
     }
     public void explode(MazeInterface maze){
-
+        this.maze = maze;
         destroy(maze.getStaticElems(),this.getPosition(),radius);
     }
     private void destroy(List<StaticElement> list, PositionInterface position, int radius){
@@ -42,6 +42,7 @@ public class Bomb extends StaticElement{
             int index = list.indexOf(new Wall(position,"#FFFFFF",SGR.BOLD,"#",false));
             if(index != -1){
                 list.remove(index);
+                maze.getEmptyTiles().add((Position) position);
             }
             destroy(list,new Position(position,0,1),radius-1);
             destroy(list,new Position(position,0,-1),radius-1);

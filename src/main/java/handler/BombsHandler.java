@@ -6,7 +6,6 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Static.Bomb;
 import element.position.Position;
-import maze.Maze;
 import maze.MazeInterface;
 
 import java.util.LinkedList;
