@@ -13,14 +13,19 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BombsHandler {
+    public Integer getMaxbomb() {
+        return maxbomb;
+    }
+
     private Integer bomb;
+    private Integer maxbomb = 5 ;
     private final String color = "WHITE";
     private MazeInterface maze;
 
 
     public BombsHandler(MazeInterface maze){
         this.maze = maze;
-        bomb = 5;
+        bomb = maxbomb;
     }
 
     public Integer getBombs() {

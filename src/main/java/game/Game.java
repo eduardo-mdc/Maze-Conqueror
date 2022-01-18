@@ -12,6 +12,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import handler.BombsHandler;
 import handler.PointsHandler;
+import handler.ShopHandler;
 import maze.Maze;
 import maze.MazeInterface;
 import menu.Menu;
@@ -44,6 +45,7 @@ public class Game implements GameInterface {
     private int maxHP = 5;
     private PointsHandler pointsHandler;
     private BombsHandler bombsHandler;
+    private ShopHandler shopHandler;
     private int heroHp = maxHP;
 
     //TODO refactor error catching in game constructor
@@ -95,9 +97,11 @@ public class Game implements GameInterface {
         return initialized;
     }
 
+    public ShopHandler getShopHandler(){return this.shopHandler;};
+
     public int getHeroHp(){return heroHp;}
 
-    public void setHeroHp(int newHp){heroHp = newHp;}
+    public void incrementHeroHp(){if (heroHp< maxHP)heroHp++;}
 
     @Override
     public void setState(int newState) {
@@ -170,6 +174,7 @@ public class Game implements GameInterface {
         restartHeroHp();
         generateNewMaze();
         setInitialize(true);
+        shopHandler = new ShopHandler(this);
         pointsHandler = new PointsHandler();
     }
 
@@ -244,6 +249,13 @@ public class Game implements GameInterface {
     }
 
     @Override
+    public void incrementBombs() {
+        int oldBombs = bombsHandler.getBombs();
+        if (oldBombs < bombsHandler.getMaxbomb())
+         bombsHandler.setBomb(oldBombs++);
+    }
+
+    @Override
     public void loadInstructionsMenu() throws IOException {
         menu = new InstructionsMenu(this, screen);
         this.setState(6);
@@ -263,7 +275,8 @@ public class Game implements GameInterface {
                     case 5 -> loadGameOverMenu();
                     case 6 -> runMenu();
                     case 7 -> loadVictoryMenu();
-                    case 8 -> nextMap();
+                    case 8 -> loadShop();
+                    case 9 -> nextMap();
                 }
                 Thread.sleep((int) (1000 / fps));
             }
@@ -293,6 +306,10 @@ public class Game implements GameInterface {
         maze = new Maze(this, dimension);
     }
 
+    public void loadShop() throws IOException {
+        menu = new ShopMenu(this, screen);
+        this.setState(6);
+    }
     public void nextMap(){
         this.heroHp = maze.getActualHeroHp();
         generateNewMaze();

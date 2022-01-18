@@ -4,10 +4,10 @@ import element.position.PositionInterface;
 import game.GameInterface;
 import menu.Button;
 
-public class ShopMenu extends Button {
+public class ShopButton extends Button {
     private GameInterface game;
 
-    public ShopMenu(GameInterface game, PositionInterface position) {
+    public ShopButton(GameInterface game, PositionInterface position) {
         super(position);
         this.game = game;
         setText("CONTINUE");

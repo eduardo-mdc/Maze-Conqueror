@@ -2,6 +2,7 @@ package game;
 
 import handler.BombsHandler;
 import handler.PointsHandler;
+import handler.ShopHandler;
 import menu.Menu;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public interface GameInterface {
      * @return menu object.
      */
     Menu getMenu();
-
+    void incrementHeroHp();
     /**
      * Changes the value of the variable initialize to control the state of the game.
      *
@@ -43,7 +44,7 @@ public interface GameInterface {
      * @return value of the initialized variable.
      */
     boolean getInitialized();
-
+    ShopHandler getShopHandler();
     /**
      * Changes the state of the state machine.
      * <p>
@@ -179,4 +180,5 @@ public interface GameInterface {
      */
     void runMenu() throws IOException;
 
+    void incrementBombs();
 }
