@@ -116,7 +116,7 @@ public interface MazeInterface {
 
     CoinsHandler getCoinsHandler();
 
-    List<Bomb> getBombs();
+    Queue<Bomb> getBombs();
 
     BombsHandler getBombsHandler();
 }

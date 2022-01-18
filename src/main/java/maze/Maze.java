@@ -44,7 +44,7 @@ public class Maze implements MazeInterface {
     private List<Heart> hp;
     private List<StaticElement> coins;
     private Queue<StaticElement> path;
-    private List<Bomb> bombs;
+    private Queue<Bomb> bombs;
     private HeroHandler heroHandler;
     private PortalHandler portalHandler;
     private int currentHealth;
@@ -305,7 +305,7 @@ public class Maze implements MazeInterface {
     }
 
     @Override
-    public List<Bomb> getBombs() {
+    public Queue<Bomb> getBombs() {
         return bombs;
     }
 

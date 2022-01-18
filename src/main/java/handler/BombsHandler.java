@@ -9,6 +9,9 @@ import element.position.Position;
 import maze.Maze;
 import maze.MazeInterface;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class BombsHandler {
     private Integer bomb;
     private final String color = "WHITE";
@@ -49,14 +52,14 @@ public class BombsHandler {
     }
 
     public void tickAllBombs() {
-        if(maze.getBombs().size() > 0){
-            for(Bomb bomb : maze.getBombs()){
-                bomb.bombTick();
-                if(bomb.getTimer() == 0) {
-                    bomb.explode(maze);
-                    maze.getBombs().remove(bomb);
-                }
-            }
+        List<Bomb> toExplode = new LinkedList<>();
+        for (Bomb bomb : maze.getBombs()){
+            bomb.bombTick();
+            if(bomb.getTimer() == 0) toExplode.add(bomb);
+        }
+        for(Bomb bomb : toExplode){
+            bomb.explode(maze);
+            maze.getBombs().remove();
         }
     }
 }
