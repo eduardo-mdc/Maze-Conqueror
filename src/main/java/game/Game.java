@@ -179,7 +179,7 @@ public class Game implements GameInterface {
      */
     private void readKey(KeyStroke key) throws IOException {
         if (key != null) {
-            if ((key.getKeyType() == KeyType.Character && key.getCharacter() == ('q')) || (key.getKeyType() == KeyType.EOF))
+            if (key.getKeyType() == KeyType.EOF)
                 quit(0);
             if (this.getState() == 1) {
                 if (key.getKeyType() == KeyType.Escape) {
