@@ -50,8 +50,7 @@ public class Game implements GameInterface {
      * Constructor for the game Class.
      */
     public Game() {
-        setDimension(53, 50, 40);
-        maze = new Maze(this, dimension);
+        setDimension(53, 50, 10);
         initialized = false;
         counter = 0;
         state = 0;
