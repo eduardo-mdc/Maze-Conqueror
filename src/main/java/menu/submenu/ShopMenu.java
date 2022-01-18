@@ -27,13 +27,19 @@ public class ShopMenu extends Menu {
         ShopHandler shopHandler = game.getShopHandler();
         splitText("@",xIncr,yIncr);
 
+        TextMenuElement name = new TextMenuElement(new Position(xIncr-3,yIncr-4),"NAME");
+        TextMenuElement amount = new TextMenuElement(new Position(xIncr+8,yIncr-4),"AMOUNT");
+        TextMenuElement price = new TextMenuElement(new Position(xIncr+17,yIncr-4),"PRICE");
         texts.add(text);
+        texts.add(name);
+        texts.add(amount);
+        texts.add(price);
 
         for (int i = 0; i < shopHandler.getTotalItems();i++){
-            texts.add(new TextMenuElement(new Position(xIncr,yIncr + i*5),shopHandler.getName(i)));
-            texts.add(new TextMenuElement(new Position(xIncr+ 5,yIncr+ i*5),shopHandler.getAmount(i).toString()));
-            texts.add(new TextMenuElement(new Position(xIncr+ 10,yIncr + i*5),shopHandler.getPrice(i).toString()));
-            btn.add(new BuyButton(game,new Position(xIncr+15,yIncr + i*5),1));
+            texts.add(new TextMenuElement(new Position(xIncr-3,yIncr + i*5),shopHandler.getName(i)));
+            texts.add(new TextMenuElement(new Position(xIncr+ 10,yIncr+ i*5),shopHandler.getAmount(i).toString()));
+            texts.add(new TextMenuElement(new Position(xIncr+ 17,yIncr + i*5),shopHandler.getPrice(i).toString()));
+            btn.add(new BuyButton(game,new Position(xIncr+27,yIncr + i*5),i));
         }
         btn.add(new CloseShopButton(game,new Position(xIncr+15,yIncr+ 25)));
 

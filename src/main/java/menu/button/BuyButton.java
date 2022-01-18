@@ -17,5 +17,7 @@ public class BuyButton extends Button {
 
     @Override
     public void execute() {
+        game.getShopHandler().sell(type);
+        game.setState(8);
     }
 }
