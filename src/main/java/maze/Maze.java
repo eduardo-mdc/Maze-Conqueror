@@ -7,6 +7,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import com.googlecode.lanterna.input.KeyStroke;
+import handler.BombsHandler;
 import handler.CoinsHandler;
 import handler.PortalHandler;
 import element.Element;
@@ -43,9 +44,13 @@ public class Maze implements MazeInterface {
     private List<Heart> hp;
     private List<StaticElement> coins;
     private Queue<StaticElement> path;
+    private List<Bomb> bombs;
     private HeroHandler heroHandler;
     private PortalHandler portalHandler;
     private int currentHealth;
+
+
+    private BombsHandler bombsHandler;
 
 
     private CoinsHandler coinsHandler;
@@ -72,8 +77,11 @@ public class Maze implements MazeInterface {
         emptyTiles = new LinkedList<>();
         path = new LinkedList<>();
         coins = new LinkedList<>();
+        bombs = new LinkedList<>();
+
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@",currentHealth);
         heroHandler = new HeroHandler(hero, this);
+        bombsHandler = new BombsHandler(this);
         getMaze(dim);
         maze = load_walls(maze, dim);
         createElements();
@@ -185,7 +193,7 @@ public class Maze implements MazeInterface {
     private void createWalls() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                if(!(i == 1 && j == 1) || (i == dim-3 && j == dim-3)) {
+                if(!(i == 1 && j == 1) && !(i == dim-2 && j == dim-2)) {
                     if (maze[i][j] == 0)
                         staticElems.add(new Wall(new Position(i + xIncr, j + yIncr), "#FFFFFF", SGR.BOLD, "#"));
                     else if(maze[i][j] == 1)
@@ -252,6 +260,9 @@ public class Maze implements MazeInterface {
             tile.draw(screen);
         for (Element coin : coins)
             coin.draw(screen);
+        for (Element bomb : bombs)
+            bomb.draw(screen);
+        bombsHandler.draw(screen);
         loadHearts();
         hero.draw(screen);
     }
@@ -271,10 +282,7 @@ public class Maze implements MazeInterface {
     }
 
 
-    @Override
-    public void generateBombs(int x, int y) {
-        staticElems.add(new Bomb(new Position(x + 1, y), "RED", SGR.BOLD, "b"));
-    }
+
 
     @Override
     public List<Position> getEmptyTiles() {
@@ -295,5 +303,16 @@ public class Maze implements MazeInterface {
     public CoinsHandler getCoinsHandler() {
         return coinsHandler;
     }
+
+    @Override
+    public List<Bomb> getBombs() {
+        return bombs;
+    }
+
+    @Override
+    public BombsHandler getBombsHandler() {
+        return bombsHandler;
+    }
+
 }
 

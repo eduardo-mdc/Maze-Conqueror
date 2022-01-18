@@ -161,7 +161,6 @@ public class Game implements GameInterface {
         screen.clear();
         TextGraphics textGraphics = screen.newTextGraphics();
         maze.draw(textGraphics);
-        bombsHandler.draw(textGraphics);
         pointsHandler.draw(textGraphics);
         screen.refresh();
     }
@@ -172,7 +171,6 @@ public class Game implements GameInterface {
         generateNewMaze();
         setInitialize(true);
         pointsHandler = new PointsHandler();
-        bombsHandler = new BombsHandler();
     }
 
 

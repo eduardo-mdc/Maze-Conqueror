@@ -1,15 +1,15 @@
 package maze;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
-import element.Static.Coin;
+import element.Static.Bomb;
 import element.Static.StaticElement;
 import element.position.Position;
 import element.position.PositionInterface;
 import game.GameInterface;
+import handler.BombsHandler;
 import handler.CoinsHandler;
 import handler.PortalHandler;
 
-import java.util.Dictionary;
 import java.util.List;
 import java.util.Queue;
 
@@ -106,13 +106,6 @@ public interface MazeInterface {
      */
     GameInterface getGame();
 
-    /**
-     * Generate the hero bombs in order to break the walls.
-     *
-     * @param x
-     * @param y
-     */
-    void generateBombs(int x, int y);
     int getActualHeroHp();
 
     List<Position> getEmptyTiles();
@@ -122,4 +115,8 @@ public interface MazeInterface {
     List<StaticElement> getCoins();
 
     CoinsHandler getCoinsHandler();
+
+    List<Bomb> getBombs();
+
+    BombsHandler getBombsHandler();
 }

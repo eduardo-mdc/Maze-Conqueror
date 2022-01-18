@@ -71,7 +71,7 @@ public class HeroHandler {
             case ArrowDown -> checkTile(hero.moveDown());
             case ArrowLeft -> checkTile(hero.moveLeft());
             case ArrowRight -> checkTile(hero.moveRight());
-            case Enter -> maze.generateBombs(hero.getPosition().getX(), hero.getPosition().getY());
+            case Enter -> maze.getBombsHandler().generateBomb((Position) hero.getPosition());
         }
     }
 
