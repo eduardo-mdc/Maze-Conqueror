@@ -265,7 +265,8 @@ public class Game implements GameInterface {
                     case 5 -> loadGameOverMenu();
                     case 6 -> runMenu();
                     case 7 -> loadVictoryMenu();
-                    case 8 -> nextMap();
+                    case 8 -> loadShop();
+                    case 9 -> nextMap();
                 }
                 Thread.sleep((int) (1000 / fps));
             }
@@ -294,7 +295,9 @@ public class Game implements GameInterface {
     public void generateNewMaze(){
         maze = new Maze(this, dimension);
     }
-
+    public void loadShop() throws IOException {
+        menu = new ShopMenu(this, screen);
+    }
     public void nextMap(){
         this.heroHp = maze.getActualHeroHp();
         generateNewMaze();
