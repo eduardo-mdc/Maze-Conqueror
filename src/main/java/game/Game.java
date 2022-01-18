@@ -173,7 +173,7 @@ public class Game implements GameInterface {
         pointsHandler.draw(textGraphics);
         screen.refresh();
     }
-
+   private int decrease;
     @Override
     public void initialize() {
         restartHeroHp();
@@ -182,6 +182,7 @@ public class Game implements GameInterface {
         shopHandler = new ShopHandler(this);
         pointsHandler = new PointsHandler();
         levelHandler = new LevelHandler();
+        decrease = (int) (levelHandler.getLevel() * 0.3);
     }
 
 
@@ -241,8 +242,10 @@ public class Game implements GameInterface {
         readKey(key);
         maze.nextFrame(key);
 
+
         if (counter >= 15) {
-            pointsHandler.setPoints(pointsHandler.getPoints()- (levelHandler.getLevel()/10));
+
+            pointsHandler.setPoints(pointsHandler.getPoints() - decrease);
             counter = 0;
         }
         counter++;
@@ -267,8 +270,7 @@ public class Game implements GameInterface {
         menu = new InstructionsMenu(this, screen);
         this.setState(6);
     }
-
-
+    
     @Override
     public void run() {
         try {
@@ -319,6 +321,8 @@ public class Game implements GameInterface {
     }
     public void nextMap(){
         levelHandler.nextLevel();
+        decrease = (int) (levelHandler.getLevel() * 0.3);
+        System.out.println(decrease);
         this.heroHp = maze.getActualHeroHp();
         generateNewMaze();
         state = 1 ;
