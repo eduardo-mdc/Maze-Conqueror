@@ -9,7 +9,7 @@ import element.position.PositionInterface;
  */
 public class Hero extends DynamicElement {
     private int health;
-    private int maxhealth  = 5;
+    private int maxhealth = 5;
 
     /**
      * Constructor for the Hero class. Receives a position, color, format, and character to represent the object.

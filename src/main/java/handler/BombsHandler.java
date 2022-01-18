@@ -42,7 +42,21 @@ public class BombsHandler {
         boolean flag = false;
         for (Position pos : maze.getEmptyTiles())
             if (pos.equals(position)) flag = true;
-        if (flag)maze.getBombs().add(new Bomb(position, "RED", SGR.BOLD, "b"));
+        if (flag && getBombs()>0){
+            this.incrementBombs(-1);
+            maze.getBombs().add(new Bomb(position, "RED", SGR.BOLD, "b"));
+        }
     }
 
+    public void tickAllBombs() {
+        if(maze.getBombs().size() > 0){
+            for(Bomb bomb : maze.getBombs()){
+                bomb.bombTick();
+                if(bomb.getTimer() == 0) {
+                    bomb.explode(maze);
+                    maze.getBombs().remove(bomb);
+                }
+            }
+        }
+    }
 }

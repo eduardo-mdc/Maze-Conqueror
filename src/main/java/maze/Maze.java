@@ -168,6 +168,7 @@ public class Maze implements MazeInterface {
     @Override
     public void nextFrame(KeyStroke key) {
         counter++;
+        bombsHandler.tickAllBombs();
         if (key != null)
             heroHandler.checkKey(key);
         if (counter == 10) {
@@ -233,7 +234,6 @@ public class Maze implements MazeInterface {
         coinsHandler = new CoinsHandler(this);
         for(int i = 0; i < dim/10; i++){
             coinsHandler.generateCoin();
-            System.out.println("ouch");
         }
     }
 
