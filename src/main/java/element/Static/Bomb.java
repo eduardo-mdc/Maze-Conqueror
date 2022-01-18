@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Bomb extends StaticElement{
     private int timer;
+    private final int radius = 2;
     public Bomb(PositionInterface position, String color, SGR format, String character) {
         super(position, color, format, character);
         timer = 90;
@@ -20,14 +21,16 @@ public class Bomb extends StaticElement{
         return timer;
     }
     public void explode(MazeInterface maze){
-        destroy(maze.getStaticElems(),this.getPosition(),3);
+        destroy(maze.getStaticElems(),this.getPosition(),radius);
     }
     private void destroy(List<StaticElement> list, PositionInterface position, int radius){
         if(radius > 0){
             for(StaticElement wall : list){
                 if (wall.getClass() == Wall.class && wall.getPosition().equals(position)){
-                    list.remove(wall);
-                    break;
+                    if(!((Wall) wall).isOuterWall()){
+                        list.remove(wall);
+                        break;
+                    }
                 }
             }
             destroy(list,new Position(position,0,1),radius-1);
