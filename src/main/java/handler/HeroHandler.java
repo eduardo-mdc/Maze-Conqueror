@@ -31,16 +31,22 @@ public class HeroHandler {
             maze.getGame().winGame();
             return;
         } else {
-            if (checkElement(position, RedPath.class, maze.getStaticElems()) != 0) {
+            if (checkElement(position, RedPath.class, maze.getStaticElems()) != -1) {
                 takeDamage();
             }
-            else if (checkElement(position, Wall.class, maze.getStaticElems()) != 0) {
+            else if (checkElement(position, Wall.class, maze.getStaticElems()) != -1) {
                 return;
             }
             index = checkElement(position, Portal.class, maze.getStaticElems());
-            if (index != 0) {
+            if (index != -1) {
                 Portal portal = (Portal) maze.getStaticElems().get(index);
                 teleportHero(maze.getPortalHandler().getOtherPortal(portal));
+                return;
+            }
+            index = checkElement(position, Coin.class, maze.getCoins());
+            if (index != -1) {
+                maze.getCoinsHandler().obtainCoin(index);
+                moveHero(position);
                 return;
             }
         }
@@ -58,7 +64,6 @@ public class HeroHandler {
     }
 
     private void teleportHero(Portal portal){
-        int counter = 0;
         maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
         hero.setPosition(portal.getPosition());
     }
@@ -70,7 +75,6 @@ public class HeroHandler {
             case ArrowLeft -> checkTile(hero.moveLeft());
             case ArrowRight -> checkTile(hero.moveRight());
             case Enter -> maze.generateBombs(hero.getPosition().getX(), hero.getPosition().getY());
-            case Delete -> maze.generateCoin(hero.getPosition().getX(), hero.getPosition().getY());
         }
     }
 
@@ -81,8 +85,6 @@ public class HeroHandler {
             game.getPointsHandler().incrementPoints(2);
             maze.getEmptyTiles().remove(new Position((Position) hero.getPosition()));
         }
-        if (checkElement(hero.getPosition(), Coin.class, maze.getStaticElems()) != 0)
-            game.getPointsHandler().incrementPoints(2); // trying to gain points when he gets a coin
         hero.setPosition(position);
     }
 
@@ -108,7 +110,7 @@ public class HeroHandler {
             if (cl.isInstance(tile) && tile.getPosition().equals(position)) return counter;
             counter++;
         }
-        return 0;
+        return -1;
     }
 
 }

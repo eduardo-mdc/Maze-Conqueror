@@ -7,6 +7,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import com.googlecode.lanterna.input.KeyStroke;
+import handler.CoinsHandler;
 import handler.PortalHandler;
 import element.Element;
 import element.dynam.Hero;
@@ -40,12 +41,14 @@ public class Maze implements MazeInterface {
     private List<StaticElement> staticElems;
     private List<Position> emptyTiles;
     private List<Heart> hp;
+    private List<StaticElement> coins;
     private Queue<StaticElement> path;
     private HeroHandler heroHandler;
-
-
-
     private PortalHandler portalHandler;
+
+
+
+    private CoinsHandler coinsHandler;
     final private String backgroundcolor = "BLACK";
 
     //TODO change hero constructor to accept starting hp as a variable and the correspondent tests
@@ -67,6 +70,7 @@ public class Maze implements MazeInterface {
         staticElems = new LinkedList<>();
         emptyTiles = new LinkedList<>();
         path = new LinkedList<>();
+        coins = new LinkedList<>();
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
         heroHandler = new HeroHandler(hero, this);
         getMaze(dim);
@@ -143,7 +147,10 @@ public class Maze implements MazeInterface {
         createWalls();
         createTrophy();
         createPortals();
+        createCoins();
     }
+
+
 
     @Override
     public int getDim() {
@@ -212,6 +219,14 @@ public class Maze implements MazeInterface {
         staticElems.add(portalHandler.getPortalB());
     }
 
+    private void createCoins() {
+        coinsHandler = new CoinsHandler(this);
+        for(int i = 0; i < dim/10; i++){
+            coinsHandler.generateCoin();
+            System.out.println("ouch");
+        }
+    }
+
     //TODO change hearts to be stored to a stack instead.
 
 
@@ -233,6 +248,8 @@ public class Maze implements MazeInterface {
             element.draw(screen);
         for (Element tile : path)
             tile.draw(screen);
+        for (Element coin : coins)
+            coin.draw(screen);
         loadHearts();
         hero.draw(screen);
     }
@@ -255,22 +272,26 @@ public class Maze implements MazeInterface {
     @Override
     public void generateBombs(int x, int y) {
         staticElems.add(new Bomb(new Position(x + 1, y), "RED", SGR.BOLD, "b"));
-
     }
 
     @Override
-    public void generateCoin(int x, int y) {
-        game.getBombsHandler().incrementBombs(-1);
-        staticElems.add(new Coin(new Position(x + 1, y), "Yellow", SGR.BOLD, "a"));
-    }
-
-
     public List<Position> getEmptyTiles() {
         return emptyTiles;
     }
 
+    @Override
     public PortalHandler getPortalHandler() {
         return portalHandler;
+    }
+
+    @Override
+    public List<StaticElement> getCoins() {
+        return coins;
+    }
+
+    @Override
+    public CoinsHandler getCoinsHandler() {
+        return coinsHandler;
     }
 }
 

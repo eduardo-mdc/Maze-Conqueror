@@ -40,7 +40,7 @@ public class Game implements GameInterface {
     private int screenH;
     private int screenW;
     private int dimension;
-    private int counter = 0;
+    private int counter;
     private PointsHandler pointsHandler;
     private BombsHandler bombsHandler;
 
@@ -50,7 +50,7 @@ public class Game implements GameInterface {
      * Constructor for the game Class.
      */
     public Game() {
-        setDimension(53, 50, 10);
+        setDimension(52, 50, 20);
         initialized = false;
         counter = 0;
         state = 0;

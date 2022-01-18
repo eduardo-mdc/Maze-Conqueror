@@ -5,7 +5,7 @@ import element.position.PositionInterface;
 
 public class Coin extends StaticElement{
     /**
-     * Constructor for the StaticElement class. Receives a position, color, format, and character to represent the object.
+     * Constructor for the Coin class. Receives a position, color, format, and character to represent the object.
      *
      * @param position  sets the position of the element on the lanterna screen.
      * @param color     sets the color of the element on the lanterna screen.

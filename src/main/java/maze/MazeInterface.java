@@ -1,10 +1,12 @@
 package maze;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
+import element.Static.Coin;
 import element.Static.StaticElement;
 import element.position.Position;
 import element.position.PositionInterface;
 import game.GameInterface;
+import handler.CoinsHandler;
 import handler.PortalHandler;
 
 import java.util.Dictionary;
@@ -112,15 +114,11 @@ public interface MazeInterface {
      */
     void generateBombs(int x, int y);
 
-    /**
-     * Generate the maze coins, giving extra points.
-     *
-     * @param x
-     * @param y
-     */
-    void generateCoin(int x, int y);
-
     List<Position> getEmptyTiles();
 
     PortalHandler getPortalHandler();
+
+    List<StaticElement> getCoins();
+
+    CoinsHandler getCoinsHandler();
 }
