@@ -8,16 +8,17 @@ import element.dynam.Hero;
 import element.position.PositionInterface;
 import game.GameInterface;
 import maze.Maze;
+import maze.MazeInterface;
 
 
 public class HeroHandler {
     private Hero hero;
-    private Maze maze;
+    private MazeInterface maze;
     private GameInterface game;
     private final int heroHealth = 5;
 
 
-    public HeroHandler(Hero hero, Maze maze) {
+    public HeroHandler(Hero hero, MazeInterface maze) {
         this.hero = hero;
         this.maze = maze;
         game = maze.getGame();
@@ -55,19 +56,20 @@ public class HeroHandler {
             case ArrowDown -> checkTile(hero.moveDown());
             case ArrowLeft -> checkTile(hero.moveLeft());
             case ArrowRight -> checkTile(hero.moveRight());
-            case Enter -> maze.isIt911Again(hero.getPosition().getX(),hero.getPosition().getY());
-            case Delete -> maze.generateCoin(hero.getPosition().getX(),hero.getPosition().getY());
+            case Enter -> maze.generateBombs(hero.getPosition().getX(), hero.getPosition().getY());
+            case Delete -> maze.generateCoin(hero.getPosition().getX(), hero.getPosition().getY());
         }
     }
 
 
     public void moveHero(PositionInterface position) {
-        if (!checkElement(hero.getPosition(), Path.class, maze.getPath()) && !checkElement(hero.getPosition(), RedPath.class, maze.getStaticElems())){
+        if (!checkElement(hero.getPosition(), Path.class, maze.getPath()) && !checkElement(hero.getPosition(), RedPath.class, maze.getStaticElems())) {
             maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
             maze.removePoint(position);
             game.getPointsHandler().incrementPoints(2);
         }
-        if(checkElement(hero.getPosition(),Coin.class, maze.getStaticElems()))game.getPointsHandler().incrementPoints(2); // trying to gain points when he gets a coin
+        if (checkElement(hero.getPosition(), Coin.class, maze.getStaticElems()))
+            game.getPointsHandler().incrementPoints(2); // trying to gain points when he gets a coin
         hero.setPosition(position);
     }
 

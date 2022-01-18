@@ -17,8 +17,8 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.7.7'
 }
 test {
-    maxHeapSize = "1024m"
-    jvmArgs "-XX:MaxPermSize=256m"
+    maxHeapSize = "2048m"
+    jvmArgs "-XX:MaxPermSize=512m"
 }
 
 test {

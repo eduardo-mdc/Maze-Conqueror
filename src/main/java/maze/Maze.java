@@ -7,8 +7,6 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import com.googlecode.lanterna.input.KeyStroke;
-import game.Game;
-import handler.BombsHandler;
 import handler.PortalHandler;
 import element.Element;
 import element.dynam.Hero;
@@ -65,11 +63,8 @@ public class Maze implements MazeInterface {
         path = new LinkedList<>();
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
         heroHandler = new HeroHandler(hero, this);
-
-
         getMaze(dim);
         maze = load_walls(maze, dim);
-
         createElements();
     }
 
@@ -84,7 +79,6 @@ public class Maze implements MazeInterface {
     public Position getBegin() {
         return begin;
     }
-
 
 
     public void getMaze(int dim) {
@@ -190,25 +184,25 @@ public class Maze implements MazeInterface {
         int ysize = 3;
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
-                if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1){
+                if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1) {
 
                 }
-                    //staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "-"));
+                //staticElems.add(new HpBar(new Position(i + 1, j + 1), "#FFFFFF", SGR.BOLD, "-"));
             }
         }
 
     }
 
-    private void createPoints(){
+    private void createPoints() {
         for (int i = 1; i < dim; i++) {
             for (int j = 1; j < dim; j++) {
-                if (maze[i][j] == 1 && !ending.equals(i+xIncr,j+yIncr) && !begin.equals(i+xIncr,j+yIncr))
+                if (maze[i][j] == 1 && !ending.equals(i + xIncr, j + yIncr) && !begin.equals(i + xIncr, j + yIncr))
                     staticElems.add(new Point(new Position(i + xIncr, j + yIncr), "Black", SGR.BOLD, " "));
             }
         }
     }
 
-    private void createPortals(){
+    private void createPortals() {
         PortalHandler portalHandler = new PortalHandler(this);
         staticElems.add(portalHandler.getPortalA());
         staticElems.add(portalHandler.getPortalB());
@@ -216,9 +210,8 @@ public class Maze implements MazeInterface {
 
     //TODO change hearts to be stored to a stack instead.
 
-    /**
-     * Creates hearts objects corresponding to the current hp of the Hero object.
-     */
+
+    @Override
     public void loadHearts() {
         hp.clear();
         for (int i = 1; i <= hero.getHealth(); i++) {
@@ -254,9 +247,10 @@ public class Maze implements MazeInterface {
         return sb.toString();
     }
 
+    @Override
     public void removePoint(PositionInterface position) {
-        for(Element element : staticElems){
-            if(element.getClass() == Point.class && element.getPosition() == position){
+        for (Element element : staticElems) {
+            if (element.getClass() == Point.class && element.getPosition() == position) {
                 staticElems.remove(element);
                 return;
             }
@@ -264,13 +258,17 @@ public class Maze implements MazeInterface {
 
     }
 
-    public void isIt911Again(int x , int y) {
-        staticElems.add(new Bomb(new Position( x+1, y), "RED", SGR.BOLD, "b"));
+
+    @Override
+    public void generateBombs(int x, int y) {
+        staticElems.add(new Bomb(new Position(x + 1, y), "RED", SGR.BOLD, "b"));
 
     }
-    public void generateCoin(int x , int y) {
+
+    @Override
+    public void generateCoin(int x, int y) {
         game.getBombsHandler().incrementBombs(-1);
-        staticElems.add(new Coin(new Position( x+1, y), "Yellow", SGR.BOLD, "a"));
+        staticElems.add(new Coin(new Position(x + 1, y), "Yellow", SGR.BOLD, "a"));
     }
 }
 

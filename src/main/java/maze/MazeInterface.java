@@ -40,6 +40,11 @@ public interface MazeInterface {
     void nextFrame(com.googlecode.lanterna.input.KeyStroke key);
 
     /**
+     * Creates hearts objects corresponding to the current hp of the Hero object.
+     */
+    void loadHearts();
+
+    /**
      * Draws the maze objects on the lanterna screen.
      *
      * @param screen lanterna screen to draw to.
@@ -69,4 +74,27 @@ public interface MazeInterface {
      * @return the game instance.
      */
     GameInterface getGame();
+
+    /**
+     * Removes points at a certain position of the maze and eliminates the static element.
+     *
+     * @param position
+     */
+    void removePoint(PositionInterface position);
+
+    /**
+     * Generate the hero bombs in order to break the walls.
+     *
+     * @param x
+     * @param y
+     */
+    void generateBombs(int x, int y);
+
+    /**
+     * Generate the maze coins, giving extra points.
+     *
+     * @param x
+     * @param y
+     */
+    void generateCoin(int x, int y);
 }
