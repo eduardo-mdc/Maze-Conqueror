@@ -8,7 +8,6 @@ public class PointsHandler {
     private Integer points;
     private final String color = "WHITE";
 
-
     public PointsHandler() {
         points = 1000;
     }
