@@ -68,14 +68,17 @@ public class Maze implements MazeInterface {
         createElements();
     }
 
+    @Override
     public int getxIncr() {
         return xIncr;
     }
 
+    @Override
     public int getyIncr() {
         return yIncr;
     }
 
+    @Override
     public Position getBegin() {
         return begin;
     }

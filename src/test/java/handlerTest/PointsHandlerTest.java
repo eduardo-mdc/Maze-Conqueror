@@ -15,7 +15,6 @@ import static org.mockito.Mockito.*;
 public class PointsHandlerTest {
     private PointsHandler handler;
 
-
     @BeforeEach
     public void helper() {
         handler = new PointsHandler();
