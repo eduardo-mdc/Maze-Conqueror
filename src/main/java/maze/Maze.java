@@ -185,7 +185,7 @@ public class Maze implements MazeInterface {
     private void createWalls() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                if(!(i == 1 && j == 1) || (i == dim-2 && j == dim-2)) {
+                if(!(i == 1 && j == 1) || (i == dim-3 && j == dim-3)) {
                     if (maze[i][j] == 0)
                         staticElems.add(new Wall(new Position(i + xIncr, j + yIncr), "#FFFFFF", SGR.BOLD, "#"));
                     else if(maze[i][j] == 1)
