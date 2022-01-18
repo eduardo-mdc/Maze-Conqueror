@@ -6,6 +6,7 @@ import element.position.Position;
 import element.position.PositionInterface;
 import game.GameInterface;
 
+import java.util.Dictionary;
 import java.util.List;
 import java.util.Queue;
 
@@ -117,4 +118,6 @@ public interface MazeInterface {
      * @param y
      */
     void generateCoin(int x, int y);
+
+    List<Position> getEmptyTiles();
 }

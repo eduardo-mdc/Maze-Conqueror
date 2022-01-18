@@ -25,19 +25,6 @@ public class PortalHandler {
         System.out.println(portalB.getPosition());
     }
 
-    private void generatePortals(PositionInterface entryPosition, PositionInterface endPosition) {
-        portalA = new Portal(entryPosition, "BLUE", SGR.BOLD, "p");
-        portalB = new Portal(endPosition, "BLUE", SGR.BOLD, "p");
-    }
-
-    private PositionInterface getEntryPosition() {
-        return new Position(generateNumber(xIncr + maze.getDim() - 1, xIncr + 1), generateNumber(yIncr + maze.getDim() - 1, yIncr + 1));
-    }
-
-    private PositionInterface getEndPosition() {
-        return new Position(generateNumber(xIncr + maze.getDim() - 1, xIncr + 1), generateNumber(yIncr + maze.getDim() - 1, yIncr + 1));
-    }
-
     private int generateNumber(int min, int max){
         int range = (max-min) + 1;
         return (int)(Math.random()*range) + min;

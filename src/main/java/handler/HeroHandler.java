@@ -31,7 +31,6 @@ public class HeroHandler {
         } else {
             if (checkElement(position, RedPath.class, maze.getStaticElems())) {
                 takeDamage();
-                return;
             }
             else if (checkElement(position, Wall.class, maze.getStaticElems())) {
                 return;
