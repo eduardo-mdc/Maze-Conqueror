@@ -33,10 +33,14 @@ public class HeroHandler {
                 takeDamage();
                 return;
             }
-            if (!checkElement(position, Wall.class, maze.getStaticElems())) {
-                moveHero(position);
+            else if (checkElement(position, Wall.class, maze.getStaticElems())) {
+                return;
+            }
+            else if (checkElement(position, Portal.class, maze.getStaticElems())) {
+
             }
         }
+        moveHero(position);
     }
 
     public void takeDamage() {
@@ -64,7 +68,6 @@ public class HeroHandler {
     public void moveHero(PositionInterface position) {
         if (!checkElement(hero.getPosition(), Path.class, maze.getPath()) && !checkElement(hero.getPosition(), RedPath.class, maze.getStaticElems())) {
             maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
-            maze.removePoint(position);
             game.getPointsHandler().incrementPoints(2);
         }
         if (checkElement(hero.getPosition(), Coin.class, maze.getStaticElems()))

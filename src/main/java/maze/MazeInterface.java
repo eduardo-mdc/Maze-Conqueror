@@ -76,13 +76,6 @@ public interface MazeInterface {
     GameInterface getGame();
 
     /**
-     * Removes points at a certain position of the maze and eliminates the static element.
-     *
-     * @param position
-     */
-    void removePoint(PositionInterface position);
-
-    /**
      * Generate the hero bombs in order to break the walls.
      *
      * @param x

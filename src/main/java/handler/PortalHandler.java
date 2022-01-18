@@ -18,28 +18,24 @@ public class PortalHandler {
         this.maze = maze;
         xIncr = maze.getxIncr();
         yIncr = maze.getyIncr();
-        Position entryPosition;
-        Position endPosition;
 
-        do {
-            entryPosition = new Position(generateNumber(xIncr+maze.getDim()-1,xIncr+1),generateNumber(yIncr+maze.getDim()-1,yIncr+1));
-            endPosition = new Position(generateNumber(xIncr+maze.getDim()-1,xIncr+1),generateNumber(yIncr+maze.getDim()-1,yIncr+1));
-        }while (checkCoordinates(entryPosition) && checkCoordinates(endPosition));
-        portalA = new Portal(entryPosition,"BLUE", SGR.BOLD,"p");
-        portalB = new Portal(endPosition,"BLUE", SGR.BOLD,"p");
+        portalA = new Portal(getPortalPosition(),"BLUE", SGR.BOLD,"p");
+        portalB = new Portal(getPortalPosition(),"BLUE", SGR.BOLD,"p");
         System.out.println(portalA.getPosition());
         System.out.println(portalB.getPosition());
 
     }
 
-    private int generateNumber(int max, int min){
+    private int generateNumber(int min, int max){
         int range = (max-min) + 1;
         return (int)(Math.random()*range) + min;
     }
 
-    private boolean checkCoordinates(Position position){
-        if(!(position.equals(maze.getEnding())) && !(position.equals(maze.getBegin()))) return true;
-        return false;
+    private Position getPortalPosition(){
+        int index = generateNumber(0,maze.getEmptyTiles().size());
+        Position position = new Position(maze.getEmptyTiles().get(index));
+        maze.getEmptyTiles().remove(index);
+        return position;
     }
 
     public Portal getPortalB() {

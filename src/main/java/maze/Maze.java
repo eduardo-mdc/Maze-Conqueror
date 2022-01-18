@@ -38,6 +38,7 @@ public class Maze implements MazeInterface {
     private int dim;
     private Hero hero;
     private List<StaticElement> staticElems;
+    private List<Position> emptyTiles;
     private List<Heart> hp;
     private Queue<StaticElement> path;
     private HeroHandler heroHandler;
@@ -60,6 +61,7 @@ public class Maze implements MazeInterface {
         counter = 0;
         hp = new ArrayList<>();
         staticElems = new LinkedList<>();
+        emptyTiles = new LinkedList<>();
         path = new LinkedList<>();
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@");
         heroHandler = new HeroHandler(hero, this);
@@ -133,7 +135,6 @@ public class Maze implements MazeInterface {
         loadHearts();
         createWalls();
         createTrophy();
-        createPoints();
         createPortals();
     }
 
@@ -170,8 +171,12 @@ public class Maze implements MazeInterface {
     private void createWalls() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                if (maze[i][j] == 0)
-                    staticElems.add(new Wall(new Position(i + xIncr, j + yIncr), "#FFFFFF", SGR.BOLD, "#"));
+                if(!(i == 1 && j == 1) || (i == dim-2 && j == dim-2)) {
+                    if (maze[i][j] == 0)
+                        staticElems.add(new Wall(new Position(i + xIncr, j + yIncr), "#FFFFFF", SGR.BOLD, "#"));
+                    else if(maze[i][j] == 1)
+                        emptyTiles.add(new Position(i + xIncr, j + yIncr));
+                }
             }
         }
     }
@@ -193,14 +198,6 @@ public class Maze implements MazeInterface {
 
     }
 
-    private void createPoints() {
-        for (int i = 1; i < dim; i++) {
-            for (int j = 1; j < dim; j++) {
-                if (maze[i][j] == 1 && !ending.equals(i + xIncr, j + yIncr) && !begin.equals(i + xIncr, j + yIncr))
-                    staticElems.add(new Point(new Position(i + xIncr, j + yIncr), "Black", SGR.BOLD, " "));
-            }
-        }
-    }
 
     private void createPortals() {
         PortalHandler portalHandler = new PortalHandler(this);
@@ -247,17 +244,6 @@ public class Maze implements MazeInterface {
         return sb.toString();
     }
 
-    @Override
-    public void removePoint(PositionInterface position) {
-        for (Element element : staticElems) {
-            if (element.getClass() == Point.class && element.getPosition() == position) {
-                staticElems.remove(element);
-                return;
-            }
-        }
-
-    }
-
 
     @Override
     public void generateBombs(int x, int y) {
@@ -269,6 +255,15 @@ public class Maze implements MazeInterface {
     public void generateCoin(int x, int y) {
         game.getBombsHandler().incrementBombs(-1);
         staticElems.add(new Coin(new Position(x + 1, y), "Yellow", SGR.BOLD, "a"));
+    }
+
+
+    public List<Position> getEmptyTiles() {
+        return emptyTiles;
+    }
+
+    public void setEmptyTiles(List<Position> emptyTiles) {
+        this.emptyTiles = emptyTiles;
     }
 }
 
