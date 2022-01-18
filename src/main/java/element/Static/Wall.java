@@ -1,6 +1,7 @@
 package element.Static;
 
 import com.googlecode.lanterna.SGR;
+import element.Element;
 import element.position.PositionInterface;
 /**
  * Class to create the walls present in the game, these are immovable objects that the player cannot move through.
@@ -29,6 +30,15 @@ public class Wall extends StaticElement {
     public boolean isOuterWall() {
         return outerWall;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Wall element = (Wall) o;
+        return getPosition().equals(element.getPosition()) && getColor().equals(element.getColor()) && getFormat() == element.getFormat() && getCharacter().equals(element.getCharacter()) && isOuterWall() == element.isOuterWall();
+    }
+
 
 
 

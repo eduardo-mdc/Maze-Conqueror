@@ -5,6 +5,7 @@ import element.position.Position;
 import element.position.PositionInterface;
 import maze.MazeInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bomb extends StaticElement{
@@ -12,6 +13,7 @@ public class Bomb extends StaticElement{
     private final int radius = 3;
     private String colour1;
     private final String colour2 = "RED";
+    private MazeInterface maze;
     public Bomb(PositionInterface position, String color, SGR format, String character) {
         super(position, color, format, character);
         this.colour1 = this.getColor();
@@ -32,17 +34,14 @@ public class Bomb extends StaticElement{
         return timer;
     }
     public void explode(MazeInterface maze){
+
         destroy(maze.getStaticElems(),this.getPosition(),radius);
     }
     private void destroy(List<StaticElement> list, PositionInterface position, int radius){
         if(radius > 0){
-            for(StaticElement element : list){
-                if (element.getClass() == Wall.class && element.getPosition().equals(position)){
-                    if(!((Wall) element).isOuterWall()){
-                        list.remove(element);
-                        break;
-                    }
-                }
+            int index = list.indexOf(new Wall(position,"#FFFFFF",SGR.BOLD,"#",false));
+            if(index != -1){
+                list.remove(index);
             }
             destroy(list,new Position(position,0,1),radius-1);
             destroy(list,new Position(position,0,-1),radius-1);
