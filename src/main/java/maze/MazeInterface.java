@@ -8,6 +8,7 @@ import element.position.PositionInterface;
 import game.GameInterface;
 import handler.BombsHandler;
 import handler.CoinsHandler;
+import handler.LevelHandler;
 import handler.PortalHandler;
 
 import java.util.List;
@@ -23,6 +24,8 @@ import java.util.Queue;
  * @author José Carvalho
  */
 public interface MazeInterface {
+
+
 
     /**
      * Function to create the elements that exist within the maze.
@@ -43,6 +46,8 @@ public interface MazeInterface {
      * @param key key input from the player.
      */
     void nextFrame(com.googlecode.lanterna.input.KeyStroke key);
+
+    LevelHandler getLevelhandler();
 
     /**
      * Creates hearts objects corresponding to the current hp of the Hero object.

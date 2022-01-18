@@ -209,7 +209,6 @@ public class Game implements GameInterface {
         }
     }
 
-
     @Override
     public void loadInitialMenu() throws IOException {
         menu = new StartMenu(this, screen);
@@ -241,8 +240,6 @@ public class Game implements GameInterface {
         KeyStroke key = screen.pollInput();
         readKey(key);
         maze.nextFrame(key);
-
-
         if (counter >= 15) {
 
             pointsHandler.setPoints(pointsHandler.getPoints() - decrease);
@@ -270,7 +267,7 @@ public class Game implements GameInterface {
         menu = new InstructionsMenu(this, screen);
         this.setState(6);
     }
-    
+
     @Override
     public void run() {
         try {
@@ -289,9 +286,7 @@ public class Game implements GameInterface {
                 }
                 Thread.sleep((int) (1000 / fps));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -299,6 +294,11 @@ public class Game implements GameInterface {
     @Override
     public void winGame() {
         setState(7);
+    }
+
+    @Override
+    public LevelHandler getLevelHandler() {
+        return levelHandler;
     }
 
     @Override

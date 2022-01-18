@@ -1,11 +1,13 @@
 package game;
 
 import handler.BombsHandler;
+import handler.LevelHandler;
 import handler.PointsHandler;
 import handler.ShopHandler;
 import menu.Menu;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 /**
  * Main Game interface which manages the state of the program.
@@ -166,7 +168,7 @@ public interface GameInterface {
      * Sets the game to the winning state.
      */
     void winGame();
-
+    LevelHandler getLevelHandler();
     /**
      * Sets the game to the end losing state.
      */

@@ -16,11 +16,15 @@ public class HeroHandler {
     private MazeInterface maze;
     private GameInterface game;
 
+    private LevelHandler levelHandler;
     public HeroHandler(Hero hero, MazeInterface maze) {
         this.hero = hero;
         this.maze = maze;
         game = maze.getGame();
+
     }
+
+
 
     public void checkTile(PositionInterface position) {
         int index;
@@ -51,8 +55,10 @@ public class HeroHandler {
     }
 
     public void takeDamage() {
+        levelHandler = game.getLevelHandler();
+        int level = levelHandler.getLevel();
         hero.heroTakesDamage();
-        maze.getGame().getPointsHandler().incrementPoints(-130);
+        maze.getGame().getPointsHandler().incrementPoints(-100 + (int)(level*0.10));
         maze.loadHearts();
 
         if (hero.isDead()) {
@@ -74,7 +80,6 @@ public class HeroHandler {
             case Enter -> maze.getBombsHandler().generateBomb((Position) hero.getPosition());
         }
     }
-
 
     public void moveHero(PositionInterface position) {
         if (checkEmpty(hero.getPosition())){

@@ -7,16 +7,13 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import com.googlecode.lanterna.input.KeyStroke;
-import handler.BombsHandler;
-import handler.CoinsHandler;
-import handler.PortalHandler;
+import handler.*;
 import element.Element;
 import element.dynam.Hero;
 import element.position.Position;
 import element.position.PositionInterface;
 import element.Static.*;
 import game.GameInterface;
-import handler.HeroHandler;
 import menu.submenu.TextMenuElement;
 
 import java.util.*;
@@ -182,6 +179,11 @@ public class Maze implements MazeInterface {
 
     }
 
+    @Override
+    public LevelHandler getLevelhandler() {
+            return game.getLevelHandler();
+    }
+
     /**
      * Creates a Trophy at the ending position of the maze.
      */
@@ -242,8 +244,6 @@ public class Maze implements MazeInterface {
     }
 
     //TODO change hearts to be stored to a stack instead.
-
-
     @Override
     public void loadHearts() {
         hp.clear();
@@ -251,6 +251,7 @@ public class Maze implements MazeInterface {
             hp.add(new Heart(new Position(i + 15, 2), "#FF0000", SGR.BOLD, "*"));
         }
     }
+
 
 
     @Override
