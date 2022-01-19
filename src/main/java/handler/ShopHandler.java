@@ -11,9 +11,14 @@ public class ShopHandler {
     private final List<Integer> amount = new ArrayList<>();
     private final List<Integer> price = new ArrayList<>();
 
+    private int hp;
+    private int points;
+    private int bombs;
+
     public ShopHandler(GameInterface game){
         this.game = game;
         initializeShop();
+        value();
     }
 
     public String getName(int id) {
@@ -34,14 +39,34 @@ public class ShopHandler {
         this.price.add(price);
     }
 
+    public int getHp() {
+        return hp;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public int getBombs() {
+        return bombs;
+    }
+
+    public void value() {
+        hp = game.getHeroHp();
+        points = game.getPointsHandler().getPoints();
+        bombs = game.getBombsHandler().getBombs();
+    }
+
     public int getTotalItems(){return name.size();}
 
     public void sell(int id){
-        if(getAmount(id)>0){
+        if(getAmount(id)>0 && game.getPointsHandler().getPoints() >= price.get(id)){
             int actualAmount = amount.get(id);
             amount.set(id,actualAmount - 1);
+            game.getPointsHandler().incrementPoints(-price.get(id));
             effect(id);
         }
+        value();
     }
 
     private void effect(int id) {

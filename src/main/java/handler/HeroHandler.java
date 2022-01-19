@@ -89,7 +89,7 @@ public class HeroHandler {
             levelHandler = game.getLevelHandler();
             int level = levelHandler.getLevel();
             maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
-            game.getPointsHandler().incrementPoints(2 * (int)(level*0.5));
+            game.getPointsHandler().incrementPoints(2 + 1 * (int) (level * 0.5));
             maze.getEmptyTiles().remove(new Position((Position) hero.getPosition()));
         }
         hero.setPosition(position);
