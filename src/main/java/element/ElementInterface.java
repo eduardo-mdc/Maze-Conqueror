@@ -49,6 +49,13 @@ public interface ElementInterface {
     void setPosition(PositionInterface position);
 
     /**
+     * Sets the color of the element.
+     *
+     * @param color
+     */
+    void setColor(String color);
+
+    /**
      * Draws the element in a given screen.
      *
      * @param screen Screen to draw the element on.

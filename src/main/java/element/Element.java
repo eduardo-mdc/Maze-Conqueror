@@ -6,8 +6,6 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.PositionInterface;
 
-import java.util.Objects;
-
 /**
  * The Element class is the base class for the objects present in the maze. All elements extend from this class.
  *
@@ -64,6 +62,12 @@ public abstract class Element implements ElementInterface {
     }
 
     @Override
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+
+    @Override
     public void draw(TextGraphics screen) {
         screen.setForegroundColor(TextColor.Factory.fromString(color));
         screen.enableModifiers(format);
@@ -83,9 +87,6 @@ public abstract class Element implements ElementInterface {
         return position.equals(element.position) && color.equals(element.color) && format == element.format && character.equals(element.character);
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
 
 
 }

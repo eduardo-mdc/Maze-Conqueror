@@ -66,16 +66,16 @@ public class MenuTest {
     @Test
     public void getTextListTest() throws IOException {
         //default walls value
-        assertEquals(menu.getTextList().size(), 396);
+        assertEquals(menu.getTextList().size(), 392);
     }
 
     @Test
     public void loadWallsTest() {
-        assertEquals(menu.getTextList().size(), 396);
+        assertEquals(menu.getTextList().size(), 392);
         menu.loadWalls();
-        assertEquals(menu.getTextList().size(), 396 * 2);
+        assertEquals(menu.getTextList().size(), 392 * 2);
         menu.loadWalls();
-        assertEquals(menu.getTextList().size(), 396 * 3);
+        assertEquals(menu.getTextList().size(), 392 * 3);
     }
 
     @Test
@@ -87,11 +87,11 @@ public class MenuTest {
     @Test
     public void iterateSelectionTest() {
         // text list size increments.
-        assertEquals(menu.getTextList().size(), 396);
+        assertEquals(menu.getTextList().size(), 392);
         menu.splitText("some text", 5, 5);
-        assertEquals(menu.getTextList().size(), 397);
+        assertEquals(menu.getTextList().size(), 393);
         menu.splitText("some text", 5, 5);
-        assertEquals(menu.getTextList().size(), 398);
+        assertEquals(menu.getTextList().size(), 394);
     }
 
     @Test

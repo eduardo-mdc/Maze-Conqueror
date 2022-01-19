@@ -32,7 +32,7 @@ public class HeroHandlerTest {
         game = new Game();
         position = new Position(3, 5);
         maze = new Maze(game, 15);
-        hero = new Hero(position, "GREEN", SGR.BORDERED, "@");
+        hero = new Hero(position, "GREEN", SGR.BORDERED, "@",5);
         handler = new HeroHandler(hero, maze);
         game.initialize();
     }
@@ -79,10 +79,8 @@ public class HeroHandlerTest {
 
     @Test
     public void moveHeroTest() {
-        int value = game.getPointsHandler().getPoints();
         handler.moveHero(new Position(6, 7));
         assertEquals(hero.getPosition().getX(), 6);
         assertEquals(hero.getPosition().getY(), 7);
-        assertEquals(game.getPointsHandler().getPoints(), value + 2);
     }
 }

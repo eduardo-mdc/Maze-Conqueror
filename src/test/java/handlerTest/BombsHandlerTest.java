@@ -1,7 +1,10 @@
 package handlerTest;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
+import game.Game;
 import handler.BombsHandler;
+import maze.Maze;
+import maze.MazeInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,15 +16,17 @@ import static org.mockito.Mockito.*;
 
 public class BombsHandlerTest {
     private BombsHandler handler;
+    private MazeInterface maze;
 
     @BeforeEach
     public void helper() {
-        handler = new BombsHandler();
+        handler = new BombsHandler(maze);
+        maze = new Maze(new Game(), 10);
     }
 
     @Test
     public void constructorTest() throws IOException {
-        BombsHandler handlerTemp = new BombsHandler();
+        BombsHandler handlerTemp = new BombsHandler(maze);
         assertTrue(handlerTemp != null);
         assertTrue(handler != null);
     }

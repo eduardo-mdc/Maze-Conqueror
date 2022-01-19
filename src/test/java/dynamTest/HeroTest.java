@@ -19,7 +19,13 @@ public class HeroTest {
     @BeforeEach
     public void helper() {
         position = mock(PositionInterface.class);
-        hero = new Hero(position, null, null, null);
+        hero = new Hero(position, null, null, null,100);
+    }
+
+    @Test
+    public void constructorTest() {
+        Hero tempHero = new Hero(position, "GREEN", SGR.BORDERED, "@", 5);
+        assertTrue(tempHero != null);
     }
 
     @Test
@@ -38,14 +44,14 @@ public class HeroTest {
 
     @Test
     public void setHealthTest() {
-        Hero tempHero = new Hero(position, null, null, null);
+        Hero tempHero = new Hero(position, null, null, null,5);
         tempHero.setHealth(50);
         assertEquals(tempHero.getHealth(),50);
     }
 
     @Test
     public void isDeadTest() {
-        Hero tempHero = new Hero(position, null, null, null);
+        Hero tempHero = new Hero(position, null, null, null,5);
         tempHero.setHealth(0);
         assertTrue(tempHero.isDead());
     }
@@ -93,11 +99,5 @@ public class HeroTest {
         TextGraphics graphics = mock(TextGraphics.class);
         tempHero.draw(graphics);
         verify(tempHero, times(1)).draw(graphics);
-    }
-
-    @Test
-    public void constructorTest() {
-        Hero tempHero = new Hero(position, "GREEN", SGR.BORDERED, "@");
-        assertTrue(tempHero != null);
     }
 }
