@@ -47,7 +47,7 @@ public class Game implements GameInterface {
     private BombsHandler bombsHandler;
     private LevelHandler levelHandler;
     private ShopHandler shopHandler;
-    private LeaderboardHandler leaderboardHandler;
+    private Leaderboard leaderboard;
     private int heroHp;
     private boolean isUnlocked = false;
     private boolean invensible = false;
@@ -64,15 +64,14 @@ public class Game implements GameInterface {
         return maxHP;
     }
     public Game() {
-        setDimension(52, 50, 40);
+        setDimension(52, 50, 10);
         initialized = false;
         counter = 0;
         state = 0;
         bombs = 5;
         heroHp = maxHP;
-        leaderboardHandler = new LeaderboardHandler(this);
-        leaderboardHandler.read();
-        leaderboardHandler.write();
+        leaderboard = new Leaderboard(this);
+        leaderboard.read();
         System.out.println(heroID);
         try {
             loadInitialScreen();
@@ -257,6 +256,8 @@ public class Game implements GameInterface {
 
     @Override
     public void loadVictoryMenu() throws IOException {
+        leaderboard.put(pointsHandler.getPoints());
+        leaderboard.write();
         pointsHandler.incrementPoints(1000);
         menu = new VictoryMenu(this, screen);
         this.setState(6);
