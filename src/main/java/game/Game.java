@@ -43,10 +43,8 @@ public class Game implements GameInterface {
     private int screenW;
     private int dimension;
     private int counter;
-
-
-
     private int maxHP = 5;
+    private int currentHP;
     private PointsHandler pointsHandler;
     private BombsHandler bombsHandler;
     private LevelHandler levelHandler;

@@ -35,8 +35,6 @@ public class Maze implements MazeInterface {
     private final GameInterface game;
     private int[][] maze;
     private int dim;
-
-
     private Hero hero;
     private List<StaticElement> staticElems;
     private List<Position> emptyTiles;
@@ -44,8 +42,6 @@ public class Maze implements MazeInterface {
     private List<StaticElement> coins;
     private Queue<StaticElement> path;
     private Queue<Bomb> bombs;
-
-
     private HeroHandler heroHandler;
     private PortalHandler portalHandler;
     private int currentHealth;
@@ -81,6 +77,7 @@ public class Maze implements MazeInterface {
         bombs = new LinkedList<>();
 
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@",currentHealth);
+
         heroHandler = new HeroHandler(hero, this);
         bombsHandler = new BombsHandler(this);
         getMaze(dim);
@@ -151,7 +148,6 @@ public class Maze implements MazeInterface {
 
     @Override
     public void createElements() {
-        //createHpBar();
         loadHearts();
         createWalls();
         createTrophy();
@@ -254,11 +250,9 @@ public class Maze implements MazeInterface {
     public void loadHearts() {
         hp.clear();
         for (int i = 1; i <= hero.getHealth(); i++) {
-            hp.add(new Heart(new Position(i + 15, 2), "#FF0000", SGR.BOLD, "*"));
+            hp.add(new Heart(new Position(i + 17, 2), "#FF0000", SGR.BOLD, "*"));
         }
     }
-
-
 
     @Override
     public void draw(TextGraphics screen) {

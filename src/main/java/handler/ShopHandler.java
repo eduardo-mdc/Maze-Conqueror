@@ -61,6 +61,7 @@ public class ShopHandler {
 
     public void value() {
         hp = game.getHeroHp();
+        System.out.println("vida" + hp);
         points = game.getPointsHandler().getPoints();
         bombs = game.getCurrentBombs();
     }
@@ -69,7 +70,6 @@ public class ShopHandler {
 
     public void sell(int id){
         if(getAmount(id)>0 && game.getPointsHandler().getPoints() >= price.get(id) && canSell(id)){
-
             int actualAmount = amount.get(id);
             amount.set(id,actualAmount - 1);
             game.getPointsHandler().incrementPoints(-price.get(id));
