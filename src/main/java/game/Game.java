@@ -225,6 +225,7 @@ public class Game implements GameInterface {
 
     @Override
     public void loadVictoryMenu() throws IOException {
+        pointsHandler.incrementPoints(1000);
         menu = new VictoryMenu(this, screen);
         this.setState(6);
     }
@@ -340,13 +341,13 @@ public class Game implements GameInterface {
     }
 
     public void loadShop() throws IOException {
+
         menu = new ShopMenu(this, screen);
         this.setState(6);
     }
 
     public void nextMap(){
         levelHandler.nextLevel();
-        pointsHandler.incrementPoints(1000);
         decrease = (int) (levelHandler.getLevel() * 0.3);
         System.out.println(decrease);
         this.heroHp = maze.getActualHeroHp();
