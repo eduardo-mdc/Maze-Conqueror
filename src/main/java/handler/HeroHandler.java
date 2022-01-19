@@ -72,10 +72,22 @@ public class HeroHandler {
 
     public void checkKey(KeyStroke key) {
         switch (key.getKeyType()) {
-            case ArrowUp -> checkTile(hero.moveUp());
-            case ArrowDown -> checkTile(hero.moveDown());
-            case ArrowLeft -> checkTile(hero.moveLeft());
-            case ArrowRight -> checkTile(hero.moveRight());
+            case ArrowUp -> {
+                checkTile(hero.moveUp());
+                return;
+            }
+            case ArrowDown -> {
+                checkTile(hero.moveDown());
+                return;
+            }
+            case ArrowLeft -> {
+                checkTile(hero.moveLeft());
+                return;
+            }
+            case ArrowRight -> {
+                checkTile(hero.moveRight());
+                return;
+            }
         }
         Character charToCompare = key.getCharacter();
         if(charToCompare != null){
