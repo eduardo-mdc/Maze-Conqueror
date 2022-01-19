@@ -135,7 +135,6 @@ public class Game implements GameInterface {
         if (maze.getActualHeroHp() < maxHP){
             int newHP = maze.getActualHeroHp() + increment;
             maze.setHeroHp(newHP);
-            System.out.println(" ---- Adicionado" + increment + "nova vida "+ heroHp);
         }
     }
 
