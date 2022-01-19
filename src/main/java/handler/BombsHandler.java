@@ -24,7 +24,8 @@ public class BombsHandler {
 
     public BombsHandler(MazeInterface maze){
         this.maze = maze;
-        bomb = maxbomb;
+        bomb = maze.getGame().getCurrentBombs();
+        System.out.println("tenho :" +bomb);
     }
 
     public Integer getBombs() {
@@ -32,8 +33,13 @@ public class BombsHandler {
     }
 
     public void setBomb(Integer bomb) {
-        if(bomb < 0) this.bomb = 0;
-        else this.bomb = bomb;
+        if(bomb < 0) {
+            this.bomb = 0;
+        }
+        else {
+            this.bomb = bomb;
+            maze.getGame().setCurrentBombs(bomb);
+        }
     }
 
     public void incrementBombs(Integer increment){
@@ -42,7 +48,7 @@ public class BombsHandler {
 
     public void draw(TextGraphics screen){
         screen.setForegroundColor(TextColor.Factory.fromString(color));
-        screen.putString(new TerminalPosition(25, 2), ("b " + bomb.toString()));
+        screen.putString(new TerminalPosition(35, 2), ("b " + bomb.toString()));
     }
 
     public void generateBomb(Position position) {

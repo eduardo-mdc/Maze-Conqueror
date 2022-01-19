@@ -59,7 +59,9 @@ public interface GameInterface {
      * @param newState value of the new state.
      */
     void setState(int newState);
-
+    int getCurrentBombs();
+    int getMaxHP();
+    void setCurrentBombs(int newAmount);
     /**
      * Returns the height of the screen.
      *

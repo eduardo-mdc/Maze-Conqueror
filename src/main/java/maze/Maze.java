@@ -159,8 +159,6 @@ public class Maze implements MazeInterface {
         createCoins();
     }
 
-
-
     @Override
     public int getDim() {
         return dim;

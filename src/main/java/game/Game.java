@@ -43,6 +43,9 @@ public class Game implements GameInterface {
     private int screenW;
     private int dimension;
     private int counter;
+
+
+
     private int maxHP = 5;
     private PointsHandler pointsHandler;
     private BombsHandler bombsHandler;
@@ -51,6 +54,8 @@ public class Game implements GameInterface {
     private int heroHp = maxHP;
     private boolean isUnlocked = false;
     private boolean invensible = false;
+    private int decrease;
+    private int bombs;
 
     //TODO refactor error catching in game constructor
 
@@ -58,11 +63,15 @@ public class Game implements GameInterface {
      * Constructor for the game Class.
      **/
 
+    public int getMaxHP() {
+        return maxHP;
+    }
     public Game() {
         setDimension(52, 50, 10);
         initialized = false;
         counter = 0;
         state = 0;
+        bombs = 5;
         try {
             loadInitialScreen();
         } catch (IOException e) {
@@ -73,7 +82,12 @@ public class Game implements GameInterface {
             e.printStackTrace();
         }
     }
-
+    public int getCurrentBombs(){
+        return bombs;
+    }
+    public void setCurrentBombs(int newAmount){
+        this.bombs = newAmount;
+    }
     private void restartHeroHp(){
         heroHp = maxHP;
     }
@@ -175,7 +189,8 @@ public class Game implements GameInterface {
         pointsHandler.draw(textGraphics);
         screen.refresh();
     }
-   private int decrease;
+
+
     @Override
     public void initialize() {
         restartHeroHp();
@@ -270,9 +285,8 @@ public class Game implements GameInterface {
 
     @Override
     public void incrementBombs() {
-        int oldBombs = bombsHandler.getBombs();
-        if (oldBombs < bombsHandler.getMaxbomb())
-         bombsHandler.setBomb(oldBombs++);
+        System.out.printf("Bombas ; "+bombs);
+        if (bombs < bombsHandler.getMaxbomb()) bombsHandler.setBomb(bombs +1);
     }
 
     public boolean isInvincible(){
@@ -348,6 +362,8 @@ public class Game implements GameInterface {
 
     public void nextMap(){
         levelHandler.nextLevel();
+        if(levelHandler.getLevel() %10== 0)shopHandler.generalReStock(2,2);
+        if(levelHandler.getLevel() %20== 0)shopHandler.generalReStock(2,-1);
         decrease = (int) (levelHandler.getLevel() * 0.3);
         System.out.println(decrease);
         this.heroHp = maze.getActualHeroHp();

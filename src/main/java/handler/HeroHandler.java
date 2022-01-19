@@ -91,7 +91,9 @@ public class HeroHandler {
         }
         Character charToCompare = key.getCharacter();
         if(charToCompare != null){
-            if(charToCompare.equals('b')) maze.getBombsHandler().generateBomb((Position) hero.getPosition());
+            if(charToCompare.equals('b')) {
+                maze.getBombsHandler().generateBomb((Position) hero.getPosition());
+            }
         }
     }
 

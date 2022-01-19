@@ -10,6 +10,7 @@ public class ShopHandler {
     private final List<String> name = new ArrayList<>();
     private final List<Integer> amount = new ArrayList<>();
     private final List<Integer> price = new ArrayList<>();
+    private final List<Integer> maxAmount = new ArrayList<>();
 
     private int hp;
     private int points;
@@ -33,10 +34,17 @@ public class ShopHandler {
         return price.get(id);
     }
 
+    public void addItem(String character ,String name, int amount, int price,int max){
+        this.name.add( character + " " + name);
+        this.amount.add(amount);
+        this.price.add(price);
+        this.maxAmount.add(max);
+    }
     public void addItem(String character ,String name, int amount, int price){
         this.name.add( character + " " + name);
         this.amount.add(amount);
         this.price.add(price);
+        this.maxAmount.add(-1);
     }
 
     public int getHp() {
@@ -54,13 +62,14 @@ public class ShopHandler {
     public void value() {
         hp = game.getHeroHp();
         points = game.getPointsHandler().getPoints();
-        bombs = game.getBombsHandler().getBombs();
+        bombs = game.getCurrentBombs();
     }
 
     public int getTotalItems(){return name.size();}
 
     public void sell(int id){
-        if(getAmount(id)>0 && game.getPointsHandler().getPoints() >= price.get(id)){
+        if(getAmount(id)>0 && game.getPointsHandler().getPoints() >= price.get(id) && canSell(id)){
+
             int actualAmount = amount.get(id);
             amount.set(id,actualAmount - 1);
             game.getPointsHandler().incrementPoints(-price.get(id));
@@ -69,16 +78,40 @@ public class ShopHandler {
         value();
     }
 
+    private boolean canSell(int id) {
+        switch (id){
+            case 0 : {
+               return hp < maxAmount.get(id);
+            }
+            case 1: {
+                return bombs < maxAmount.get(id);
+            }
+            case 2 : {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void effect(int id) {
+        System.out.println(id);
         switch (id){
          case 0 -> game.incrementHeroHp();
          case 1 -> game.incrementBombs();
          case 2 -> game.turnInvincible();
         }
     }
+    public void increaseStock(int id, int increment){
+        amount.set(id,increment);
+    }
+    public void generalReStock(int newAmount,int exception){
+        for (int i = 0; i < this.amount.size();i++)
+           if(i != exception) increaseStock(i,newAmount);
+
+    }
 
     public void initializeShop() {
-        addItem("*","HEALTH",20, 1000);
-        addItem("b","BOMBS",10, 5000);
+        addItem("*","HEALTH",20, 1000,game.getMaxHP());
+        addItem("b","BOMBS",10, 5000,game.getBombsHandler().getMaxbomb());
     }
 }
