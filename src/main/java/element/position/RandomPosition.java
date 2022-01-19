@@ -1,6 +1,6 @@
-package handler;
+package element.position;
 
-import element.position.Position;
+
 import maze.MazeInterface;
 
 public abstract class RandomPosition {
@@ -8,7 +8,7 @@ public abstract class RandomPosition {
     int yIncr;
     private MazeInterface maze;
 
-    RandomPosition(MazeInterface maze){
+    public RandomPosition(MazeInterface maze){
         this.maze = maze;
         xIncr = maze.getxIncr();
         yIncr = maze.getyIncr();
@@ -18,9 +18,9 @@ public abstract class RandomPosition {
         return (int)(Math.random()*range) + min;
     }
 
-    public Position getRandomPosition(int max){
+    public PositionInterface getRandomPosition(int max){
         int index = generateNumber(0,max);
-        Position position = new Position(maze.getEmptyTiles().get(index));
+        PositionInterface position = new Position(maze.getEmptyTiles().get(index));
         maze.getEmptyTiles().remove(index);
         return position;
     }

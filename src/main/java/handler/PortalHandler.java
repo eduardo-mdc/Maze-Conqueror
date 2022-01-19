@@ -2,9 +2,10 @@ package handler;
 
 import com.googlecode.lanterna.SGR;
 import element.Static.Portal;
+import element.position.RandomPosition;
 import maze.MazeInterface;
 
-public class PortalHandler extends RandomPosition{
+public class PortalHandler extends RandomPosition {
 
     private Portal portalA;
     private Portal portalB;

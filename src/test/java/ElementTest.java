@@ -37,14 +37,17 @@ public class ElementTest {
 
     @Test
     public void GetPositionTest() {
-        ElementInterface element = new Element(position, "#FF0000", SGR.BOLD, "X") {
+        ElementInterface elementTemp = new Element(position, "#FF0000", SGR.BOLD, "X") {
             @Override
             public void draw(TextGraphics screen) {
             }
         };
-        PositionInterface newPosition = element.getPosition();
+        PositionInterface newPosition = elementTemp.getPosition();
         assertEquals(newPosition, position);
+        assertEquals(element.getPosition(), position);
+
     }
+
 
     @Test
     public void verifyDrawTest() {
@@ -62,6 +65,13 @@ public class ElementTest {
             }
         };
         assertEquals(tempElem.getFormat(), element.getFormat());
+        assertEquals(SGR.BOLD, element.getFormat());
+    }
+
+    @Test
+    public void setColorTest() {
+        element.setColor("BLACK");
+        assertEquals(element.getColor(), "BLACK");
     }
 
     @Test
@@ -73,6 +83,7 @@ public class ElementTest {
         };
         assertEquals(tempElem.getColor(), element.getColor());
     }
+
 
     @Test
     public void getCharacterTest() {
@@ -97,6 +108,7 @@ public class ElementTest {
         assertFalse(tempWall1.equals(tempWall3));
         assertFalse(tempWall4.equals(tempWall5));
         assertFalse(tempWall1.equals(tempWall6));
+        assertEquals(element, element);
     }
 
     @Test
