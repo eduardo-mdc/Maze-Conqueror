@@ -15,6 +15,7 @@ public class ShopButton extends Button {
 
     @Override
     public void execute() {
+        game.getShopHandler().value();
         game.setState(8);
     }
 }

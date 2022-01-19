@@ -181,10 +181,10 @@ public class Game implements GameInterface {
         restartHeroHp();
         generateNewMaze();
         setInitialize(true);
-        shopHandler = new ShopHandler(this);
         pointsHandler = new PointsHandler();
         levelHandler = new LevelHandler();
         bombsHandler = new BombsHandler(maze);
+        shopHandler = new ShopHandler(this);
         decrease = (int) (levelHandler.getLevel() * 0.3);
     }
 
