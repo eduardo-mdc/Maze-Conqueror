@@ -11,6 +11,7 @@ public class InstructionsButton extends Button {
         super(position);
         this.game = game;
         setText("INSTRUCTIONS");
+
     }
 
     @Override

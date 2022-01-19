@@ -11,6 +11,7 @@ public class CloseShopButton extends Button {
         super(position);
         this.game = game;
         setText("CLOSE");
+
     }
 
     @Override

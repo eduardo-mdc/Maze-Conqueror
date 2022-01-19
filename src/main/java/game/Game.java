@@ -247,7 +247,7 @@ public class Game implements GameInterface {
         KeyStroke key = screen.pollInput();
         readKey(key);
         maze.nextFrame(key);
-        
+
         if (counter >= 15) {
             pointsHandler.setPoints(pointsHandler.getPoints() - decrease);
             counter = 0;
@@ -258,7 +258,7 @@ public class Game implements GameInterface {
 
     @Override
     public void unlockShop() {
-        shopHandler.addItem("X","SOMETHING",1, 10000);
+        shopHandler.addItem("?","SOMETHING",1, 10000);
     }
 
     @Override
