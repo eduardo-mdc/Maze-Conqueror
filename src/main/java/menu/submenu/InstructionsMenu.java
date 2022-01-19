@@ -32,7 +32,7 @@ public class InstructionsMenu extends Menu {
                 new TextMenuElement(new Position(xIncr,yIncr-1),"CONTROLS:"),
                 new TextMenuElement(new Position(xIncr,yIncr+1),"ARROWS:"),
                 new TextMenuElement(new Position(xIncr+10,yIncr+1),"MOVE HERO"),
-                new TextMenuElement(new Position(xIncr,yIncr+3),"ENTER:"),
+                new TextMenuElement(new Position(xIncr,yIncr+3),"B:"),
                 new TextMenuElement(new Position(xIncr+10,yIncr+3),"DROP BOMB"),
                 new TextMenuElement(new Position(xIncr,yIncr+5),"ESC:"),
                 new TextMenuElement(new Position(xIncr+10,yIncr+5),"PAUSE MENU"),

@@ -24,7 +24,7 @@ public class Bomb extends StaticElement{
     }
     public void bombTick(){
         if(timer == 60) interval = 5;
-        if(timer == 30) interval = 3;
+        if(timer == 25) interval = 2;
         if (timer%interval == 0) alternateColour();
         timer--;
     }
