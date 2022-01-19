@@ -111,6 +111,8 @@ public interface GameInterface {
 
     void setHeroID(Integer value);
 
+    Integer getHeroID();
+
     /**
      * Quits the game. Receives an integer to quit check if the game was exited successfully,
      *

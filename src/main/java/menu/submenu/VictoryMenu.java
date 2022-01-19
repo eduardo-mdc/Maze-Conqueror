@@ -24,5 +24,7 @@ public class VictoryMenu extends Menu {
                 new MainMenuButton(game,new Position(xIncr,yIncr+20)),
                 new ExitButton(game, new Position(xIncr, yIncr + 25))
         );
+
+        texts.add(new TextMenuElement(new Position(3,48),"YOUR HERO ID IS : HERO" + game.getHeroID()));
     }
 }

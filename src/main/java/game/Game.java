@@ -41,6 +41,9 @@ public class Game implements GameInterface {
     private int dimension;
     private int counter;
     private int maxHP = 5;
+
+
+
     private Integer heroID;
     private int currentHP;
     private PointsHandler pointsHandler;
@@ -388,6 +391,11 @@ public class Game implements GameInterface {
     @Override
     public void setHeroID(Integer value){
         heroID = value;
+    }
+
+    @Override
+    public Integer getHeroID() {
+        return heroID;
     }
 
     @Override
