@@ -2,11 +2,11 @@ package handler;
 
 import com.googlecode.lanterna.SGR;
 import element.Static.Coin;
-import element.Static.StaticElement;
 import element.position.Position;
+import element.position.RandomPosition;
 import maze.MazeInterface;
 
-public class CoinsHandler extends RandomPosition{
+public class CoinsHandler extends RandomPosition {
     private MazeInterface maze;
     public CoinsHandler(MazeInterface maze) {
         super(maze);
