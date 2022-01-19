@@ -9,7 +9,7 @@ public class PointsHandler {
     private final String color = "WHITE";
 
     public PointsHandler() {
-        points = 100000;
+        points = 1000;
     }
 
     public Integer getPoints() {
