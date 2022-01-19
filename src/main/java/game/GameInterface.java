@@ -4,6 +4,7 @@ import handler.BombsHandler;
 import handler.LevelHandler;
 import handler.PointsHandler;
 import handler.ShopHandler;
+import maze.MazeInterface;
 import menu.Menu;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ public interface GameInterface {
      * @return menu object.
      */
     Menu getMenu();
-    void incrementHeroHp();
+    void incrementHeroHp(int increment);
     /**
      * Changes the value of the variable initialize to control the state of the game.
      *
@@ -68,7 +69,8 @@ public interface GameInterface {
      * @return value of the screen height.
      */
     int getScreenH();
-
+    void setCurrentHP(int currentHP);
+    int getCurrentHP();
     /**
      * Returns the width of the screen.
      *
@@ -92,6 +94,7 @@ public interface GameInterface {
     BombsHandler getBombsHandler();
     int getHeroHp();
 
+    MazeInterface getMaze();
     /**
      * Sets the dimension for the lanterna screen based on the user's physical screen resolution.
      *

@@ -60,7 +60,7 @@ public class ShopHandler {
     }
 
     public void value() {
-        hp = game.getHeroHp();
+        hp = game.getMaze().getActualHeroHp();
         System.out.println("vida" + hp);
         points = game.getPointsHandler().getPoints();
         bombs = game.getCurrentBombs();
@@ -96,7 +96,7 @@ public class ShopHandler {
     private void effect(int id) {
         System.out.println(id);
         switch (id){
-         case 0 -> game.incrementHeroHp();
+         case 0 -> game.incrementHeroHp(1);
          case 1 -> game.incrementBombs();
          case 2 -> game.turnInvincible();
         }

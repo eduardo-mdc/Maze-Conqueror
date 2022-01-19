@@ -110,6 +110,7 @@ public interface MazeInterface {
     GameInterface getGame();
 
     int getActualHeroHp();
+    void setHeroHp(int newHP);
 
     List<Position> getEmptyTiles();
 

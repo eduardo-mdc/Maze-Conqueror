@@ -62,13 +62,14 @@ public class Maze implements MazeInterface {
      * @param dim  dimension integer which dictates the maze's size.
      */
     public Maze(GameInterface game, int dim) {
-        //Initialize Variables
         this.game = game;
         this.dim = dim;
         this.begin = new Position(1 + xIncr, 1 + yIncr);
         this.ending = new Position(dim - 2 + xIncr, dim - 2 + yIncr);
         counter = 0;
+
         currentHealth = game.getHeroHp();
+
         hp = new ArrayList<>();
         staticElems = new LinkedList<>();
         emptyTiles = new LinkedList<>();
@@ -173,8 +174,6 @@ public class Maze implements MazeInterface {
 
     }
 
-
-
     @Override
     public LevelHandler getLevelhandler() {
             return game.getLevelHandler();
@@ -206,24 +205,12 @@ public class Maze implements MazeInterface {
             }
         }
     }
-
+    public void setHeroHp(int newHP){
+        hero.setHealth(newHP);
+    }
     public int getActualHeroHp(){
         return hero.getHealth();
     }
-    /**
-     * Creates an Hpbar object at the upper-left corner of the terminal.
-     */
-   /* private void createHpBar() {
-        int xsize = hero.getHealth() + 2;
-        int ysize = 3;
-        for (int i = 0; i < xsize; i++) {
-            for (int j = 0; j < ysize; j++) {
-                if (i == 0 || i == xsize - 1 || j == 0 || j == ysize - 1) {
-                }
-            }
-        }
-
-    }*/
 
     private void createRedPath(){
         if (path.size() != 0) {

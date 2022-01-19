@@ -44,12 +44,14 @@ public class Game implements GameInterface {
     private int dimension;
     private int counter;
     private int maxHP = 5;
+
+
     private int currentHP;
     private PointsHandler pointsHandler;
     private BombsHandler bombsHandler;
     private LevelHandler levelHandler;
     private ShopHandler shopHandler;
-    private int heroHp = maxHP;
+    private int heroHp;
     private boolean isUnlocked = false;
     private boolean invensible = false;
     private int decrease;
@@ -70,6 +72,7 @@ public class Game implements GameInterface {
         counter = 0;
         state = 0;
         bombs = 5;
+        heroHp = maxHP;
         try {
             loadInitialScreen();
         } catch (IOException e) {
@@ -79,6 +82,13 @@ public class Game implements GameInterface {
         } catch (FontFormatException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getCurrentHP() {
+        return currentHP;
+    }
+    public void setCurrentHP(int currentHP) {
+        this.currentHP = currentHP;
     }
     public int getCurrentBombs(){
         return bombs;
@@ -117,9 +127,18 @@ public class Game implements GameInterface {
 
     public ShopHandler getShopHandler(){return this.shopHandler;};
 
-    public int getHeroHp(){return heroHp;}
+    public int getHeroHp(){
+        return heroHp;
+    }
 
-    public void incrementHeroHp(){if (heroHp< maxHP)heroHp++;}
+    public void incrementHeroHp(int increment){
+        if (maze.getActualHeroHp() < maxHP){
+            int newHP = maze.getActualHeroHp() + increment;
+            maze.setHeroHp(newHP);
+          //  heroHp = newHP;
+            System.out.println(" ---- Adicionado" + increment + "nova vida "+ heroHp);
+        }
+    }
 
     @Override
     public void setState(int newState) {
@@ -257,11 +276,9 @@ public class Game implements GameInterface {
             isUnlocked = true;
             unlockShop();
         }
-
         KeyStroke key = screen.pollInput();
         readKey(key);
         maze.nextFrame(key);
-
         if (counter >= 15) {
             pointsHandler.setPoints(pointsHandler.getPoints() - decrease);
             counter = 0;
@@ -274,7 +291,6 @@ public class Game implements GameInterface {
     public void unlockShop() {
         shopHandler.addItem("?","SOMETHING",1, 10000);
     }
-
     @Override
     public void runMenu() throws IOException {
         readKey(screen.pollInput());
@@ -283,7 +299,6 @@ public class Game implements GameInterface {
 
     @Override
     public void incrementBombs() {
-        System.out.printf("Bombas ; "+bombs);
         if (bombs < bombsHandler.getMaxbomb()) bombsHandler.setBomb(bombs +1);
     }
 
@@ -293,7 +308,6 @@ public class Game implements GameInterface {
 
     @Override
     public void turnInvincible() {
-        System.out.printf("SIM");
         invensible = true;
     }
 
@@ -347,24 +361,24 @@ public class Game implements GameInterface {
         initialized = false;
         state = 1;
     }
-
+    public MazeInterface getMaze(){
+        return maze;
+    }
     public void generateNewMaze(){
         maze = new Maze(this, dimension);
     }
 
     public void loadShop() throws IOException {
-
         menu = new ShopMenu(this, screen);
         this.setState(6);
     }
 
     public void nextMap(){
+        this.heroHp = maze.getActualHeroHp();
         levelHandler.nextLevel();
         if(levelHandler.getLevel() %10== 0)shopHandler.generalReStock(2,2);
         if(levelHandler.getLevel() %20== 0)shopHandler.generalReStock(2,-1);
         decrease = (int) (levelHandler.getLevel() * 0.3);
-        System.out.println(decrease);
-        this.heroHp = maze.getActualHeroHp();
         generateNewMaze();
         state = 1 ;
     }
