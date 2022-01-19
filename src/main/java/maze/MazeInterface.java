@@ -3,13 +3,11 @@ package maze;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Static.Bomb;
 import element.Static.StaticElement;
+import element.dynam.Hero;
 import element.position.Position;
 import element.position.PositionInterface;
 import game.GameInterface;
-import handler.BombsHandler;
-import handler.CoinsHandler;
-import handler.LevelHandler;
-import handler.PortalHandler;
+import handler.*;
 
 import java.util.List;
 import java.util.Queue;
@@ -124,4 +122,8 @@ public interface MazeInterface {
     Queue<Bomb> getBombs();
 
     BombsHandler getBombsHandler();
+
+    HeroHandler getHeroHandler();
+
+    Hero getHero();
 }

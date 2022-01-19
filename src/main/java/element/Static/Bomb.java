@@ -14,13 +14,18 @@ public class Bomb extends StaticElement{
     private String colour1;
     private final String colour2 = "RED";
     private MazeInterface maze;
+    private int interval = 10;
+    private boolean flag;
     public Bomb(PositionInterface position, String color, SGR format, String character) {
         super(position, color, format, character);
         this.colour1 = this.getColor();
         timer = 90;
+        flag = true;
     }
     public void bombTick(){
-        if (timer%10 == 0) alternateColour();
+        if(timer == 60) interval = 5;
+        if(timer == 30) interval = 3;
+        if (timer%interval == 0) alternateColour();
         timer--;
     }
     private void alternateColour(){
@@ -39,6 +44,10 @@ public class Bomb extends StaticElement{
     }
     private void destroy(List<StaticElement> list, PositionInterface position, int radius){
         if(radius > 0){
+            if(position.equals(maze.getHero().getPosition()) && flag){
+                maze.getHeroHandler().takeDamage();
+                flag = false;
+            }
             int index = list.indexOf(new Wall(position,"#FFFFFF",SGR.BOLD,"#",false));
             if(index != -1){
                 list.remove(index);

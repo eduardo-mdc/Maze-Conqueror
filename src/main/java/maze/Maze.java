@@ -14,7 +14,6 @@ import element.position.Position;
 import element.position.PositionInterface;
 import element.Static.*;
 import game.GameInterface;
-import menu.submenu.TextMenuElement;
 
 import java.util.*;
 
@@ -36,6 +35,8 @@ public class Maze implements MazeInterface {
     private final GameInterface game;
     private int[][] maze;
     private int dim;
+
+
     private Hero hero;
     private List<StaticElement> staticElems;
     private List<Position> emptyTiles;
@@ -43,6 +44,8 @@ public class Maze implements MazeInterface {
     private List<StaticElement> coins;
     private Queue<StaticElement> path;
     private Queue<Bomb> bombs;
+
+
     private HeroHandler heroHandler;
     private PortalHandler portalHandler;
     private int currentHealth;
@@ -170,14 +173,13 @@ public class Maze implements MazeInterface {
         if (key != null)
             heroHandler.checkKey(key);
         if (counter == 10) {
-            if (path.size() != 0) {
-                PositionInterface pathPosition = path.remove().getPosition();
-                staticElems.add(new RedPath(pathPosition, "RED", SGR.BOLD, "{"));
-            }
+            createRedPath();
             counter = 0;
         }
 
     }
+
+
 
     @Override
     public LevelHandler getLevelhandler() {
@@ -229,6 +231,12 @@ public class Maze implements MazeInterface {
 
     }*/
 
+    private void createRedPath(){
+        if (path.size() != 0) {
+            PositionInterface pathPosition = path.remove().getPosition();
+            staticElems.add(new RedPath(pathPosition, "RED", SGR.BOLD, "{"));
+        }
+    }
 
     private void createPortals() {
         portalHandler = new PortalHandler(this);
@@ -319,6 +327,17 @@ public class Maze implements MazeInterface {
     public BombsHandler getBombsHandler() {
         return bombsHandler;
     }
+
+    @Override
+    public HeroHandler getHeroHandler() {
+        return heroHandler;
+    }
+    @Override
+    public Hero getHero() {
+        return hero;
+    }
+
+
 
 }
 

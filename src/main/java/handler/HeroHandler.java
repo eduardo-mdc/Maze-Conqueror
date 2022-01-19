@@ -55,15 +55,11 @@ public class HeroHandler {
     public void takeDamage() {
         levelHandler = game.getLevelHandler();
         int level = levelHandler.getLevel();
-
         if(!game.isInvincible()){
-            System.out.printf("DAMAGE!");
             hero.heroTakesDamage();
             maze.getGame().getPointsHandler().incrementPoints(-100 + (int)(level*0.10));
             maze.loadHearts();
         }
-
-
         if (hero.isDead()) {
             maze.getGame().gameOver();
         }
