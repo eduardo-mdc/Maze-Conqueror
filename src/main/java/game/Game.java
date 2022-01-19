@@ -10,10 +10,7 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
-import handler.BombsHandler;
-import handler.LevelHandler;
-import handler.PointsHandler;
-import handler.ShopHandler;
+import handler.*;
 import maze.Maze;
 import maze.MazeInterface;
 import menu.Menu;
@@ -44,13 +41,13 @@ public class Game implements GameInterface {
     private int dimension;
     private int counter;
     private int maxHP = 5;
-
-
+    private Integer heroID;
     private int currentHP;
     private PointsHandler pointsHandler;
     private BombsHandler bombsHandler;
     private LevelHandler levelHandler;
     private ShopHandler shopHandler;
+    private LeaderboardHandler leaderboardHandler;
     private int heroHp;
     private boolean isUnlocked = false;
     private boolean invensible = false;
@@ -73,6 +70,10 @@ public class Game implements GameInterface {
         state = 0;
         bombs = 5;
         heroHp = maxHP;
+        leaderboardHandler = new LeaderboardHandler(this);
+        leaderboardHandler.read();
+        leaderboardHandler.write();
+        System.out.println(heroID);
         try {
             loadInitialScreen();
         } catch (IOException e) {
@@ -357,6 +358,7 @@ public class Game implements GameInterface {
 
     @Override
     public void restartGame() {
+        getBombsHandler().resetBombs();
         initialized = false;
         state = 1;
     }
@@ -373,7 +375,6 @@ public class Game implements GameInterface {
     }
 
     public void nextMap(){
-
         this.heroHp = maze.getActualHeroHp();
         levelHandler.nextLevel();
         if(levelHandler.getLevel() %10== 0)shopHandler.generalReStock(2,2);
@@ -381,6 +382,11 @@ public class Game implements GameInterface {
         decrease = (int) (levelHandler.getLevel() * 0.3);
         generateNewMaze();
         state = 1 ;
+    }
+
+    @Override
+    public void setHeroID(Integer value){
+        heroID = value;
     }
 
     @Override

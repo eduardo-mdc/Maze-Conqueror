@@ -61,6 +61,10 @@ public class BombsHandler {
         }
     }
 
+    public void resetBombs(){
+        setBomb(maxbomb);
+    }
+
     public void tickAllBombs() {
         List<Bomb> toExplode = new LinkedList<>();
         for (Bomb bomb : maze.getBombs()){
