@@ -44,7 +44,7 @@ public class ShopMenu extends Menu {
         for (int i = 0; i < shopHandler.getTotalItems();i++){
             texts.add(new TextMenuElement(new Position(xIncr-3,yIncr + i*5+1),shopHandler.getName(i)));
             texts.add(new TextMenuElement(new Position(xIncr+ 10,yIncr+ i*5+1),shopHandler.getAmount(i).toString()));
-            texts.add(new TextMenuElement(new Position(xIncr+ 17,yIncr + i*5+1),shopHandler.getPrice(i).toString()));
+            texts.add(new TextMenuElement(new Position(xIncr+ 17,yIncr + i*5+1),shopHandler.getPrice(i).toString() + "c"));
             btn.add(new BuyButton(game,new Position(xIncr+27,yIncr + i*5+1),i));
         }
 
