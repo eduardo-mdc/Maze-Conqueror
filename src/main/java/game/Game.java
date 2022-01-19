@@ -67,7 +67,7 @@ public class Game implements GameInterface {
         return maxHP;
     }
     public Game() {
-        setDimension(52, 50, 10);
+        setDimension(52, 50, 40);
         initialized = false;
         counter = 0;
         state = 0;
@@ -135,7 +135,6 @@ public class Game implements GameInterface {
         if (maze.getActualHeroHp() < maxHP){
             int newHP = maze.getActualHeroHp() + increment;
             maze.setHeroHp(newHP);
-          //  heroHp = newHP;
             System.out.println(" ---- Adicionado" + increment + "nova vida "+ heroHp);
         }
     }
@@ -216,6 +215,7 @@ public class Game implements GameInterface {
         pointsHandler = new PointsHandler();
         levelHandler = new LevelHandler();
         bombsHandler = new BombsHandler(maze);
+        bombs = bombsHandler.getMaxbomb();
         shopHandler = new ShopHandler(this);
         decrease = (int) (levelHandler.getLevel() * 0.3);
     }
@@ -374,6 +374,7 @@ public class Game implements GameInterface {
     }
 
     public void nextMap(){
+
         this.heroHp = maze.getActualHeroHp();
         levelHandler.nextLevel();
         if(levelHandler.getLevel() %10== 0)shopHandler.generalReStock(2,2);
