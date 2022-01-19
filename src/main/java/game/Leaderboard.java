@@ -50,19 +50,35 @@ public class Leaderboard {
     public void read(){
         try {
             File file = new File(filepath);
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String data = scanner.nextLine();
-                splitAndInsert(data);
+            if(file.exists()) {
+                Scanner scanner = new Scanner(file);
+                String data = null;
+                while (scanner.hasNextLine()) {
+                    data = scanner.nextLine();
+                    splitAndInsert(data);
+                }
+                scanner.close();
+                if (data != null) {
+                    heroNumber = scoreMap.lastKey() + 1;
+                    game.setHeroID(heroNumber);
+                    sortedMap = valueSort(scoreMap);
+                }
+                else
+                    initializeWithEmptyFile("File is Empty");
             }
-            scanner.close();
-            heroNumber = scoreMap.lastKey()+1;
-            game.setHeroID(heroNumber);
-            sortedMap = valueSort(scoreMap);
+            else
+                initializeWithEmptyFile("File Not Found");
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            System.out.println("FILE NOT FOUND");
             e.printStackTrace();
         }
+    }
+
+    private void initializeWithEmptyFile(String error){
+        System.out.println(error);
+        heroNumber = 1;
+        game.setHeroID(heroNumber);
+        sortedMap = new TreeMap<>();
     }
 
     public void write(){
@@ -93,8 +109,6 @@ public class Leaderboard {
     }
 
 
-
-
     @Override
     public String toString(){
         String result = "";
@@ -106,14 +120,6 @@ public class Leaderboard {
             result = result.concat("\n");
         }
         return result;
-    }
-
-    private String getHighestKey(){
-        int max = 0;
-        for (Map.Entry<Integer, Integer> pair : scoreMap.entrySet()) {
-            if(max < pair.getKey()) max = pair.getKey();
-        }
-        return Integer.toString(max)+1;
     }
 
 }
