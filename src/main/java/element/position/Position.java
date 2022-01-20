@@ -29,7 +29,7 @@ public class Position implements PositionInterface{
             this.y = pos.getY() + incrY;
         }
 
-        public Position(Position pos){
+        public Position(PositionInterface pos){
             this.x = pos.getX();
             this.y = pos.getY();
         }

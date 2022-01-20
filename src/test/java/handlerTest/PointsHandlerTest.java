@@ -3,6 +3,7 @@ package handlerTest;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import handler.PointsHandler;
+import net.jqwik.api.Property;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

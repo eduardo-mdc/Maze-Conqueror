@@ -1,8 +1,8 @@
 
 import element.position.Position;
 import element.position.PositionInterface;
-import net.jqwik.api.ForAll;
-import net.jqwik.api.Property;
+import net.jqwik.api.*;
+import net.jqwik.api.constraints.Positive;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,14 +21,14 @@ public class PositionTest {
     }
 
     @Property
-    public void constructor1Test(@ForAll int x, @ForAll int y) {
+    public void constructor1Test(@ForAll @Positive int x, @ForAll @Positive int y) {
         PositionInterface position = new Position(x, y);
         assertTrue(position != null);
     }
 
-    @Test
-    public void constructor2Test(@ForAll int x, @ForAll int y) {
-        PositionInterface position = new Position(currentPosition, x, y);
+    @Property
+    public void constructor2Test(@ForAll @Positive int x, @ForAll @Positive int y) {
+        PositionInterface position = new Position(new Position(x, y), x, y);
         assertTrue(position != null);
     }
 

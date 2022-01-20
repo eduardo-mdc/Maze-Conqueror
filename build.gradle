@@ -19,8 +19,8 @@ dependencies {
     testImplementation 'net.jqwik:jqwik:1.5.1'
 }
 test {
-    maxHeapSize = "2048m"
-    jvmArgs "-XX:MaxPermSize=512m"
+    maxHeapSize = "4096m"
+    jvmArgs "-XX:MaxPermSize=2048m"
 }
 
 test {

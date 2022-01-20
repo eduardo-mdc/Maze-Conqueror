@@ -6,10 +6,11 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class PointsHandler {
     private Integer points;
-    private final String color = "WHITE";
+    private final String color;
 
     public PointsHandler() {
         points = 1000;
+        color = "WHITE";
     }
 
     public Integer getPoints() {

@@ -14,8 +14,6 @@ import maze.MazeInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -32,14 +30,14 @@ public class HeroHandlerTest {
         game = new Game();
         position = new Position(3, 5);
         maze = new Maze(game, 15);
-        hero = new Hero(position, "GREEN", SGR.BORDERED, "@",5);
+        hero = new Hero(position, "GREEN", SGR.BORDERED, "@", 5);
         handler = new HeroHandler(hero, maze);
         game.initialize();
     }
 
     @Test
-    public void constructorTest() throws IOException {
-        HeroHandler handlerTemp = new HeroHandler(hero, new Maze(new Game(), 15));
+    public void constructorTest() {
+        HeroHandler handlerTemp = new HeroHandler(hero, new Maze(new Game(), 5));
         assertTrue(handlerTemp != null);
         assertTrue(handler != null);
     }

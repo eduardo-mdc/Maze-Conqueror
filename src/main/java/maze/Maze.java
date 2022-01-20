@@ -67,18 +67,14 @@ public class Maze implements MazeInterface {
         this.begin = new Position(1 + xIncr, 1 + yIncr);
         this.ending = new Position(dim - 2 + xIncr, dim - 2 + yIncr);
         counter = 0;
-
         currentHealth = game.getHeroHp();
-
         hp = new ArrayList<>();
         staticElems = new LinkedList<>();
         emptyTiles = new LinkedList<>();
         path = new LinkedList<>();
         coins = new LinkedList<>();
         bombs = new LinkedList<>();
-
         hero = new Hero(begin, "GREEN", SGR.BORDERED, "@",currentHealth);
-
         heroHandler = new HeroHandler(hero, this);
         bombsHandler = new BombsHandler(this);
         getMaze(dim);
