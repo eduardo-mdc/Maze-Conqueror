@@ -1,9 +1,8 @@
 package menuTest;
 
 import com.googlecode.lanterna.screen.Screen;
+import game.Game;
 import game.GameInterface;
-import menu.MenuInterface;
-import menu.submenu.GameOverMenu;
 import menu.submenu.LeaderboardMenu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +21,7 @@ public class LeaderboardMenuTest {
 
     @BeforeEach
     public void helper() throws IOException {
-        game = mock(GameInterface.class);
+        game = new Game();
         screen = mock(Screen.class);
         menu = new LeaderboardMenu(game, screen);
     }
@@ -34,6 +33,17 @@ public class LeaderboardMenuTest {
 
     @Test
     public void defaultTextTest() {
-        assertEquals(menu.getText(), "GAME OVER@");
+        assertEquals(menu.getText(), "LEADERBOARD@");
+    }
+
+    @Test
+    public void notEmptyListsTest() {
+        assertTrue(menu.getButtonsList().size() > 0);
+        assertTrue(menu.getButtonsList().size() > 0);
+    }
+
+    @Test
+    public void maxOccurTest() {
+        assertTrue(menu.maxOccur() > 0);
     }
 }

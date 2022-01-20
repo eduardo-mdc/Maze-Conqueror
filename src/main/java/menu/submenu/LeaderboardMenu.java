@@ -36,7 +36,7 @@ public class LeaderboardMenu extends Menu {
         ));
     }
 
-    private int maxOccur() {
+    public int maxOccur() {
         if (finalText.length < 2) {
             return 0;
         }
