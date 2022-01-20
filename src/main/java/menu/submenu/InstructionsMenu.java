@@ -20,7 +20,6 @@ public class InstructionsMenu extends Menu {
 
     public InstructionsMenu(Game game, Screen screen) throws IOException {
         super(game,screen);
-        loadWalls();
 
         texts = Arrays.asList(
                 new TextMenuElement(new Position(xIncr,yIncr-10),"HERO ASPIRES TO BE THE BEST TREASURE HUNTER "),
@@ -48,7 +47,6 @@ public class InstructionsMenu extends Menu {
                 new TextMenuElement(new Position(xIncr,yIncr+30),"OPPORTUNITY TO FINISH OR TO CONTINUE"),
                 new TextMenuElement(new Position(xIncr,yIncr+32),"RESTOCK RESOURCES AFTER OBTAINING A TROPHY.")
                 );
-
         btn = Arrays.asList(
                 new MainMenuButton(game,new Position(xIncr+36,yIncr+35))
         );

@@ -9,7 +9,7 @@ import menu.submenu.GenericMenuElementInterface;
 public class GenericMenuElement implements GenericMenuElementInterface {
     private PositionInterface position;
     private String color;
-    private String text;
+    protected String text;
     private String backColor;
 
 

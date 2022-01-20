@@ -14,7 +14,7 @@ import java.util.List;
 public class BombsHandler {
 
     private Integer bomb;
-    private Integer maxbomb = 5;
+    private Integer maxbomb;
     private final String color;
     private MazeInterface maze;
 
@@ -22,6 +22,7 @@ public class BombsHandler {
     public BombsHandler(MazeInterface maze) {
         this.maze = maze;
         bomb = maze.getGame().getCurrentBombs();
+        maxbomb = 5;
         color = "WHITE";
         System.out.println("tenho :" + bomb);
     }

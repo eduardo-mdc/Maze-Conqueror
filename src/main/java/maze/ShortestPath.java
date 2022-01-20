@@ -16,26 +16,9 @@ public class ShortestPath {
     private static final int[] col = {0, -1, 1, 0};
     private boolean[][] visited;
 
-
-    ShortestPath(int[][] grid, int dim, Position begin, Position end) {
+    ShortestPath(int[][] grid, int dim) {
         this.grid = grid;
-        this.i = begin.getX();
-        this.j = begin.getY();
-
-        this.x = end.getX();
-        this.y = end.getY();
-
         this.dim = dim;
-    }
-
-    class Node {
-        int x, y, dist;
-
-        Node(int x, int y, int dist) {
-            this.x = x;
-            this.y = y;
-            this.dist = dist;
-        }
     }
 
     private static boolean isValid(int[][] mat, boolean[][] visited, int row, int col) {
@@ -43,7 +26,13 @@ public class ShortestPath {
                 && mat[row][col] == 1 && !visited[row][col];
     }
 
-    private int findShortestPathLength() {
+    public int findShortestPathLength(Position begin, Position end) {
+
+        this.i = begin.getX();
+        this.j = begin.getY();
+        this.x = end.getX();
+        this.y = end.getY();
+
         visited = new boolean[dim][dim];
         visited[i][j] = true;
 
@@ -77,9 +66,16 @@ public class ShortestPath {
 
     }
 
-    public int getShortPath() {
-            return findShortestPathLength();
+    class Node {
+        int x, y, dist;
+
+        Node(int x, int y, int dist) {
+            this.x = x;
+            this.y = y;
+            this.dist = dist;
+        }
     }
+
 }
 
 
