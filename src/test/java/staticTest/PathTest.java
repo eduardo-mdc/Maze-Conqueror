@@ -2,7 +2,6 @@ package staticTest;
 
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import element.Static.Bomb;
 import element.Static.Path;
 import element.position.PositionInterface;
 import net.jqwik.api.*;
@@ -32,7 +31,6 @@ public class PathTest {
     Arbitrary<String> lengthOne() {
         return Arbitraries.strings().ofMaxLength(1);
     }
-
 
     @Test
     public void verifyDrawTest() {

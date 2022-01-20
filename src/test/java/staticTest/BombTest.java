@@ -3,18 +3,15 @@ package staticTest;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Static.Bomb;
-import element.Static.StaticElement;
 import element.position.PositionInterface;
 import game.Game;
 import game.GameInterface;
 import maze.Maze;
 import maze.MazeInterface;
 import net.jqwik.api.*;
-import net.jqwik.api.constraints.NotEmpty;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -92,6 +89,4 @@ public class BombTest {
         bombTemp.draw(graphics);
         verify(bombTemp, times(1)).draw(graphics);
     }
-
-
 }

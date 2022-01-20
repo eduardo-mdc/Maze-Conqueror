@@ -4,6 +4,7 @@ import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Static.RedPath;
 import element.position.PositionInterface;
+import net.jqwik.api.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +22,17 @@ public class RedPathTest {
         redPath = mock(RedPath.class);
     }
 
+    @Property
+    public void constructorTest(@ForAll("lengthOne") String character) {
+        RedPath redPath = new RedPath(position, "RED", SGR.BOLD, character);
+        assertTrue(redPath != null);
+    }
+
+    @Provide
+    Arbitrary<String> lengthOne() {
+        return Arbitraries.strings().ofMaxLength(1);
+    }
+
     @Test
     public void verifyDrawTest() {
         TextGraphics graphics = mock(TextGraphics.class);
@@ -28,9 +40,4 @@ public class RedPathTest {
         verify(redPath, times(1)).draw(graphics);
     }
 
-    @Test
-    public void constructorTest() {
-        RedPath redPath = new RedPath(position, "RED", SGR.BOLD, "O");
-        assertTrue(redPath != null);
-    }
 }

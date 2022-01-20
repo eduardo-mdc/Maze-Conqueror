@@ -3,7 +3,9 @@ package staticTest;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Static.Portal;
+import element.Static.Wall;
 import element.position.PositionInterface;
+import net.jqwik.api.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,10 +23,15 @@ public class PortalTest {
         portal = mock(Portal.class);
     }
 
-    @Test
-    public void constructorTest() {
-        portal = new Portal(position, "BLUE", SGR.BOLD, "p");
+    @Property
+    public void constructorTest(@ForAll("lengthOne") String character) {
+        portal = new Portal(position, "BLUE", SGR.BOLD, character);
         assertTrue(portal != null);
+    }
+
+    @Provide
+    Arbitrary<String> lengthOne() {
+        return Arbitraries.strings().ofMaxLength(1);
     }
 
     @Test

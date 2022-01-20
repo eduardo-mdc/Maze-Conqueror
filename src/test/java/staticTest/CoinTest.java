@@ -5,6 +5,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import element.ElementInterface;
 import element.Static.Coin;
 import element.position.PositionInterface;
+import net.jqwik.api.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +24,17 @@ public class CoinTest {
 
     @Test
     public void constructorTest() {
-        ElementInterface coin = new Coin(position, "YELLOW", SGR.BOLD, "a");
+        assertTrue(coin != null);
+    }
+
+    @Provide
+    Arbitrary<String> lengthOne() {
+        return Arbitraries.strings().ofMaxLength(1);
+    }
+
+    @Property
+    public void constructorTest(@ForAll("lengthOne") String character) {
+        ElementInterface coin = new Coin(position, "YELLOW", SGR.BOLD, character);
         assertTrue(coin != null);
     }
 

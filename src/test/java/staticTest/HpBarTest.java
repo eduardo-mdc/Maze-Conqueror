@@ -4,6 +4,9 @@ import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Static.HpBar;
 import element.position.PositionInterface;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Provide;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,5 +35,10 @@ public class HpBarTest {
     public void constructorTest() {
         HpBar hpBar = new HpBar(position, "#FFFFFF", SGR.BOLD, ".");
         assertTrue(hpBar != null);
+    }
+
+    @Provide
+    Arbitrary<String> lengthOne() {
+        return Arbitraries.strings().ofMaxLength(1);
     }
 }
