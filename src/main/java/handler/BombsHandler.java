@@ -12,20 +12,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BombsHandler {
-    public Integer getMaxbomb() {
-        return maxbomb;
-    }
 
     private Integer bomb;
-    private Integer maxbomb = 5 ;
-    private final String color = "WHITE";
+    private Integer maxbomb = 5;
+    private final String color;
     private MazeInterface maze;
 
 
-    public BombsHandler(MazeInterface maze){
+    public BombsHandler(MazeInterface maze) {
         this.maze = maze;
         bomb = maze.getGame().getCurrentBombs();
-        System.out.println("tenho :" +bomb);
+        color = "WHITE";
+        System.out.println("tenho :" + bomb);
     }
 
     public Integer getBombs() {
@@ -33,20 +31,19 @@ public class BombsHandler {
     }
 
     public void setBomb(Integer bomb) {
-        if(bomb < 0) {
+        if (bomb < 0)
             this.bomb = 0;
-        }
         else {
             this.bomb = bomb;
             maze.getGame().setCurrentBombs(bomb);
         }
     }
 
-    public void incrementBombs(Integer increment){
+    public void incrementBombs(Integer increment) {
         setBomb(bomb + increment);
     }
 
-    public void draw(TextGraphics screen){
+    public void draw(TextGraphics screen) {
         screen.setForegroundColor(TextColor.Factory.fromString(color));
         screen.putString(new TerminalPosition(35, 2), ("b " + bomb.toString()));
     }
@@ -55,23 +52,27 @@ public class BombsHandler {
         boolean flag = false;
         for (Position pos : maze.getEmptyTiles())
             if (pos.equals(position)) flag = true;
-        if (flag && getBombs()>0){
+        if (flag && getBombs() > 0) {
             this.incrementBombs(-1);
             maze.getBombs().add(new Bomb(position, "BLACK", SGR.BOLD, "b"));
         }
     }
 
-    public void resetBombs(){
+    public Integer getMaxbomb() {
+        return maxbomb;
+    }
+
+    public void resetBombs() {
         setBomb(maxbomb);
     }
 
     public void tickAllBombs() {
         List<Bomb> toExplode = new LinkedList<>();
-        for (Bomb bomb : maze.getBombs()){
+        for (Bomb bomb : maze.getBombs()) {
             bomb.bombTick();
-            if(bomb.getTimer() == 0) toExplode.add(bomb);
+            if (bomb.getTimer() == 0) toExplode.add(bomb);
         }
-        for(Bomb bomb : toExplode){
+        for (Bomb bomb : toExplode) {
             bomb.explode(maze);
             maze.getBombs().remove();
         }

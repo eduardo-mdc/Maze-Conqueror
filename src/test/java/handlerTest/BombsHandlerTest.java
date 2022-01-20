@@ -20,8 +20,8 @@ public class BombsHandlerTest {
 
     @BeforeEach
     public void helper() {
-        handler = new BombsHandler(maze);
         maze = new Maze(new Game(), 10);
+        handler = new BombsHandler(maze);
     }
 
     @Test

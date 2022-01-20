@@ -25,7 +25,9 @@ public interface GameInterface {
      * @return menu object.
      */
     Menu getMenu();
+
     void incrementHeroHp(int increment);
+
     /**
      * Changes the value of the variable initialize to control the state of the game.
      *
@@ -47,7 +49,9 @@ public interface GameInterface {
      * @return value of the initialized variable.
      */
     boolean getInitialized();
+
     ShopHandler getShopHandler();
+
     /**
      * Changes the state of the state machine.
      * <p>
@@ -60,17 +64,24 @@ public interface GameInterface {
      * @param newState value of the new state.
      */
     void setState(int newState);
+
     int getCurrentBombs();
+
     int getMaxHP();
+
     void setCurrentBombs(int newAmount);
+
     /**
      * Returns the height of the screen.
      *
      * @return value of the screen height.
      */
     int getScreenH();
+
     void setCurrentHP(int currentHP);
+
     int getCurrentHP();
+
     /**
      * Returns the width of the screen.
      *
@@ -92,9 +103,11 @@ public interface GameInterface {
      * @return the bombs handler object.
      */
     BombsHandler getBombsHandler();
+
     int getHeroHp();
 
     MazeInterface getMaze();
+
     /**
      * Sets the dimension for the lanterna screen based on the user's physical screen resolution.
      *
@@ -177,7 +190,9 @@ public interface GameInterface {
      * Sets the game to the winning state.
      */
     void winGame();
+
     LevelHandler getLevelHandler();
+
     /**
      * Sets the game to the end losing state.
      */
@@ -197,5 +212,5 @@ public interface GameInterface {
 
     void turnInvincible();
 
-     void unlockShop();
+    void unlockShop();
 }

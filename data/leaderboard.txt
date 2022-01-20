@@ -1,3 +1,4 @@
+hero9-3449
 hero3-2017
 hero6-1138
 hero7-1136
@@ -5,3 +6,6 @@ hero5-1132
 hero2-1034
 hero1-1032
 hero4-1030
+hero8-1000
+hero10-1000
+hero11-1000
