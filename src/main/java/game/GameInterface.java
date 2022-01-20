@@ -61,6 +61,9 @@ public interface GameInterface {
      */
     void setState(int newState);
     int getCurrentBombs();
+
+    Leaderboard getLeaderboard();
+
     int getMaxHP();
     void setCurrentBombs(int newAmount);
     /**
@@ -198,4 +201,5 @@ public interface GameInterface {
     void turnInvincible();
 
      void unlockShop();
+
 }

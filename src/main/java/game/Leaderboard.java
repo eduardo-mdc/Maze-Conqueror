@@ -102,7 +102,7 @@ public class Leaderboard {
     }
 
     private void splitAndInsert(String data){
-        String[] result = data.split("-");
+        String[] result = data.split(" ");
         Integer heroID = Integer.valueOf(result[0].substring(4));
         Integer heroScore = Integer.valueOf(result[1]);
         scoreMap.put(heroID,heroScore);
@@ -113,9 +113,9 @@ public class Leaderboard {
     public String toString(){
         String result = "";
         for (Map.Entry<Integer, Integer> pair : sortedMap.entrySet()) {
-            result = result.concat("hero");
+            result = result.concat("HERO");
             result = result.concat(pair.getKey().toString());
-            result = result.concat("-");
+            result = result.concat(" ");
             result = result.concat(pair.getValue().toString());
             result = result.concat("\n");
         }

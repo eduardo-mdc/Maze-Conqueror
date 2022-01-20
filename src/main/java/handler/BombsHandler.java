@@ -25,7 +25,6 @@ public class BombsHandler {
     public BombsHandler(MazeInterface maze){
         this.maze = maze;
         bomb = maze.getGame().getCurrentBombs();
-        System.out.println("tenho :" +bomb);
     }
 
     public Integer getBombs() {
