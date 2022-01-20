@@ -12,8 +12,8 @@ public class PortalHandler extends RandomPosition {
 
     public PortalHandler(MazeInterface maze) {
         super(maze);
-        portalA = new Portal(getRandomPosition(maze.getEmptyTiles().size()-1),"BLUE", SGR.BOLD,"p");
-        portalB = new Portal(getRandomPosition(maze.getEmptyTiles().size()-1),"BLUE", SGR.BOLD,"p");
+        portalA = new Portal(getRandomPosition(maze.getEmptyTiles().size() - 1), "BLUE", SGR.BOLD, "p");
+        portalB = new Portal(getRandomPosition(maze.getEmptyTiles().size() - 1), "BLUE", SGR.BOLD, "p");
     }
 
     public Portal getPortalB() {
@@ -24,9 +24,8 @@ public class PortalHandler extends RandomPosition {
         return portalA;
     }
 
-    public Portal getOtherPortal(Portal portalToCheck){
-        if(portalToCheck.equals(portalA)) return portalB;
+    public Portal getOtherPortal(Portal portalToCheck) {
+        if (portalToCheck.equals(portalA)) return portalB;
         return portalA;
     }
-
 }

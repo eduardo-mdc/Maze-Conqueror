@@ -15,10 +15,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PortalHandlerTest {
 
     private PortalHandler handler;
+    private Portal portalATemp;
+    private Portal portalBTemp;
 
     @BeforeEach
     public void helper() {
         handler = new PortalHandler(new Maze(new Game(), 10));
+        portalATemp = handler.getPortalA();
+        portalBTemp = handler.getPortalB();
     }
 
     @Test
@@ -32,11 +36,16 @@ public class PortalHandlerTest {
 
     @Test
     public void getPortalsTest() {
-        Portal portalATemp = handler.getPortalA();
-        Portal portalBTemp = handler.getPortalB();
         assertEquals(portalATemp, handler.getPortalA());
         assertEquals(portalBTemp, handler.getPortalB());
         assertTrue(handler.getPortalA() != handler.getPortalB());
     }
 
+    @Test
+    public void getOtherPortal() {
+        Portal otherB = handler.getOtherPortal(portalATemp);
+        assertEquals(otherB, portalBTemp);
+        Portal otherA = handler.getOtherPortal(portalATemp);
+        assertEquals(otherA, portalBTemp);
+    }
 }
