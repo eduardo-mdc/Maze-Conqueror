@@ -43,15 +43,12 @@ public class Game implements GameInterface {
     private int maxHP = 5;
 
 
-
     private Integer heroID;
     private int currentHP;
     private PointsHandler pointsHandler;
     private BombsHandler bombsHandler;
     private LevelHandler levelHandler;
     private ShopHandler shopHandler;
-
-
 
 
     private Leaderboard leaderboard;
@@ -66,10 +63,6 @@ public class Game implements GameInterface {
     /**
      * Constructor for the game Class.
      **/
-
-    public int getMaxHP() {
-        return maxHP;
-    }
     public Game() {
         setDimension(52, 50, 10);
         initialized = false;
@@ -90,21 +83,36 @@ public class Game implements GameInterface {
         }
     }
 
+    @Override
+    public int getMaxHP() {
+        return maxHP;
+    }
+
+    @Override
     public int getCurrentHP() {
         return currentHP;
     }
+
+    @Override
     public void setCurrentHP(int currentHP) {
         this.currentHP = currentHP;
     }
-    public int getCurrentBombs(){
+
+    @Override
+    public int getCurrentBombs() {
         return bombs;
     }
-    public void setCurrentBombs(int newAmount){
+
+    @Override
+    public void setCurrentBombs(int newAmount) {
         this.bombs = newAmount;
     }
-    private void restartHeroHp(){
+
+    @Override
+    public void restartHeroHp() {
         heroHp = maxHP;
     }
+
     /**
      * public static Class<GameInterface> getGame() {
      * return GameInterface.class;
@@ -131,14 +139,17 @@ public class Game implements GameInterface {
         return initialized;
     }
 
-    public ShopHandler getShopHandler(){return this.shopHandler;};
+    public ShopHandler getShopHandler() {
+        return this.shopHandler;
+    }
 
-    public int getHeroHp(){
+    @Override
+    public int getHeroHp() {
         return heroHp;
     }
 
-    public void incrementHeroHp(int increment){
-        if (maze.getActualHeroHp() < maxHP){
+    public void incrementHeroHp(int increment) {
+        if (maze.getActualHeroHp() < maxHP) {
             int newHP = maze.getActualHeroHp() + increment;
             maze.setHeroHp(newHP);
         }
@@ -277,7 +288,7 @@ public class Game implements GameInterface {
     @Override
     public void runGame() throws IOException {
         if (!initialized) initialize();
-        if (levelHandler.getLevel() == 10 && !isUnlocked){
+        if (levelHandler.getLevel() == 10 && !isUnlocked) {
             isUnlocked = true;
             unlockShop();
         }
@@ -294,8 +305,9 @@ public class Game implements GameInterface {
 
     @Override
     public void unlockShop() {
-        shopHandler.addItem("?","SOMETHING",1, 10000);
+        shopHandler.addItem("?", "SOMETHING", 1, 10000);
     }
+
     @Override
     public void runMenu() throws IOException {
         readKey(screen.pollInput());
@@ -304,10 +316,10 @@ public class Game implements GameInterface {
 
     @Override
     public void incrementBombs() {
-        if (bombs < bombsHandler.getMaxbomb()) bombsHandler.setBomb(bombs +1);
+        if (bombs < bombsHandler.getMaxbomb()) bombsHandler.setBomb(bombs + 1);
     }
 
-    public boolean isInvincible(){
+    public boolean isInvincible() {
         return invensible;
     }
 
@@ -353,7 +365,9 @@ public class Game implements GameInterface {
 
     @Override
     public void winGame() {
-        if(invensible) {invensible = false;}
+        if (invensible) {
+            invensible = false;
+        }
         setState(7);
     }
 
@@ -369,14 +383,16 @@ public class Game implements GameInterface {
 
     @Override
     public void restartGame() {
-       if(bombsHandler!= null) getBombsHandler().resetBombs();
+        if (bombsHandler != null) getBombsHandler().resetBombs();
         initialized = false;
         state = 1;
     }
-    public MazeInterface getMaze(){
+
+    public MazeInterface getMaze() {
         return maze;
     }
-    public void generateNewMaze(){
+
+    public void generateNewMaze() {
         maze = new Maze(this, dimension);
     }
 
@@ -385,18 +401,18 @@ public class Game implements GameInterface {
         this.setState(6);
     }
 
-    public void nextMap(){
+    public void nextMap() {
         this.heroHp = maze.getActualHeroHp();
         levelHandler.nextLevel();
-        if(levelHandler.getLevel() %10== 0)shopHandler.generalReStock(2,2);
-        if(levelHandler.getLevel() %20== 0)shopHandler.generalReStock(2,-1);
+        if (levelHandler.getLevel() % 10 == 0) shopHandler.generalReStock(2, 2);
+        if (levelHandler.getLevel() % 20 == 0) shopHandler.generalReStock(2, -1);
         decrease = (int) (levelHandler.getLevel() * 0.3);
         generateNewMaze();
-        state = 1 ;
+        state = 1;
     }
 
     @Override
-    public void setHeroID(Integer value){
+    public void setHeroID(Integer value) {
         heroID = value;
     }
 

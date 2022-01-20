@@ -19,6 +19,8 @@ import java.util.logging.Level;
  */
 public interface GameInterface {
 
+    void restartHeroHp();
+
     /**
      * Return the application menu object.
      *

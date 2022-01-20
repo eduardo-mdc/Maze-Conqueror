@@ -4,6 +4,8 @@ import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.dynam.Hero;
 import element.position.PositionInterface;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,12 +21,12 @@ public class HeroTest {
     @BeforeEach
     public void helper() {
         position = mock(PositionInterface.class);
-        hero = new Hero(position, null, null, null,100);
+        hero = new Hero(position, null, null, null, 100);
     }
 
-    @Test
-    public void constructorTest() {
-        Hero tempHero = new Hero(position, "GREEN", SGR.BORDERED, "@", 5);
+    @Property
+    public void constructorTest(@ForAll int hp) {
+        Hero tempHero = new Hero(position, "GREEN", SGR.BORDERED, "@", hp);
         assertTrue(tempHero != null);
     }
 
@@ -42,16 +44,17 @@ public class HeroTest {
         assertTrue(hero.getHealth() == hp + 1);
     }
 
-    @Test
-    public void setHealthTest() {
-        Hero tempHero = new Hero(position, null, null, null,5);
-        tempHero.setHealth(50);
-        assertEquals(tempHero.getHealth(),50);
+    @Property
+    public void setHealthTest(@ForAll int hp) {
+        Hero tempHero = new Hero(position, null, null, null, 5);
+        int health = hp;
+        tempHero.setHealth(health);
+        assertEquals(tempHero.getHealth(), health);
     }
 
-    @Test
-    public void isDeadTest() {
-        Hero tempHero = new Hero(position, null, null, null,5);
+    @Property
+    public void isDeadTest(@ForAll int hp) {
+        Hero tempHero = new Hero(position, null, null, null, hp);
         tempHero.setHealth(0);
         assertTrue(tempHero.isDead());
     }
