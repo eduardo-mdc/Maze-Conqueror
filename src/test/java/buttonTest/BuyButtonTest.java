@@ -5,16 +5,15 @@ import element.position.PositionInterface;
 import game.Game;
 import game.GameInterface;
 import menu.ButtonInterface;
-import menu.button.InstructionsButton;
-import menu.button.LeaderboardButton;
+import menu.button.BuyButton;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class LeaderboardButtonTest {
-    private ButtonInterface leaderboardButton;
+public class BuyButtonTest {
+    private ButtonInterface buyButton;
     private GameInterface game;
     private PositionInterface position;
 
@@ -22,26 +21,27 @@ public class LeaderboardButtonTest {
     public void helper() {
         game = new Game();
         position = new Position(3, 5);
-        leaderboardButton = new LeaderboardButton(game, position);
+        game.initialize();
+        buyButton = new BuyButton(game, position, 1);
     }
 
     @Test
     public void constructorTest() {
-        ButtonInterface leaderboardButtonTemp = new LeaderboardButton(game, position);
-        assertTrue(leaderboardButtonTemp != null);
-        assertTrue(leaderboardButton != null);
+        ButtonInterface buyButtonTemp = new BuyButton(game, position, 1);
+        assertTrue(buyButtonTemp != null);
+        assertTrue(buyButton != null);
     }
 
     @Test
     public void setTextTest() {
-        assertEquals(leaderboardButton.getText(), "LEADERBOARD");
+        assertEquals(buyButton.getText(), "BUY");
     }
 
     @Test
     public void executeTest() {
         //set game state to the value of 2
         assertEquals(game.getState(), 0);
-        leaderboardButton.execute();
-        assertEquals(game.getState(), 10);
+        buyButton.execute();
+        assertEquals(game.getState(), 8);
     }
 }
