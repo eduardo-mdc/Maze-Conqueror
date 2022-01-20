@@ -39,7 +39,7 @@ public class BuyButtonTest {
 
     @Test
     public void executeTest() {
-        //set game state to the value of 2
+        //set game state to the value of 8
         assertEquals(game.getState(), 0);
         buyButton.execute();
         assertEquals(game.getState(), 8);

@@ -5,6 +5,7 @@ import element.position.PositionInterface;
 import game.Game;
 import game.GameInterface;
 import menu.ButtonInterface;
+import menu.button.CloseShopButton;
 import menu.button.VictoryMainMenuButton;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,8 +13,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class VictoryMainMenuButtonTest {
-    private ButtonInterface victoryButton;
+public class CloseShopButtonTest {
+    private ButtonInterface closeButton;
     private GameInterface game;
     private PositionInterface position;
 
@@ -21,27 +22,26 @@ public class VictoryMainMenuButtonTest {
     public void helper() {
         game = new Game();
         position = new Position(3, 5);
-        game.initialize();
-        victoryButton = new VictoryMainMenuButton(game, position);
+        closeButton = new CloseShopButton(game, position);
     }
 
     @Test
     public void constructorTest() {
-        ButtonInterface victoryButtonTemp = new VictoryMainMenuButton(game, position);
-        assertTrue(victoryButtonTemp != null);
-        assertTrue(victoryButton != null);
+        ButtonInterface closeButtonTemp = new  CloseShopButton(game, position);
+        assertTrue(closeButtonTemp != null);
+        assertTrue(closeButton != null);
     }
 
     @Test
     public void setTextTest() {
-        assertEquals(victoryButton.getText(), "MAIN MENU");
+        assertEquals(closeButton.getText(), "CLOSE");
     }
 
     @Test
     public void executeTest() {
-        //set game state to the value of 0(restart)
+        //set game state to the value of 9
         assertEquals(game.getState(), 0);
-        victoryButton.execute();
-        assertEquals(game.getState(), 0);
+        closeButton.execute();
+        assertEquals(game.getState(), 9);
     }
 }
