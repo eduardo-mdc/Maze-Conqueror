@@ -1,11 +1,11 @@
 package menu.submenu;
 
-import element.position.Position;
+import element.position.PositionInterface;
 import menu.GenericMenuElement;
 
 public class TextMenuElement extends GenericMenuElement {
 
-    public TextMenuElement(Position position, String text){
+    public TextMenuElement(PositionInterface position, String text){
         super(position);
         setText(text);
     }
