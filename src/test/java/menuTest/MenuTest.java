@@ -26,7 +26,7 @@ public class MenuTest {
     @BeforeEach
     public void helper() throws IOException {
         game = new Game();
-        screen = new TerminalScreen(new DefaultTerminalFactory().createTerminal());
+        screen = mock(Screen.class);
         menu = new Menu(game, screen);
     }
 

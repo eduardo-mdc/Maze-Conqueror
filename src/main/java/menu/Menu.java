@@ -21,7 +21,7 @@ public class Menu implements MenuInterface {
     private int selected;
     private final String backGroundColor;
 
-    public Menu(GameInterface game, Screen screen){
+    public Menu(GameInterface game, Screen screen) {
         this.game = game;
         this.screen = screen;
         btn = new ArrayList<>();
