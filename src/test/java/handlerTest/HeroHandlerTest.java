@@ -3,6 +3,7 @@ package handlerTest;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
+import element.Static.Portal;
 import element.dynam.Hero;
 import element.position.Position;
 import element.position.PositionInterface;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 
 public class HeroHandlerTest {
 
@@ -24,6 +26,7 @@ public class HeroHandlerTest {
     private MazeInterface maze;
     private Hero hero;
     private PositionInterface position;
+    private Portal portal;
 
     @BeforeEach
     public void helper() {
@@ -32,6 +35,7 @@ public class HeroHandlerTest {
         maze = new Maze(game, 15);
         hero = new Hero(position, "GREEN", SGR.BORDERED, "@", 5);
         handler = new HeroHandler(hero, maze);
+        portal = mock(Portal.class);
         game.initialize();
     }
 
@@ -77,8 +81,16 @@ public class HeroHandlerTest {
 
     @Test
     public void moveHeroTest() {
+        int size = maze.getPath().size();
         handler.moveHero(new Position(6, 7));
         assertEquals(hero.getPosition().getX(), 6);
         assertEquals(hero.getPosition().getY(), 7);
+    }
+
+    @Test
+    public void teleportHeroTest() {
+        int size = maze.getPath().size();
+        handler.teleportHero(portal);
+        assertTrue(size < maze.getPath().size());
     }
 }

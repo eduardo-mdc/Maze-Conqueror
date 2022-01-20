@@ -17,6 +17,7 @@ public class HeroHandler {
     private GameInterface game;
 
     private LevelHandler levelHandler;
+
     public HeroHandler(Hero hero, MazeInterface maze) {
         this.hero = hero;
         this.maze = maze;
@@ -32,8 +33,7 @@ public class HeroHandler {
         } else {
             if (checkElement(position, RedPath.class, maze.getStaticElems()) != -1) {
                 takeDamage();
-            }
-            else if (checkElement(position, Wall.class, maze.getStaticElems()) != -1) {
+            } else if (checkElement(position, Wall.class, maze.getStaticElems()) != -1) {
                 return;
             }
             index = checkElement(position, Portal.class, maze.getStaticElems());
@@ -55,9 +55,9 @@ public class HeroHandler {
     public void takeDamage() {
         levelHandler = game.getLevelHandler();
         int level = levelHandler.getLevel();
-        if(!game.isInvincible()){
+        if (!game.isInvincible()) {
             hero.heroTakesDamage();
-            maze.getGame().getPointsHandler().incrementPoints(-100 + (int)(level*0.10));
+            maze.getGame().getPointsHandler().incrementPoints(-100 + (int) (level * 0.10));
             maze.loadHearts();
         }
         if (hero.isDead()) {
@@ -65,7 +65,7 @@ public class HeroHandler {
         }
     }
 
-    private void teleportHero(Portal portal){
+    public void teleportHero(Portal portal) {
         maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
         hero.setPosition(portal.getPosition());
     }
@@ -90,15 +90,15 @@ public class HeroHandler {
             }
         }
         Character charToCompare = key.getCharacter();
-        if(charToCompare != null){
-            if(charToCompare.equals('b')) {
+        if (charToCompare != null) {
+            if (charToCompare.equals('b')) {
                 maze.getBombsHandler().generateBomb((Position) hero.getPosition());
             }
         }
     }
 
     public void moveHero(PositionInterface position) {
-        if (checkEmpty(hero.getPosition())){
+        if (checkEmpty(hero.getPosition())) {
             levelHandler = game.getLevelHandler();
             int level = levelHandler.getLevel();
             maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
@@ -108,9 +108,9 @@ public class HeroHandler {
         hero.setPosition(position);
     }
 
-    private boolean checkEmpty(PositionInterface position){
-        if(position.equals(maze.getBegin())) return true;
-        for (Position pos : maze.getEmptyTiles()){
+    private boolean checkEmpty(PositionInterface position) {
+        if (position.equals(maze.getBegin())) return true;
+        for (Position pos : maze.getEmptyTiles()) {
             if (pos.equals(position)) return true;
         }
         return false;

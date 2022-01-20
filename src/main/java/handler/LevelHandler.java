@@ -8,11 +8,17 @@ public class LevelHandler {
     private Integer level;
     private final String color = "WHITE";
 
-    public LevelHandler(){this.level = 1;}
+    public LevelHandler() {
+        this.level = 1;
+    }
 
-    public Integer getLevel() {return level;}
+    public Integer getLevel() {
+        return level;
+    }
 
-    public void nextLevel(){this.level ++;}
+    public void nextLevel() {
+        this.level++;
+    }
 
     public void draw(TextGraphics screen) {
         screen.setForegroundColor(TextColor.Factory.fromString(color));
