@@ -3,21 +3,20 @@ package menu.submenu;
 
 import com.googlecode.lanterna.screen.Screen;
 import element.position.Position;
-import game.Game;
+import game.GameInterface;
 import menu.Menu;
 import menu.button.ExitButton;
 import menu.button.InstructionsButton;
 import menu.button.LeaderboardButton;
 import menu.button.StartButton;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 public class StartMenu extends Menu {
     private final int xIncr;
     private final int yIncr;
 
-    public StartMenu(Game game, Screen screen) throws IOException {
+    public StartMenu(GameInterface game, Screen screen) {
         super(game, screen);
         xIncr = 10;
         yIncr = 15;
