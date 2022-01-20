@@ -262,9 +262,7 @@ public class Game implements GameInterface {
 
     @Override
     public void loadVictoryMenu() throws IOException {
-        leaderboard.write();
         pointsHandler.incrementPoints(1000);
-        leaderboard.put(pointsHandler.getPoints());
         menu = new VictoryMenu(this, screen);
         this.setState(6);
     }

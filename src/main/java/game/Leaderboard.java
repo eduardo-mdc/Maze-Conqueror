@@ -96,7 +96,10 @@ public class Leaderboard {
     }
 
     public void put(Integer score){
-        if(scoreMap.containsKey(heroNumber)) scoreMap.replace(heroNumber,score);
+        if(scoreMap.containsKey(heroNumber)){
+            if(scoreMap.get(heroNumber) < score)
+                scoreMap.replace(heroNumber,score);
+        }
         else scoreMap.put(heroNumber,score);
         sortedMap = valueSort(scoreMap);
     }
