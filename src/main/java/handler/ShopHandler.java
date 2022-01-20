@@ -112,6 +112,6 @@ public class ShopHandler {
 
     public void initializeShop() {
         addItem("*","HEALTH",20, 1000,game.getMaxHP());
-        addItem("b","BOMBS",10, 5000,game.getBombsHandler().getMaxbomb());
+        addItem("b","BOMBS",10, 1500,game.getBombsHandler().getMaxbomb());
     }
 }

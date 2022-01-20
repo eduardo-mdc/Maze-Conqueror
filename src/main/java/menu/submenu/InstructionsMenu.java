@@ -18,11 +18,9 @@ public class InstructionsMenu extends Menu {
     private final int xIncr = 3;
     private final int yIncr = 13;
 
-
     public InstructionsMenu(Game game, Screen screen) throws IOException {
         super(game,screen);
         loadWalls();
-
 
         texts = Arrays.asList(
                 new TextMenuElement(new Position(xIncr,yIncr-10),"HERO ASPIRES TO BE THE BEST TREASURE HUNTER "),

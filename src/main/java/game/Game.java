@@ -67,7 +67,7 @@ public class Game implements GameInterface {
         return maxHP;
     }
     public Game() {
-        setDimension(52, 50, 10);
+        setDimension(52, 50, 40);
         initialized = false;
         counter = 0;
         state = 0;
@@ -336,12 +336,18 @@ public class Game implements GameInterface {
                     case 7 -> loadVictoryMenu();
                     case 8 -> loadShop();
                     case 9 -> nextMap();
+                    case 10 -> loadLeaderboardMenu();
                 }
                 Thread.sleep((int) (1000 / fps));
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private void loadLeaderboardMenu() throws IOException {
+        menu = new LeaderboardMenu(this, screen);
+        this.setState(6);
     }
 
     @Override
@@ -362,7 +368,8 @@ public class Game implements GameInterface {
 
     @Override
     public void restartGame() {
-        getBombsHandler().resetBombs();
+
+       if(bombsHandler!= null) getBombsHandler().resetBombs();
         initialized = false;
         state = 1;
     }
