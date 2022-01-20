@@ -4,6 +4,7 @@ package menu.submenu;
 import com.googlecode.lanterna.screen.Screen;
 import element.position.Position;
 import game.Game;
+import game.GameInterface;
 import menu.Menu;
 import menu.button.*;
 
@@ -14,7 +15,7 @@ public class VictoryMenu extends Menu {
     private final int xIncr;
     private final int yIncr;
 
-    public VictoryMenu(Game game, Screen screen) throws IOException {
+    public VictoryMenu(GameInterface game, Screen screen) throws IOException {
         super(game, screen);
         xIncr = 20;
         yIncr = 5;
