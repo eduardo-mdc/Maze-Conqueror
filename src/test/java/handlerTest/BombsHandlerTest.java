@@ -1,6 +1,7 @@
 package handlerTest;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
+import element.position.Position;
 import game.Game;
 import handler.BombsHandler;
 import maze.Maze;
@@ -59,5 +60,13 @@ public class BombsHandlerTest {
         TextGraphics graphics = mock(TextGraphics.class);
         handlerTemp.draw(graphics);
         verify(handlerTemp, times(1)).draw(graphics);
+    }
+
+    @Test
+    public void generateBombTest() {
+        int bombsArraySize = maze.getBombs().size();
+        handler.generateBomb(maze.getEmptyTiles().get(0));
+        int newBombsArraySize = maze.getBombs().size();
+        assertTrue(newBombsArraySize > bombsArraySize);
     }
 }

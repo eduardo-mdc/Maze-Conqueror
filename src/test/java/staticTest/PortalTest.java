@@ -3,7 +3,6 @@ package staticTest;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Static.Portal;
-import element.Static.Wall;
 import element.position.PositionInterface;
 import net.jqwik.api.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,6 +39,4 @@ public class PortalTest {
         portal.draw(graphics);
         verify(portal, times(1)).draw(graphics);
     }
-
-
 }
