@@ -60,5 +60,4 @@ public class BombsHandlerTest {
         handlerTemp.draw(graphics);
         verify(handlerTemp, times(1)).draw(graphics);
     }
-
 }
