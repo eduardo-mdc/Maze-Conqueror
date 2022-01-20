@@ -55,7 +55,8 @@ public class Leaderboard {
                 String data = null;
                 while (scanner.hasNextLine()) {
                     data = scanner.nextLine();
-                    splitAndInsert(data);
+                    if(data.length() > 7)
+                        splitAndInsert(data);
                 }
                 scanner.close();
                 if (data != null) {
