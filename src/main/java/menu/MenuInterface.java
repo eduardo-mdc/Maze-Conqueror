@@ -48,6 +48,13 @@ public interface MenuInterface {
     String getText();
 
     /**
+     * Sets the button list with a new list passed as argument.
+     *
+     * @param btn
+     */
+    void setButtonList(List<ButtonInterface> btn);
+
+    /**
      * Return the menu buttons list, containing all the buttons to be selected for the menu.
      *
      * @return buttons list.

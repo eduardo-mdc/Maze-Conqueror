@@ -15,15 +15,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PauseMenu extends Menu {
-    private final int xIncr = 10;
-    private final int yIncr = 20;
+    private final int xIncr;
+    private final int yIncr;
 
     public PauseMenu(Game game, Screen screen) throws IOException {
-        super(game,screen);
-        btn = Arrays.asList(
-                new ResumeButton(game,new Position(xIncr,yIncr)),
-                new RestartButton(game,new Position(xIncr,yIncr+5)),
-                new MainMenuButton(game,new Position(xIncr,yIncr+10))
-        );
+        super(game, screen);
+        xIncr = 10;
+        yIncr = 20;
+        setButtonList(Arrays.asList(
+                new ResumeButton(game, new Position(xIncr, yIncr)),
+                new RestartButton(game, new Position(xIncr, yIncr + 5)),
+                new MainMenuButton(game, new Position(xIncr, yIncr + 10))
+        ));
     }
 }

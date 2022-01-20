@@ -14,17 +14,19 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class StartMenu extends Menu {
-    private final int xIncr = 10;
-    private final int yIncr = 15;
+    private final int xIncr;
+    private final int yIncr;
 
     public StartMenu(Game game, Screen screen) throws IOException {
-        super(game,screen);
-        btn = Arrays.asList(
-                new StartButton(game,new Position(xIncr,yIncr)),
-                new InstructionsButton(game,new Position(xIncr,yIncr+5)),
-                new LeaderboardButton(game,new Position(xIncr,yIncr+10)),
-                new ExitButton(game,new Position(xIncr,yIncr+15))
+        super(game, screen);
+        xIncr = 10;
+        yIncr = 15;
+        setButtonList(Arrays.asList(
+                new StartButton(game, new Position(xIncr, yIncr)),
+                new InstructionsButton(game, new Position(xIncr, yIncr + 5)),
+                new LeaderboardButton(game, new Position(xIncr, yIncr + 10)),
+                new ExitButton(game, new Position(xIncr, yIncr + 15))
 
-        );
+        ));
     }
 }

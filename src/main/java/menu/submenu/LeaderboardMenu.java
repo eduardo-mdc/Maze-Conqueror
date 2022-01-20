@@ -14,30 +14,34 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class LeaderboardMenu extends Menu {
-    private final int xIncr = 3;
-    private final int yIncr = 13;
+    private final int xIncr;
+    private final int yIncr;
     private String[] finalText;
+
     public LeaderboardMenu(Game game, Screen screen) throws IOException {
-        super(game,screen);
+        super(game, screen);
+        xIncr = 3;
+        yIncr = 13;
         loadWalls();
         text = "LEADERBOARD@";
-        splitText("@", xIncr+15, yIncr-4);
+        splitText("@", xIncr + 15, yIncr - 4);
 
         String notText = game.getLeaderboard().toString();
         finalText = notText.split("\n");
 
-        for (int i = 0 ; i < maxOccur() ;i++){
-            Integer value = i+1;
-            texts.add(new TextMenuElement(new Position(xIncr+15,yIncr+3+i*2),finalText[i]));
-            texts.add(new TextMenuElement(new Position(xIncr+13,yIncr+3+i*2), value.toString()));
+        for (int i = 0; i < maxOccur(); i++) {
+            Integer value = i + 1;
+            getTextList().add(new TextMenuElement(new Position(xIncr + 15, yIncr + 3 + i * 2), finalText[i]));
+            getTextList().add(new TextMenuElement(new Position(xIncr + 13, yIncr + 3 + i * 2), value.toString()));
         }
 
-        btn = Arrays.asList(
-                new MainMenuButton(game,new Position(xIncr+35,yIncr+35))
-        );
+        setButtonList(Arrays.asList(
+                new MainMenuButton(game, new Position(xIncr + 35, yIncr + 35))
+        ));
     }
-    private int maxOccur(){
-        if (finalText.length < 2){
+
+    private int maxOccur() {
+        if (finalText.length < 2) {
             return 0;
         }
         return Math.min(finalText.length, 10);

@@ -11,20 +11,20 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class VictoryMenu extends Menu {
-    private final int xIncr = 20;
-    private final int yIncr = 5;
+    private final int xIncr;
+    private final int yIncr;
 
     public VictoryMenu(Game game, Screen screen) throws IOException {
         super(game, screen);
+        xIncr = 20;
+        yIncr = 5;
         text = "VICTORY!!@@@@SCORE " + game.getPointsHandler().getPoints().toString() + "@";
         splitText("@", xIncr, yIncr);
-
-        btn = Arrays.asList(
+        setButtonList(Arrays.asList(
                 new ShopButton(game, new Position(xIncr, yIncr + 15)),
-                new VictoryMainMenuButton(game,new Position(xIncr,yIncr+20)),
-                new ExitButton(game, new Position(xIncr, yIncr + 25))
+                new VictoryMainMenuButton(game, new Position(xIncr, yIncr + 20)),
+                new ExitButton(game, new Position(xIncr, yIncr + 25)))
         );
-
-        texts.add(new TextMenuElement(new Position(3,48),"YOUR HERO ID IS : HERO" + game.getHeroID()));
+        getTextList().add(new TextMenuElement(new Position(3, 48), "YOUR HERO ID IS : HERO" + game.getHeroID()));
     }
 }

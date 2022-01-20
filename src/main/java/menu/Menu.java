@@ -9,20 +9,19 @@ import element.position.Position;
 import game.GameInterface;
 import menu.submenu.TextMenuElement;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Menu implements MenuInterface {
     private GameInterface game;
     private Screen screen;
-    protected List<ButtonInterface> btn;
-    protected List<TextMenuElement> texts;
+    private List<ButtonInterface> btn;
+    private List<TextMenuElement> texts;
     protected String text;
     private int selected;
     private final String backGroundColor;
 
-    public Menu(GameInterface game, Screen screen) throws IOException {
+    public Menu(GameInterface game, Screen screen){
         this.game = game;
         this.screen = screen;
         btn = new ArrayList<>();
@@ -51,6 +50,11 @@ public class Menu implements MenuInterface {
     @Override
     public String getText() {
         return text;
+    }
+
+    @Override
+    public void setButtonList(List<ButtonInterface> btn) {
+        this.btn = btn;
     }
 
     @Override
