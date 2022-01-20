@@ -17,7 +17,7 @@ public class Menu implements MenuInterface {
     private Screen screen;
     private List<ButtonInterface> btn;
     private List<TextMenuElement> texts;
-    protected String text;
+    private String text;
     private int selected;
     private final String backGroundColor;
 
@@ -50,6 +50,11 @@ public class Menu implements MenuInterface {
     @Override
     public String getText() {
         return text;
+    }
+
+    @Override
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override

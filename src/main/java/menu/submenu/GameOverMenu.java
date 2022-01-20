@@ -13,11 +13,11 @@ public class GameOverMenu extends Menu {
     private final int xIncr;
     private final int yIncr;
 
-    public GameOverMenu(GameInterface game, Screen screen){
+    public GameOverMenu(GameInterface game, Screen screen) {
         super(game, screen);
         xIncr = 20;
         yIncr = 5;
-        text = "GAME OVER@";
+        setText("GAME OVER@");
         splitText("@", xIncr, yIncr);
         setButtonList(Arrays.asList(
                 new MainMenuButton(game, new Position(xIncr, yIncr + 5)),

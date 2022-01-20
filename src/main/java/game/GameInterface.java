@@ -52,6 +52,11 @@ public interface GameInterface {
      */
     boolean getInitialized();
 
+    /**
+     * Returns the game shop handler, responsible for the shop behavior.
+     *
+     * @return the game shop handler.
+     */
     ShopHandler getShopHandler();
 
     /**
@@ -216,6 +221,6 @@ public interface GameInterface {
 
     void turnInvincible();
 
-     void unlockShop();
+    void unlockShop();
 
 }

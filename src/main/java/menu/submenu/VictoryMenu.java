@@ -18,7 +18,7 @@ public class VictoryMenu extends Menu {
         super(game, screen);
         xIncr = 20;
         yIncr = 5;
-        text = "VICTORY!!@@@@SCORE " + game.getPointsHandler().getPoints().toString() + "@";
+        setText("VICTORY!!@@@@SCORE " + game.getPointsHandler().getPoints().toString() + "@");
         splitText("@", xIncr, yIncr);
         setButtonList(Arrays.asList(
                 new ShopButton(game, new Position(xIncr, yIncr + 15)),

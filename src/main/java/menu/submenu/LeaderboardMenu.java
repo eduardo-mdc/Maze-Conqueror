@@ -2,28 +2,24 @@ package menu.submenu;
 
 import com.googlecode.lanterna.screen.Screen;
 import element.position.Position;
-import game.Game;
 import game.GameInterface;
 import menu.Menu;
 import menu.button.MainMenuButton;
 
-import java.io.IOException;
 import java.util.Arrays;
 
-import java.net.DatagramSocket;
-import java.net.InetAddress;
 
 public class LeaderboardMenu extends Menu {
     private final int xIncr;
     private final int yIncr;
     private String[] finalText;
 
-    public LeaderboardMenu(Game game, Screen screen) throws IOException {
+    public LeaderboardMenu(GameInterface game, Screen screen) {
         super(game, screen);
         xIncr = 3;
         yIncr = 13;
         loadWalls();
-        text = "LEADERBOARD@";
+        setText("LEADERBOARD@");
         splitText("@", xIncr + 15, yIncr - 4);
 
         String notText = game.getLeaderboard().toString();

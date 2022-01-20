@@ -48,6 +48,13 @@ public interface MenuInterface {
     String getText();
 
     /**
+     * Sets the current texts used by the menus subclasses.
+     *
+     * @param text
+     */
+    void setText(String text);
+
+    /**
      * Sets the button list with a new list passed as argument.
      *
      * @param btn

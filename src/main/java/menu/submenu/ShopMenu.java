@@ -3,11 +3,10 @@ package menu.submenu;
 import com.googlecode.lanterna.screen.Screen;
 import element.position.Position;
 import game.Game;
+import game.GameInterface;
 import handler.ShopHandler;
 import menu.Menu;
 import menu.button.*;
-
-import java.io.IOException;
 
 
 public class ShopMenu extends Menu {
@@ -20,9 +19,9 @@ public class ShopMenu extends Menu {
     private TextMenuElement amount;
     private TextMenuElement price;
 
-    private Game game;
+    private GameInterface game;
 
-    public ShopMenu(Game game, Screen screen) throws IOException {
+    public ShopMenu(GameInterface game, Screen screen) {
         super(game, screen);
         shopHandler = game.getShopHandler();
         this.game = game;
