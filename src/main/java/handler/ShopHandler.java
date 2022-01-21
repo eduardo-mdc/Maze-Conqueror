@@ -110,7 +110,7 @@ public class ShopHandler {
     }
 
     public void increaseStock(int id, int increment) {
-        amount.set(id, increment);
+        amount.set(id, amount.get(id)+ increment);
     }
 
     public void generalReStock(int newAmount, int exception) {
