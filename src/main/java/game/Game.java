@@ -64,7 +64,7 @@ public class Game implements GameInterface {
      * Constructor for the game Class.
      **/
     public Game() {
-        setDimension(52, 50, 10);
+        setDimension(52, 50, 40);
         initialized = false;
         fps = 30.0;
         maxHP = 5;
