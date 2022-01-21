@@ -1,10 +1,10 @@
 import game.Game;
 import game.GameInterface;
 import handler.PointsHandler;
-import menu.submenu.GameOverMenu;
-import menu.submenu.InstructionsMenu;
-import menu.submenu.StartMenu;
-import menu.submenu.VictoryMenu;
+import menu.submenu.*;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.constraints.Positive;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,6 +50,19 @@ public class GameTest {
     }
 
     @Test
+    public void setCurrentHpTest() {
+        int health = 10;
+        game.setCurrentHP(health);
+        assertEquals(health, game.getCurrentHP());
+    }
+
+    @Test
+    public void getCurrentHpTest() {
+        //default current is zero
+        assertEquals(0, game.getCurrentHP());
+    }
+
+    @Test
     public void getScreenHTest() {
         game.setDimension(3, 0, 0);
         assertEquals(3, game.getScreenH());
@@ -66,6 +79,13 @@ public class GameTest {
         assertEquals(game.getPointsHandler(), null);
         game.initialize();
         assertTrue(game.getPointsHandler() != null);
+    }
+
+    @Test
+    public void incrementHeroHpTest() {
+        game.initialize();
+        game.incrementHeroHp(3);
+        assertEquals(5, game.getMaze().getActualHeroHp());
     }
 
     @Test
@@ -157,6 +177,40 @@ public class GameTest {
         game.restartGame();
         assertTrue(game.getState() == 1);
         assertEquals(game.getInitialized(), false);
+    }
+
+    @Test
+    public void unlockShopTest() {
+        game.initialize();
+        int num = game.getShopHandler().getTotalItems();
+        game.unlockShop();
+        assertEquals(game.getShopHandler().getTotalItems(), num + 1);
+    }
+
+    @Test
+    public void loadShopTest() throws IOException {
+        game.initialize();
+        assertFalse(game.getMenu() instanceof ShopMenu);
+        game.loadShop();
+        assertTrue(game.getMenu() instanceof ShopMenu);
+        assertEquals(6, game.getState());
+    }
+
+    @Test
+    public void loadLeaderboardMenuTest() throws IOException {
+        assertFalse(game.getMenu() instanceof LeaderboardMenu);
+        game.loadLeaderboardMenu();
+        assertTrue(game.getMenu() instanceof LeaderboardMenu);
+        assertEquals(6, game.getState());
+    }
+
+    @Test
+    public void nextMapTest() {
+        game.initialize();
+        game.nextMap();
+        int num = (int) (game.getLevelHandler().getLevel() * 0.3);
+        assertEquals(num, game.getDecrease());
+        assertEquals(game.getState(), 1);
     }
 }
 

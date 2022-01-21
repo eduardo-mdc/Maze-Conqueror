@@ -59,6 +59,8 @@ public interface GameInterface {
      */
     ShopHandler getShopHandler();
 
+    int getDecrease();
+
     /**
      * Changes the state of the state machine.
      * <p>
@@ -131,6 +133,12 @@ public interface GameInterface {
      */
     void restartGame();
 
+    void generateNewMaze();
+
+    void loadShop() throws IOException;
+
+    void nextMap();
+
     void setHeroID(Integer value);
 
     Integer getHeroID();
@@ -194,6 +202,8 @@ public interface GameInterface {
      * Main game loop. Constantly checks the state of the game and runs code accordingly.
      */
     void run();
+
+    void loadLeaderboardMenu() throws IOException;
 
     /**
      * Sets the game to the winning state.

@@ -33,14 +33,14 @@ public class Game implements GameInterface {
     private Screen screen;
     private MazeInterface maze;
     private Menu menu;
-    final private double fps = 30.0;
+    final private double fps;
     private boolean initialized;
     private int state;
     private int screenH;
     private int screenW;
     private int dimension;
     private int counter;
-    private int maxHP = 5;
+    private int maxHP;
 
 
     private Integer heroID;
@@ -66,6 +66,8 @@ public class Game implements GameInterface {
     public Game() {
         setDimension(52, 50, 10);
         initialized = false;
+        fps = 30.0;
+        maxHP = 5;
         counter = 0;
         state = 0;
         bombs = 5;
@@ -153,6 +155,11 @@ public class Game implements GameInterface {
             int newHP = maze.getActualHeroHp() + increment;
             maze.setHeroHp(newHP);
         }
+    }
+
+    @Override
+    public int getDecrease() {
+        return decrease;
     }
 
     @Override
@@ -358,7 +365,8 @@ public class Game implements GameInterface {
         }
     }
 
-    private void loadLeaderboardMenu() throws IOException {
+    @Override
+    public void loadLeaderboardMenu() throws IOException {
         menu = new LeaderboardMenu(this, screen);
         this.setState(6);
     }
@@ -388,19 +396,23 @@ public class Game implements GameInterface {
         state = 1;
     }
 
+    @Override
     public MazeInterface getMaze() {
         return maze;
     }
 
+    @Override
     public void generateNewMaze() {
         maze = new Maze(this, dimension);
     }
 
+    @Override
     public void loadShop() throws IOException {
         menu = new ShopMenu(this, screen);
         this.setState(6);
     }
 
+    @Override
     public void nextMap() {
         this.heroHp = maze.getActualHeroHp();
         levelHandler.nextLevel();

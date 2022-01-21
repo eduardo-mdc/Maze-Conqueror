@@ -39,4 +39,9 @@ public class RestartButtonTest {
         restartButton.execute();
         assertEquals(game.getState(), 4);
     }
+
+    @Test
+    public void setTextTest() {
+        assertEquals(restartButton.getText(), "RESTART");
+    }
 }
