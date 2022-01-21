@@ -19,13 +19,12 @@ dependencies {
     testImplementation 'net.jqwik:jqwik:1.5.1'
 }
 test {
-    maxHeapSize = "8192m"
-    jvmArgs "-XX:MaxPermSize=4096m"
+    maxHeapSize = "2048m"
 }
 
 test {
-    useJUnitPlatform{
-        includeEngines ('junit-jupiter', 'jqwik')
+    useJUnitPlatform {
+        includeEngines('junit-jupiter', 'jqwik')
     }
 }
 
