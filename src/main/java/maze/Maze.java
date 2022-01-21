@@ -27,17 +27,17 @@ import java.util.*;
  * @author José Carvalho
  */
 public class Maze implements MazeInterface {
-    final private int xIncr = 5;
-    final private int yIncr = 8;
+    final private int xIncr;
+    final private int yIncr;
     private int counter;
-    private Position begin;
-    private final Position ending;
+    private PositionInterface begin;
+    private final PositionInterface ending;
     private final GameInterface game;
     private int[][] maze;
     private int dim;
     private Hero hero;
     private List<StaticElement> staticElems;
-    private List<Position> emptyTiles;
+    private List<PositionInterface> emptyTiles;
     private List<Heart> hp;
     private List<StaticElement> coins;
     private Queue<StaticElement> path;
@@ -64,6 +64,8 @@ public class Maze implements MazeInterface {
     public Maze(GameInterface game, int dim) {
         this.game = game;
         this.dim = dim;
+        xIncr = 5;
+        yIncr = 8;
         this.begin = new Position(1 + xIncr, 1 + yIncr);
         this.ending = new Position(dim - 2 + xIncr, dim - 2 + yIncr);
         counter = 0;
@@ -74,7 +76,7 @@ public class Maze implements MazeInterface {
         path = new LinkedList<>();
         coins = new LinkedList<>();
         bombs = new LinkedList<>();
-        hero = new Hero(begin, "GREEN", SGR.BORDERED, "@",currentHealth);
+        hero = new Hero(begin, "GREEN", SGR.BORDERED, "@", currentHealth);
         heroHandler = new HeroHandler(hero, this);
         bombsHandler = new BombsHandler(this);
         getMaze(dim);
@@ -93,7 +95,7 @@ public class Maze implements MazeInterface {
     }
 
     @Override
-    public Position getBegin() {
+    public PositionInterface getBegin() {
         return begin;
     }
 
@@ -172,7 +174,7 @@ public class Maze implements MazeInterface {
 
     @Override
     public LevelHandler getLevelhandler() {
-            return game.getLevelHandler();
+        return game.getLevelHandler();
     }
 
     /**
@@ -188,27 +190,28 @@ public class Maze implements MazeInterface {
     private void createWalls() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                if(!(i == 1 && j == 1) && !(i == dim-2 && j == dim-2)) {
+                if (!(i == 1 && j == 1) && !(i == dim - 2 && j == dim - 2)) {
                     if (maze[i][j] == 0) {
-                        if(i == 0 || j == 0 || i == dim-1 || j == dim - 1){
-                            staticElems.add(new Wall(new Position(i + xIncr, j + yIncr), "#FFFFFF", SGR.BOLD, "#",true));
+                        if (i == 0 || j == 0 || i == dim - 1 || j == dim - 1) {
+                            staticElems.add(new Wall(new Position(i + xIncr, j + yIncr), "#FFFFFF", SGR.BOLD, "#", true));
                         }
                         staticElems.add(new Wall(new Position(i + xIncr, j + yIncr), "#FFFFFF", SGR.BOLD, "#"));
-                    }
-                    else if (maze[i][j] == 1)
-                            emptyTiles.add(new Position(i + xIncr, j + yIncr));
+                    } else if (maze[i][j] == 1)
+                        emptyTiles.add(new Position(i + xIncr, j + yIncr));
                 }
             }
         }
     }
-    public void setHeroHp(int newHP){
+
+    public void setHeroHp(int newHP) {
         hero.setHealth(newHP);
     }
-    public int getActualHeroHp(){
+
+    public int getActualHeroHp() {
         return hero.getHealth();
     }
 
-    private void createRedPath(){
+    private void createRedPath() {
         if (path.size() != 0) {
             PositionInterface pathPosition = path.remove().getPosition();
             staticElems.add(new RedPath(pathPosition, "RED", SGR.BOLD, "{"));
@@ -223,7 +226,7 @@ public class Maze implements MazeInterface {
 
     private void createCoins() {
         coinsHandler = new CoinsHandler(this);
-        for(int i = 0; i < dim/10; i++){
+        for (int i = 0; i < dim / 10; i++) {
             coinsHandler.generateCoin();
         }
     }
@@ -271,10 +274,8 @@ public class Maze implements MazeInterface {
     }
 
 
-
-
     @Override
-    public List<Position> getEmptyTiles() {
+    public List<PositionInterface> getEmptyTiles() {
         return emptyTiles;
     }
 
@@ -307,11 +308,11 @@ public class Maze implements MazeInterface {
     public HeroHandler getHeroHandler() {
         return heroHandler;
     }
+
     @Override
     public Hero getHero() {
         return hero;
     }
-
 
 
 }

@@ -110,7 +110,7 @@ public class HeroHandler {
 
     private boolean checkEmpty(PositionInterface position) {
         if (position.equals(maze.getBegin())) return true;
-        for (Position pos : maze.getEmptyTiles()) {
+        for (PositionInterface pos : maze.getEmptyTiles()) {
             if (pos.equals(position)) return true;
         }
         return false;

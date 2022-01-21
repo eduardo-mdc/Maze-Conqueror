@@ -6,6 +6,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Static.Bomb;
 import element.position.Position;
+import element.position.PositionInterface;
 import maze.MazeInterface;
 
 import java.util.LinkedList;
@@ -49,9 +50,9 @@ public class BombsHandler {
         screen.putString(new TerminalPosition(35, 2), ("b " + bomb.toString()));
     }
 
-    public void generateBomb(Position position) {
+    public void generateBomb(PositionInterface position) {
         boolean flag = false;
-        for (Position pos : maze.getEmptyTiles())
+        for (PositionInterface pos : maze.getEmptyTiles())
             if (pos.equals(position)) flag = true;
         if (flag && getBombs() > 0) {
             this.incrementBombs(-1);
