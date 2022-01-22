@@ -68,4 +68,12 @@ public class BombsHandlerTest {
         int newBombsArraySize = maze.getBombs().size();
         assertTrue(newBombsArraySize > bombsArraySize);
     }
+
+    @Test
+    public void increaseRadiusTest() {
+        int currentRadius = handler.getRadius();
+        handler.increaseRadius();
+        assertEquals(currentRadius * 2, handler.getRadius());
+
+    }
 }
