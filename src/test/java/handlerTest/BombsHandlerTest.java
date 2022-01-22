@@ -1,7 +1,6 @@
 package handlerTest;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
-import element.position.Position;
 import game.Game;
 import handler.BombsHandler;
 import maze.Maze;
