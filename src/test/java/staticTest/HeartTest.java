@@ -2,7 +2,6 @@ package staticTest;
 
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import element.Static.Bomb;
 import element.Static.Heart;
 import element.position.PositionInterface;
 import net.jqwik.api.*;

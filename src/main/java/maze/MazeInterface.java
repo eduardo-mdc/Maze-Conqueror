@@ -4,7 +4,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Static.Bomb;
 import element.Static.StaticElement;
 import element.dynam.Hero;
-import element.position.Position;
 import element.position.PositionInterface;
 import game.GameInterface;
 import handler.*;

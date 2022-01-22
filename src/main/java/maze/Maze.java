@@ -7,13 +7,13 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import com.googlecode.lanterna.input.KeyStroke;
+import game.GameInterface;
 import handler.*;
 import element.Element;
 import element.dynam.Hero;
 import element.position.Position;
 import element.position.PositionInterface;
 import element.Static.*;
-import game.GameInterface;
 
 import java.util.*;
 

@@ -6,7 +6,6 @@ import handler.BombsHandler;
 import maze.Maze;
 import maze.MazeInterface;
 import net.jqwik.api.*;
-import net.jqwik.api.constraints.Positive;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,16 +33,14 @@ public class BombsHandlerTest {
         assertTrue(handler != null);
     }
 
-    @Property
-    public void getBombsTest(@ForAll("6 to 10") @Positive int x) {
-        MazeInterface mazeTemp = new Maze(new Game(), 10);
-        BombsHandler handlerTemp = new BombsHandler(mazeTemp);
-        assertEquals(handlerTemp.getBombs(), 5);
-        handlerTemp.setBomb(x);
-        assertEquals(handlerTemp.getBombs(), x);
+    @Test
+    public void getBombsTest() {
+        assertEquals(handler.getBombs(), 5);
+        handler.setBomb(10);
+        assertEquals(handler.getBombs(), 10);
     }
 
-    @Provide("6 to 10")
+    @Provide("6 to 8")
     Arbitrary<Integer> numbers() {
         return Arbitraries.integers().between(6, 10);
     }

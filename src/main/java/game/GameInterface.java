@@ -233,4 +233,5 @@ public interface GameInterface {
 
     void unlockShop();
 
+    void increaseRadius();
 }

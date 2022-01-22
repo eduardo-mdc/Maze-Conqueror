@@ -6,7 +6,6 @@ import game.Game;
 import game.GameInterface;
 import menu.ButtonInterface;
 import menu.button.CloseShopButton;
-import menu.button.VictoryMainMenuButton;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
