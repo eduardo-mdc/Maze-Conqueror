@@ -1,3 +1,4 @@
+
 package handler;
 
 import com.googlecode.lanterna.SGR;
@@ -5,7 +6,6 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.Static.Bomb;
-import element.position.Position;
 import element.position.PositionInterface;
 import maze.MazeInterface;
 
@@ -18,14 +18,14 @@ public class BombsHandler {
     private Integer maxbomb;
     private final String color;
     private MazeInterface maze;
-
+    private int radius;
 
     public BombsHandler(MazeInterface maze) {
         this.maze = maze;
         bomb = maze.getGame().getCurrentBombs();
         maxbomb = 5;
         color = "WHITE";
-        System.out.println("tenho :" + bomb);
+        this.radius = 3;
     }
 
     public Integer getBombs() {
@@ -56,7 +56,7 @@ public class BombsHandler {
             if (pos.equals(position)) flag = true;
         if (flag && getBombs() > 0) {
             this.incrementBombs(-1);
-            maze.getBombs().add(new Bomb(position, "BLACK", SGR.BOLD, "b"));
+            maze.getBombs().add(new Bomb(position, "BLACK", SGR.BOLD, "b", radius));
         }
     }
 
@@ -78,5 +78,14 @@ public class BombsHandler {
             bomb.explode(maze);
             maze.getBombs().remove();
         }
+    }
+
+    public void increaseRadius() {
+        System.out.println("Radius Upgrade!");
+        this.radius *= 2;
+    }
+
+    public int getRadius() {
+        return radius;
     }
 }

@@ -2,7 +2,6 @@ package menuTest;
 
 import com.googlecode.lanterna.screen.Screen;
 import game.GameInterface;
-import menu.submenu.PauseMenu;
 import menu.submenu.StartMenu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

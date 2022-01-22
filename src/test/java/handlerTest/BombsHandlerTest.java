@@ -1,11 +1,11 @@
 package handlerTest;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
-import element.position.Position;
 import game.Game;
 import handler.BombsHandler;
 import maze.Maze;
 import maze.MazeInterface;
+import net.jqwik.api.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +23,7 @@ public class BombsHandlerTest {
     public void helper() {
         maze = new Maze(new Game(), 10);
         handler = new BombsHandler(maze);
+        maze.getGame().initialize();
     }
 
     @Test
@@ -35,8 +36,13 @@ public class BombsHandlerTest {
     @Test
     public void getBombsTest() {
         assertEquals(handler.getBombs(), 5);
-        handler.setBomb(12);
-        assertEquals(handler.getBombs(), 12);
+        handler.setBomb(10);
+        assertEquals(handler.getBombs(), 10);
+    }
+
+    @Provide("6 to 8")
+    Arbitrary<Integer> numbers() {
+        return Arbitraries.integers().between(6, 10);
     }
 
     @Test
@@ -68,5 +74,13 @@ public class BombsHandlerTest {
         handler.generateBomb(maze.getEmptyTiles().get(0));
         int newBombsArraySize = maze.getBombs().size();
         assertTrue(newBombsArraySize > bombsArraySize);
+    }
+
+    @Test
+    public void increaseRadiusTest() {
+        int currentRadius = handler.getRadius();
+        handler.increaseRadius();
+        assertEquals(currentRadius * 2, handler.getRadius());
+
     }
 }

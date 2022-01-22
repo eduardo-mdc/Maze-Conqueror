@@ -64,7 +64,7 @@ public class Game implements GameInterface {
      * Constructor for the game Class.
      **/
     public Game() {
-        setDimension(52, 50, 40);
+        setDimension(52, 50, 10);
         initialized = false;
         fps = 30.0;
         maxHP = 5;
@@ -312,7 +312,13 @@ public class Game implements GameInterface {
 
     @Override
     public void unlockShop() {
-        shopHandler.addItem("?", "SOMETHING", 1, 10000);
+        shopHandler.addItem("e", "IMMORTALITY", 1, 10000);
+        shopHandler.addItem("d", "BOMB RADIUS +", 10, 1);
+    }
+
+    @Override
+    public void increaseRadius() {
+        bombsHandler.increaseRadius();
     }
 
     @Override

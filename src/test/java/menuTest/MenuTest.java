@@ -2,8 +2,6 @@ package menuTest;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import game.Game;
 import game.GameInterface;
 import menu.ButtonInterface;

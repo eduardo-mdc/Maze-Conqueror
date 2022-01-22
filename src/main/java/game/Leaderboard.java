@@ -1,7 +1,5 @@
 package game;
 
-import game.GameInterface;
-
 import java.io.*;
 import java.util.*;
 

@@ -9,7 +9,7 @@ public class LevelHandler {
     private final String color = "WHITE";
 
     public LevelHandler() {
-        this.level = 1;
+        this.level = 9;
     }
 
     public Integer getLevel() {

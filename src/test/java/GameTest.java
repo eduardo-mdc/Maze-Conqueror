@@ -1,10 +1,6 @@
 import game.Game;
 import game.GameInterface;
-import handler.PointsHandler;
 import menu.submenu.*;
-import net.jqwik.api.ForAll;
-import net.jqwik.api.Property;
-import net.jqwik.api.constraints.Positive;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -184,7 +180,7 @@ public class GameTest {
         game.initialize();
         int num = game.getShopHandler().getTotalItems();
         game.unlockShop();
-        assertEquals(game.getShopHandler().getTotalItems(), num + 1);
+        assertEquals(game.getShopHandler().getTotalItems(), num + 2);
     }
 
     @Test
@@ -211,6 +207,14 @@ public class GameTest {
         int num = (int) (game.getLevelHandler().getLevel() * 0.3);
         assertEquals(num, game.getDecrease());
         assertEquals(game.getState(), 1);
+    }
+
+    @Test
+    public void increaseRadiusTest() {
+        game.initialize();
+        int radius = game.getBombsHandler().getRadius();
+        game.getBombsHandler().increaseRadius();
+        assertEquals(radius * 2, game.getBombsHandler().getRadius());
     }
 }
 
