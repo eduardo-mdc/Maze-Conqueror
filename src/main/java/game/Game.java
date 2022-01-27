@@ -76,11 +76,7 @@ public class Game implements GameInterface {
         leaderboard.read();
         try {
             loadInitialScreen();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (FontFormatException e) {
+        } catch (IOException | URISyntaxException | FontFormatException e) {
             e.printStackTrace();
         }
     }
@@ -115,12 +111,6 @@ public class Game implements GameInterface {
         heroHp = maxHP;
     }
 
-    /**
-     * public static Class<GameInterface> getGame() {
-     * return GameInterface.class;
-     * }
-     */
-
     @Override
     public Menu getMenu() {
         return menu;
@@ -150,6 +140,7 @@ public class Game implements GameInterface {
         return heroHp;
     }
 
+    @Override
     public void incrementHeroHp(int increment) {
         if (maze.getActualHeroHp() < maxHP) {
             int newHP = maze.getActualHeroHp() + increment;
@@ -187,7 +178,8 @@ public class Game implements GameInterface {
         return bombsHandler;
     }
 
-    private void loadInitialScreen() throws IOException, URISyntaxException, FontFormatException {
+    @Override
+    public void loadInitialScreen() throws IOException, URISyntaxException, FontFormatException {
         File fontFile = new File("src/main/resources/ldts1.ttf");
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -217,10 +209,9 @@ public class Game implements GameInterface {
         this.dimension = dimension;
     }
 
-    /**
-     * Draws the game on the lanterna screen.
-     */
-    private void draw() throws IOException {
+
+    @Override
+    public void draw() throws IOException {
         screen.clear();
         TextGraphics textGraphics = screen.newTextGraphics();
         maze.draw(textGraphics);
@@ -243,10 +234,9 @@ public class Game implements GameInterface {
         decrease = (int) (levelHandler.getLevel() * 0.3);
     }
 
-    /**
-     * Reads the user's input and runs code accordingly.
-     */
-    private void readKey(KeyStroke key) throws IOException {
+
+    @Override
+    public void readKey(KeyStroke key) throws IOException {
         if (key != null) {
             if (key.getKeyType() == KeyType.EOF)
                 quit(0);
@@ -332,6 +322,7 @@ public class Game implements GameInterface {
         if (bombs < bombsHandler.getMaxbomb()) bombsHandler.setBomb(bombs + 1);
     }
 
+    @Override
     public boolean isInvincible() {
         return invensible;
     }
@@ -443,7 +434,6 @@ public class Game implements GameInterface {
     public Leaderboard getLeaderboard() {
         return leaderboard;
     }
-
 
     @Override
     public void quit(int status) throws IOException {

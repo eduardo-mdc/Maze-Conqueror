@@ -61,4 +61,12 @@ public interface ElementInterface {
      * @param screen Screen to draw the element on.
      */
     void draw(TextGraphics screen);
+
+    /**
+     * Verifies equality to another object.
+     *
+     * @param o object to compare to.
+     * @return boolean representing the equality of the objects.
+     */
+    boolean equals(Object o);
 }

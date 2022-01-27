@@ -4,7 +4,7 @@ import com.googlecode.lanterna.SGR;
 import element.position.PositionInterface;
 
 /**
- * Class which is responsible for pathing the trajectory of the player.
+ * Class responsible for pathing the trajectory of the player.
  * @author Eduardo Correia
  * @author Jose Carvalho
  * @author Alberto Serra

@@ -74,12 +74,6 @@ public abstract class Element implements ElementInterface {
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), character);
     }
 
-    /**
-     * Verifies equality to another object.
-     *
-     * @param o object to compare to.
-     * @return boolean representing the equality of the objects.
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

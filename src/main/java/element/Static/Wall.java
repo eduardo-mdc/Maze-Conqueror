@@ -5,6 +5,9 @@ import element.Element;
 import element.position.PositionInterface;
 /**
  * Class to create the walls present in the game, these are immovable objects that the player cannot move through.
+ * @author Eduardo Correia
+ * @author Jose Carvalho
+ * @author Alberto Serra
  */
 public class Wall extends StaticElement {
 

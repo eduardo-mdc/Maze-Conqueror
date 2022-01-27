@@ -24,8 +24,8 @@ public interface ButtonInterface extends GenericMenuElementInterface {
     void setSelected(boolean value);
 
     /**
-     * When a button is clicked, this executes the button action.
-     * The button will execute his current function and make behavioral changes to the application.
+     * When a button is pressed, this calls the execute function.
+     * The execute function changes depending on which button is pressed.
      */
     void execute();
 }
