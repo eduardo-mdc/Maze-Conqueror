@@ -4,7 +4,6 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.PositionInterface;
-import menu.submenu.GenericMenuElementInterface;
 
 //class should be abstract but isn't due to testing purposes
 

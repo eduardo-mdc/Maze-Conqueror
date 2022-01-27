@@ -22,6 +22,13 @@ public class Wall extends StaticElement {
         outerWall = false;
     }
 
+    /**
+     * Secondary Constructor for the Wall class. Receives a position, color, format, and character and a boolean to represent the object.
+     * @param position sets the position of the element on the lanterna screen.
+     * @param color sets the color of the element on the lanterna screen.
+     * @param format sets the format of the element on the lanterna screen.
+     * @param outerWall boolean that checks if current wall is an outer wall, which is indestructible.
+     */
     public Wall(PositionInterface position, String color, SGR format, String character,boolean outerWall) {
         super(position, color, format, character);
         this.outerWall = outerWall;

@@ -12,8 +12,9 @@ import menu.submenu.TextMenuElement;
 import java.util.ArrayList;
 import java.util.List;
 
+//Menu class should be abstract but isn't due to testing purposes.
 /**
- * 
+ * Abstract parent class that is used to create the menu's that are used throughout the game.
  */
 public class Menu implements MenuInterface {
     private GameInterface game;
@@ -24,6 +25,11 @@ public class Menu implements MenuInterface {
     private int selected;
     private final String backGroundColor;
 
+    /**
+     * Constructor for the menu class, receives a game object and a screen to draw on.
+     * @param game current game object.
+     * @param screen lanterna screen to draw objects on.
+     */
     public Menu(GameInterface game, Screen screen) {
         this.game = game;
         this.screen = screen;

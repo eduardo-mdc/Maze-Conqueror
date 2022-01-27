@@ -8,12 +8,19 @@ import menu.button.MainMenuButton;
 
 import java.util.Arrays;
 
-
+/**
+ * Extension of the Menu Class. This class is used to instantiate and create the various elements present on the Leaderboard menu.
+ */
 public class LeaderboardMenu extends Menu {
     private final int xIncr;
     private final int yIncr;
     private String[] finalText;
 
+    /**
+     * Constructor for the Leaderboard Class. Receives a game, and a lanterna screen to create objects on.
+     * @param game currently instantiated game class.
+     * @param screen lanterna screen to draw objects on.
+     */
     public LeaderboardMenu(GameInterface game, Screen screen) {
         super(game, screen);
         xIncr = 3;
@@ -36,6 +43,10 @@ public class LeaderboardMenu extends Menu {
         ));
     }
 
+    /**
+     * Function that returns the number of elements that should be represented on the leaderboard.
+     * @return number of elements that should be shown.
+     */
     public int maxOccur() {
         if (finalText.length < 2) {
             return 0;

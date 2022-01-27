@@ -1,11 +1,10 @@
 package menuTest;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.screen.Screen;
 import element.position.Position;
 import element.position.PositionInterface;
 import menu.GenericMenuElement;
-import menu.submenu.GenericMenuElementInterface;
+import menu.GenericMenuElementInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

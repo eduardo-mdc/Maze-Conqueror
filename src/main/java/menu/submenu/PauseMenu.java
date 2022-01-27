@@ -9,6 +9,9 @@ import menu.button.*;
 
 import java.util.Arrays;
 
+/**
+ * Extension of the Menu Class. This class is used to instantiate and create the various elements present on the Pause menu.
+ */
 public class PauseMenu extends Menu {
     private final int xIncr;
     private final int yIncr;

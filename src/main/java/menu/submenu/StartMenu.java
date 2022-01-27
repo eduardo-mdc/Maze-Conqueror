@@ -12,6 +12,9 @@ import menu.button.StartButton;
 
 import java.util.Arrays;
 
+/**
+ * Extension of the Menu Class. This class is used to instantiate and create the various elements present on the Start menu.
+ */
 public class StartMenu extends Menu {
     private final int xIncr;
     private final int yIncr;

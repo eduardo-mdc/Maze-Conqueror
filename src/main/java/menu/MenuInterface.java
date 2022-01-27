@@ -62,7 +62,7 @@ public interface MenuInterface {
     void setButtonList(List<ButtonInterface> btn);
 
     /**
-     * Return the menu buttons list, containing all the buttons to be selected for the menu.
+     * Return the menu buttons list, containing all the buttons present.
      *
      * @return buttons list.
      */
@@ -76,14 +76,14 @@ public interface MenuInterface {
     List<TextMenuElement> getTextList();
 
     /**
-     * Returns the number of the button selected.
+     * Returns the index of the currently selected button.
      *
-     * @return number of the button.
+     * @return index of the button.
      */
     int getSelected();
 
     /**
-     * Loads the Menu visual walls used for design proposes.
+     * Loads the outer border.
      */
     void loadWalls();
 
@@ -97,43 +97,43 @@ public interface MenuInterface {
     int getMiddle(int screenWidth, String text);
 
     /**
-     * Iterates the selection of buttons to use.
+     * Iterates the value of the selected button. This is used to change which button is selected.
      *
-     * @param iterator
+     * @param iterator value to sum to currently selected button.
      */
     void iterateSelection(int iterator);
 
     /**
-     * Selects the usage of a certain selected button.
+     * Executes the currently selected button.
      */
     void select();
 
     /**
-     * Splits the text into words and add them to the list of texts.
+     * Splits the text on the text string and adds them to the texts list. This method is used to facilitate writing long texts on the menu
      *
-     * @param separator
-     * @param xIncr
-     * @param yIncr
+     * @param separator separator to split the text on
+     * @param xIncr x coordinate increment for the text
+     * @param yIncr y coordinate increment for the text
      */
     void splitText(String separator, int xIncr, int yIncr);
 
     /**
-     * Checks the selected buttons and apply the buttons drawing into the screen.
+     * Draws the buttons present on the menu. Selected buttons appear with a different colour.
      *
-     * @param counter
-     * @param textgraphics
+     * @param counter index of currently selected button
+     * @param textgraphics lanterna textgraphics screen to draw buttons on
      */
     void buttonDraw(int counter, TextGraphics textgraphics);
 
     /**
-     * Draws all the text menu elements in the text screen.
+     * Draws all the text menu elements in the lanterna textgraphics screen.
      *
-     * @param textgraphics
+     * @param textgraphics lanterna textgraphics screen to draw text on
      */
     void textMenuElementDraw(TextGraphics textgraphics);
 
     /**
-     * Draws the menu object into the screen.
+     * Draws the instantiated menu onto the screen.
      */
     void draw();
 }

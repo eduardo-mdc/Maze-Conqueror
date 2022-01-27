@@ -1,4 +1,4 @@
-package menu.submenu;
+package menu;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.PositionInterface;

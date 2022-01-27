@@ -1,7 +1,5 @@
 package menu;
 
-import menu.submenu.GenericMenuElementInterface;
-
 public interface ButtonInterface extends GenericMenuElementInterface {
 
     /**

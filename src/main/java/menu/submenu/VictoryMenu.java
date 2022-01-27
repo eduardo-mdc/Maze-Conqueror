@@ -9,7 +9,9 @@ import menu.button.*;
 
 import java.io.IOException;
 import java.util.Arrays;
-
+/**
+ * Extension of the Menu Class. This class is used to instantiate and create the various elements present on the Victory menu.
+ */
 public class VictoryMenu extends Menu {
     private final int xIncr;
     private final int yIncr;

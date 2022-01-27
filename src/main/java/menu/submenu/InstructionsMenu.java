@@ -10,10 +10,19 @@ import menu.button.*;
 import java.io.IOException;
 import java.util.Arrays;
 
+/**
+ * Extension of the Menu Class. This class is used to instantiate and create the various elements present on the Instructions menu.
+ */
 public class InstructionsMenu extends Menu {
     private final int xIncr;
     private final int yIncr;
 
+    /**
+     * Constructor for the InstructionsMenu Class. Receives a game, and a lanterna screen to create objects on.
+     * @param game currently instantiated game class.
+     * @param screen lanterna screen to draw objects on.
+     * @throws IOException
+     */
     public InstructionsMenu(Game game, Screen screen) throws IOException {
         super(game, screen);
         xIncr = 3;

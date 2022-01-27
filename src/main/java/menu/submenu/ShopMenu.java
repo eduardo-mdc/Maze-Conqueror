@@ -8,7 +8,9 @@ import handler.ShopHandler;
 import menu.Menu;
 import menu.button.*;
 
-
+/**
+ * Extension of the Menu Class. This class is used to instantiate and create the various elements present on the Shop menu.
+ */
 public class ShopMenu extends Menu {
     private final int xIncr;
     private final int yIncr;
