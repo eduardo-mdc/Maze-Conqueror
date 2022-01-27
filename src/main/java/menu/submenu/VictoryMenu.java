@@ -3,7 +3,6 @@ package menu.submenu;
 
 import com.googlecode.lanterna.screen.Screen;
 import element.position.Position;
-import game.Game;
 import game.GameInterface;
 import menu.Menu;
 import menu.button.*;

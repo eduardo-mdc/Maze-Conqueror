@@ -5,7 +5,6 @@ import element.position.PositionInterface;
 import game.Game;
 import game.GameInterface;
 import menu.ButtonInterface;
-import menu.button.InstructionsButton;
 import menu.button.LeaderboardButton;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

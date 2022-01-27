@@ -94,7 +94,8 @@ public class ShopHandler {
             case 1: {
                 return bombs < maxAmount.get(id);
             }
-            case 2: {
+            case 2:
+            case 3: {
                 return true;
             }
         }
@@ -106,11 +107,12 @@ public class ShopHandler {
             case 0 -> game.incrementHeroHp(1);
             case 1 -> game.incrementBombs();
             case 2 -> game.turnInvincible();
+            case 3 -> game.increaseRadius();
         }
     }
 
     public void increaseStock(int id, int increment) {
-        amount.set(id, amount.get(id)+ increment);
+        amount.set(id, amount.get(id) + increment);
     }
 
     public void generalReStock(int newAmount, int exception) {

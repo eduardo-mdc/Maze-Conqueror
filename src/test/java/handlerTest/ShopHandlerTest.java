@@ -58,8 +58,8 @@ public class ShopHandlerTest {
         assertEquals(amountID1, 10);
         handler.increaseStock(0, 30);
         handler.increaseStock(1, 25);
-        assertEquals(handler.getAmount(0), 30);
-        assertEquals(handler.getAmount(1), 25);
+        assertEquals(handler.getAmount(0), amountID0 + 30);
+        assertEquals(handler.getAmount(1), amountID1 + 25);
     }
 
     @Test

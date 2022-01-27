@@ -16,18 +16,22 @@ public class Bomb extends StaticElement {
     private int interval;
     private boolean flag;
 
-    public Bomb(PositionInterface position, String color, SGR format, String character) {
+    public Bomb(PositionInterface position, String color, SGR format, String character,int radius) {
         super(position, color, format, character);
         this.colour1 = this.getColor();
         timer = 90;
-        radius = 3;
         interval = 10;
         colour2 = "RED";
         flag = true;
+        this.radius = radius;
     }
 
     public int getInterval() {
         return interval;
+    }
+
+    public int getRadius() {
+        return radius;
     }
 
     public void bombTick() {

@@ -1,11 +1,8 @@
 package menu.button;
 
-import element.position.Position;
 import element.position.PositionInterface;
-import game.Game;
 import game.GameInterface;
 import menu.Button;
-import menu.ButtonInterface;
 
 public class ExitButton extends Button {
     protected GameInterface game;

@@ -26,7 +26,7 @@ public class BombTest {
     @BeforeEach
     public void helper() {
         position = mock(PositionInterface.class);
-        bomb = new Bomb(position, "BLACK", SGR.BOLD, "b");
+        bomb = new Bomb(position, "BLACK", SGR.BOLD, "b", 3);
         game = new Game();
         maze = new Maze(game, 10);
         game.initialize();
@@ -39,7 +39,7 @@ public class BombTest {
 
     @Property
     public void constructorTest(@ForAll("lengthOne") String character) {
-        Bomb bombTemp = new Bomb(position, "RED", SGR.BOLD, character);
+        Bomb bombTemp = new Bomb(position, "RED", SGR.BOLD, character, 3);
         assertTrue(bombTemp != null);
     }
 
@@ -72,6 +72,13 @@ public class BombTest {
     public void getIntervalTest() {
         //timer deafult value is 10
         assertEquals(10, bomb.getInterval());
+    }
+
+    @Test
+    public void getRadiusTest() {
+        Bomb bombTemp = new Bomb(position, "BLACK", SGR.BOLD, "c", 5);
+        assertEquals(3, bomb.getRadius());
+        assertEquals(5, bombTemp.getRadius());
     }
 
     @Test
