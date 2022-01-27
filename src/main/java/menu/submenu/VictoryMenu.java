@@ -16,6 +16,12 @@ public class VictoryMenu extends Menu {
     private final int xIncr;
     private final int yIncr;
 
+
+    /**
+     * Constructor for the VictoryMenu Class. Receives a game, and a lanterna screen to create objects on.
+     * @param game currently instantiated game class.
+     * @param screen lanterna screen to draw objects on.
+     */
     public VictoryMenu(GameInterface game, Screen screen) throws IOException {
         super(game, screen);
         xIncr = 20;

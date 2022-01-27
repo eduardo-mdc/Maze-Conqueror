@@ -20,9 +20,13 @@ public class ShopMenu extends Menu {
     private TextMenuElement name;
     private TextMenuElement amount;
     private TextMenuElement price;
-
     private GameInterface game;
 
+    /**
+     * Constructor for the Shop Class. Receives a game, and a lanterna screen to create objects on.
+     * @param game currently instantiated game class.
+     * @param screen lanterna screen to draw objects on.
+     */
     public ShopMenu(GameInterface game, Screen screen) {
         super(game, screen);
         shopHandler = game.getShopHandler();
@@ -41,6 +45,9 @@ public class ShopMenu extends Menu {
         getButtonsList().add(new CloseShopButton(game, new Position(xIncr + 30, yIncr + 25)));
     }
 
+    /**
+     * Adds various text elements to the shop menu
+     */
     public void addToTextList() {
         getTextList().add(text);
         getTextList().add(name);
@@ -49,6 +56,9 @@ public class ShopMenu extends Menu {
         getTextList().add(wallet);
     }
 
+    /**
+     * Adds various elements to the shop menu
+     */
     public void addObjects() {
         for (int i = 0; i < shopHandler.getTotalItems(); i++) {
             getTextList().add(new TextMenuElement(new Position(xIncr - 5, yIncr + i * 5 + 1), shopHandler.getName(i)));

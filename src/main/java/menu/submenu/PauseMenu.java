@@ -16,6 +16,11 @@ public class PauseMenu extends Menu {
     private final int xIncr;
     private final int yIncr;
 
+    /**
+     * Constructor for the Pause Class. Receives a game, and a lanterna screen to create objects on.
+     * @param game currently instantiated game class.
+     * @param screen lanterna screen to draw objects on.
+     */
     public PauseMenu(GameInterface game, Screen screen) {
         super(game, screen);
         xIncr = 10;

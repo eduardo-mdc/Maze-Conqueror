@@ -21,7 +21,6 @@ public class InstructionsMenu extends Menu {
      * Constructor for the InstructionsMenu Class. Receives a game, and a lanterna screen to create objects on.
      * @param game currently instantiated game class.
      * @param screen lanterna screen to draw objects on.
-     * @throws IOException
      */
     public InstructionsMenu(Game game, Screen screen) throws IOException {
         super(game, screen);
