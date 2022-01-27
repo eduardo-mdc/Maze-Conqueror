@@ -58,8 +58,6 @@ public class Game implements GameInterface {
     private int decrease;
     private int bombs;
 
-    //TODO refactor error catching in game constructor
-
     /**
      * Constructor for the game Class.
      **/
