@@ -24,11 +24,21 @@ public class Position implements PositionInterface{
             this.y = y;
         }
 
+        /**
+         * Alternate Constructor for the Position Class. Creates position based on previous position and increments to the x and y coordinates.
+         * @param pos previously created position object
+         * @param incrX X increment for new position.
+         * @param incrY Y increment for new position.
+         */
         public Position(PositionInterface pos,int incrX , int incrY){
             this.x = pos.getX() + incrX;
             this.y = pos.getY() + incrY;
         }
 
+        /**
+         * Alternate Constructor for the Position Class. Creates position based on previous position.
+         * @param pos previously created position object
+         */
         public Position(PositionInterface pos){
             this.x = pos.getX();
             this.y = pos.getY();
@@ -65,15 +75,11 @@ public class Position implements PositionInterface{
          * @param o object to compare to.
          * @return boolean representing the equality of the objects.
          */
+        @Override
         public boolean equals(Object o) {
             if(o == null || o.getClass() != this.getClass()) return false;
             return (this == o) ||
                     (this.x == ((Position) o).x && this.y == ((Position) o).y);
-        }
-
-        public boolean equals(int x, int y){
-            if(this.getX() == x && this.getY() == y) return true;
-            return false;
         }
 
         @Override

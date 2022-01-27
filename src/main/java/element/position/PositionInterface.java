@@ -43,4 +43,11 @@ public interface PositionInterface {
      * @param y
      */
     void changePos(int x, int y);
+
+    /**
+     * Checks whether the given object is equal to current position
+     * @param o object to compare to
+     * @return boolean corresponding to the veracity of the equality.
+     */
+    boolean equals(Object o);
 }
