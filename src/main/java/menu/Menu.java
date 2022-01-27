@@ -12,6 +12,9 @@ import menu.submenu.TextMenuElement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ */
 public class Menu implements MenuInterface {
     private GameInterface game;
     private Screen screen;

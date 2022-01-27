@@ -6,12 +6,20 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.Position;
 import element.position.PositionInterface;
 
+/**
+ * Extension of generic menu element which represents a button in the game. All buttons do different actions. This specific generic button is abstract, and as
+ * such cannot be initialized.
+ */
 public abstract class Button extends GenericMenuElement implements ButtonInterface {
 
     private boolean selected;
     private String currentColor;
     private String selectedColor;
 
+    /**
+     * Constructor for the button class, receives a position to instantiate the button on.
+     * @param position position in the lanterna screen.
+     */
     public Button(PositionInterface position) {
         super(position);
         selectedColor = "YELLOW";

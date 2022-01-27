@@ -6,6 +6,11 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import element.position.PositionInterface;
 import menu.submenu.GenericMenuElementInterface;
 
+//class should be abstract but isn't due to testing purposes
+
+/**
+ * Abstract class that serves as parent to all the elements present on menu's
+ */
 public class GenericMenuElement implements GenericMenuElementInterface {
     private PositionInterface position;
     private String color;
@@ -13,6 +18,10 @@ public class GenericMenuElement implements GenericMenuElementInterface {
     private String backColor;
 
 
+    /**
+     * Constructor for the GenericMenuElement Class, receives a position for the element.
+     * @param position position to instantiate the element on the screen
+     */
     public GenericMenuElement(PositionInterface position) {
         this.position = position;
         this.setBackColor("BLACK");

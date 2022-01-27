@@ -5,7 +5,7 @@ import game.GameInterface;
 import menu.Button;
 
 public class MainMenuButton extends Button {
-    private GameInterface game;
+    protected GameInterface game;
 
     public MainMenuButton(GameInterface game, PositionInterface position) {
         super(position);

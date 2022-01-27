@@ -3,14 +3,12 @@ package menu.button;
 import element.position.PositionInterface;
 import game.GameInterface;
 import menu.Button;
+import menu.submenu.VictoryMenu;
 
-public class VictoryMainMenuButton extends Button {
-    private GameInterface game;
+public class VictoryMainMenuButton extends MainMenuButton {
 
     public VictoryMainMenuButton(GameInterface game, PositionInterface position) {
-        super(position);
-        this.game = game;
-        setText("MAIN MENU");
+        super(game,position);
     }
 
     @Override

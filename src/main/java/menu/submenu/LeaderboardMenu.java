@@ -28,7 +28,7 @@ public class LeaderboardMenu extends Menu {
         for (int i = 0; i < maxOccur(); i++) {
             Integer value = i + 1;
             getTextList().add(new TextMenuElement(new Position(xIncr + 15, yIncr + 3 + i * 2), finalText[i]));
-            getTextList().add(new TextMenuElement(new Position(xIncr + 13, yIncr + 3 + i * 2), value.toString()));
+            getTextList().add(new TextMenuElement(new Position(xIncr + 12, yIncr + 3 + i * 2), value.toString()));
         }
 
         setButtonList(Arrays.asList(
