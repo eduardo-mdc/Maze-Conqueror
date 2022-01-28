@@ -44,11 +44,7 @@ public class Maze implements MazeInterface {
     private HeroHandler heroHandler;
     private PortalHandler portalHandler;
     private int currentHealth;
-
-
     private BombsHandler bombsHandler;
-
-
     private CoinsHandler coinsHandler;
     final private String backgroundcolor = "BLACK";
 

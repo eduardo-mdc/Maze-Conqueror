@@ -16,7 +16,6 @@ public class GenericMenuElement implements GenericMenuElementInterface {
     protected String text;
     private String backColor;
 
-
     /**
      * Constructor for the GenericMenuElement Class, receives a position for the element.
      * @param position position to instantiate the element on the screen

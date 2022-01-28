@@ -14,6 +14,7 @@ import handler.*;
 import maze.Maze;
 import maze.MazeInterface;
 import menu.Menu;
+import menu.MenuInterface;
 import menu.submenu.*;
 
 import java.awt.*;
@@ -32,7 +33,7 @@ public class Game implements GameInterface {
 
     private Screen screen;
     private MazeInterface maze;
-    private Menu menu;
+    private MenuInterface menu;
     final private double fps;
     private boolean initialized;
     private int state;
@@ -49,8 +50,6 @@ public class Game implements GameInterface {
     private BombsHandler bombsHandler;
     private LevelHandler levelHandler;
     private ShopHandler shopHandler;
-
-
     private Leaderboard leaderboard;
     private int heroHp;
     private boolean isUnlocked = false;
@@ -110,7 +109,7 @@ public class Game implements GameInterface {
     }
 
     @Override
-    public Menu getMenu() {
+    public MenuInterface getMenu() {
         return menu;
     }
 
