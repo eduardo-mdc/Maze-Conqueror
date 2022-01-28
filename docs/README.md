@@ -161,8 +161,8 @@ The use of the **_Singleton_** in the current design allows the following benefi
 
 These classes can be found in the following files:
 
-- [Game](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/game/Game.java)
-- [GameInterface](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/game/GameInterface.java)
+- [Game](../src/main/java/game/Game.java)
+- [GameInterface](../src/main/java/game/GameInterface.java)
 
 
 
@@ -202,8 +202,8 @@ The use of the **_Factory Method Pattern_** in the current design allows the fol
 
 These classes can be found in the following files:
 
-- [Elements](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/element)
-- [Maze](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/maze/Maze.java)
+- [Elements](../src/main/java/element)
+- [Maze](../src/main/java/maze/Maze.java)
 
 
 ------
@@ -243,8 +243,8 @@ The use of the **_State Pattern_** in the current design allows the following be
 
 These classes can be found in the following files:
 
-- [Menu](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/menu/Menu.java)
-- [submenu](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/tree/main/src/main/java/menu/submenu)
+- [Menu](../src/main/java/menu/Menu.java)
+- [submenu](../src/main/java/menu/submenu)
 
 
 ### Creating Buttons for use in the menus
@@ -286,8 +286,8 @@ The use of the **_Strategy_** in the current design allows the following benefit
 
 These classes can be found in the following files:
 
-- [Abstract Button](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/menu/Button.java)
-- [Buttons](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/tree/main/src/main/java/menu/button)
+- [Abstract Button](../src/main/java/menu/Button.java)
+- [Buttons](../src/main/java/menu/button)
 
 
 ### Handlers
@@ -310,7 +310,6 @@ Aspects such as hero health and portal interaction are all done through these ha
 
 These classes can be found in the following files:
 
-- [Handler](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/tree/main/src/main/java/handler)
 - [Handler](../src/main/java/menu/button)
 
 
