@@ -67,6 +67,8 @@ The following screenshots illustrate and gifs the general look of our game, as w
 - **Points** - The faster you complete the maze, the higher your points. Points are also acquired whenever you enter a new empty tile or pickup a coin.
 - **Coins** - Randomly generated elements which, on contact give the player more points.
 - **Portals** - Randomly generated elements which, on contact teleport the player to another portal on the maze.
+- **Continue Playing** - Continue playing after completing the first maze (with a new randomly generated maze) in order
+  to increase your total points. The game increases in difficulty after every level.
 
 ### Pause Menu
 
@@ -80,58 +82,74 @@ The following screenshots illustrate and gifs the general look of our game, as w
 ### Game Over/Victory Menu
 
 > This section details the features in regard to the Game Over/Victory menu. 
+- **Continue** - Opens the shop to restock items. And allows the player to continue playing.
 - **Main Menu** - Allows the player to return to the main menu.
 - **Exit** - Allows the player to exit the game.
 
+
+### Leaderboard Menu
+
+> This section details the features in regard to the Leaderboard menu.
+- **Leaderboard** - Highscore list that shows the best players.
+- **Main Menu** - Allows the player to return to the main menu.
+
+
+### Shop Menu
+
+> This section details the features in regard to the Shop menu.
+- **Shop** - Allows the player to restock resources such as bombs and health.
+- **Unlockable Items** - Shop gains new items available for purchase after completing a certain amount of levels
+- **Main Menu** - Allows the player to return to the main menu.
+
 ### Planned Features
 
-> This section details the planned features for the game as a whole. These may be subject to change as we develop the project.
+> This section details the planned features for the game as a whole, that were not implemented.
 
-- **Continue Playing** - Continue playing after completing the first maze (with a new randomly generated maze) in order
-  to increase your total points. The maze may increase in difficulty.
-- **Enemies** - Add enemies with random movement that deal contact damage.
-- **Items** - Special items that can be acquired that interact with the maze in some way.
-- **Leaderboard** - Highscore file that stores the best players.
-- **Shop** - Way to acquire items after the game is finished.
-
-### Design
-
-> The project as a whole was designed with the test-driven development process, which consists on software requirements being converted to test cases before software is fully developed, and tracking all software development by repeatedly testing the software against all test cases.
+- **Enemies** - Enemies with random movement that deal contact damage. This feature was not implemented due to the fact
+that it conflicted with the gameplay we set ought to create. Enemies would only add a chaotic factor which would not be healthy to the project as a whole.
 
 ------
+## Design
 
-#### The Core Game
+### General project development philosophy
 
-**Problem in Context**
+#### Test Driven Mentality
+
+ When possible, the project was designed with the test-driven development process, which consists on software requirements being converted to test cases before software is fully developed, a
+ and tracking all software development by repeatedly testing the software against all test cases.
+
+#### The four pillars of object-oriented programming
+
+In general, the project was designed with the four pillars of object-oriented programming in mind :
+
+- **Encapsulation** - Encapsulation is accomplished when each object maintains a private state, inside a class. Other objects can not access this state directly, instead, they can only invoke a list of public functions. The object manages its own state via these functions and no other class can alter it unless explicitly allowed.
+- **Abstraction** - abstraction is an extension of encapsulation. It is the process of selecting data from a larger pool to show only the relevant details to the object.
+- **Inheritance** - Inheritance is the ability of one object to acquire some/all properties of another object. With inheritance, reusability is a major advantage.
+- **Polymorphism** - Polymorphism gives us a way to use a class exactly like its parent so there is no confusion with mixing types. This being said, each child sub-class keeps its own functions/methods as they are.
+
+### The Core Game Loop
+
+#### Problem in Context
 
 The problem in question was figuring out what the game was currently doing and reacting by running code accordingly.
 
 **The Pattern**
 
-The main pattern that is used to develop the project is the **_State Pattern_** which is a behavioral design pattern
-that lets an object alter its behavior when its internal state changes. This pattern allows you to represent different
-states with different subclasses. We can switch to a different state of the application by switching to another
-implementation (i.e., another subclass). This pattern allowed us to address the identified problems because
-distinguishable states exist. Each state can lead to one or multiple states and can also end the process flow.
-Additionally, in the Game class, responsible for all the interaction between classes, is defined by a **_Singleton
+The Game class, responsible for all the interaction between classes, is defined by a **_Singleton
 Pattern_**, ensuring that the class only has one instance and provide a global point to access it.
-
-The following figure shows how the pattern’s roles were mapped to the application classes.
 
 **Implementation**
 
+To develop the project we decided that we were going to create a state machine for our main loop and use it to change the
+program's behaviour.  We can switch to a different state of the application by changing the `gameState` variable.
+
 Our State Machine relies on the game state or player actions to determine which state to go to next. The Main Menu
-functions as a default state where many different actions can be performed. These can depend on previous and current
-inputs, as well as states. A Restart state can then be used to perform clean up actions.
+functions as a default state where many actions can be performed. These can depend on previous and current
+inputs, as well as states.
 
-![img](UML/old/GameUML.png)
+![img](UML/stateDiagram.png)
 
-These classes can be found in the following files:
 
-- [Game](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/game/Game.java)
-- [GameInterface](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/game/GameInterface.java)
-- [Maze](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/maze/Maze.java)
-- [Menu](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/menu/Menu.java)
 
 **Consequences**
 
@@ -146,6 +164,11 @@ The use of the **_State Pattern_** in the current design allows the following be
 
 The maze interface and class is a pivotal object in the application, being the arena where all elements will appear and
 interact. The **_Singleton Pattern_** ensures that this class only has one instance and provide a global access point.
+
+These classes can be found in the following files:
+
+- [Game](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/game/Game.java)
+- [GameInterface](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/game/GameInterface.java)
 
 ------
 
