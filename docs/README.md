@@ -164,9 +164,6 @@ These classes can be found in the following files:
 - [Game](../src/main/java/game/Game.java)
 - [GameInterface](../src/main/java/game/GameInterface.java)
 
-
-
-
 #### Figuring out how to represent elements in the game.
 
 **Problem in Context**
@@ -308,75 +305,160 @@ Aspects such as hero health and portal interaction are all done through these ha
 - Cleaner `Maze` and `Game` classes.
 - Able to maintain values after creating a new instance of `Maze` 
 
-These classes can be found in the following files:
+This class can be found in the following file:
 
 - [Handler](../src/main/java/menu/button)
 
 
 ### Leaderboard
 
+**Problem in context**
+
+After completing a game, the current user id and points need to stored for later use.
+
+**Implementation**
+
+Every time the `Game` class is initialized (once per application startup) a user id is given based on the highest
+id on the `data/leaderboard.txt` file. 
+
+During application startup the data in the file is read and put on a `TreeMap<Integer,Integer>` which holds the player
+id as a key and their respective points in the value.
+
+After inserting the values into the map, this map is sorted by value so that we can simply get the first 10 
+values whenever we want to load the leaderboard.
+
+After winning a game, (specifically whenever a player clicks on the exit or main menu button) the leaderboard writes
+the current score and id to the `data/leaderboard.txt` file.
+
+This class can be found in the following file:
+
+- [Leaderboard](../src/main/java/game/Leaderboard.java)
+
+
 ### Shop
 
-**Objective**
+**Problem**
 
-The shop was designed with the objective to be as dynamic as possible for future development.
-Every time a new item is added to the shop the menu will adjust adding
-every element to the respective position relatively to one another.
+Create a shop where the player can restock and buy resources after completing a game.
 
-**Usage**
+**Implementation**
 
-Every action is possible with a single call of self-explanatory functions such
-as `sell()`, `increaseStock()`and`generalReStock()`.
+Every action is possible with a single call the functions such as `sell()`, `increaseStock()`and`generalReStock()`.
 
 Every item in the shop can have a custom `icon`, `name`,`price` and an optional `maximum value`.
 
-The selling intention will be automatically verified and only be possible if the player meets the requirements
-intrinsically liked to the desired items, for example to get an extra heart the player must have the correct
-amount of currency and the current amount of this hp should be less than the permitted set max amount.
+These items will only be available for sale the player meets the requirements for purchasing said item
+, for example to restore health the player must have the correct
+amount of points and the player's current health needs to be lower than the maximum allowed.
 
-The functions present in the shop also allow for automatic interactions, for example in our game at level 10
-a new item will be available to purchase and the previous listed item will see their amount restocked.
+When the player reaches level 10, the shop unlocks new items for sale and the previous listed items will be restocked.
 
-**A look into the future**
+This class can be found in the following file:
 
-Even though this class does not follow a specific pattern it was created with the intention to have a clear
-and easy to understand code to allow ,as said before, further development and use.
+- [ShopHandler](../src/main/java/handler/ShopHandler.java)
 
-These classes can be found in the following files:
-- [ShopHandler](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/handler/ShopHandler.java)
 
+### Maze/Other
+
+#### Maze Representation
+
+To generate a new maze, we use the `MazeGenerator` class, which gives us an integer matrix of 0's and 1's, that we then use to create
+the elements needed for the game.
+
+All static elements present in the game are also stored in the `Maze` class.
+
+#### Data structures
+
+Generally speaking whenever an element needed to be stored we tried to use the most efficient data structure for that
+situation. With that said we usually opted to store elements in a `Linked List` instead of an `Array List`.
+
+**Justification**
+
+| Operation | Linked List | Array List |
+|:---------:|:-----------:|:----------:|
+|    add    |    O(1)     |    O(n)    |
+|  remove   |    O(n)     |    O(n)    |
+|    get    |    O(n)     |    O(1)    |
+
+
+Knowing this table, the fact that we don't know, index wise, where elements are stored (which makes the `get()` method irrelevant) and the fact that we are always inserting new elements into the structure, the obvious choice was the `Linked List` structure.
+
+------
 
 ### Deprecated
+
+>This section list features that were implemented but were not used in the final application.
+
+**Keyboard Listener**
+
+This class was created with the intention of running on a different thread and reading the user's input as to not stop the rest of the application's
+execution. However, this class was eventually replaced with the `lanterna.pollInput()` method which essentially did the same thing.
 
 ------
 
 ### Known code smells/problems and refactoring suggestions.
 
-> The following are the code smells we could identify in our project.
+>This section list code smells and problems that we could identify in our application.
+
+### Design problems
+
+#### Using a single threaded code-flow
+
+While discussing the project, the question of whether we should use a multithreaded approach was brought up.<p>
+At the beginning we thought this would be inevitable,
+due to the fact that the `lanterna` `getInput()` method interrupts the processing of the code, much like a system input function. So we developed a `KeyboardListener`
+class which would run on a separate Thread. This class would queue up the inputs read from the user, without interrupting the code. We managed to circumvent this issue however, using the `screen.pollInput()` which
+essentially did the same thing.<p>
+
+Another instance we thought of using threads was with the handler package. The classes present within this class are currently are instantiated on the `Maze` and `Game` class. <p>
+
+The idea of handling certain aspects of the game in an asynchronous manner, at first did look appealing, yet this brought up the question of what would happen if established classes where modified in an
+unordered manner, which would wind up introducing unwanted problems. So we decided to run everything on a single, timed thread, running currently at 30 frames per second.
+
+#### Wrong data structure
+
+The `Heart` element is currently stored in a `ArrayList`, which is not as efficient as storing it in a stack, for our
+use case. This is due to the implementation of the `remove()` method in the `List` class which has a complexity
+of `O(n)`. <p>
+Comparatively speaking, the `pop()` method in a `Stack` has a complexity of `O(1)`.
+
+Change the code to accept `Hearts` in a `Stack` instead of a `ArrayList`.
 
 
-------
+-----
 
+### Code Smells
 
-
-#### **Large Class**
+#### Large Class
 
 **Problem**
 
-Currently, the `Maze` class is responsible for too much code, handling game elements that should be outside of its
-reach, for example the `Hearts` class, which should be handled in the `Game`.
+Currently, the `Game` class is responsible for too much code, handling game elements that should be outside of its
+reach.
 
 **Solution**
 
-Refactor the `Hearts` handling code to be in a different class.
+Refactor certain sections of code to be in a different class.
 
-------
+-----
 
 #### **Long Method**
 
 **Problem**
 
-Currently, the constructor for the `Maze` class is simply too big, which is simply due to the size of this class.
+Currently, the constructor for the `Maze` class is too big, which is simply due to the great amount of variables this class.
+
+**Solution**
+
+Create more functions to divide the code and make it more readable. This, however, would only replace the current problem
+with a Long Class code smell.
+
+------
+#### **Long Method**
+
+**Problem**
+
+Currently, the constructor for the `Game` class is too big, which is simply due to the great amount of variables this class.
 
 **Solution**
 
@@ -385,66 +467,55 @@ smell that exists within this class.
 
 ------
 
-#### **Bad optimization**
+#### **Long Parameter List**
 
 **Problem**
 
-The `Heart` element is currently stored in a `ArrayList`, which is not as efficient as storing it in a stack, for our
-use case. This is due to the implementation of the `remove()` method in the `List` class which has a complexity
-of `O(n)`. <p>
-Comparatively speaking, the `pop()` method in a `Stack` has a complexity of `O(1)`.
+Some element constructors take 4 or 5 parameters per constructor. This happens because we are taking in 
+unnecessary arguments such as the element's character and format when we could simply have them as final variables in the class.
 
 **Solution**
 
-Change the code to accept `Hearts` in a `Stack` instead of a `ArrayList`.
+Change these variables to be final and initialize them outside the constructor.
 
-------
+----
 
-#### **Wrong construction**
+#### **Long Method**
 
 **Problem**
 
-The `Hero` class constructor does not currently accept health as an argument, which means we need to call
-the `setHealth()` function unnecessarily after we create an instance.
+The `InstructionsMenu` class in the `submenu` package is really overwhelming size-wise because, we need to create
+multiple text elements in many positions which is done by creating many objects. 
 
 **Solution**
 
-Change the `Hero` constructor to accept heath.
+Create these elements in a separate data file.
 
-------
+----
 
-#### **Switch Statments**
+#### **Feature envy**
 
 **Problem**
 
-Currently, the `checkTile()` function in the `Maze` class consists of nested if's, which makes it quite hard to read and
-understand.
+All handlers suffer from the feature envy code smell. This is because they handle and interact with objects that
+were initialized outside their own class.
 
 **Solution**
 
-Change the function to work based of a state design or a switch.
+Initialize the handled objects in these classes.
 
-------
+----
 
-#### **Dead Code**
+#### **Switch Statements**
 
 **Problem**
 
-The `Maze.ToString()` method is never used, however this functions helps out for debugging purposes.
+Currently, the `checkTile()` function in the `Maze` class consists of nested if's which is not good practice for adding new 
+features.
 
------
-#### **Using a single threaded codeflow**
+**Solution**
 
-While discussing the project, the question of whether we should use a multithreaded approach was brought up.<p> 
-At the beginning we thought this would be inevitable,
-due to the fact that the `lanterna` `getInput()` method interrupts the processing of the code, much like a system input function. So we developed a `KeyboardListener`
-class which would run on a separate Thread. This class would queue up the inputs read from the user, without interrupting the code. We managed to circumvent this issue however, using the `screen.pollInput()` which 
-essentially did the same thing.<p>
-
-Another instance we thought of using threads was with the handler package. The classes present within this class are currently are instantiated on the `Maze` and `Game` class. <p>
-
-The idea of handling certain aspects of the game in an asynchronous manner, at first did look appealing, yet this brought up the question of what would happen if established classes where modified in an 
-unordered manner, which would wind up introducing unwanted problems. So we decided to run everything on a single, timed thread, running currently at 30 frames per second.
+Change the function to a state pattern design.
 
 ----
 ### TESTING
