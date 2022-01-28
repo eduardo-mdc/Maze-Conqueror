@@ -3,17 +3,33 @@ package game;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Class responsible for reading, reading and handling the leaderboard.
+ */
 public class Leaderboard {
     private GameInterface game;
     private Integer heroNumber;
     private TreeMap<Integer,Integer> scoreMap;
     private Map<Integer,Integer> sortedMap;
     private final String filepath = "data/leaderboard.txt";
+
+    /**
+     * Constructor for the leaderboard class, receives the game class as an argument
+     * @param game game to interact with.
+     */
     public Leaderboard(GameInterface game){
         this.game = game;
         scoreMap = new TreeMap<>();
     }
 
+
+    /**
+     * Sorts the given map by value
+     * @param map map to sort
+     * @param <K> Key variable type
+     * @param <V> Value variable type
+     * @return returns sorted map by value
+     */
     public static <K, V extends Comparable<V> > Map<K, V>
     valueSort(final Map<K, V> map)
     {
@@ -44,7 +60,9 @@ public class Leaderboard {
         return sorted;
     }
 
-
+    /**
+     * Reads the leaderboard from the .txt file
+     */
     public void read(){
         try {
             File file = new File(filepath);
@@ -73,6 +91,10 @@ public class Leaderboard {
         }
     }
 
+    /**
+     * Function to initialize leaderboard whenever the file cannot be read.
+     * @param error error to print
+     */
     private void initializeWithEmptyFile(String error){
         System.out.println(error);
         heroNumber = 1;
@@ -80,6 +102,9 @@ public class Leaderboard {
         sortedMap = new TreeMap<>();
     }
 
+    /**
+     * writes the map to the leaderboard.txt file
+     */
     public void write(){
         try {
             File file = new File(filepath);
@@ -94,6 +119,10 @@ public class Leaderboard {
         }
     }
 
+    /**
+     * Puts the given value on the map
+     * @param score value to insert
+     */
     public void put(Integer score){
         if(scoreMap.containsKey(heroNumber)){
             if(scoreMap.get(heroNumber) < score)
@@ -103,6 +132,10 @@ public class Leaderboard {
         sortedMap = valueSort(scoreMap);
     }
 
+    /**
+     * Splits string and inserts it into the map
+     * @param data string to be split and inserted
+     */
     private void splitAndInsert(String data){
         String[] result = data.split(" ");
         Integer heroID = Integer.valueOf(result[0].substring(4));
@@ -110,7 +143,10 @@ public class Leaderboard {
         scoreMap.put(heroID,heroScore);
     }
 
-
+    /**
+     * Gets a string representation of the values in map
+     * @return string representation of map
+     */
     @Override
     public String toString(){
         String result = "";
