@@ -292,6 +292,28 @@ These classes can be found in the following files:
 
 ### Handlers
 
+**Problem in context**
+
+Certain classes such as `Maze` and `Game` were responsible for handling code that they should not. So handler classes were created for
+implementing code relating to managing their respective objects.
+
+**Implementation**
+
+Each handler is initialized in either the `Maze` or `Game` Class and is used to manipulate the properties and aspects of their respective objects.
+
+Aspects such as hero health and portal interaction are all done through these handlers.
+
+**Consequences**
+
+- Cleaner `Maze` and `Game` classes.
+- Able to maintain values after creating a new instance of `Maze` 
+
+These classes can be found in the following files:
+
+- [Handler](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/tree/main/src/main/java/handler)
+- [Handler](../src/main/java/menu/button)
+
+
 ### Leaderboard
 
 ### Shop
