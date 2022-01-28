@@ -149,40 +149,28 @@ inputs, as well as states.
 
 ![img](UML/stateDiagram.png)
 
-
-
 **Consequences**
 
-The use of the **_State Pattern_** in the current design allows the following benefits:
+The use of the **_Singleton_** in the current design allows the following benefits:
 
-- The several states that represent the different game states become explicit in the code, instead of relying on a
-  series of flags.
-- A well organized, readable code.
-- Minimal conditional complexity.
-
-**Maze Pattern**
-
-The maze interface and class is a pivotal object in the application, being the arena where all elements will appear and
-interact. The **_Singleton Pattern_** ensures that this class only has one instance and provide a global access point.
+- Easy access and modification of the only instantiated game class.
 
 These classes can be found in the following files:
 
 - [Game](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/game/Game.java)
 - [GameInterface](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/game/GameInterface.java)
 
-------
 
-#### Figuring out how to represent elements in the game.
+### Element representation.
 
 **Problem in Context**
 
 In our game, multiple elements like walls, paths and the player character exist, and we had to figure out a way to
-represent them in a structured efficient way.
+represent them in a structured and efficient way.
 
 **Pattern**
 
-The two main patterns applied specifically to the multiple elements were the **_Strategy Pattern_**, which defines a
-family of algorithms, like the draw method, encapsulates each one and makes them interchangeable, and the
+The main pattern applied specifically to the multiple elements was the
 **_Factory Method Pattern_**, which is defined by an Element interface, used to create the Class object, but lets those
 elements sub-classes decide which class they should instantiate.
 
@@ -190,37 +178,107 @@ elements sub-classes decide which class they should instantiate.
 
 To resolve this issue we created the `Element` class which is a super class to represent all the various elements in our
 game. Then we stored them in various data structures
-(depending on efficiency). These stored structures are located on the `Maze` class which then handles their use in the
+(depending on efficiency). These stored structures are located on the `Maze` class which then handles their use and representation in the
 game.
 
 ![img](UML/old/ElementSubClassesUML.png)
 
 **Consequences**
 
+The use of the **_Factory Method Pattern_** in the current design allows the following benefits:
+
 - Easily obtain proprieties and status of all the elements present on the game.
 - Avoid code smells due to repeating the same code multiple times.
 - Can have multiple elements on the same position (which would be impossible if we represented the elements on a matrix
   for example).
 
+
+
+These classes can be found in the following files:
+
+- [Elements](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/element)
+- [Maze](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/maze/Maze.java)
+
+
 ------
 
-#### Creating the Menu
+### Creating the various Menus
 
 **Problem in Context**
 
 A menu/user interface is required to interact and manipulate the games current status, for example to start the game or
 exit it.
 
+**Pattern**
+
+The main pattern applied specifically to the menus was the **_State Pattern_**.
+
 **Implementation**
 
-We implemented 3 basic menus (Start Menu, Pause Menu, Instructions Menu) that derives from the basic `lanterna`
-class `ActionListDialogBuilder`. To select the menu the caller must indicate the type of menu. Each menu contains
-several buttons that allow you to perform functions within the game.
+We implemented the following menus : Game Over, Instructions, Leaderboard, Pause, Shop, Start, and Victory that are all child classes from the parent abstract class `Menu`.
+Each menu contain several buttons that allow you to perform functions within the game. 
+
+The menu object in the game class changes its behaviour depending on what state the game is running. This allows the application to simply change
+states and load a new menu depending on the user's needs.
+
+Every class present on the `submenu` package only contains code that instantiates buttons, and text elements (both child classes of `GenericMenuElement`) on specific positions. The functional methods are
+present in the abstract class `Menu`.
 
 **Consequences**
 
-Using the `lanterna` prebuilt menu function, while simple to use, makes it so the multithreaded approach to getting the
-user's input does not work, which means that this implementation will need to be refactored.
+- Creating the `submenu` package allows easy creation of new menus
+
+The use of the **_State Pattern_** in the current design allows the following benefits:
+
+- Localizes and partitions behavior for different states.
+- Makes state transitions explicit.
+
+These classes can be found in the following files:
+
+- [Menu](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/menu/Menu.java)
+- [submenu](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/tree/main/src/main/java/menu/submenu)
+
+
+### Creating the Buttons for use in the menus
+
+**Problem in context**
+
+After creating the menus we needed to create buttons which allowed the player to interact with the application.
+
+**Pattern**
+
+The main patterns applied specifically to the buttons was the
+**_Factory Method Pattern_**, which is defined by a Button interface, used to create the Class object, but lets those
+elements sub-classes decide which class they should instantiate, and the **_Strategy Pattern_** which defines a
+family of algorithms, like the execute method, encapsulates each one and makes them interchangeable.
+
+**Implementation**
+
+To resolve this issue we created the `Button` abstract class which is a parent class to all the buttons.
+
+This class implements the `ButtonInterface` Interface which contains the `execute()` method (among others).
+
+The `execute()` function is called whenever the user presses enter on a selected button. This function is only actually
+implemented in the child classes of `Button` which allows each button to have different behavior on execution while still re-using most 
+of the implementation.
+
+**Consequences**
+
+The use of the **_Factory Method Pattern_** in the current design allows the following benefits
+- Easy creation of new buttons
+- Easily obtain proprieties and status of all the buttons
+- Avoid code smells due to repeating the same code multiple times.
+
+The use of the **_Strategy_** in the current design allows the following benefits:
+- Eliminates conditional statements.
+- Provides different implementations.
+
+
+These classes can be found in the following files:
+
+- [Abstract Button](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/menu/Button.java)
+- [Buttons](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/tree/main/src/main/java/menu/button)
+
 
 ------
 
