@@ -351,12 +351,9 @@ The idea of handling certain aspects of the game in an asynchronous manner, at f
 unordered manner, which would wind up introducing unwanted problems. So we decided to run everything on a single, timed thread, running currently at 30 frames per second.
 
 ----
-
-
-
 ### TESTING
 
-> We currently have 63 tests which give us the following coverage
+> We currently have 200 tests which give us the following coverage
 
 ![img](screenshots/old/TestsWithCoverage.png)
 
