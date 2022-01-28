@@ -149,6 +149,10 @@ inputs, as well as states.
 
 ![img](UML/stateDiagram.png)
 
+Most other classes are also instantiated in this class, which makes the game class a primary reference to the other objects.
+
+![img](UML/ClassDiagramsUML/GameAssociationsUML.png)
+
 **Consequences**
 
 The use of the **_Singleton_** in the current design allows the following benefits:
@@ -161,37 +165,7 @@ These classes can be found in the following files:
 - [GameInterface](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/game/GameInterface.java)
 
 
-### Shop
 
-**Objective**
-
-The shop was designed with the objective to be as dynamic as possible for future development.
-Every time a new item is added to the shop the menu will adjust adding 
-every element to the respective position relatively to one another.
-
-**Usage**
-
-Every action is possible with a single call of self-explanatory functions such
-as `sell()`, `increaseStock()`and`generalReStock()`.
-
-Every item in the shop can have a custom `icon`, `name`,`price` and an optional `maximum value`.
-
-The selling intention will be automatically verified and only be possible if the player meets the requirements
-intrinsically liked to the desired items, for example to get an extra heart the player must have the correct 
-amount of currency and the current amount of this hp should be less than the permitted set max amount.
-
-The functions present in the shop also allow for automatic interactions, for example in our game at level 10
-a new item will be available to purchase and the previous listed item will see their amount restocked.
-
-**A look into the future**
-
-Even though this class does not follow a specific pattern it was created with the intention to have a clear
-and easy to understand code to allow ,as said before, further development and use.
-
-These classes can be found in the following files:
-- [ShopHandler](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/handler/ShopHandler.java)
-
-------
 
 #### Figuring out how to represent elements in the game.
 
@@ -213,7 +187,7 @@ game. Then we stored them in various data structures
 (depending on efficiency). These stored structures are located on the `Maze` class which then handles their use and representation in the
 game.
 
-![img](UML/old/ElementSubClassesUML.png)
+![img](UML/ClassDiagramsUML/ElementsUML.png)
 
 **Consequences**
 
@@ -256,6 +230,8 @@ states and load a new menu depending on the user's needs.
 Every class present on the `submenu` package only contains code that instantiates buttons, and text elements (both child classes of `GenericMenuElement`) on specific positions. The functional methods are
 present in the abstract class `Menu`.
 
+![img](UML/ClassDiagramsUML/MenusUML.png)
+
 **Consequences**
 
 - Creating the `submenu` package allows easy creation of new menus
@@ -271,7 +247,7 @@ These classes can be found in the following files:
 - [submenu](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/tree/main/src/main/java/menu/submenu)
 
 
-### Creating the Buttons for use in the menus
+### Creating Buttons for use in the menus
 
 **Problem in context**
 
@@ -294,6 +270,8 @@ The `execute()` function is called whenever the user presses enter on a selected
 implemented in the child classes of `Button` which allows each button to have different behavior on execution while still re-using most 
 of the implementation.
 
+![img](UML/ClassDiagramsUML/ButtonUML.png)
+
 **Consequences**
 
 The use of the **_Factory Method Pattern_** in the current design allows the following benefits
@@ -311,6 +289,43 @@ These classes can be found in the following files:
 - [Abstract Button](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/menu/Button.java)
 - [Buttons](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/tree/main/src/main/java/menu/button)
 
+
+### Handlers
+
+### Leaderboard
+
+### Shop
+
+**Objective**
+
+The shop was designed with the objective to be as dynamic as possible for future development.
+Every time a new item is added to the shop the menu will adjust adding
+every element to the respective position relatively to one another.
+
+**Usage**
+
+Every action is possible with a single call of self-explanatory functions such
+as `sell()`, `increaseStock()`and`generalReStock()`.
+
+Every item in the shop can have a custom `icon`, `name`,`price` and an optional `maximum value`.
+
+The selling intention will be automatically verified and only be possible if the player meets the requirements
+intrinsically liked to the desired items, for example to get an extra heart the player must have the correct
+amount of currency and the current amount of this hp should be less than the permitted set max amount.
+
+The functions present in the shop also allow for automatic interactions, for example in our game at level 10
+a new item will be available to purchase and the previous listed item will see their amount restocked.
+
+**A look into the future**
+
+Even though this class does not follow a specific pattern it was created with the intention to have a clear
+and easy to understand code to allow ,as said before, further development and use.
+
+These classes can be found in the following files:
+- [ShopHandler](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/handler/ShopHandler.java)
+
+
+### Deprecated
 
 ------
 
