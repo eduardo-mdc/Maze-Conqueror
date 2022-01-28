@@ -524,6 +524,10 @@ Change the function to a state pattern design.
 
 ![img](screenshots/old/TestsWithCoverage.png)
 
+Unit testing was the strategy chosen in order to test individual units of the game to obtain the expected behavior of the application.
+To achieve this purpose, the use of JUnit and Jqwik was fundamental.
+
+Overall, the team chose to focus on massive testing and later, with the application of some Property Based Testing concepts, allowed the end result to be a very complete test suite with good coverage.
 ### Self-Evaluation
 
 - Eduardo Correia: 33.3%
