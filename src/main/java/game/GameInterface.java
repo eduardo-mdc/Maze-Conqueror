@@ -7,6 +7,7 @@ import handler.PointsHandler;
 import handler.ShopHandler;
 import maze.MazeInterface;
 import menu.Menu;
+import menu.MenuInterface;
 
 import java.awt.*;
 import java.io.IOException;
@@ -31,7 +32,7 @@ public interface GameInterface {
      *
      * @return menu object.
      */
-    Menu getMenu();
+    MenuInterface getMenu();
     /**
      * Increases/Decreases the hero hp by the amount given
      * @param increment value to add to hero health.

@@ -12,7 +12,8 @@ public class ExitButton extends Button {
 
     /**
      * Constructor for this button, receives a game to interact with and a position to create the button
-     * @param game game to interact with
+     *
+     * @param game     game to interact with
      * @param position position to create the button
      */
     public ExitButton(GameInterface game, PositionInterface position) {
