@@ -10,21 +10,33 @@ import element.position.PositionInterface;
 import game.GameInterface;
 import maze.MazeInterface;
 
-
+/**
+ * Class used to handle the hero's behaviour in the game.
+ *  @author Eduardo Correia
+ *  @author Alberto Serra
+ *  @author José Carvalho
+ */
 public class HeroHandler {
     private Hero hero;
     private MazeInterface maze;
     private GameInterface game;
 
     private LevelHandler levelHandler;
-
+    /**
+     * Constructor for the hero handler class
+     * @param hero hero to handle
+     * @param maze maze class to interact with
+     */
     public HeroHandler(Hero hero, MazeInterface maze) {
         this.hero = hero;
         this.maze = maze;
         game = maze.getGame();
 
     }
-
+    /**
+     * Checks the type of the tile
+     * @param position tile to check
+     */
     public void checkTile(PositionInterface position) {
         int index;
         if (position.equals(maze.getEnding())) {
@@ -51,7 +63,9 @@ public class HeroHandler {
         }
         moveHero(position);
     }
-
+    /**
+     * Reduces the health of the hero
+     */
     public void takeDamage() {
         levelHandler = game.getLevelHandler();
         int level = levelHandler.getLevel();
@@ -64,12 +78,18 @@ public class HeroHandler {
             maze.getGame().gameOver();
         }
     }
-
+    /**
+     * Moves the hero to a given portal
+     * @param portal portal to teleport hero to
+     */
     public void teleportHero(Portal portal) {
         maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
         hero.setPosition(portal.getPosition());
     }
-
+    /**
+     * Executes different actions based on a given key
+     * @param key key to analise
+     */
     public void checkKey(KeyStroke key) {
         switch (key.getKeyType()) {
             case ArrowUp -> {
@@ -96,7 +116,11 @@ public class HeroHandler {
             }
         }
     }
-
+    /**
+     * Moves the hero to a new position
+     * Rewards the hero with points if the new position is an undiscovered one
+     * @param position position to move hero to
+     */
     public void moveHero(PositionInterface position) {
         if (checkEmpty(hero.getPosition())) {
             levelHandler = game.getLevelHandler();
@@ -107,7 +131,11 @@ public class HeroHandler {
         }
         hero.setPosition(position);
     }
-
+    /**
+     * Checks if the given position is an undiscovered one
+     * @param position position to check
+     * @return true or false
+     */
     private boolean checkEmpty(PositionInterface position) {
         if (position.equals(maze.getBegin())) return true;
         for (PositionInterface pos : maze.getEmptyTiles()) {
