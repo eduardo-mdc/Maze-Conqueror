@@ -1,12 +1,14 @@
-package depreceated;
+package deprecated;
 
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Class used for multithreaded input without stopping the flow of the game. Deprecated due to the availability of the lanterna.poll() function
+ */
 public class KeyboardListener extends Thread{
     private KeyStroke key;
     private Queue<KeyStroke> input;

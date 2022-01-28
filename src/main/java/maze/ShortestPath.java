@@ -5,6 +5,9 @@ import java.util.Queue;
 
 //Adapted from https://www.techiedelight.com/lee-algorithm-shortest-path-in-a-maze/
 
+/**
+ * Class used to get the shortest path between 2 positions
+ */
 public class ShortestPath {
     private int[][] grid;
     private int i;

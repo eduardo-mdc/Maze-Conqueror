@@ -9,8 +9,6 @@ public class ShopHandler {
 
     /**
      * Class used to handle the shop's behaviour in the game.
-     * This class makes the shop menu responsive since every time an item is added correctly
-     * to this class it will change the Shop Menu to accommodate it the right way
      * 
      *  @author Eduardo Correia
      *  @author Alberto Serra
@@ -79,7 +77,7 @@ public class ShopHandler {
     }
     /**
      * And a new item to the stop without fixed max amount
-     * @param character icon for the item
+     * @param character character for the item
      * @param name name of the item
      * @param amount amount of the item
      * @param price price of the item
@@ -91,29 +89,28 @@ public class ShopHandler {
         this.maxAmount.add(-1);
     }
     /**
-     * Gets the hp
-     * @return hp
+     * Gets the hero's health
+     * @return health integer
      */
     public int getHp() {
         return hp;
     }
     /**
-     * Gets the points
-     * @return points
+     * Gets the player's points
+     * @return player's points
      */
     public int getPoints() {
         return points;
     }
     /**
-     * Gets the bombs
-     * @return bombs
+     * Gets the player's bombs
+     * @return player's bombs
      */
     public int getBombs() {
         return bombs;
     }
     /**
-     * Gets the amount of health, bombs and budget of the player
-     * @return points
+     * Gets the amount of health, bombs and available points from the player
      */
     public void value() {
         hp = game.getMaze().getActualHeroHp();
@@ -141,9 +138,9 @@ public class ShopHandler {
         value();
     }
     /**
-     * Checks if the action is possible
+     * Checks if the item is sellable
      * @param id of the item to buy
-     * @return true/false
+     * @return boolean of whether the item is for sale
      */
     private boolean canSell(int id) {
         switch (id) {
@@ -161,8 +158,8 @@ public class ShopHandler {
         return false;
     }
     /**
-     * Gives the player the benefit of the purchase
-     * @param id of the item to buy
+     * Gives the player the bought item
+     * @param id of the bought item
      */
     private void effect(int id) {
         switch (id) {
@@ -181,7 +178,7 @@ public class ShopHandler {
         amount.set(id, amount.get(id) + increment);
     }
     /**
-     * Increments the amount all items in the shop except for one
+     * restocks all items in the store
      * @param newAmount amount to increment
      * @param exception if needed one item can be deselected to increment
      */
@@ -190,7 +187,7 @@ public class ShopHandler {
             if (i != exception) increaseStock(i, newAmount);
     }
     /**
-     * Base items available in the shop for this game
+     * Base items available in the shop
      */
     public void initializeShop() {
         addItem("*", "HEALTH", 20, 1000, game.getMaxHP());

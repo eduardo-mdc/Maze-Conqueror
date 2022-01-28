@@ -21,7 +21,7 @@ public class LevelHandler {
     }
     /**
      * Gets the level
-     * @return level
+     * @return level integer
      */
     public Integer getLevel() {
         return level;
@@ -33,7 +33,7 @@ public class LevelHandler {
         this.level++;
     }
     /**
-     * Draws amount of bombs in the screen
+     * Draws the current level in the screen
      * @param screen lanterna screen to draw on.
      */
     public void draw(TextGraphics screen) {

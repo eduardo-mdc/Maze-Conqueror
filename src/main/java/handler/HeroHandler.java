@@ -34,7 +34,7 @@ public class HeroHandler {
 
     }
     /**
-     * Checks the type of the tile
+     * Checks the tile at the given position (attempted position to which the hero wants to move to) and runs events accordingly
      * @param position tile to check
      */
     public void checkTile(PositionInterface position) {
@@ -64,7 +64,7 @@ public class HeroHandler {
         moveHero(position);
     }
     /**
-     * Reduces the health of the hero
+     * Reduces the health of the hero and ends the game if health = 0
      */
     public void takeDamage() {
         levelHandler = game.getLevelHandler();
@@ -79,7 +79,7 @@ public class HeroHandler {
         }
     }
     /**
-     * Moves the hero to a given portal
+     * teleports the hero to a given portal
      * @param portal portal to teleport hero to
      */
     public void teleportHero(Portal portal) {
@@ -112,13 +112,12 @@ public class HeroHandler {
         Character charToCompare = key.getCharacter();
         if (charToCompare != null) {
             if (charToCompare.equals('b')) {
-                maze.getBombsHandler().generateBomb((Position) hero.getPosition());
+                maze.getBombsHandler().generateBomb(hero.getPosition());
             }
         }
     }
     /**
-     * Moves the hero to a new position
-     * Rewards the hero with points if the new position is an undiscovered one
+     * Moves the hero to a new position and iterates the path object
      * @param position position to move hero to
      */
     public void moveHero(PositionInterface position) {
@@ -127,12 +126,12 @@ public class HeroHandler {
             int level = levelHandler.getLevel();
             maze.getPath().add(new Path(hero.getPosition(), "YELLOW", SGR.BOLD, "{"));
             game.getPointsHandler().incrementPoints(2 + 1 * (int) (level * 0.5));
-            maze.getEmptyTiles().remove(new Position((Position) hero.getPosition()));
+            maze.getEmptyTiles().remove(new Position(hero.getPosition()));
         }
         hero.setPosition(position);
     }
     /**
-     * Checks if the given position is an undiscovered one
+     * Checks checks if a given position is an empty tile
      * @param position position to check
      * @return true or false
      */

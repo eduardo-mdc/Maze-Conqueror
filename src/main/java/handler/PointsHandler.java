@@ -43,7 +43,7 @@ public class PointsHandler {
         setPoints(points + increment);
     }
     /**
-     * Draws amount of bombs in the screen
+     * Draws amount of points in the screen
      * @param screen lanterna screen to draw on.
      */
     public void draw(TextGraphics screen) {

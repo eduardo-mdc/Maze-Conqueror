@@ -12,7 +12,7 @@ import maze.MazeInterface;
 import java.util.LinkedList;
 import java.util.List;
 /**
- * Class used to handle the coins's behaviour in the game.
+ * Class used to handle the bomb's behaviour in the game.
  *  @author Eduardo Correia
  *  @author Alberto Serra
  *  @author José Carvalho
