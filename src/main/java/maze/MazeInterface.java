@@ -68,7 +68,7 @@ public interface MazeInterface {
     void createPortals();
 
     /**
-     * Creates coins objects and inserts them into the coins element list
+     * Creates coins objects and inserts them into the coin's element list
      */
     void createCoins();
 

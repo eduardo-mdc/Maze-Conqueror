@@ -13,19 +13,31 @@ The following screenshots illustrate and gifs the general look of our game, as w
 
 ### Start Menu
 
-![img](gifs/MainMenu.gif)
+![img](gifs/startmenu.gif)
 
 ### Playing the game
 
-![img](gifs/StartingGame.gif)
+![img](gifs/playing.gif)
 
 ### Pause menu
 
-![img](screenshots/PauseMenuUML.png)
+![img](gifs/pause.gif)
 
 ### Finishing the game
 
-![img](gifs/FinishingGame.gif)
+![img](gifs/finishing.gif)
+
+### Shop Menu
+
+![img](screenshots/shop.png)
+
+### Leaderboard Menu
+
+![img](screenshots/leaderboard.png)
+
+### Instructions Menu
+
+![img](screenshots/instructions.png)
 
 ## Implemented Features
 
@@ -112,7 +124,7 @@ Our State Machine relies on the game state or player actions to determine which 
 functions as a default state where many different actions can be performed. These can depend on previous and current
 inputs, as well as states. A Restart state can then be used to perform clean up actions.
 
-![img](UML/GameUML.png)
+![img](UML/old/GameUML.png)
 
 These classes can be found in the following files:
 
@@ -158,7 +170,7 @@ game. Then we stored them in various data structures
 (depending on efficiency). These stored structures are located on the `Maze` class which then handles their use in the
 game.
 
-![img](UML/ElementSubClassesUML.png)
+![img](UML/old/ElementSubClassesUML.png)
 
 **Consequences**
 
@@ -289,7 +301,7 @@ unordered manner, which would wind up introducing unwanted problems. So we decid
 
 > We currently have 63 tests which give us the following coverage
 
-![img](screenshots/TestsWithCoverage.png)
+![img](screenshots/old/TestsWithCoverage.png)
 
 ### Self-Evaluation
 
