@@ -161,7 +161,39 @@ These classes can be found in the following files:
 - [GameInterface](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/game/GameInterface.java)
 
 
-### Element representation.
+### Shop
+
+**Objective**
+
+The shop was designed with the objective to be as dynamic as possible for future development.
+Every time a new item is added to the shop the menu will adjust adding 
+every element to the respective position relatively to one another.
+
+**Usage**
+
+Every action is possible with a single call of self-explanatory functions such
+as `sell()`, `increaseStock()`and`generalReStock()`.
+
+Every item in the shop can have a custom `icon`, `name`,`price` and an optional `maximum value`.
+
+The selling intention will be automatically verified and only be possible if the player meets the requirements
+intrinsically liked to the desired items, for example to get an extra heart the player must have the correct 
+amount of currency and the current amount of this hp should be less than the permitted set max amount.
+
+The functions present in the shop also allow for automatic interactions, for example in our game at level 10
+a new item will be available to purchase and the previous listed item will see their amount restocked.
+
+**A look into the future**
+
+Even though this class does not follow a specific pattern it was created with the intention to have a clear
+and easy to understand code to allow ,as said before, further development and use.
+
+These classes can be found in the following files:
+- [ShopHandler](https://github.com/FEUP-LDTS-2021/ldts-project-assignment-g0103/blob/main/src/main/java/handler/ShopHandler.java)
+
+------
+
+#### Figuring out how to represent elements in the game.
 
 **Problem in Context**
 
@@ -285,7 +317,11 @@ These classes can be found in the following files:
 ### Known code smells/problems and refactoring suggestions.
 
 > The following are the code smells we could identify in our project.
+
+
 ------
+
+
 
 #### **Large Class**
 
@@ -375,17 +411,14 @@ The idea of handling certain aspects of the game in an asynchronous manner, at f
 unordered manner, which would wind up introducing unwanted problems. So we decided to run everything on a single, timed thread, running currently at 30 frames per second.
 
 ----
-
-
-
 ### TESTING
 
-> We currently have 63 tests which give us the following coverage
+> We currently have 200 tests which give us the following coverage
 
 ![img](screenshots/old/TestsWithCoverage.png)
 
 ### Self-Evaluation
 
 - Eduardo Correia: 33.3%
-- Jose Carvalho: 33.3%
+- José Carvalho: 33.3%
 - Alberto Serra: 33.3%
