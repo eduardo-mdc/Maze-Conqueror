@@ -17,7 +17,7 @@ public class LevelHandler {
      * Constructor for the level handler class
      */
     public LevelHandler() {
-        this.level = 9;
+        this.level = 1;
     }
     /**
      * Gets the level

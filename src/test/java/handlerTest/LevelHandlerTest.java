@@ -20,12 +20,12 @@ public class LevelHandlerTest {
     @Test
     public void getLevelTest() {
         //default level value is 9.
-        assertEquals(9, handler.getLevel());
+        assertEquals(1, handler.getLevel());
     }
 
     @Test
     public void nextLevelTest() {
-        assertEquals(9, handler.getLevel());
+        assertEquals(1, handler.getLevel());
         while (handler.getLevel() != 15)
             handler.nextLevel();
         assertEquals(15, handler.getLevel());
