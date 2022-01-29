@@ -11,6 +11,8 @@
 
 The following screenshots illustrate and gifs the general look of our game, as well as the divergent functionalities:
 
+More screenshots and diagrams can be found in the documentation.
+
 ### Start Menu
 
 ![img](gifs/startmenu.gif)
@@ -67,6 +69,8 @@ The following screenshots illustrate and gifs the general look of our game, as w
 - **Points** - The faster you complete the maze, the higher your points. Points are also acquired whenever you enter a new empty tile or pickup a coin.
 - **Coins** - Randomly generated elements which, on contact give the player more points.
 - **Portals** - Randomly generated elements which, on contact teleport the player to another portal on the maze.
+- **Increasing difficulty** - Increasing difficulty level that increases as the player completes more mazes. This scaling also increases
+- the amount of points the player receives.
 - **Continue Playing** - Continue playing after completing the first maze (with a new randomly generated maze) in order
   to increase your total points. The game increases in difficulty after every level.
 
@@ -139,7 +143,7 @@ The Game class, responsible for all the interaction between classes, is defined 
 Pattern_**, ensuring that the class only has one instance and provide a global point to access it.
 
 Despite being considered an **_anti-pattern_**, we identified a certain relevance in implementing it in a initial state 
-of the application. With time and taking into account the **_multi-threading_** that we plan to do, made us gradually change its structure to a single 
+of the application. With time and taking into account the **_multi-threading_** that we planned to do, made us gradually change its structure to a single 
 instance of the Game class propagated throughout the program through methods and parameters.
 
 **Implementation**
@@ -151,7 +155,7 @@ Our State Machine relies on the game state or player actions to determine which 
 functions as a default state where many actions can be performed. These can depend on previous and current
 inputs, as well as states.
 
-![img](UML/stateDiagram.png)
+![img](UML/StateDiagramsUML/stateDiagram.png)
 
 Most other classes are also instantiated in this class, which makes the game class a primary reference to the other objects.
 
@@ -303,7 +307,7 @@ These classes can be found in the following files:
 Certain classes such as `Maze` and `Game` were responsible for handling code that they should not. So handler classes were created for
 implementing code relating to managing their respective objects.
 
-This type of implementation avoid **_code smells_** like **_large class_** and **_long parameter list_**.
+This type of implementation tends to avoid **_code smells_** like **_large class_** and **_long parameter lists_**.
 
 **Implementation**
 
@@ -478,10 +482,10 @@ Currently, the constructor for the `Game` class is too big, which is simply due 
 
 **Solution**
 
-**_Ex:_** using `Extract Method`
-
 Create more functions to divide the code and make it more readable. This, however, only propagates the Large class code
 smell that exists within this class.
+
+**_Ex:_** using `Extract Method`
 
 ------
 
@@ -565,7 +569,7 @@ Parameterize all the necessary variables in a common method in the abstract butt
 
 > We currently have 200 tests which give us the following coverage
 
-![img](screenshots/old/TestsWithCoverage.png)
+![img](screenshots/OldImplementation/TestsWithCoverage.png)
 
 `Unit testing` was the strategy chosen in order to test individual units of the game to obtain the expected behavior of the application.
 To achieve this purpose, the use of **_JUnit_** and **_Jqwik_** was fundamental.
