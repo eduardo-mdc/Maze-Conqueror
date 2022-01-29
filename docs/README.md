@@ -138,6 +138,10 @@ The problem in question was figuring out what the game was currently doing and r
 The Game class, responsible for all the interaction between classes, is defined by a **_Singleton
 Pattern_**, ensuring that the class only has one instance and provide a global point to access it.
 
+Despite being considered an **_anti-pattern_**, we identified a certain relevance in implementing it in a initial state 
+of the application. With time and taking into account the **_multi-threading_** that we plan to do, made us gradually change its structure to a single 
+instance of the Game class propagated throughout the program through methods and parameters.
+
 **Implementation**
 
 To develop the project we decided that we were going to create a state machine for our main loop and use it to change the
@@ -214,11 +218,13 @@ exit it.
 
 **Pattern**
 
-The main pattern applied specifically to the menus was the **_State Pattern_**.
+The main pattern applied specifically to the menus was the **_State Pattern_** which allows the menu object to alter its behavior when its internal state changes. 
+The object will appear to change its class, which happens during the execution of the methods in our application.
 
 **Implementation**
 
-We implemented the following menus : Game Over, Instructions, Leaderboard, Pause, Shop, Start, and Victory that are all child classes from the parent abstract class `Menu`.
+We implemented the following menus : Game Over, Instructions, Leaderboard, Pause, Shop, Start, and Victory that are all child classes 
+from the parent abstract class `Menu`.
 Each menu contain several buttons that allow you to perform functions within the game. 
 
 The menu object in the game class changes its behaviour depending on what state the game is running. This allows the application to simply change
@@ -257,9 +263,12 @@ The main patterns applied specifically to the buttons was the
 elements sub-classes decide which class they should instantiate, and the **_Strategy Pattern_** which defines a
 family of algorithms, like the execute method, encapsulates each one and makes them interchangeable.
 
+The use of this patterns allows the elimination of an abusive amount of conditional statements, preventing future **_bugs_** or
+**_code smells_** like **_switch statements_**.
+
 **Implementation**
 
-To resolve this issue we created the `Button` abstract class which is a parent class to all the buttons.
+To resolve this issue we created the `Button` abstract class which is a parent class to all the buttons, , with a **_protected_** constructor.
 
 This class implements the `ButtonInterface` Interface which contains the `execute()` method (among others).
 
@@ -293,6 +302,8 @@ These classes can be found in the following files:
 
 Certain classes such as `Maze` and `Game` were responsible for handling code that they should not. So handler classes were created for
 implementing code relating to managing their respective objects.
+
+This type of implementation avoid **_code smells_** like **_large class_** and **_long parameter list_**.
 
 **Implementation**
 
@@ -438,7 +449,9 @@ reach.
 
 **Solution**
 
-Refactor certain sections of code to be in a different class.
+Refactor certain sections of code to be in a different class, or separate it in two.
+
+**_Ex:_** using `Extract Class`
 
 -----
 
@@ -450,8 +463,11 @@ Currently, the constructor for the `Maze` class is too big, which is simply due 
 
 **Solution**
 
-Create more functions to divide the code and make it more readable. This, however, would only replace the current problem
-with a Long Class code smell.
+Create more functions to divide the code and make it more readable, grouping the lines of it together. This, however, would only replace the current problem
+with a **_Long Class_** code smell.
+
+**_Ex:_** using `Extract Method`
+
 
 ------
 #### **Long Method**
@@ -461,6 +477,8 @@ with a Long Class code smell.
 Currently, the constructor for the `Game` class is too big, which is simply due to the great amount of variables this class.
 
 **Solution**
+
+**_Ex:_** using `Extract Method`
 
 Create more functions to divide the code and make it more readable. This, however, only propagates the Large class code
 smell that exists within this class.
@@ -478,6 +496,8 @@ unnecessary arguments such as the element's character and format when we could s
 
 Change these variables to be final and initialize them outside the constructor.
 
+**_Ex:_** using `Introduce Parameter Object`
+
 ----
 
 #### **Long Method**
@@ -490,6 +510,8 @@ multiple text elements in many positions which is done by creating many objects.
 **Solution**
 
 Create these elements in a separate data file.
+
+**_Ex:_** using `Extract Method`
 
 ----
 
@@ -504,6 +526,8 @@ were initialized outside their own class.
 
 Initialize the handled objects in these classes.
 
+**_Ex:_** using `Move Method`
+
 ----
 
 #### **Switch Statements**
@@ -515,7 +539,26 @@ features.
 
 **Solution**
 
-Change the function to a state pattern design.
+Change the function to a **_state pattern_** design.
+
+**_Ex:_** using `Move Method`
+
+----
+
+#### **Parallel Inheritance Hierarchies**
+
+**Problem**
+
+When creating the **_buttons_** classes, we could have applied the same principle as the draw method to the elements, 
+parameterizing the variables in the abstract class and avoiding code repetition. However, 
+the **_Victory Button_** and **_Exit Button_**, for containing such a specific implementation, forced us to create all the other classes to make the program consistent and using **_Strategy Pattern_**.
+
+**Solution**
+
+Parameterize all the necessary variables in a common method in the abstract button super class and use if conditions for the different implementations.
+
+**_Ex:_** using `Parameterize Method`
+
 
 ----
 ### TESTING
@@ -524,10 +567,17 @@ Change the function to a state pattern design.
 
 ![img](screenshots/old/TestsWithCoverage.png)
 
-Unit testing was the strategy chosen in order to test individual units of the game to obtain the expected behavior of the application.
-To achieve this purpose, the use of JUnit and Jqwik was fundamental.
+`Unit testing` was the strategy chosen in order to test individual units of the game to obtain the expected behavior of the application.
+To achieve this purpose, the use of **_JUnit_** and **_Jqwik_** was fundamental.
 
-Overall, the team chose to focus on massive testing and later, with the application of some Property Based Testing concepts, allowed the end result to be a very complete test suite with good coverage.
+Overall, the team chose to focus on massive testing and later, with the application of some `Property Based Testing` concepts, allowed the end result to be a very complete test suite with good coverage.
+
+This observable **_coverage_** could be even better numerically if we removed the classes that are not in use,
+but we considered them relevant to demonstrate a possible future or alternative implementation in our application.
+
+Most of the code lines not covered were due to `draw` methods, where it was preferable to check through
+**_mocks_** if they were executed instead of their behavior since they do not contain methods created by us.
+
 ### Self-Evaluation
 
 - Eduardo Correia: 33.3%

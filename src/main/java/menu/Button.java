@@ -20,7 +20,7 @@ public abstract class Button extends GenericMenuElement implements ButtonInterfa
      * Constructor for the button class, receives a position to instantiate the button on.
      * @param position position in the lanterna screen.
      */
-    public Button(PositionInterface position) {
+    protected Button(PositionInterface position) {
         super(position);
         selectedColor = "YELLOW";
         currentColor = getColor();
