@@ -11,6 +11,8 @@
 
 The following screenshots illustrate and gifs the general look of our game, as well as the divergent functionalities:
 
+More screenshots and diagrams can be found in the documentation.
+
 ### Start Menu
 
 ![img](gifs/startmenu.gif)
@@ -67,6 +69,8 @@ The following screenshots illustrate and gifs the general look of our game, as w
 - **Points** - The faster you complete the maze, the higher your points. Points are also acquired whenever you enter a new empty tile or pickup a coin.
 - **Coins** - Randomly generated elements which, on contact give the player more points.
 - **Portals** - Randomly generated elements which, on contact teleport the player to another portal on the maze.
+- **Increasing difficulty** - Increasing difficulty level that increases as the player completes more mazes. This scaling also increases
+- the amount of points the player receives.
 - **Continue Playing** - Continue playing after completing the first maze (with a new randomly generated maze) in order
   to increase your total points. The game increases in difficulty after every level.
 
@@ -565,7 +569,7 @@ Parameterize all the necessary variables in a common method in the abstract butt
 
 > We currently have 200 tests which give us the following coverage
 
-![img](screenshots/old/TestsWithCoverage.png)
+![img](screenshots/OldImplementation/TestsWithCoverage.png)
 
 `Unit testing` was the strategy chosen in order to test individual units of the game to obtain the expected behavior of the application.
 To achieve this purpose, the use of **_JUnit_** and **_Jqwik_** was fundamental.
